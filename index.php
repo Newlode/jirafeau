@@ -55,7 +55,7 @@ if($writable && isset($_POST['jirafeau'])) {
     break;
   }
 
-  $res = jirafeau_upload($_FILES['file'], isset($_POST['one_time_download']), $key, $time, $cfg);
+  $res = jirafeau_upload($_FILES['file'], isset($_POST['one_time_download']), $key, $time, $cfg, $_SERVER['REMOTE_ADDR']);
 }
 
 require(JIRAFEAU_ROOT . 'lib/template/header.php');

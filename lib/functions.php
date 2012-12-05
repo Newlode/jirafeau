@@ -111,11 +111,12 @@ function jirafeau_upload_errstr($code) {
  * @param $key if not empty, protect the file with this key
  * @param $time the time of validity of the file
  * @param $cfg the current configuration
+ * @param $ip uploader's ip
  * @returns an array containing some information
  *   'error' => information on possible errors
  *   'link' => the link name of the uploaded file
  */
-function jirafeau_upload($file, $one_time_download, $key, $time, $cfg) {
+function jirafeau_upload($file, $one_time_download, $key, $time, $cfg, $ip) {
   if(empty($file['tmp_name']) || !is_uploaded_file($file['tmp_name'])) {
     return(array('error' => array('has_error' => true, 'why' => jirafeau_upload_errstr($file['error'])), 'link' => ''));
   }
@@ -161,7 +162,7 @@ function jirafeau_upload($file, $one_time_download, $key, $time, $cfg) {
   /* create link file */
   $link_tmp_name = VAR_LINKS . $md5 . rand(0, 10000) . '.tmp';
   $handle = fopen($link_tmp_name, 'w');
-  fwrite($handle, $name . NL . $mime_type . NL . $size . NL . $key . NL . $time . NL . $md5 . NL . ($one_time_download ? 'O' : 'R') . NL . date('U') . NL);
+  fwrite($handle, $name . NL . $mime_type . NL . $size . NL . $key . NL . $time . NL . $md5 . NL . ($one_time_download ? 'O' : 'R') . NL . date('U') . NL . $ip . NL);
   fclose($handle);
   $md5_link = md5_file($link_tmp_name);
   if(!rename($link_tmp_name, VAR_LINKS . $md5_link)) {
