@@ -27,6 +27,10 @@ require(JIRAFEAU_ROOT . 'lib/functions.php');
 if(isset($_GET['h']) && !empty($_GET['h'])) {
   $link_name = $_GET['h'];
 
+  $delete_code = '';
+  if(isset($_GET['d']) && !empty($_GET['d']))
+    $delete_code = $_GET['d'];
+
   if(!ereg('[0-9a-f]{32}$', $link_name)) {
     header("HTTP/1.0 404 Not Found");
 
@@ -46,28 +50,35 @@ if(isset($_GET['h']) && !empty($_GET['h'])) {
     $time = trim($content[4]);
     $md5 = trim($content[5]);
     $onetime = trim($content[6]);
+    $link_code = trim($content[9]);
+
+
   
     if(!file_exists(VAR_FILES . $md5)) {
       jirafeau_delete($link_name);
-
       require(JIRAFEAU_ROOT . 'lib/template/header.php');
       echo '<div class="error"><p>' . _('File not available.') . '</p></div>';
       require(JIRAFEAU_ROOT . 'lib/template/footer.php');
       exit;
     }
 
-  if($time != JIRAFEAU_INFINITY) {
-    if(time() > $time) {
+    if(!empty($delete_code) && $delete_code == $link_code) {
       jirafeau_delete($link_name);
+      require(JIRAFEAU_ROOT . 'lib/template/header.php');
+      echo '<div class="message"><p>' . _('File has been deleted.') . '</p></div>';
+      require(JIRAFEAU_ROOT . 'lib/template/footer.php');
+      exit;
+    }
 
+    if($time != JIRAFEAU_INFINITY && time() > $time) {
+      jirafeau_delete($link_name);
       require(JIRAFEAU_ROOT . 'lib/template/header.php');
       echo '<div class="error"><p>' . _('The time limit of this file has expired. It has been deleted.') . '</p></div>';
       require(JIRAFEAU_ROOT . 'lib/template/footer.php');
       exit;
     }
-  }
 
-  if(!empty($key)) {
+    if(!empty($key)) {
     if(!isset($_POST['key'])) {
       require(JIRAFEAU_ROOT . 'lib/template/header.php');
 ?>

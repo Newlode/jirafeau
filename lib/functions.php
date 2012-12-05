@@ -52,30 +52,6 @@ function jirafeau_get_max_upload_size() {
 }
 
 /**
- * detects if a given filename is present in a directory and find an alternate filename
- * @param $name the initial filename
- * @param $dir the directory to explore (finishing with a '/')
- * @returns an alternate filename, possibly the initial filename
- */
-function jirafeau_detect_collision($name, $dir) {
-  if(!file_exists($dir . $name)) {
-    return $name;
-  }
-
-  $dot = strpos($name, '.');
-  $dot = ($dot === false) ? strlen($name) : $dot;
-  $first = substr($name, 0, $dot);
-  $second = substr($name, $dot);
-  $i = 1;
-  do {
-    $new_name = $first . '-' . $i . $second;
-    $i++;
-  } while(file_exists($dir . $new_name));
-
-  return $new_name;
-}
-
-/**
  * gets a string explaining the error
  * @param $code the error code
  * @returns a string explaining the error
@@ -146,10 +122,11 @@ function jirafeau_delete($link) {
  * @returns an array containing some information
  *   'error' => information on possible errors
  *   'link' => the link name of the uploaded file
+ *   'delete_link' => the link code to delete file
  */
 function jirafeau_upload($file, $one_time_download, $key, $time, $cfg, $ip) {
   if(empty($file['tmp_name']) || !is_uploaded_file($file['tmp_name'])) {
-    return(array('error' => array('has_error' => true, 'why' => jirafeau_upload_errstr($file['error'])), 'link' => ''));
+    return(array('error' => array('has_error' => true, 'why' => jirafeau_upload_errstr($file['error'])), 'link' => '', 'delete_link' => ''));
   }
 
   /* array representing no error */
@@ -175,7 +152,8 @@ function jirafeau_upload($file, $one_time_download, $key, $time, $cfg, $ip) {
       'error' => array(
         'has_error' => true,
         'why' => _('Internal error during file creation.')),
-      'link' => '')
+      'link' => '',
+      'delete_link' => '')
     );
   }
 
@@ -190,10 +168,15 @@ function jirafeau_upload($file, $one_time_download, $key, $time, $cfg, $ip) {
   fwrite($handle, $counter);
   fclose($handle);
 
+  /* Create delete code. */
+  $delete_link_code = 0;
+  for ($i = 0; $i < 8; $i++)
+    $delete_link_code .= dechex(rand(0,16));
+
   /* create link file */
   $link_tmp_name = VAR_LINKS . $md5 . rand(0, 10000) . '.tmp';
   $handle = fopen($link_tmp_name, 'w');
-  fwrite($handle, $name . NL . $mime_type . NL . $size . NL . $key . NL . $time . NL . $md5 . NL . ($one_time_download ? 'O' : 'R') . NL . date('U') . NL . $ip . NL);
+  fwrite($handle, $name . NL . $mime_type . NL . $size . NL . $key . NL . $time . NL . $md5 . NL . ($one_time_download ? 'O' : 'R') . NL . date('U') . NL . $ip . NL . $delete_link_code . NL);
   fclose($handle);
   $md5_link = md5_file($link_tmp_name);
   if(!rename($link_tmp_name, VAR_LINKS . $md5_link)) {
@@ -212,10 +195,11 @@ function jirafeau_upload($file, $one_time_download, $key, $time, $cfg, $ip) {
       'error' => array(
         'has_error' => true,
         'why' => _('Internal error during file creation.')),
-      'link' => '')
+      'link' => '',
+      'delete_link' => '')
     );
   }
-  return(array('error' => $noerr, 'link' => $md5_link));
+  return(array('error' => $noerr, 'link' => $md5_link, 'delete_link' => $delete_link_code));
 }
 
 /**

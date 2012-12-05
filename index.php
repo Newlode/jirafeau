@@ -80,11 +80,16 @@ if(!has_error() && !empty($res)) {
       add_error (_('An error occurred.'), $res['error']['why']);
   } else {
     $link = $cfg['web_root'];
+    $delete_link = $cfg['web_root'];
+
     if($cfg['rewrite']) {
       $link .= 'file-' . $res['link'];
+      $delete_link .= 'file-' . $res['link'] . '-delete-' . $res['delete_link'];
     } else {
       $link .= 'file.php?h=' . $res['link']; // h because 'h' looks like a jirafeau ;)
+      $delete_link .= 'file.php?h=' . $res['link'] . '&amp;d=' . $res['delete_link'];
     }
+
     echo '<div class="message">' . NL;
     echo '<p>' . _('File uploaded! Copy the following URL to get it:') . '<br />' . NL;
     echo '<a href="' . $link . '">' . $link . '</a>' . NL;
@@ -93,6 +98,11 @@ if(!has_error() && !empty($res)) {
       echo '<br />' . _('This file is valid until the following date:') . '<br /><strong>' . strftime('%c' ,$time) . '</strong>';
     }
 
+    echo '</p></div>';
+
+    echo '<div class="message">' . NL;
+    echo '<p>' . _('Keep the following URL to delete it:') . '<br />' . NL;
+    echo '<a href="' . $delete_link . '">' . $delete_link . '</a>' . NL;
     echo '</p></div>';
   }
 }
