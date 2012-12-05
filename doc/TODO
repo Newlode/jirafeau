@@ -1,0 +1,25 @@
+for next release
+
+- [feature] refactoring
+- [feature] help links near the features that redirect on the documentation
+- [feature] $cfg['trash']: put in trash/ or really delete
+- [bug] in case of password, the true name is not sent (due to the HTTP POST request?)
+  see phpmyadmin and the dump function to see how it works for them - Cannot reproduce
+- [bug] true name even in case of viewable files
+
+
+if I have time
+
+- [doc] split the doc -> index(about)/user/hacker/developper
+- [doc] add a note on the version number
+- [doc] update and improve developper doc
+
+
+later, much later (if people ask for it)
+
+- [feature] upload progress
+    http://www.haughin.com/2007/10/23/php-upload-progress-with-php-52-apc/
+- [feature] mail to the uploader
+- [feature] mini images and icons (Entilope aka thumb.php)
+- [feature] a list of the present files and possibility to purge them
+- [feature] an XML-RPC interface
