@@ -26,7 +26,6 @@ define('JIRAFEAU_VERSION', '0.4');
 
 define('VAR_FILES', $cfg['var_root'] . 'files/');
 define('VAR_LINKS', $cfg['var_root'] . 'links/');
-define('VAR_TRASH', $cfg['var_root'] . 'trash/');
 
 // i18n
 

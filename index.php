@@ -26,7 +26,7 @@ require(JIRAFEAU_ROOT . 'lib/settings.php');
 require(JIRAFEAU_ROOT . 'lib/functions.php');
 
 /* check if the destination dirs are writable */
-$writable = is_writable(VAR_FILES) && is_writable(VAR_LINKS) && is_writable(VAR_TRASH);
+$writable = is_writable(VAR_FILES) && is_writable(VAR_LINKS);
 
 $res = array();
 if($writable && isset($_POST['jirafeau'])) {
@@ -67,10 +67,6 @@ if(!is_writable(VAR_FILES)) {
 
 if(!is_writable(VAR_LINKS)) {
   add_error (_('The link directory is not writable!'), VAR_LINKS);
-}
-
-if(!is_writable(VAR_TRASH)) {
-  add_error (_('The trash directory is not writable!'), VAR_TRASH);
 }
 
 /* Check if the install.php script is still in the directory. */

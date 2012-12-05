@@ -47,40 +47,18 @@ if(isset($_GET['h']) && !empty($_GET['h'])) {
     $md5 = trim($content[5]);
     $onetime = trim($content[6]);
   
-  if(!file_exists(VAR_FILES . $md5)) {
-    if (file_exists(VAR_FILES . $md5 . '_count')) {
-      unlink(VAR_FILES . $md5 . '_count');
-    }
-    unlink($link_file);
-    require(JIRAFEAU_ROOT . 'lib/template/header.php');
-    echo '<div class="error"><p>' . _('File not available.') . '</p></div>';
-    require(JIRAFEAU_ROOT . 'lib/template/footer.php');
-    exit;
-  }
+    if(!file_exists(VAR_FILES . $md5)) {
+      jirafeau_delete($link_name);
 
-  $counter = 1;
-  if (file_exists(VAR_FILES . $md5 . '_count')) {
-    $content = file(VAR_FILES . $md5 . '_count');
-    $counter = trim($content[0], NL);
-  }
+      require(JIRAFEAU_ROOT . 'lib/template/header.php');
+      echo '<div class="error"><p>' . _('File not available.') . '</p></div>';
+      require(JIRAFEAU_ROOT . 'lib/template/footer.php');
+      exit;
+    }
 
   if($time != JIRAFEAU_INFINITY) {
     if(time() > $time) {
-      unlink($link_file);
-
-      $counter--;
-      if ($counter >= 1) {
-        $handle = fopen(VAR_FILES . $md5 . '_count', 'w');
-        fwrite($handle, $counter);
-        fclose($handle);
-      }
-      elseif ($counter == 0) {
-        if (file_exists(VAR_FILES . $md5 . '_count')) {
-          unlink(VAR_FILES . $md5 . '_count');
-        }
-        $new_name = jirafeau_detect_collision($md5 . '_' . $file_name, VAR_TRASH);
-        rename(VAR_FILES . $md5, VAR_TRASH . $new_name);
-      }
+      jirafeau_delete($link_name);
 
       require(JIRAFEAU_ROOT . 'lib/template/header.php');
       echo '<div class="error"><p>' . _('The time limit of this file has expired. It has been deleted.') . '</p></div>';
@@ -132,21 +110,7 @@ if(isset($_GET['h']) && !empty($_GET['h'])) {
     readfile(VAR_FILES . $md5);
 
     if($onetime == 'O') {
-      unlink($link_file);
-
-      $counter--;
-      if ($counter >= 1) {
-        $handle = fopen(VAR_FILES . $md5 . '_count', 'w');
-        fwrite($handle, $counter);
-        fclose($handle);
-      }
-      elseif ($counter == 0) {
-        if (file_exists(VAR_FILES . $md5 . '_count')) {
-          unlink(VAR_FILES . $md5 . '_count');
-        }
-        $new_name = jirafeau_detect_collision($md5 . '_' . $file_name, VAR_TRASH);
-        rename(VAR_FILES . $md5, VAR_TRASH . $new_name);
-      }
+      jirafeau_delete($link_name);
     }
     exit;
   } else {

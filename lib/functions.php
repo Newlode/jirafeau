@@ -104,6 +104,37 @@ function jirafeau_upload_errstr($code) {
   return _('Unknown error.');
 }
 
+/** Remove link and it's file
+ * @param $link the link's name (hash)
+ */
+
+function jirafeau_delete($link) {
+  if(!file_exists(VAR_LINKS . $link))
+    return;
+
+  $content = file(VAR_LINKS . $link);
+  $md5 = trim($content[5]);
+  unlink(VAR_LINKS . $link);
+
+  $counter = 1;
+  if (file_exists(VAR_FILES . $md5 . '_count')) {
+    $content = file(VAR_FILES . $md5 . '_count');
+    $counter = trim($content[0]);
+  }
+  $counter--;
+
+  if ($counter >= 1) {
+    $handle = fopen(VAR_FILES . $md5 . '_count', 'w');
+    fwrite($handle, $counter);
+    fclose($handle);
+  }
+
+  if ($counter == 0 && file_exists(VAR_FILES. $md5)) {
+    unlink (VAR_FILES . $md5);
+    unlink (VAR_FILES . $md5 . '_count');
+  }
+}
+
 /**
  * handles an uploaded file
  * @param $file the file struct given by $_FILE[]
@@ -166,16 +197,16 @@ function jirafeau_upload($file, $one_time_download, $key, $time, $cfg, $ip) {
   fclose($handle);
   $md5_link = md5_file($link_tmp_name);
   if(!rename($link_tmp_name, VAR_LINKS . $md5_link)) {
-    if ($counter > 1) {
-      $counter--;
+    unlink($link_tmp_name);
+    $counter--;
+    if ($counter >= 1) {
       $handle = fopen(VAR_FILES . $md5 . '_count', 'w');
       fwrite($handle, $counter);
       fclose($handle);
     }
     else {
-      unlink($link_tmp_name);
-      unlink(VAR_FILE . $md5 . '_count');
-      unlink(VAR_FILE . $md5);
+      unlink(VAR_FILES . $md5 . '_count');
+      unlink(VAR_FILES . $md5);
     }
     return(array(
       'error' => array(

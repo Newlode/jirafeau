@@ -89,7 +89,7 @@ function jirafeau_check_var_dir($path) {
     );
   }
   
-  foreach(array('files', 'links', 'trash') as $subdir) {
+  foreach(array('files', 'links') as $subdir) {
     $subpath = $path . $subdir;
 
     if(!jirafeau_mkdir($subpath)) {
