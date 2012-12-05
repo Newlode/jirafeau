@@ -173,10 +173,15 @@ function jirafeau_upload($file, $one_time_download, $key, $time, $cfg, $ip) {
   for ($i = 0; $i < 8; $i++)
     $delete_link_code .= dechex(rand(0,16));
 
+  /* md5 password or empty */
+  $password = '';
+  if (!empty($key))
+    $password = md5($key);
+
   /* create link file */
   $link_tmp_name = VAR_LINKS . $md5 . rand(0, 10000) . '.tmp';
   $handle = fopen($link_tmp_name, 'w');
-  fwrite($handle, $name . NL . $mime_type . NL . $size . NL . $key . NL . $time . NL . $md5 . NL . ($one_time_download ? 'O' : 'R') . NL . date('U') . NL . $ip . NL . $delete_link_code . NL);
+  fwrite($handle, $name . NL . $mime_type . NL . $size . NL . $password . NL . $time . NL . $md5 . NL . ($one_time_download ? 'O' : 'R') . NL . date('U') . NL . $ip . NL . $delete_link_code . NL);
   fclose($handle);
   $md5_link = md5_file($link_tmp_name);
   if(!rename($link_tmp_name, VAR_LINKS . $md5_link)) {

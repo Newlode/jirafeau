@@ -102,7 +102,7 @@ if(isset($_GET['h']) && !empty($_GET['h'])) {
         require(JIRAFEAU_ROOT . 'lib/template/footer.php');
         exit;
       } else {
-        if($key != $_POST['key']) {
+        if($key != md5($_POST['key'])) {
           header("HTTP/1.0 403 Forbidden");
 
           require(JIRAFEAU_ROOT . 'lib/template/header.php');
