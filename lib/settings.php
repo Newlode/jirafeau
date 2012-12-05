@@ -1,6 +1,6 @@
 <?php
 /*
- *  Jyraphe, your web file repository
+ *  Jirafeau, your web file repository
  *  Copyright (C) 2008  Julien "axolotl" BERNARD <axolotl@magieeternelle.org>
  *
  *  This program is free software: you can redistribute it and/or modify
@@ -17,10 +17,10 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-// Jyraphe constants
+// Jirafeau constants
 
-define('JYRAPHE_PACKAGE', 'Jyraphe');
-define('JYRAPHE_VERSION', '0.4');
+define('JIRAFEAU_PACKAGE', 'Jirafeau');
+define('JIRAFEAU_VERSION', '0.4');
 
 // directories
 
@@ -32,8 +32,8 @@ define('VAR_TRASH', $cfg['var_root'] . 'trash/');
 
 setlocale(LC_ALL, $cfg['lang']);
 
-bindtextdomain(JYRAPHE_PACKAGE, JYRAPHE_ROOT . 'lib/locale');
-textdomain(JYRAPHE_PACKAGE);
+bindtextdomain(JIRAFEAU_PACKAGE, JIRAFEAU_ROOT . 'lib/locale');
+textdomain(JIRAFEAU_PACKAGE);
 
 
 // useful constants
@@ -42,11 +42,11 @@ if(!defined('NL')) {
   define('NL', "\n");
 }
 
-define('JYRAPHE_INFINITY', -1);
-define('JYRAPHE_MINUTE', 60); // 60
-define('JYRAPHE_HOUR', 3600); // JYRAPHE_MINUTE * 60
-define('JYRAPHE_DAY', 86400); // JYRAPHE_HOUR * 24
-define('JYRAPHE_WEEK', 604800); // JYRAPHE_DAY * 7
-define('JYRAPHE_MONTH', 2419200); // JYRAPHE_WEEK * 4
+define('JIRAFEAU_INFINITY', -1);
+define('JIRAFEAU_MINUTE', 60); // 60
+define('JIRAFEAU_HOUR', 3600); // JIRAFEAU_MINUTE * 60
+define('JIRAFEAU_DAY', 86400); // JIRAFEAU_HOUR * 24
+define('JIRAFEAU_WEEK', 604800); // JIRAFEAU_DAY * 7
+define('JIRAFEAU_MONTH', 2419200); // JIRAFEAU_WEEK * 4
 
 ?>

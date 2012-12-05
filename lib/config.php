@@ -1,5 +1,6 @@
+<?php
 /*
- *  Jyraphe, your web file repository
+ *  Jirafeau, your web file repository
  *  Copyright (C) 2008  Julien "axolotl" BERNARD <axolotl@magieeternelle.org>
  *
  *  This program is free software: you can redistribute it and/or modify
@@ -16,10 +17,26 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-function jyraphe_toggle(id) {
-  if(document.getElementById(id).style.display == 'block') {
-    document.getElementById(id).style.display = 'none';
-  } else {
-    document.getElementById(id).style.display = 'block';
-  }
+/*
+ * default configuration
+ * if you want to change this, overwrite in a config.local.php file
+ */
+
+// don't forget the ending '/'
+$cfg['web_root'] = '';
+
+$cfg['var_root'] = '';
+
+$cfg['lang'] = '';
+
+$cfg['style'] = 'default';
+
+$cfg['rewrite'] = false;
+
+$cfg['password'] = '';
+
+if((basename(__FILE__) != 'config.local.php') && file_exists(JIRAFEAU_ROOT . 'lib/config.local.php')) {
+  require(JIRAFEAU_ROOT . 'lib/config.local.php');
 }
+
+?>

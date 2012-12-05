@@ -1,6 +1,6 @@
 <?php
 /*
- *  Jyraphe, your web file repository
+ *  Jirafeau, your web file repository
  *  Copyright (C) 2008  Julien "axolotl" BERNARD <axolotl@magieeternelle.org>
  *
  *  This program is free software: you can redistribute it and/or modify
@@ -18,7 +18,7 @@
  */
 
 /*
- * This stylesheet is the default stylesheet for Jyraphe.
+ * This stylesheet is the default stylesheet for Jirafeau.
  * The content is dynamically generated for easier handling.
  */
 
@@ -44,7 +44,7 @@ h1 a {
 
 #content {
   padding: 0 4em;
-  background: url('jyraphe.png') left top repeat-y;
+  background: url('jirafeau.png') left top repeat-y;
 }
 
 #upload {

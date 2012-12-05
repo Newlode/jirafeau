@@ -1,7 +1,8 @@
 <?php
 /*
- *  Jyraphe, your web file repository
+ *  Jirafeau, your web file repository
  *  Copyright (C) 2008  Julien "axolotl" BERNARD <axolotl@magieeternelle.org>
+ *  Copyright (C) 2012  Jerome Jutteau <j.jutteau@gmail.com>
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU Affero General Public License as
@@ -22,7 +23,7 @@
  * @param $value the value from php.ini
  * @returns an integer for this value
  */
-function jyraphe_ini_to_bytes($value) {
+function jirafeau_ini_to_bytes($value) {
   $modifier = substr($value, -1);
   $bytes = substr($value, 0, -1);
   switch(strtoupper($modifier)) {
@@ -46,8 +47,8 @@ function jyraphe_ini_to_bytes($value) {
  * gets the maximum upload size according to php.ini
  * @returns the maximum upload size
  */
-function jyraphe_get_max_upload_size() {
-  return min(jyraphe_ini_to_bytes(ini_get('post_max_size')), jyraphe_ini_to_bytes(ini_get('upload_max_filesize')));
+function jirafeau_get_max_upload_size() {
+  return min(jirafeau_ini_to_bytes(ini_get('post_max_size')), jirafeau_ini_to_bytes(ini_get('upload_max_filesize')));
 }
 
 /**
@@ -56,7 +57,7 @@ function jyraphe_get_max_upload_size() {
  * @param $dir the directory to explore (finishing with a '/')
  * @returns an alternate filename, possibly the initial filename
  */
-function jyraphe_detect_collision($name, $dir) {
+function jirafeau_detect_collision($name, $dir) {
   if(!file_exists($dir . $name)) {
     return $name;
   }
@@ -79,7 +80,7 @@ function jyraphe_detect_collision($name, $dir) {
  * @param $code the error code
  * @returns a string explaining the error
  */
-function jyraphe_upload_errstr($code) {
+function jirafeau_upload_errstr($code) {
   switch($code) {
   case UPLOAD_ERR_INI_SIZE:
   case UPLOAD_ERR_FORM_SIZE:
@@ -114,55 +115,75 @@ function jyraphe_upload_errstr($code) {
  *   'error' => information on possible errors
  *   'link' => the link name of the uploaded file
  */
-function jyraphe_upload($file, $one_time_download, $key, $time, $cfg) {
-  if(!empty($file['tmp_name'])) {
-
-    if($file['name'] == '.htaccess') {
-      return(array(
-        'error' => array(
-          'has_error' => true,
-          'why' => _('This file is forbidden for security reasons.')),
-        'link' => '')
-      );
-    }
-
-
-    if(is_uploaded_file($file['tmp_name'])) {
-
-      /* array representing no error */
-      $noerr = array('has_error' => false, 'why' => '');
-
-      /* we check if this file is already here */
-      $md5 = md5_file($file['tmp_name']);
-      $link_name = ($one_time_download ? 'O' : 'R') . $md5;
-      if(file_exists(VAR_LINKS . $link_name)) {
-        return(array('error' => $noerr, 'link' => $link_name));
-      }
-
-      $mime_type = $file['type'];
-      $final_name = trim($file['name']);
-
-      /* we prevent .php and make it a .phps for security reasons */
-      if((strlen($final_name) >= 4) && (substr($final_name, -4) == '.php')) {
-        $final_name .= 's';
-        $mime_type = 'application/x-httpd-php-source';
-      }
-
-      /* we check if there is a file with that name */
-      $final_name = jyraphe_detect_collision($final_name, VAR_FILES);
-
-      /* we move it to the right place and create the link */
-      if(move_uploaded_file($file['tmp_name'], VAR_FILES . $final_name)) {
-        $handle = fopen(VAR_LINKS . $link_name, 'w');
-        fwrite($handle, $final_name . NL . $mime_type . NL . $file['size'] . NL . $key . NL . $time . NL);
-        fclose($handle);
-
-        return(array('error' => $noerr, 'link' => $link_name));
-      }
-    }
+function jirafeau_upload($file, $one_time_download, $key, $time, $cfg) {
+  if(empty($file['tmp_name']) || !is_uploaded_file($file['tmp_name'])) {
+    return(array('error' => array('has_error' => true, 'why' => jirafeau_upload_errstr($file['error'])), 'link' => ''));
   }
 
-  return(array('error' => array('has_error' => true, 'why' => jyraphe_upload_errstr($file['error'])), 'link' => ''));
+  /* array representing no error */
+  $noerr = array('has_error' => false, 'why' => '');
+
+  /* file informations */
+  $md5 = md5_file($file['tmp_name']);
+  $name = trim($file['name']);
+  $mime_type = $file['type'];
+  $size = $file['size'];
+
+  /* does file already exist ? */
+  $rc = false;
+  if(file_exists(VAR_FILES . $md5)) {
+    $rc = unlink($file['tmp_name']);
+  }
+  elseif(move_uploaded_file($file['tmp_name'], VAR_FILES . $md5)) {
+    $rc = true;
+  }
+  if(!$rc)
+  {
+    return(array(
+      'error' => array(
+        'has_error' => true,
+        'why' => _('Internal error during file creation.')),
+      'link' => '')
+    );
+  }
+
+  /* increment or create count file */
+  $counter=0;
+  if(file_exists(VAR_FILES . $md5 . '_count')) {
+    $content = file(VAR_FILES . $md5 . '_count');
+    $counter = trim($content[0]);
+  }
+  $counter++;
+  $handle = fopen(VAR_FILES . $md5 . '_count', 'w');
+  fwrite($handle, $counter);
+  fclose($handle);
+
+  /* create link file */
+  $link_tmp_name = VAR_LINKS . $md5 . rand(0, 10000) . '.tmp';
+  $handle = fopen($link_tmp_name, 'w');
+  fwrite($handle, $name . NL . $mime_type . NL . $size . NL . $key . NL . $time . NL . $md5 . NL . ($one_time_download ? 'O' : 'R') . NL . date('U') . NL);
+  fclose($handle);
+  $md5_link = md5_file($link_tmp_name);
+  if(!rename($link_tmp_name, VAR_LINKS . $md5_link)) {
+    if ($counter > 1) {
+      $counter--;
+      $handle = fopen(VAR_FILES . $md5 . '_count', 'w');
+      fwrite($handle, $counter);
+      fclose($handle);
+    }
+    else {
+      unlink($link_tmp_name);
+      unlink(VAR_FILE . $md5 . '_count');
+      unlink(VAR_FILE . $md5);
+    }
+    return(array(
+      'error' => array(
+        'has_error' => true,
+        'why' => _('Internal error during file creation.')),
+      'link' => '')
+    );
+  }
+  return(array('error' => $noerr, 'link' => $md5_link));
 }
 
 /**
@@ -170,7 +191,7 @@ function jyraphe_upload($file, $one_time_download, $key, $time, $cfg) {
  * @param $mime the mime type
  * @returns a boolean telling if a mime type is viewable
  */
-function jyraphe_is_viewable($mime) {
+function jirafeau_is_viewable($mime) {
   if(!empty($mime)) {
     // actually, verify if mime-type is an image or a text
     $viewable = array('image', 'text');

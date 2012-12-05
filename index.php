@@ -1,7 +1,8 @@
 <?php
 /*
- *  Jyraphe, your web file repository
+ *  Jirafeau, your web file repository
  *  Copyright (C) 2008  Julien "axolotl" BERNARD <axolotl@magieeternelle.org>
+ *  Copyright (C) 2012  Jerome Jutteau <j.jutteau@gmail.com>
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU Affero General Public License as
@@ -17,47 +18,47 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-define('JYRAPHE_ROOT', dirname(__FILE__) . '/');
+define('JIRAFEAU_ROOT', dirname(__FILE__) . '/');
 define('DEBUG', true);
 
-require(JYRAPHE_ROOT . 'lib/config.php');
-require(JYRAPHE_ROOT . 'lib/settings.php');
-require(JYRAPHE_ROOT . 'lib/functions.php');
+require(JIRAFEAU_ROOT . 'lib/config.php');
+require(JIRAFEAU_ROOT . 'lib/settings.php');
+require(JIRAFEAU_ROOT . 'lib/functions.php');
 
 /* check if the destination dirs are writable */
 $writable = is_writable(VAR_FILES) && is_writable(VAR_LINKS) && is_writable(VAR_TRASH);
 
 $res = array();
-if($writable && isset($_POST['jyraphe'])) {
+if($writable && isset($_POST['jirafeau'])) {
 
   $key = $_POST['key'];
 
   $time = time();
   switch($_POST['time']) {
   case 'minute':
-    $time += JYRAPHE_MINUTE;
+    $time += JIRAFEAU_MINUTE;
     break;
   case 'hour':
-    $time += JYRAPHE_HOUR;
+    $time += JIRAFEAU_HOUR;
     break;
   case 'day':
-    $time += JYRAPHE_DAY;
+    $time += JIRAFEAU_DAY;
     break;
   case 'week':
-    $time += JYRAPHE_WEEK;
+    $time += JIRAFEAU_WEEK;
     break;
   case 'month':
-    $time += JYRAPHE_MONTH;
+    $time += JIRAFEAU_MONTH;
     break;
   default:
-    $time = JYRAPHE_INFINITY;
+    $time = JIRAFEAU_INFINITY;
     break;
   }
 
-  $res = jyraphe_upload($_FILES['file'], isset($_POST['one_time_download']), $key, $time, $cfg);
+  $res = jirafeau_upload($_FILES['file'], isset($_POST['one_time_download']), $key, $time, $cfg);
 }
 
-require(JYRAPHE_ROOT . 'lib/template/header.php');
+require(JIRAFEAU_ROOT . 'lib/template/header.php');
 
 /* Checking for errors. */
 if(!is_writable(VAR_FILES)) {
@@ -73,7 +74,7 @@ if(!is_writable(VAR_TRASH)) {
 }
 
 /* Check if the install.php script is still in the directory. */
-if (file_exists(JYRAPHE_ROOT . 'install.php')) {
+if (file_exists(JIRAFEAU_ROOT . 'install.php')) {
   add_error (_('Installer script still present'),
                        _('Please make sure to delete the installer script "install.php" before continuing.'));
 }
@@ -86,13 +87,13 @@ if(!has_error() && !empty($res)) {
     if($cfg['rewrite']) {
       $link .= 'file-' . $res['link'];
     } else {
-      $link .= 'file.php?h=' . $res['link']; // h because 'h' looks like a jyraphe ;)
+      $link .= 'file.php?h=' . $res['link']; // h because 'h' looks like a jirafeau ;)
     }
     echo '<div class="message">' . NL;
     echo '<p>' . _('File uploaded! Copy the following URL to get it:') . '<br />' . NL;
     echo '<a href="' . $link . '">' . $link . '</a>' . NL;
 
-    if($time != JYRAPHE_INFINITY) {
+    if($time != JIRAFEAU_INFINITY) {
       echo '<br />' . _('This file is valid until the following date:') . '<br /><strong>' . strftime('%c' ,$time) . '</strong>';
     }
 
@@ -109,11 +110,11 @@ if(!has_error () && $writable) {
 
 <div id="upload">
 <form enctype="multipart/form-data" action="<?php echo $cfg['web_root']; ?>" method="post">
-<div><input type="hidden" name="jyraphe" value="<?php echo JYRAPHE_VERSION; ?>" /></div>
+<div><input type="hidden" name="jirafeau" value="<?php echo JIRAFEAU_VERSION; ?>" /></div>
 <fieldset>
   <legend><?php echo _('Upload a file'); ?></legend>
   <p><input type="file" name="file" size="30" /></p>
-  <p class="config"><?php printf(_('Maximum file size: %dMB'), jyraphe_get_max_upload_size()/(1024*1024)); ?></p>
+  <p class="config"><?php printf(_('Maximum file size: %dMB'), jirafeau_get_max_upload_size()/(1024*1024)); ?></p>
   <p><input type="submit" value="<?php echo _('Send in the binary chaos'); ?>" /></p>
 
   <hr />
@@ -139,5 +140,5 @@ if(!has_error () && $writable) {
 <?php
 }
 
-require(JYRAPHE_ROOT . 'lib/template/footer.php');
+require(JIRAFEAU_ROOT . 'lib/template/footer.php');
 ?>
