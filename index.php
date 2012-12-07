@@ -136,7 +136,7 @@ if (!has_error () && $writable)
                                   jirafeau_get_max_upload_size () / (1024 *
                                                                      1024));
     ?></p> <p><input type = "submit" value =
-        "<?php echo _('Send in the binary chaos'); ?>" /></p>
+        "<?php echo _('Send'); ?>" /></p>
         <hr /><div id = "moreoptions"> <p><label><input type =
         "checkbox" name =
         "one_time_download" /><?php echo _('One time download');
