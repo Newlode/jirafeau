@@ -16,14 +16,12 @@
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 /*
  * default configuration
  * if you want to change this, overwrite in a config.local.php file
  */
-
 // don't forget the ending '/'
-$cfg['web_root'] = '';
+    $cfg['web_root'] = '';
 
 $cfg['var_root'] = '';
 
@@ -35,8 +33,10 @@ $cfg['rewrite'] = false;
 
 $cfg['password'] = '';
 
-if((basename(__FILE__) != 'config.local.php') && file_exists(JIRAFEAU_ROOT . 'lib/config.local.php')) {
-  require(JIRAFEAU_ROOT . 'lib/config.local.php');
+if ((basename (__FILE__) != 'config.local.php')
+    && file_exists (JIRAFEAU_ROOT.'lib/config.local.php'))
+{
+    require (JIRAFEAU_ROOT.'lib/config.local.php');
 }
 
 ?>

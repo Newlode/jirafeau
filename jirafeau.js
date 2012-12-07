@@ -16,10 +16,15 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-function jirafeau_toggle(id) {
-  if(document.getElementById(id).style.display == 'block') {
-    document.getElementById(id).style.display = 'none';
-  } else {
-    document.getElementById(id).style.display = 'block';
-  }
+function
+jirafeau_toggle (id)
+{
+    if (document.getElementById (id).style.display == 'block')
+    {
+        document.getElementById (id).style.display = 'none';
+    }
+    else
+    {
+        document.getElementById (id).style.display = 'block';
+    }
 }

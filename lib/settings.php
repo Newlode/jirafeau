@@ -16,36 +16,35 @@
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 // Jirafeau constants
-
-define('JIRAFEAU_PACKAGE', 'Jirafeau');
-define('JIRAFEAU_VERSION', '0.4');
+define ('JIRAFEAU_PACKAGE', 'Jirafeau');
+define ('JIRAFEAU_VERSION', '0.4');
 
 // directories
 
-define('VAR_FILES', $cfg['var_root'] . 'files/');
-define('VAR_LINKS', $cfg['var_root'] . 'links/');
+define ('VAR_FILES', $cfg['var_root'] . 'files/');
+define ('VAR_LINKS', $cfg['var_root'] . 'links/');
 
 // i18n
 
-setlocale(LC_ALL, $cfg['lang']);
+setlocale (LC_ALL, $cfg['lang']);
 
-bindtextdomain(JIRAFEAU_PACKAGE, JIRAFEAU_ROOT . 'lib/locale');
-textdomain(JIRAFEAU_PACKAGE);
+bindtextdomain (JIRAFEAU_PACKAGE, JIRAFEAU_ROOT.'lib/locale');
+textdomain (JIRAFEAU_PACKAGE);
 
 
 // useful constants
 
-if(!defined('NL')) {
-  define('NL', "\n");
+if (!defined ('NL'))
+{
+    define ('NL', "\n");
 }
 
-define('JIRAFEAU_INFINITY', -1);
-define('JIRAFEAU_MINUTE', 60); // 60
-define('JIRAFEAU_HOUR', 3600); // JIRAFEAU_MINUTE * 60
-define('JIRAFEAU_DAY', 86400); // JIRAFEAU_HOUR * 24
-define('JIRAFEAU_WEEK', 604800); // JIRAFEAU_DAY * 7
-define('JIRAFEAU_MONTH', 2419200); // JIRAFEAU_WEEK * 4
+define ('JIRAFEAU_INFINITY', -1);
+define ('JIRAFEAU_MINUTE', 60); // 60
+define ('JIRAFEAU_HOUR', 3600); // JIRAFEAU_MINUTE * 60
+define ('JIRAFEAU_DAY', 86400); // JIRAFEAU_HOUR * 24
+define ('JIRAFEAU_WEEK', 604800);       // JIRAFEAU_DAY * 7
+define ('JIRAFEAU_MONTH', 2419200);     // JIRAFEAU_WEEK * 4
 
 ?>
