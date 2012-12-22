@@ -19,9 +19,10 @@
  */
 define ('JIRAFEAU_ROOT', dirname (__FILE__) . '/');
 
-require (JIRAFEAU_ROOT.'lib/config.php');
-require (JIRAFEAU_ROOT.'lib/settings.php');
-require (JIRAFEAU_ROOT.'lib/functions.php');
+require (JIRAFEAU_ROOT . 'lib/lang.php');
+require (JIRAFEAU_ROOT . 'lib/config.php');
+require (JIRAFEAU_ROOT . 'lib/settings.php');
+require (JIRAFEAU_ROOT . 'lib/functions.php');
 
 if (isset ($_GET['h']) && !empty ($_GET['h']))
 {
@@ -31,7 +32,7 @@ if (isset ($_GET['h']) && !empty ($_GET['h']))
     if (isset ($_GET['d']) && !empty ($_GET['d']))
         $delete_code = $_GET['d'];
 
-    if (!ereg ('[0-9a-f]{32}$', $link_name))
+    if (!preg_match ('/[0-9a-f]{32}$/', $link_name))
     {
         header ("HTTP/1.0 404 Not Found");
 

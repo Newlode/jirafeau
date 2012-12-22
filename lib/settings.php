@@ -25,20 +25,9 @@ define ('JIRAFEAU_VERSION', '0.4');
 define ('VAR_FILES', $cfg['var_root'] . 'files/');
 define ('VAR_LINKS', $cfg['var_root'] . 'links/');
 
-// i18n
-
-setlocale (LC_ALL, $cfg['lang']);
-
-bindtextdomain (JIRAFEAU_PACKAGE, JIRAFEAU_ROOT.'lib/locale');
-textdomain (JIRAFEAU_PACKAGE);
-
-
 // useful constants
-
 if (!defined ('NL'))
-{
     define ('NL', "\n");
-}
 
 define ('JIRAFEAU_INFINITY', -1);
 define ('JIRAFEAU_MINUTE', 60); // 60

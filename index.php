@@ -20,6 +20,7 @@
 define ('JIRAFEAU_ROOT', dirname (__FILE__) . '/');
 define ('DEBUG', true);
 
+require (JIRAFEAU_ROOT . 'lib/lang.php');
 require (JIRAFEAU_ROOT . 'lib/config.php');
 require (JIRAFEAU_ROOT . 'lib/settings.php');
 require (JIRAFEAU_ROOT . 'lib/functions.php');
@@ -59,6 +60,13 @@ if ($writable && isset ($_POST['jirafeau']))
     $res =
         jirafeau_upload ($_FILES['file'], isset ($_POST['one_time_download']),
                          $key, $time, $cfg, $_SERVER['REMOTE_ADDR']);
+}
+
+if (file_exists (JIRAFEAU_ROOT . 'install.php')
+    && !file_exists (JIRAFEAU_ROOT.'lib/config.local.php'))
+{
+    header('Location: install.php'); 
+    exit;
 }
 
 require (JIRAFEAU_ROOT.'lib/template/header.php');

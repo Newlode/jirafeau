@@ -20,17 +20,12 @@
  * default configuration
  * if you want to change this, overwrite in a config.local.php file
  */
-// don't forget the ending '/'
-    $cfg['web_root'] = '';
-
+/* don't forget the ending '/' */
+$cfg['web_root'] = '';
 $cfg['var_root'] = '';
-
 $cfg['lang'] = '';
-
 $cfg['style'] = 'default';
-
 $cfg['rewrite'] = false;
-
 $cfg['password'] = '';
 
 if ((basename (__FILE__) != 'config.local.php')
