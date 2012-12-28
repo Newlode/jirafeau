@@ -1,10 +1,10 @@
 <?php
 header("Vary: Accept");
-if(stristr($_SERVER['HTTP_ACCEPT'], 'application/xhtml+xml')) {
-  $content_type = 'application/xhtml+xml; charset=utf-8';
-}  else {
-  $content_type = 'text/html; charset=utf-8';
-}
+
+$content_type = 'text/html; charset=utf-8';
+
+if (stristr ($_SERVER['HTTP_ACCEPT'], 'application/xhtml+xml'))
+    $content_type = 'application/xhtml+xml; charset=utf-8';
 
 header('Content-Type: ' . $content_type);
 

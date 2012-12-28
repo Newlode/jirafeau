@@ -16,16 +16,15 @@
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-// Jirafeau constants
+/* Jirafeau constants */
 define ('JIRAFEAU_PACKAGE', 'Jirafeau');
-define ('JIRAFEAU_VERSION', '0.4');
+define ('JIRAFEAU_VERSION', '0.9');
 
-// directories
-
+/* Directories. */
 define ('VAR_FILES', $cfg['var_root'] . 'files/');
 define ('VAR_LINKS', $cfg['var_root'] . 'links/');
 
-// useful constants
+/* Useful constants. */
 if (!defined ('NL'))
     define ('NL', "\n");
 

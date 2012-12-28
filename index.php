@@ -20,10 +20,10 @@
 define ('JIRAFEAU_ROOT', dirname (__FILE__) . '/');
 define ('DEBUG', true);
 
-require (JIRAFEAU_ROOT . 'lib/lang.php');
 require (JIRAFEAU_ROOT . 'lib/config.php');
 require (JIRAFEAU_ROOT . 'lib/settings.php');
 require (JIRAFEAU_ROOT . 'lib/functions.php');
+require (JIRAFEAU_ROOT . 'lib/lang.php');
 
 /* check if the destination dirs are writable */
 $writable = is_writable (VAR_FILES) && is_writable (VAR_LINKS);
@@ -63,13 +63,13 @@ if ($writable && isset ($_POST['jirafeau']))
 }
 
 if (file_exists (JIRAFEAU_ROOT . 'install.php')
-    && !file_exists (JIRAFEAU_ROOT.'lib/config.local.php'))
+    && !file_exists (JIRAFEAU_ROOT . 'lib/config.local.php'))
 {
     header('Location: install.php'); 
     exit;
 }
 
-require (JIRAFEAU_ROOT.'lib/template/header.php');
+require (JIRAFEAU_ROOT . 'lib/template/header.php');
 
 /* Checking for errors. */
 if (!is_writable (VAR_FILES))
@@ -108,20 +108,20 @@ if (!has_error () && !empty ($res))
         }
 
         echo '<div class="message">'.NL;
-        echo '<p>'._('File uploaded! Copy the following URL to get it:').
-            '<br />' . NL;
+        echo '<p>' . _('File uploaded! Copy the following URL to get it') .
+            ':<br />' . NL;
         echo '<a href="'.$link.'">'.$link.'</a>' . NL;
 
         if ($time != JIRAFEAU_INFINITY)
         {
-            echo '<br />'._('This file is valid until the following date:') .
-                '<br /><strong>' . strftime ('%c', $time) . '</strong>';
+            echo '<br />' . _('This file is valid until the following date') .
+                ':<br /><strong>' . strftime ('%c', $time) . '</strong>';
         }
 
         echo '</p></div>';
 
         echo '<div class="message">' . NL;
-        echo '<p>' . _('Keep the following URL to delete it:') . '<br />' . NL;
+        echo '<p>' . _('Keep the following URL to delete it at any moment') . ':<br />' . NL;
         echo '<a href="' . $delete_link . '">' . $delete_link . '</a>' . NL;
         echo '</p></div>';
     }
@@ -140,19 +140,19 @@ if (!has_error () && $writable)
         <legend><?php echo _('Upload a file');
     ?></legend> <p><input type = "file" name = "file" size =
         "30" /></p> <p class =
-        "config"><?php printf (_('Maximum file size: %dMB'),
-                                  jirafeau_get_max_upload_size () / (1024 *
-                                                                     1024));
+        "config"><?php printf ('%s: %dMB', _('Maximum file size'),
+                               jirafeau_get_max_upload_size () / (1024 *
+                                                                  1024));
     ?></p> <p><input type = "submit" value =
         "<?php echo _('Send'); ?>" /></p>
         <hr /><div id = "moreoptions"> <p><label><input type =
         "checkbox" name =
         "one_time_download" /><?php echo _('One time download');
     ?></label></p> <p><label for = "input_key"
-       ><?php echo _('Password:');
+       ><?php echo _('Password') . ':';
     ?></label> <input type = "text" name = "key" id = "input_key" /></p>
         <p><label for = "select_time"
-       ><?php echo _('Time limit:');
+       ><?php echo _('Time limit') . ':';
     ?></label>
         <select name = "time" id = "select_time">
         <option value = "none"><?php echo _('None');

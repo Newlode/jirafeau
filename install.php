@@ -262,7 +262,6 @@ case 2:
 
 case 1:
 default:
-    $languages = array ('' => 'English', 'fr_FR.UTF-8' => 'Français');
     ?><h2><?php printf (_('Installation of Jirafeau - step %d out of %d'),
                             1, 3);
     ?></h2> <div id = "install"> <form action =
@@ -279,7 +278,7 @@ default:
     ?></label></td>
         <td class = "field">
         <select name = "lang" id = "select_lang">
-        <?php foreach ($languages as $key => $item)
+        <?php foreach ($languages_list as $key => $item)
     {
         echo '<option value="'.$key.'"'.($key ==
                                          $cfg['lang'] ? ' selected="selected"'

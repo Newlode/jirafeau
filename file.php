@@ -37,7 +37,7 @@ if (isset ($_GET['h']) && !empty ($_GET['h']))
         header ("HTTP/1.0 404 Not Found");
 
         require (JIRAFEAU_ROOT.'lib/template/header.php');
-        echo '<div class="error"><p>Error 404: Not Found</p></div>';
+        echo '<div class="error"><p>' . _('Error 404: Not Found') . '</p></div>';
         require (JIRAFEAU_ROOT.'lib/template/footer.php');
         exit;
     }
@@ -80,8 +80,9 @@ if (isset ($_GET['h']) && !empty ($_GET['h']))
             jirafeau_delete ($link_name);
             require (JIRAFEAU_ROOT.'lib/template/header.php');
             echo '<div class="error"><p>'.
-                _('The time limit of this file has expired.' .
-                  'It has been deleted.') . '</p></div>';
+                _('The time limit of this file has expired.') . ' ' .
+                _('File has been deleted.') .
+                '</p></div>';
             require (JIRAFEAU_ROOT.'lib/template/footer.php');
             exit;
         }
@@ -96,9 +97,9 @@ if (isset ($_GET['h']) && !empty ($_GET['h']))
                     "<?php echo $_SERVER['REQUEST_URI']; ?>" method =
                     "post"> <input type = "hidden" name = "jirafeau" value =
                     "<?php echo JIRAFEAU_VERSION; ?>" /><fieldset>
-                    <legend><?php echo _('Key protection');
+                    <legend><?php echo _('Password protection');
                 ?></legend> <table> <tr>
-                    <td><?php echo _('Give the key of this file:');
+                    <td><?php echo _('Give the password of this file:');
                 ?><input type = "password" name =
                     "key" /></td> </tr> <tr> <td><input type =
                     "submit" value =
@@ -114,7 +115,8 @@ if (isset ($_GET['h']) && !empty ($_GET['h']))
                     header ("HTTP/1.0 403 Forbidden");
 
                     require (JIRAFEAU_ROOT.'lib/template/header.php');
-                    echo '<div class="error"><p>Error 403: Forbidden</p></div>';
+                    echo '<div class="error"><p>' . _('Error 403: Forbidden') .
+                    '</p></div>';
                     require (JIRAFEAU_ROOT.'lib/template/footer.php');
                     exit;
                 }
@@ -139,7 +141,8 @@ if (isset ($_GET['h']) && !empty ($_GET['h']))
         header ("HTTP/1.0 404 Not Found");
 
         require (JIRAFEAU_ROOT.'lib/template/header.php');
-        echo '<div class="error"><p>Error 404: Not Found</p></div>';
+        echo '<div class="error"><p>' . _('Error 404: Not Found') .
+        '</p></div>';
         require (JIRAFEAU_ROOT.'lib/template/footer.php');
         exit;
     }

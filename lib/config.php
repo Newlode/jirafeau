@@ -21,9 +21,10 @@
  * if you want to change this, overwrite in a config.local.php file
  */
 /* don't forget the ending '/' */
+global $cfg;
 $cfg['web_root'] = '';
 $cfg['var_root'] = '';
-$cfg['lang'] = '';
+$cfg['lang'] = 'auto';
 $cfg['style'] = 'default';
 $cfg['rewrite'] = false;
 $cfg['password'] = '';
