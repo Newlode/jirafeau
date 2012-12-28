@@ -82,12 +82,12 @@ jirafeau_is_writable ($path)
 function
 jirafeau_check_var_dir ($path)
 {
-    $mkdir_str1 = _('The following directory could not be created:');
+    $mkdir_str1 = _('The following directory could not be created') . ':';
     $mkdir_str2 = _('You should create this directory by hand.');
-    $write_str1 = _('The following directory is not writable:');
+    $write_str1 = _('The following directory is not writable') . ':';
     $write_str2 = _('You should give the write right to the web server on ' .
                     'this directory.');
-    $solution_str = _('Here is a solution:');
+    $solution_str = _('Here is a solution') . ':';
 
     if (!jirafeau_mkdir ($path) || !jirafeau_is_writable ($path))
         return array ('has_error' => true,
@@ -179,8 +179,8 @@ else if (isset ($_POST['retry']))
 switch ($current)
 {
 case 3:
-    ?><h2><?php printf (_('Installation of Jirafeau - step %d out of %d'),
-                         3, 3);
+    ?><h2><?php printf (_('Installation of Jirafeau') . ' - ' . _('step') .
+    ' %d ' . _('out of') . ' %d', 3, 3);
     ?></h2> <div id = "install"> <form action =
         "<?php echo basename(__FILE__); ?>" method = "post"> <input type =
         "hidden" name = "jirafeau" value =
@@ -189,8 +189,8 @@ case 3:
         "3" /><fieldset> <legend><?php echo _('Finalisation');
     ?></legend> <table> <tr> <td class = "info" colspan =
         "2"><?php echo
-        _
-        ('Jirafeau is setting the website according to the configuration you provided.');
+        _ ('Jirafeau is setting the website according to the configuration ' .
+           'you provided.');
     ?></td> </tr> <tr> <td class = "nav previous"><input type =
         "submit" name = "previous" value =
         "
@@ -214,15 +214,15 @@ case 3:
     else
     {
         echo '<div class="message"><p>' .
-             _('Your website is now fully operational:') .
+             _('Jirafeau is now fully operational') . ':' .
              '<br /><a href="' . $cfg['web_root'] . '">' .
              $cfg['web_root'].'</a></p></div>';
     }
     break;
 
 case 2:
-    ?><h2><?php printf (_('Installation of Jirafeau - step %d out of %d'),
-                            2, 3);
+    ?><h2><?php printf (_('Installation of Jirafeau') . ' - ' . _('step') .
+    ' %d ' . _('out of') . ' %d', 2, 3);
     ?></h2> <div id = "install"> <form action =
         "<?php echo basename(__FILE__); ?>" method = "post"> <input type =
         "hidden" name = "jirafeau" value =
@@ -234,7 +234,7 @@ case 2:
         _
         ('The base address of Jirafeau is the first part of the URL, until (and including) the last slash. For example: "http://www.example.com/". Do not forget the ending slash!');
     ?></td> </tr> <tr> <td class = "label"><label for = "input_web_root"
-       ><?php echo _('Base address:');
+       ><?php echo _('Base address') . ':';
     ?></label></td>
         <td class = "field"><input type = "text" name = "web_root" id = "input_web_root" value = "<?php
         echo (empty($cfg['web_root']) ?
@@ -243,7 +243,7 @@ case 2:
       ?>" size = "40" /></td>
         </tr> <tr> <td class = "info" colspan = "2"><?php echo _('The data directory is where your files and information about your files will be stored. You should put it outside your web site, or at least restrict the access of this directory. Do not forget the ending slash!');
     ?></td> </tr> <tr> <td class = "label"><label for = "input_var_root"
-       ><?php echo _('Data directory:');
+       ><?php echo _('Data directory') . ':';
     ?></label></td>
         <td class = "field"><input type = "text" name = "var_root" id = "input_var_root" value = "<?php
         if(empty($cfg['var_root'])) {
@@ -262,8 +262,8 @@ case 2:
 
 case 1:
 default:
-    ?><h2><?php printf (_('Installation of Jirafeau - step %d out of %d'),
-                            1, 3);
+    ?><h2><?php printf (_('Installation of Jirafeau') . ' - ' . _('step') .
+    ' %d ' . _('out of') . ' %d', 1, 3);
     ?></h2> <div id = "install"> <form action =
         "<?php echo basename(__FILE__); ?>" method = "post"> <input type =
         "hidden" name = "jirafeau" value =
@@ -272,9 +272,9 @@ default:
     ?></legend> <table> <tr> <td class = "info" colspan =
         "2"><?php echo
         _
-        ('The installation of Jirafeau is internationalised, so you can have it in your own language if the translation is available.');
+        ('Jirafeau is internationalised. Choose a specific langage or choose Automatic (langage is provided by user\'s browser).');
     ?></td> </tr> <tr> <td class = "label"><label for = "select_lang"
-       ><?php echo _('Choose your language:');
+       ><?php echo _('Choose the default language') . ':';
     ?></label></td>
         <td class = "field">
         <select name = "lang" id = "select_lang">
