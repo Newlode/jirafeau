@@ -8,15 +8,7 @@ $org provides the information on this Web site as provided in these Terms of Ser
 2. DESCRIPTION OF SERVICE
 $org provides you with access to discussion lists, forums, licenses and a variety of other services. (\"$org Service\"). Unless explicitly stated otherwise, any new features that augment or enhance the current $org Service shall be subject to the TOS.
 
-3. YOUR REGISTRATION OBLIGATIONS
-In consideration of your use of the $org Service, you represent that you are of legal age to form a binding contract and are not a person barred from receiving services under the laws of the United States or other applicable jurisdiction. You also agree to:
-(a) provide true, accurate, current and complete information about yourself as prompted by the $org Service's registration form (the \"Registration Data\") and
-(b) maintain and promptly update the Registration Data to keep it true, accurate, current and complete. If you provide any information that is untrue, inaccurate, not current or incomplete, or $org has reasonable grounds to suspect that such information is untrue, inaccurate, not current or incomplete, $org has the right to suspend or terminate your account and refuse any and all current or future use of the $org Services (or any portion thereof).
-
-4. $org PRIVACY POLICY
-Registration Data and certain other information about you is subject to our Privacy Policy.
-
-5. CONDUCT
+3. CONDUCT
 You understand that all information, data, text, software, graphics or other materials (\"Content\"), whether publicly posted or privately transmitted, are the sole responsibility of the person from whom such Content originated. This means that you, and not $org, are entirely responsible for all Content that you upload, post, email, transmit or otherwise make available via the $org Service. $org does not control the Content posted via the $org Service and, as such, does not guarantee the accuracy, integrity or quality of such Content. Under no circumstances will $org be liable in any way for any Content, including, but not limited to, any errors or omissions in any Content, or any loss or damage of any kind incurred as a result of the use of any Content posted, emailed, transmitted or otherwise made available via the $org Service. You agree to not use the $org Service to:
     1) upload, post, email, transmit or otherwise make available any Content that is unlawful, harmful, threatening, abusive, harassing, tortuous, defamatory, vulgar, obscene, libelous, invasive of another's privacy, hateful, or racially, ethnically or otherwise objectionable or harm minors;
     2) impersonate any person or entity or falsely state or otherwise misrepresent your affiliation with a person or entity;
@@ -35,27 +27,27 @@ You understand that all information, data, text, software, graphics or other mat
         (c) respond to claims that any Content violates the rights of third parties;
         (d) respond to your requests for customer service; or (e) protect the rights, property or personal safety of $org its users and the public.
 
-6. CONTENT MADE AVAILABLE FOR INCLUSION ON THE $org SERVICE
+4. CONTENT MADE AVAILABLE FOR INCLUSION ON THE $org SERVICE
 $org does not claim ownership of Content you submit or make available for inclusion via the $org Service. However, with respect to Content you submit or make available for inclusion on the publicly available $org Service, you irrevocably grant $org the perpetual, worldwide, royalty-free and non-exclusive license, with the right to sublicense through multiple tiers of sublicensees, to use, distribute, reproduce, modify, adapt, publicly perform and publicly display such Content, in whole or in part, on the $org Service or other publications by $org in any media whether now existing or which come into the existence into the future and to provide that information under the license set forth on the initial page of the $url/ Web site. And for Content you submit for private discussions, you grant $org the worldwide, royalty-free and non-exclusive license to use, distribute, reproduce, modify, adapt, publicly perform and publicly display such Content on the associated private discussion group.
 
-7. INDEMNITY
+5. INDEMNITY
 You agree to indemnify and hold $org and its subsidiaries, affiliates, officers, agents, employees, partners and licensors harmless from any claim or demand, including but not limited to reasonable attorneys' fees, made by any third party due to or arising out of Content you submit, post, transmit or otherwise make available through the Service, your use of the $org Service, your connection to the Service, your violation of the TOS, or your violation of any rights of another.
 
-8. MODIFICATIONS TO $org SERVICE You acknowledge that $org may establish general practices and limits concerning use of the $org Service, including without limitation the maximum number of days that email messages, message board postings or other uploaded Content will be retained by the $org Service.. You further acknowledge that $org reserves the right to modify these general practices and limits from time to time. $org reserves the right at any time and from time to time to modify or discontinue, temporarily or permanently, the $org Service (or any part thereof) with or without notice. You agree that $org shall not be liable to you or to any third party for any modification, suspension or discontinuance of the $org Service.
+6. MODIFICATIONS TO $org SERVICE You acknowledge that $org may establish general practices and limits concerning use of the $org Service, including without limitation the maximum number of days that email messages, message board postings or other uploaded Content will be retained by the $org Service.. You further acknowledge that $org reserves the right to modify these general practices and limits from time to time. $org reserves the right at any time and from time to time to modify or discontinue, temporarily or permanently, the $org Service (or any part thereof) with or without notice. You agree that $org shall not be liable to you or to any third party for any modification, suspension or discontinuance of the $org Service.
 
-9. TERMINATION
+7. TERMINATION
 You agree that $org may terminate your access to the $org Service for violations of the TOS and/or requests by authorized law enforcement or other government agencies.
 
-10. LINKS
+8. LINKS
 The $org Service may provide, or third parties may provide, links to other World Wide Web sites or resources. Because $org has no control over such sites and resources, you acknowledge and agree that $org is not responsible for the availability of such external sites or resources, and does not endorse and is not responsible or liable for any Content, advertising, products or other materials on or available from such sites or resources. You further acknowledge and agree that $org shall not be responsible or liable, directly or indirectly, for any damage or loss caused or alleged to be caused by or in connection with use of or reliance on any such Content, goods or services available on or through any such site or resource.
 
-11. DISCLAIMER OF WARRANTIES
+9. DISCLAIMER OF WARRANTIES
 You expressly understand and agree that: Your use of the $org service is at your sole risk. $org service is provided on an \"as is\" and \"as available\" basis. $org and its subsidiaries, affiliates, officers, employees and licensors expressly disclaim all warranties of any kind, whether express or implied, including, but not limited to the implied warranties of merchantability, fitness for a particular purpose and non-infringement. $org and its subsidiaries, affiliates, officers, employees and licensors make no warranty that
 (i) The $org service will meet your requirements;
 (ii) The $org service will be uninterrupted, timely, secure or error-free and
 (iii) The results that may be obtained from the use of the $org service will be accurate or reliable. No advice or information, whether oral or written, obtained by you from $org or through or from the service shall create any warranty not expressly stated in the TOS.
 
-12. LIMITATION OF LIABILITY
+10. LIMITATION OF LIABILITY
 You expressly understand and agree that $org and its subsidiaries, affiliates, officers, employees, agents, partners and licensors shall not be liable to you for any direct, indirect, incidental, special, consequential or exemplary damages, including, but not limited to, damages for loss of profits, goodwill, use, data or other intangible losses (even if $org has been advised of the possibility of such damages), resulting from the use or the inability to use the $org service.
 
 13. NOTICE AND PROCEDURE FOR MAKING CLAIMS OF COPYRIGHT INFRINGEMENT
