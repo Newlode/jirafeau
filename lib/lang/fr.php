@@ -22,6 +22,7 @@ $tr = array (
              'Jirafeau, your web file repository' => 'Jirafeau, votre dépot de fichiers',
              'Upload a file' => 'Envoyer un fichier',
              'Send' => 'Envoyer',
+             'Uploading ...' => 'Envoie ...',
              'One time download' => 'Téléchargement unique',
              'Password' => 'Mot de passe',
              'Time limit' => 'Limite de temps',

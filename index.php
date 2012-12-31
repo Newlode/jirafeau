@@ -141,9 +141,13 @@ if (!has_error () && $writable)
         "config"><?php printf ('%s: %dMB', t('Maximum file size'),
                                jirafeau_get_max_upload_size () / (1024 *
                                                                   1024));
-    ?></p> <p><input type = "submit" value =
-        "<?php echo t('Send'); ?>" /></p>
-        <hr /><div id = "moreoptions"> <p><label><input type =
+    ?></p><p>
+    <input type = "submit" id='send' value ="<?php echo t('Send'); ?>"
+    onclick="
+        document.getElementById('send').value='<?php echo t ('Uploading ...'); ?>';
+        document.getElementById('send').disabled='true';
+    "/>
+    </p><hr /><div id = "moreoptions"> <p><label><input type =
         "checkbox" name =
         "one_time_download" /><?php echo t('One time download');
     ?></label></p><br/><p><label for = "input_key"
