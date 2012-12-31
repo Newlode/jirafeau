@@ -99,9 +99,9 @@ jirafeau_delete ($link)
     if (!file_exists ( VAR_LINKS . $link))
         return;
 
-    $content = file ( VAR_LINKS . $link);
+    $content = file (VAR_LINKS . $link);
     $md5 = trim ($content[5]);
-    unlink ( VAR_LINKS . $link);
+    unlink (VAR_LINKS . $link);
 
     $counter = 1;
     if (file_exists ( VAR_FILES . $md5. '_count'))
@@ -123,6 +123,36 @@ jirafeau_delete ($link)
         unlink ( VAR_FILES . $md5);
         unlink ( VAR_FILES . $md5. '_count');
     }
+}
+
+/**
+ * Delete a file and it's links.
+ */
+function
+jirafeau_delete_file ($md5)
+{
+    $count = 0;
+    $links_dir = scandir (VAR_LINKS);
+    
+    foreach ($links_dir as $link)
+    {
+        if (strcmp ($link, '.') == 0 || strcmp ($link, '..') == 0)
+            continue;
+        /* Read link informations. */
+        $l = jirafeau_get_link ($link);
+        if ($l['md5'] == $md5)
+        {
+            $count++;
+            jirafeau_delete ($link);
+        }
+    }
+
+    if (file_exists (VAR_FILES . $md5 . '_count'))
+        unlink (VAR_FILES . $md5. '_count');
+    if (file_exists (VAR_FILES . $md5))
+        unlink (VAR_FILES . $md5);
+
+    return $count;
 }
 
 /**
@@ -302,4 +332,137 @@ show_errors ()
     }
 }
 
+/**
+ * Read link informations
+ * @return array containing informations.
+ */
+function
+jirafeau_get_link ($hash)
+{
+    $out = array ();
+    $link = VAR_LINKS . $hash;
+
+    if (!file_exists ($link))
+        return $out;
+    
+    $c = file ($link);
+    $out['file_name'] = trim ($c[0]);
+    $out['mime_type'] = trim ($c[1]);
+    $out['file_size'] = trim ($c[2]);
+    $out['key'] = trim ($c[3], NL);
+    $out['time'] = trim ($c[4]);
+    $out['md5'] = trim ($c[5]);
+    $out['onetime'] = trim ($c[6]);
+    $out['upload_date'] = trim ($c[7]);
+    $out['ip'] = trim ($c[8]);
+    $out['link_code'] = trim ($c[9]);
+    
+    return $out;
+}
+
+function
+jirafeau_human_size ($octets)
+{
+    $u = array ('B', 'KB', 'MB', 'GB', 'TB');
+    $o = max ($octets, 0);
+    $p = min (floor (($o ? log ($o) : 0) / log (1024)), count ($u) - 1);
+    $o /= pow (1024, $p);
+    return round ($o, 1) . $u[$p];
+} 
+
+/**
+ * List files in admin interface.
+ */
+function
+jirafeau_admin_list ($name, $file_hash, $link_hash)
+{
+    $links_dir = scandir (VAR_LINKS);
+    echo '<fieldset><legend>';
+    if (!empty ($name))
+        echo $name . ' ';
+    if (!empty ($file_hash))
+        echo $file_hash . ' ';
+    if (!empty ($link_hash))
+        echo $link_hash . ' ';
+    if (empty ($name) && empty ($file_hash) && empty ($link_hash))
+        echo _('List all files');
+    echo '</legend>';
+    echo '<table>';
+    echo '<tr>';
+    echo '<td>' . _('Filename') . '</td>';
+    echo '<td>' . _('Type') . '</td>';
+    echo '<td>' . _('Size') . '</td>';
+    echo '<td>' . _('Expire') . '</td>';
+    echo '<td>' . _('Onetime') . '</td>';
+    echo '<td>' . _('Upload date') . '</td>';
+    echo '<td>' . _('Origin') . '</td>';
+    echo '<td>' . _('Action') . '</td>';
+    echo '</tr>';
+    foreach ($links_dir as $link)
+    {
+        if (strcmp ($link, '.') == 0 || strcmp ($link, '..') == 0)
+            continue;
+        /* Read link informations. */
+        $l = jirafeau_get_link ($link);
+        
+        /* Filter. */
+        if (!empty ($name) && $name != $l['file_name'])
+            continue;
+        if (!empty ($file_hash) && $file_hash != $l['md5'])
+            continue;
+        if (!empty ($link_hash) && $link_hash != $link)
+            continue;
+        
+        /* Print link informations. */
+        echo '<tr>';
+        echo '<td>' . $l['file_name'] . '</td>';
+        echo '<td>' . $l['mime_type'] . '</td>';
+        echo '<td>' . jirafeau_human_size ($l['file_size']) . '</td>';
+        echo '<td>' . ($l['time'] == -1 ? '' : strftime ('%c', $l['time'])) .
+             '</td>';
+        echo '<td>' . $l['onetime'] . '</td>';
+        echo '<td>' . strftime ('%c', $l['upload_date']) . '</td>';
+        echo '<td>' . $l['ip'] . '</td>';
+        echo '<td>' .
+        '<form action = "admin.php" method = "post">' .
+        '<input type = "hidden" name = "action" value = "delete_link"/>' .
+        '<input type = "hidden" name = "link" value = "' . $link . '"/>' .
+        '<input type = "submit" value = "' . _('Del link') . '" />' .
+        '</form>' .
+        '<form action = "admin.php" method = "post">' .
+        '<input type = "hidden" name = "action" value = "delete_file"/>' .
+        '<input type = "hidden" name = "md5" value = "' . $l['md5'] . '"/>' .
+        '<input type = "submit" value = "' . _('Del file and links') . '" />' .
+        '</form>' .
+        '</td>';
+        echo '</tr>';
+    }
+    echo '</table></fieldset>';
+}
+
+/**
+ * Clean expired files.
+ * @return number of cleaned files.
+ */
+function
+jirafeau_admin_clean ()
+{
+    $c = 0;
+    $links_dir = scandir (VAR_LINKS);
+
+    foreach ($links_dir as $link)
+    {
+        if (strcmp ($link, '.') == 0 || strcmp ($link, '..') == 0)
+            continue;
+        /* Read link informations. */
+        $l = jirafeau_get_link ($link);
+        if ($l['time'] > 0 && $l['time'] < time ())
+        {
+            echo 'HAAAA' . $l['time'] . '-->' . time ();
+            jirafeau_delete ($link);
+            $c++;
+        }
+    }
+    return $c;
+}
 ?>

@@ -16,18 +16,26 @@
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+ 
 /*
  * default configuration
  * if you want to change this, overwrite in a config.local.php file
  */
+ global $cfg;
+ 
 /* don't forget the ending '/' */
-global $cfg;
 $cfg['web_root'] = '';
 $cfg['var_root'] = '';
+
+/* Lang choice between 'auto', 'en' and 'fr'.
+   'auto' mode will take the user's browser informations. Will take english if
+   user's langage is not available.
+ */
 $cfg['lang'] = 'auto';
 $cfg['style'] = 'default';
 $cfg['rewrite'] = false;
-$cfg['password'] = '';
+/* An empty admin password will disable the admin interface. */
+$cfg['admin_password'] = '';
 
 if ((basename (__FILE__) != 'config.local.php')
     && file_exists (JIRAFEAU_ROOT.'lib/config.local.php'))

@@ -18,12 +18,18 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 define ('JIRAFEAU_ROOT', dirname (__FILE__) . '/');
-define ('DEBUG', true);
 
 require (JIRAFEAU_ROOT . 'lib/config.php');
 require (JIRAFEAU_ROOT . 'lib/settings.php');
 require (JIRAFEAU_ROOT . 'lib/functions.php');
 require (JIRAFEAU_ROOT . 'lib/lang.php');
+
+if (file_exists (JIRAFEAU_ROOT . 'install.php')
+    && !file_exists (JIRAFEAU_ROOT . 'lib/config.local.php'))
+{
+    header('Location: install.php'); 
+    exit;
+}
 
 /* check if the destination dirs are writable */
 $writable = is_writable (VAR_FILES) && is_writable (VAR_LINKS);
@@ -31,7 +37,6 @@ $writable = is_writable (VAR_FILES) && is_writable (VAR_LINKS);
 $res = array ();
 if ($writable && isset ($_POST['jirafeau']))
 {
-
     $key = $_POST['key'];
 
     $time = time ();
@@ -60,13 +65,6 @@ if ($writable && isset ($_POST['jirafeau']))
     $res =
         jirafeau_upload ($_FILES['file'], isset ($_POST['one_time_download']),
                          $key, $time, $cfg, $_SERVER['REMOTE_ADDR']);
-}
-
-if (file_exists (JIRAFEAU_ROOT . 'install.php')
-    && !file_exists (JIRAFEAU_ROOT . 'lib/config.local.php'))
-{
-    header('Location: install.php'); 
-    exit;
 }
 
 require (JIRAFEAU_ROOT . 'lib/template/header.php');

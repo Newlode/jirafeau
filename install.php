@@ -155,6 +155,17 @@ if (isset ($_POST['step']) && isset ($_POST['next']))
         break;
 
     case 2:
+        $cfg['admin_password'] = $_POST['admin_password'];
+        jirafeau_export_cfg ($cfg);
+        break;
+
+    case 3:
+        $cfg['web_root'] = jirafeau_add_ending_slash ($_POST['web_root']);
+        $cfg['var_root'] = jirafeau_add_ending_slash ($_POST['var_root']);
+        jirafeau_export_cfg ($cfg);
+        break;
+
+    case 4:
         $cfg['web_root'] = jirafeau_add_ending_slash ($_POST['web_root']);
         $cfg['var_root'] = jirafeau_add_ending_slash ($_POST['var_root']);
         jirafeau_export_cfg ($cfg);
@@ -178,15 +189,133 @@ else if (isset ($_POST['retry']))
 
 switch ($current)
 {
+case 1:
+default:
+    ?><h2><?php printf (_('Installation of Jirafeau') . ' - ' . _('step') .
+    ' %d ' . _('out of') . ' %d', 1, 4);
+    ?></h2> <div id = "install"> <form action =
+        "<?php echo basename(__FILE__); ?>" method = "post"> <input type =
+        "hidden" name = "jirafeau" value =
+        "<?php echo JIRAFEAU_VERSION; ?>" /><input type = "hidden" name =
+        "step" value = "1" /><fieldset> <legend><?php echo _('Language');
+    ?></legend> <table> <tr> <td class = "info" colspan =
+        "2"><?php echo
+        _
+        ('Jirafeau is internationalised. Choose a specific langage or ' .
+         'choose Automatic (langage is provided by user\'s browser).');
+    ?></td> </tr> <tr> <td class = "label"><label for = "select_lang"
+       ><?php echo _('Choose the default language') . ':';
+    ?></label></td>
+        <td class = "field">
+        <select name = "lang" id = "select_lang">
+        <?php foreach ($languages_list as $key => $item)
+    {
+        echo '<option value="'.$key.'"'.($key ==
+                      $cfg['lang'] ? ' selected="selected"'
+                      : '').'>'.$item.'</option>'.NL;
+    }
+    ?></select>
+        </td>
+        </tr>
+        <tr class = "nav">
+        <td></td>
+        <td class = "nav next"><input type = "submit" name = "next" value =
+        "<?php echo _('Next step'); ?>" /></td> </tr> </table>
+        </fieldset> </form> </div> <?php
+break;
+    
+case 2:
+    ?><h2><?php printf (_('Installation of Jirafeau') . ' - ' . _('step') .
+    ' %d ' . _('out of') . ' %d', 2, 4);
+    ?></h2> <div id = "install"> <form action =
+        "<?php echo basename(__FILE__); ?>" method = "post"> <input type =
+        "hidden" name = "jirafeau" value =
+        "<?php echo JIRAFEAU_VERSION; ?>" /><input type = "hidden" name =
+        "step" value = "2" /><fieldset> <legend><?php
+        echo _('Administration password');
+    ?></legend> <table> <tr> <td class = "info" colspan =
+        "2"><?php echo
+        _
+        ('Jirafeau has an administration interface (through admin.php). ' .
+        'You can set a password to access the intercace or let it be empty ' .
+        'to disable the interface.');
+    ?></td> </tr> <tr> <td class = "label"><label for = "select_password"
+       ><?php echo _('Administration password') . ':';
+    ?></label></td>
+        <td class = "field"><input type = "password" name = "admin_password"
+        id = "admin_password" size = "40" /></td>
+        </tr>
+        <tr class = "nav">
+        <td></td>
+        <td class = "nav next"><input type = "submit" name = "next" value =
+        "<?php echo _('Next step'); ?>" /></td> </tr> </table>
+        </fieldset> </form> </div> <?php
+break;
+
 case 3:
     ?><h2><?php printf (_('Installation of Jirafeau') . ' - ' . _('step') .
-    ' %d ' . _('out of') . ' %d', 3, 3);
+    ' %d ' . _('out of') . ' %d', 3, 4);
     ?></h2> <div id = "install"> <form action =
         "<?php echo basename(__FILE__); ?>" method = "post"> <input type =
         "hidden" name = "jirafeau" value =
         "<?php echo JIRAFEAU_VERSION; ?>" /><input type = "hidden" name =
         "step" value =
-        "3" /><fieldset> <legend><?php echo _('Finalisation');
+        "3" /><fieldset> <legend><?php echo _('Information');
+    ?></legend> <table> <tr> <td class = "info" colspan =
+        "2"><?php echo
+        _
+        ('The base address of Jirafeau is the first part of the URL, until ' .
+         '(and including) the last slash. For example: ' .
+         '"http://www.example.com/". Do not forget the ending slash!');
+    ?></td> </tr> <tr> <td class = "label"><label for = "input_web_root"
+       ><?php echo _('Base address') . ':';
+    ?></label></td>
+        <td class = "field"><input type = "text" name = "web_root"
+        id = "input_web_root" value = "<?php
+        echo (empty($cfg['web_root']) ?
+          'http://' . $_SERVER['HTTP_HOST'] . str_replace(basename(__FILE__),
+          '', $_SERVER['REQUEST_URI']) : $cfg['web_root']);
+      ?>" size = "40" /></td>
+        </tr> <tr> <td class = "info" colspan = "2"><?php
+        echo _('The data directory is where your files and information about' .
+        ' your files will be stored. You should put it outside your web ' .
+        'site, or at least restrict the access of this directory. Do not ' .
+        'forget the ending slash!');
+    ?></td> </tr> <tr> <td class = "label"><label for = "input_var_root"
+       ><?php echo _('Data directory') . ':';
+    ?></label></td>
+        <td class = "field"><input type = "text" name = "var_root"
+        id = "input_var_root" value = "<?php
+        if(empty($cfg['var_root'])) {
+          $alphanum = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ' .
+          'abcdefghijklmnopqrstuvwxyz' . '0123456789';
+          $len_alphanum = strlen($alphanum);
+          $var = 'var-';
+          for($i = 0; $i <JIRAFEAU_VAR_RAND_LENGTH; $i++) {
+            $var .= substr($alphanum, mt_rand(0, $len_alphanum - 1), 1);
+          }
+          echo JIRAFEAU_ROOT . $var . '/';
+        }
+        else
+          echo $cfg['var_root'];
+      ?>" size = "40" /></td>
+        </tr> <tr> <td colspan = "2"> <input type = "submit"
+        class = "navright" name = "next" value = "
+        <?php echo _('Next step'); ?>" /><input type = "submit"
+        class = "navleft" name = "previous" value = "<?php
+        echo _('Previous step'); ?>" /></td> </tr> </table> </fieldset>
+        </form> </div> <?php
+break;
+
+case 4:
+    ?><h2><?php printf (_('Installation of Jirafeau') . ' - ' . _('step') .
+    ' %d ' . _('out of') . ' %d', 4, 4);
+    ?></h2> <div id = "install"> <form action =
+        "<?php echo basename(__FILE__); ?>" method = "post"> <input type =
+        "hidden" name = "jirafeau" value =
+        "<?php echo JIRAFEAU_VERSION; ?>" /><input type = "hidden" name =
+        "step" value =
+        "4" /><fieldset> <legend><?php echo _('Finalisation');
     ?></legend> <table> <tr> <td class = "info" colspan =
         "2"><?php echo
         _ ('Jirafeau is setting the website according to the configuration ' .
@@ -218,82 +347,8 @@ case 3:
              '<br /><a href="' . $cfg['web_root'] . '">' .
              $cfg['web_root'].'</a></p></div>';
     }
-    break;
-
-case 2:
-    ?><h2><?php printf (_('Installation of Jirafeau') . ' - ' . _('step') .
-    ' %d ' . _('out of') . ' %d', 2, 3);
-    ?></h2> <div id = "install"> <form action =
-        "<?php echo basename(__FILE__); ?>" method = "post"> <input type =
-        "hidden" name = "jirafeau" value =
-        "<?php echo JIRAFEAU_VERSION; ?>" /><input type = "hidden" name =
-        "step" value =
-        "2" /><fieldset> <legend><?php echo _('Information');
-    ?></legend> <table> <tr> <td class = "info" colspan =
-        "2"><?php echo
-        _
-        ('The base address of Jirafeau is the first part of the URL, until (and including) the last slash. For example: "http://www.example.com/". Do not forget the ending slash!');
-    ?></td> </tr> <tr> <td class = "label"><label for = "input_web_root"
-       ><?php echo _('Base address') . ':';
-    ?></label></td>
-        <td class = "field"><input type = "text" name = "web_root" id = "input_web_root" value = "<?php
-        echo (empty($cfg['web_root']) ?
-          'http://' . $_SERVER['HTTP_HOST'] . str_replace(basename(__FILE__), '', $_SERVER['REQUEST_URI']) :
-          $cfg['web_root']);
-      ?>" size = "40" /></td>
-        </tr> <tr> <td class = "info" colspan = "2"><?php echo _('The data directory is where your files and information about your files will be stored. You should put it outside your web site, or at least restrict the access of this directory. Do not forget the ending slash!');
-    ?></td> </tr> <tr> <td class = "label"><label for = "input_var_root"
-       ><?php echo _('Data directory') . ':';
-    ?></label></td>
-        <td class = "field"><input type = "text" name = "var_root" id = "input_var_root" value = "<?php
-        if(empty($cfg['var_root'])) {
-          $alphanum = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-          $len_alphanum = strlen($alphanum);
-          $var = 'var-';
-          for($i = 0; $i <JIRAFEAU_VAR_RAND_LENGTH; $i++) {
-            $var .= substr($alphanum, mt_rand(0, $len_alphanum - 1), 1);
-          }
-          echo JIRAFEAU_ROOT . $var . '/';
-        } else {
-          echo $cfg['var_root'];
-        } 
-      ?>" size = "40" /></td>
-        </tr> <tr> <td colspan = "2"> <input type = "submit" class = "navright" name = "next" value = "<?php echo _('Next step'); ?>" /><input type = "submit" class = "navleft" name = "previous" value = "<?php echo _('Previous step'); ?>" /></td> </tr> </table> </fieldset> </form> </div> <?php break;
-
-case 1:
-default:
-    ?><h2><?php printf (_('Installation of Jirafeau') . ' - ' . _('step') .
-    ' %d ' . _('out of') . ' %d', 1, 3);
-    ?></h2> <div id = "install"> <form action =
-        "<?php echo basename(__FILE__); ?>" method = "post"> <input type =
-        "hidden" name = "jirafeau" value =
-        "<?php echo JIRAFEAU_VERSION; ?>" /><input type = "hidden" name =
-        "step" value = "1" /><fieldset> <legend><?php echo _('Language');
-    ?></legend> <table> <tr> <td class = "info" colspan =
-        "2"><?php echo
-        _
-        ('Jirafeau is internationalised. Choose a specific langage or choose Automatic (langage is provided by user\'s browser).');
-    ?></td> </tr> <tr> <td class = "label"><label for = "select_lang"
-       ><?php echo _('Choose the default language') . ':';
-    ?></label></td>
-        <td class = "field">
-        <select name = "lang" id = "select_lang">
-        <?php foreach ($languages_list as $key => $item)
-    {
-        echo '<option value="'.$key.'"'.($key ==
-                                         $cfg['lang'] ? ' selected="selected"'
-                                         : '').'>'.$item.'</option>'.NL;
-    }
-    ?></select>
-        </td>
-        </tr>
-        <tr class = "nav">
-        <td></td>
-        <td class = "nav next"><input type = "submit" name = "next" value =
-        "<?php echo _('Next step'); ?>" /></td> </tr> </table>
-        </fieldset> </form> </div> <?php break;
+break;
 }
-
 
 require (JIRAFEAU_ROOT . 'lib/template/footer.php');
 ?>
