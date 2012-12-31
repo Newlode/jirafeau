@@ -118,9 +118,11 @@ jirafeau_delete ($link)
         fclose ($handle);
     }
 
-    if ($counter == 0 && file_exists ( VAR_FILES . $md5))
+    if ($counter == 0)
     {
-        unlink ( VAR_FILES . $md5);
+        if (file_exists (VAR_FILES . $md5))
+            unlink ( VAR_FILES . $md5);
+        if (file_exists (VAR_FILES . $md5 . '_count'))
         unlink ( VAR_FILES . $md5. '_count');
     }
 }
@@ -136,7 +138,8 @@ jirafeau_delete_file ($md5)
     
     foreach ($links_dir as $link)
     {
-        if (strcmp ($link, '.') == 0 || strcmp ($link, '..') == 0)
+        if (strcmp ($link, '.') == 0 || strcmp ($link, '..') == 0 ||
+            preg_match ('/\.tmp/i', "$link"))
             continue;
         /* Read link informations. */
         $l = jirafeau_get_link ($link);
@@ -400,7 +403,8 @@ jirafeau_admin_list ($name, $file_hash, $link_hash)
     echo '</tr>';
     foreach ($links_dir as $link)
     {
-        if (strcmp ($link, '.') == 0 || strcmp ($link, '..') == 0)
+        if (strcmp ($link, '.') == 0 || strcmp ($link, '..') == 0 ||
+            preg_match ('/\.tmp/i', "$link"))
             continue;
         /* Read link informations. */
         $l = jirafeau_get_link ($link);
@@ -452,13 +456,15 @@ jirafeau_admin_clean ()
 
     foreach ($links_dir as $link)
     {
-        if (strcmp ($link, '.') == 0 || strcmp ($link, '..') == 0)
+        if (strcmp ($link, '.') == 0 || strcmp ($link, '..') == 0 ||
+            preg_match ('/\.tmp/i', "$link"))
             continue;
         /* Read link informations. */
         $l = jirafeau_get_link ($link);
-        if ($l['time'] > 0 && $l['time'] < time ())
+        if ($l['time'] > 0 && $l['time'] < time () || // expired
+            !file_exists (VAR_FILES . $l['md5']) || // invalid
+            !file_exists (VAR_FILES . $l['md5'] . '_count')) // invalid
         {
-            echo 'HAAAA' . $l['time'] . '-->' . time ();
             jirafeau_delete ($link);
             $c++;
         }
