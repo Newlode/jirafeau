@@ -146,7 +146,7 @@ if (!has_error () && $writable)
         <hr /><div id = "moreoptions"> <p><label><input type =
         "checkbox" name =
         "one_time_download" /><?php echo _('One time download');
-    ?></label></p> <p><label for = "input_key"
+    ?></label></p><br/><p><label for = "input_key"
        ><?php echo _('Password') . ':';
     ?></label> <input type = "text" name = "key" id = "input_key" /></p>
         <p><label for = "select_time"
