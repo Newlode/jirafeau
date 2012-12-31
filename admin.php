@@ -37,7 +37,7 @@ if (file_exists (JIRAFEAU_ROOT . 'install.php'))
 {
     require (JIRAFEAU_ROOT . 'lib/template/header.php');
     echo '<div class="error"><p>'.
-         _('Installer script still present') .
+         t('Installer script still present') .
          '</p></div>';
     require (JIRAFEAU_ROOT.'lib/template/footer.php');
     exit;
@@ -48,7 +48,7 @@ if (!$cfg['admin_password'])
 {
     require (JIRAFEAU_ROOT . 'lib/template/header.php');
     echo '<div class="error"><p>'.
-         _('Sorry, the admin interface is not enabled.') .
+         t('Sorry, the admin interface is not enabled.') .
          '</p></div>';
     require (JIRAFEAU_ROOT.'lib/template/footer.php');
     exit;
@@ -71,7 +71,7 @@ if (isset ($_POST['admin_password']))
         $_SESSION['admin_auth'] = false;
         require (JIRAFEAU_ROOT . 'lib/template/header.php');
         echo '<div class="error"><p>'.
-             _('Wrong password.') . '</p></div>';
+             t('Wrong password.') . '</p></div>';
         require (JIRAFEAU_ROOT.'lib/template/footer.php');
         exit;
     }
@@ -85,7 +85,7 @@ elseif (!isset ($_SESSION['admin_auth']) || $_SESSION['admin_auth'] != true)
         <table>
         <tr>
             <td class = "label"><label for = "enter_password">
-            <?php echo _('Administration password') . ':';?></label>
+            <?php echo t('Administration password') . ':';?></label>
             </td>
             <td class = "field"><input type = "password"
             name = "admin_password" id = "admin_password"
@@ -96,7 +96,7 @@ elseif (!isset ($_SESSION['admin_auth']) || $_SESSION['admin_auth'] != true)
             <td></td>
             <td class = "nav next">
             <input type = "submit" name = "key" value =
-            "<?php echo _('Login'); ?>" />
+            "<?php echo t('Login'); ?>" />
             </td>
         </tr>
         </table>
@@ -109,22 +109,22 @@ elseif (!isset ($_SESSION['admin_auth']) || $_SESSION['admin_auth'] != true)
 
 /* Admin interface. */
 require (JIRAFEAU_ROOT . 'lib/template/header.php');
-?><h2><?php echo _('Admin interface'); ?></h2><?php
+?><h2><?php echo t('Admin interface'); ?></h2><?php
 
 /* Show admin interface. */
 {
         ?><div id = "install">
-        <fieldset><legend><?php echo _('Actions');?></legend>
+        <fieldset><legend><?php echo t('Actions');?></legend>
         <table>
         <form action = "<?php echo basename(__FILE__); ?>" method = "post">
         <tr>
             <input type = "hidden" name = "action" value = "clean"/>
             <td class = "info">
-                <?php echo _('Clean expired files'); ?>
+                <?php echo t('Clean expired files'); ?>
             </td>
             <td></td>
             <td>
-                <input type = "submit" value = "<?php echo _('Clean'); ?>" />
+                <input type = "submit" value = "<?php echo t('Clean'); ?>" />
             </td>
         </tr>
         </form>
@@ -132,11 +132,11 @@ require (JIRAFEAU_ROOT . 'lib/template/header.php');
         <tr>
             <input type = "hidden" name = "action" value = "list"/>
             <td class = "info">
-                <?php echo _('List all files'); ?>
+                <?php echo t('List all files'); ?>
             </td>
             <td></td>
             <td>
-                <input type = "submit" value = "<?php echo _('List'); ?>" />
+                <input type = "submit" value = "<?php echo t('List'); ?>" />
             </td>
         </tr>
         </form>
@@ -144,13 +144,13 @@ require (JIRAFEAU_ROOT . 'lib/template/header.php');
         <tr>
             <input type = "hidden" name = "action" value = "search_by_name"/>
             <td class = "info">
-                <?php echo _('Search files by name'); ?>
+                <?php echo t('Search files by name'); ?>
             </td>
             <td>
                 <input type = "text" name = "name" id = "name"/>
             </td>
             <td>
-                <input type = "submit" value = "<?php echo _('Search'); ?>" />
+                <input type = "submit" value = "<?php echo t('Search'); ?>" />
             </td>
         </tr>
         </form>
@@ -158,13 +158,13 @@ require (JIRAFEAU_ROOT . 'lib/template/header.php');
         <tr>
             <input type = "hidden" name = "action" value = "search_by_file_hash"/>
             <td class = "info">
-                <?php echo _('Search files by file hash'); ?>
+                <?php echo t('Search files by file hash'); ?>
             </td>
             <td>
                 <input type = "text" name = "hash" id = "hash"/>
             </td>
             <td>
-                <input type = "submit" value = "<?php echo _('Search'); ?>" />
+                <input type = "submit" value = "<?php echo t('Search'); ?>" />
             </td>
         </tr>
         </form>
@@ -172,20 +172,20 @@ require (JIRAFEAU_ROOT . 'lib/template/header.php');
         <tr>
             <input type = "hidden" name = "action" value = "search_link"/>
             <td class = "info">
-                <?php echo _('Search a specific link'); ?>
+                <?php echo t('Search a specific link'); ?>
             </td>
             <td>
                 <input type = "text" name = "link" id = "link"/>
             </td>
             <td>
-                <input type = "submit" value = "<?php echo _('Search'); ?>" />
+                <input type = "submit" value = "<?php echo t('Search'); ?>" />
             </td>
         </tr>
         </form>
         </table>
         <form action = "<?php echo basename(__FILE__); ?>" method = "post">
         <input type = "hidden" name = "action" value = "logout"/>
-        <input type = "submit" value = "<?php echo _('Logout'); ?>" />
+        <input type = "submit" value = "<?php echo t('Logout'); ?>" />
         </form>
         </fieldset></div><?php
 }
@@ -198,7 +198,7 @@ if (isset ($_POST['action']))
         $total = jirafeau_admin_clean ();
         echo '<div class="message">' . NL;
         echo '<p>';
-        echo _('Number of cleaned files') . ' : ' . $total;
+        echo t('Number of cleaned files') . ' : ' . $total;
         echo '</p></div>';
     }
     elseif (strcmp ($_POST['action'], 'list') == 0)
@@ -221,13 +221,13 @@ if (isset ($_POST['action']))
     {
         jirafeau_delete ($_POST['link']);
         echo '<div class="message">' . NL;
-        echo '<p>' . _('Link deleted') . '</p></div>';
+        echo '<p>' . t('Link deleted') . '</p></div>';
     }
     elseif (strcmp ($_POST['action'], 'delete_file') == 0)
     {
         $count = jirafeau_delete_file ($_POST['md5']);
         echo '<div class="message">' . NL;
-        echo '<p>' . _('Deleted links') . ' : ' . $count . '</p></div>';
+        echo '<p>' . t('Deleted links') . ' : ' . $count . '</p></div>';
     }
 }
 

@@ -23,7 +23,7 @@
                           'fr' => 'Français');
 
 /* Translation */
-function _ ($text)
+function t ($text)
 {
     $cfg = $GLOBALS['cfg'];
     $languages_list = $GLOBALS['languages_list'];

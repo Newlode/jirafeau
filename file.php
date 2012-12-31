@@ -35,7 +35,7 @@ if (isset ($_GET['h']) && !empty ($_GET['h']))
     if (!preg_match ('/[0-9a-f]{32}$/', $link_name))
     {
         require (JIRAFEAU_ROOT.'lib/template/header.php');
-        echo '<div class="error"><p>' . _('Sorry, the requested file is not found') . '</p></div>';
+        echo '<div class="error"><p>' . t('Sorry, the requested file is not found') . '</p></div>';
         require (JIRAFEAU_ROOT.'lib/template/footer.php');
         exit;
     }
@@ -44,7 +44,7 @@ if (isset ($_GET['h']) && !empty ($_GET['h']))
     if (count ($link) == 0)
     {
         require (JIRAFEAU_ROOT.'lib/template/header.php');
-        echo '<div class="error"><p>' . _('Sorry, the requested file is not found') .
+        echo '<div class="error"><p>' . t('Sorry, the requested file is not found') .
         '</p></div>';
         require (JIRAFEAU_ROOT.'lib/template/footer.php');
         exit;
@@ -54,7 +54,7 @@ if (isset ($_GET['h']) && !empty ($_GET['h']))
     {
         jirafeau_delete ($link_name);
         require (JIRAFEAU_ROOT.'lib/template/header.php');
-        echo '<div class="error"><p>'._('File not available.').
+        echo '<div class="error"><p>'.t('File not available.').
         '</p></div>';
         require (JIRAFEAU_ROOT.'lib/template/footer.php');
         exit;
@@ -64,7 +64,7 @@ if (isset ($_GET['h']) && !empty ($_GET['h']))
     {
         jirafeau_delete ($link_name);
         require (JIRAFEAU_ROOT.'lib/template/header.php');
-        echo '<div class="message"><p>'._('File has been deleted.').
+        echo '<div class="message"><p>'.t('File has been deleted.').
          '</p></div>';
         require (JIRAFEAU_ROOT.'lib/template/footer.php');
         exit;
@@ -75,8 +75,8 @@ if (isset ($_GET['h']) && !empty ($_GET['h']))
         jirafeau_delete ($link_name);
         require (JIRAFEAU_ROOT.'lib/template/header.php');
         echo '<div class="error"><p>'.
-        _('The time limit of this file has expired.') . ' ' .
-        _('File has been deleted.') .
+        t('The time limit of this file has expired.') . ' ' .
+        t('File has been deleted.') .
         '</p></div>';
         require (JIRAFEAU_ROOT.'lib/template/footer.php');
         exit;
@@ -92,13 +92,13 @@ if (isset ($_GET['h']) && !empty ($_GET['h']))
             "<?php echo $_SERVER['REQUEST_URI']; ?>" method =
             "post"> <input type = "hidden" name = "jirafeau" value =
             "<?php echo JIRAFEAU_VERSION; ?>" /><fieldset>
-            <legend><?php echo _('Password protection');
+            <legend><?php echo t('Password protection');
         ?></legend> <table> <tr>
-            <td><?php echo _('Give the password of this file') . ' : ';
+            <td><?php echo t('Give the password of this file') . ' : ';
         ?><input type = "password" name =
             "key" /></td> </tr> <tr> <td><input type =
             "submit" value =
-            "<?php echo _('Download'); ?>"
+            "<?php echo t('Download'); ?>"
             /></td> </tr> </table> </fieldset> </form> </div>
             <?php require (JIRAFEAU_ROOT.'lib/template/footer.php');
         exit;
@@ -110,7 +110,7 @@ if (isset ($_GET['h']) && !empty ($_GET['h']))
             header ("Access denied");
 
             require (JIRAFEAU_ROOT.'lib/template/header.php');
-            echo '<div class="error"><p>' . _('Access denied') .
+            echo '<div class="error"><p>' . t('Access denied') .
             '</p></div>';
             require (JIRAFEAU_ROOT.'lib/template/footer.php');
             exit;

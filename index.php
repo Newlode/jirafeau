@@ -71,21 +71,21 @@ require (JIRAFEAU_ROOT . 'lib/template/header.php');
 
 /* Checking for errors. */
 if (!is_writable (VAR_FILES))
-    add_error (_('The file directory is not writable!'), VAR_FILES);
+    add_error (t('The file directory is not writable!'), VAR_FILES);
 
 if (!is_writable (VAR_LINKS))
-    add_error (_('The link directory is not writable!'), VAR_LINKS);
+    add_error (t('The link directory is not writable!'), VAR_LINKS);
 
 /* Check if the install.php script is still in the directory. */
 if (file_exists (JIRAFEAU_ROOT . 'install.php'))
-    add_error (_('Installer script still present'),
-               _('Please make sure to delete the installer script ' .
+    add_error (t('Installer script still present'),
+               t('Please make sure to delete the installer script ' .
                  '"install.php" before continuing.'));
 
 if (!has_error () && !empty ($res))
 {
     if ($res['error']['has_error'])
-        add_error (_('An error occurred.'), $res['error']['why']);
+        add_error (t('An error occurred.'), $res['error']['why']);
     else
     {
         $link = $cfg['web_root'];
@@ -106,20 +106,20 @@ if (!has_error () && !empty ($res))
         }
 
         echo '<div class="message">'.NL;
-        echo '<p>' . _('File uploaded! Copy the following URL to get it') .
+        echo '<p>' . t('File uploaded! Copy the following URL to get it') .
             ':<br />' . NL;
         echo '<a href="'.$link.'">'.$link.'</a>' . NL;
 
         if ($time != JIRAFEAU_INFINITY)
         {
-            echo '<br />' . _('This file is valid until the following date') .
+            echo '<br />' . t('This file is valid until the following date') .
                 ':<br /><strong>' . strftime ('%c', $time) . '</strong>';
         }
 
         echo '</p></div>';
 
         echo '<div class="message">' . NL;
-        echo '<p>' . _('Keep the following URL to delete it at any moment') . ':<br />' . NL;
+        echo '<p>' . t('Keep the following URL to delete it at any moment') . ':<br />' . NL;
         echo '<a href="' . $delete_link . '">' . $delete_link . '</a>' . NL;
         echo '</p></div>';
     }
@@ -135,30 +135,30 @@ if (!has_error () && $writable)
         <?php echo $cfg['web_root']; ?>" method =
         "post"> <div><input type = "hidden" name = "jirafeau" value = "
         <?php echo JIRAFEAU_VERSION; ?>" /></div> <fieldset>
-        <legend><?php echo _('Upload a file');
+        <legend><?php echo t('Upload a file');
     ?></legend> <p><input type = "file" name = "file" size =
         "30" /></p> <p class =
-        "config"><?php printf ('%s: %dMB', _('Maximum file size'),
+        "config"><?php printf ('%s: %dMB', t('Maximum file size'),
                                jirafeau_get_max_upload_size () / (1024 *
                                                                   1024));
     ?></p> <p><input type = "submit" value =
-        "<?php echo _('Send'); ?>" /></p>
+        "<?php echo t('Send'); ?>" /></p>
         <hr /><div id = "moreoptions"> <p><label><input type =
         "checkbox" name =
-        "one_time_download" /><?php echo _('One time download');
+        "one_time_download" /><?php echo t('One time download');
     ?></label></p><br/><p><label for = "input_key"
-       ><?php echo _('Password') . ':';
+       ><?php echo t('Password') . ':';
     ?></label><input type = "text" name = "key" id = "input_key" /></p>
         <p><label for = "select_time"
-       ><?php echo _('Time limit') . ':';
+       ><?php echo t('Time limit') . ':';
     ?></label>
         <select name = "time" id = "select_time">
-        <option value = "none"><?php echo _('None');
-    ?></option> <option value = "minute"><?php echo _('One minute');
-    ?></option> <option value = "hour"><?php echo _('One hour');
-    ?></option> <option value = "day"><?php echo _('One day');
-    ?></option> <option value = "week"><?php echo _('One week');
-    ?></option> <option value = "month"><?php echo _('One month');
+        <option value = "none"><?php echo t('None');
+    ?></option> <option value = "minute"><?php echo t('One minute');
+    ?></option> <option value = "hour"><?php echo t('One hour');
+    ?></option> <option value = "day"><?php echo t('One day');
+    ?></option> <option value = "week"><?php echo t('One week');
+    ?></option> <option value = "month"><?php echo t('One month');
     ?></option>
         </select> </p> </div> </fieldset> </form> </div> <?php
 }

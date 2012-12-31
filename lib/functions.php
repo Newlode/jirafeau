@@ -67,26 +67,26 @@ jirafeau_upload_errstr ($code)
     {
     case UPLOAD_ERR_INI_SIZE:
     case UPLOAD_ERR_FORM_SIZE:
-        return _('Your file exceeds the maximum authorized file size. ');
+        return t('Your file exceeds the maximum authorized file size. ');
         break;
 
     case UPLOAD_ERR_PARTIAL:
     case UPLOAD_ERR_NO_FILE:
         return
-            _
+            t
             ('Your file was not uploaded correctly. You may succeed in retrying. ');
         break;
 
     case UPLOAD_ERR_NO_TMP_DIR:
     case UPLOAD_ERR_CANT_WRITE:
     case UPLOAD_ERR_EXTENSION:
-        return _('Internal error. You may not succeed in retrying. ');
+        return t('Internal error. You may not succeed in retrying. ');
         break;
 
     default:
         break;
     }
-    return _('Unknown error. ');
+    return t('Unknown error. ');
 }
 
 /** Remove link and it's file
@@ -208,7 +208,7 @@ jirafeau_upload ($file, $one_time_download, $key, $time, $cfg, $ip)
         return (array(
                  'error' =>
                    array ('has_error' => true,
-                          'why' => _('Internal error during file creation. ')),
+                          'why' => t('Internal error during file creation. ')),
                  'link' =>'',
                  'delete_link' => ''));
     }
@@ -262,7 +262,7 @@ jirafeau_upload ($file, $one_time_download, $key, $time, $cfg, $ip)
         return (array(
                  'error' =>
                    array ('has_error' => true,
-                          'why' => _('Internal error during file creation. ')),
+                          'why' => t('Internal error during file creation. ')),
                  'link' =>'',
                  'delete_link' => ''));
     }
@@ -388,18 +388,18 @@ jirafeau_admin_list ($name, $file_hash, $link_hash)
     if (!empty ($link_hash))
         echo $link_hash . ' ';
     if (empty ($name) && empty ($file_hash) && empty ($link_hash))
-        echo _('List all files');
+        echo t('List all files');
     echo '</legend>';
     echo '<table>';
     echo '<tr>';
-    echo '<td>' . _('Filename') . '</td>';
-    echo '<td>' . _('Type') . '</td>';
-    echo '<td>' . _('Size') . '</td>';
-    echo '<td>' . _('Expire') . '</td>';
-    echo '<td>' . _('Onetime') . '</td>';
-    echo '<td>' . _('Upload date') . '</td>';
-    echo '<td>' . _('Origin') . '</td>';
-    echo '<td>' . _('Action') . '</td>';
+    echo '<td>' . t('Filename') . '</td>';
+    echo '<td>' . t('Type') . '</td>';
+    echo '<td>' . t('Size') . '</td>';
+    echo '<td>' . t('Expire') . '</td>';
+    echo '<td>' . t('Onetime') . '</td>';
+    echo '<td>' . t('Upload date') . '</td>';
+    echo '<td>' . t('Origin') . '</td>';
+    echo '<td>' . t('Action') . '</td>';
     echo '</tr>';
     foreach ($links_dir as $link)
     {
@@ -431,12 +431,12 @@ jirafeau_admin_list ($name, $file_hash, $link_hash)
         '<form action = "admin.php" method = "post">' .
         '<input type = "hidden" name = "action" value = "delete_link"/>' .
         '<input type = "hidden" name = "link" value = "' . $link . '"/>' .
-        '<input type = "submit" value = "' . _('Del link') . '" />' .
+        '<input type = "submit" value = "' . t('Del link') . '" />' .
         '</form>' .
         '<form action = "admin.php" method = "post">' .
         '<input type = "hidden" name = "action" value = "delete_file"/>' .
         '<input type = "hidden" name = "md5" value = "' . $l['md5'] . '"/>' .
-        '<input type = "submit" value = "' . _('Del file and links') . '" />' .
+        '<input type = "submit" value = "' . t('Del file and links') . '" />' .
         '</form>' .
         '</td>';
         echo '</tr>';
