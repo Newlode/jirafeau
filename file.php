@@ -94,11 +94,11 @@ if (isset ($_GET['h']) && !empty ($_GET['h']))
             "<?php echo JIRAFEAU_VERSION; ?>" /><fieldset>
             <legend><?php echo _('Password protection');
         ?></legend> <table> <tr>
-            <td><?php echo _('Give the password of this file:');
+            <td><?php echo _('Give the password of this file') . ' : ';
         ?><input type = "password" name =
             "key" /></td> </tr> <tr> <td><input type =
             "submit" value =
-            "<?php echo _('I have the right to download this file'); ?>"
+            "<?php echo _('Download'); ?>"
             /></td> </tr> </table> </fieldset> </form> </div>
             <?php require (JIRAFEAU_ROOT.'lib/template/footer.php');
         exit;
