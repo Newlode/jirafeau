@@ -247,7 +247,11 @@ case 2:
         </tr>
         <tr class = "nav">
         <td></td>
-        <td class = "nav next"><input type = "submit" name = "next" value =
+        <td class = "nav next">
+        <input type = "submit"
+        class = "navleft" name = "previous" value = "<?php
+        echo _('Previous step'); ?>" />
+        <input type = "submit" name = "next" value =
         "<?php echo _('Next step'); ?>" /></td> </tr> </table>
         </fieldset> </form> </div> <?php
 break;
@@ -299,11 +303,12 @@ case 3:
         else
           echo $cfg['var_root'];
       ?>" size = "40" /></td>
-        </tr> <tr> <td colspan = "2"> <input type = "submit"
-        class = "navright" name = "next" value = "
-        <?php echo _('Next step'); ?>" /><input type = "submit"
+        </tr> <tr> <td colspan = "2"><input type = "submit"
         class = "navleft" name = "previous" value = "<?php
-        echo _('Previous step'); ?>" /></td> </tr> </table> </fieldset>
+        echo _('Previous step'); ?>" />
+         <input type = "submit" class = "navright" name = "next" value = "
+        <?php echo _('Next step'); ?>" />
+        </td> </tr> </table> </fieldset>
         </form> </div> <?php
 break;
 

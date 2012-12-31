@@ -32,7 +32,7 @@ $cfg['var_root'] = '';
    user's langage is not available.
  */
 $cfg['lang'] = 'auto';
-$cfg['style'] = 'default';
+$cfg['style'] = 'industrial';
 $cfg['rewrite'] = false;
 /* An empty admin password will disable the admin interface. */
 $cfg['admin_password'] = '';
