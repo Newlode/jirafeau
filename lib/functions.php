@@ -17,6 +17,68 @@
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
+/**
+ * Transform a string in a path by seperating each letters by a '/'.
+  * @return path finishing with a '/'
+ */
+function
+s2p ($s)
+{
+    $p = '';
+    for ($i = 0; $i < strlen ($s); $i++)
+        $p .= $s{$i} . '/';
+    return $p;
+}
+
+function
+jirafeau_human_size ($octets)
+{
+    $u = array ('B', 'KB', 'MB', 'GB', 'TB');
+    $o = max ($octets, 0);
+    $p = min (floor (($o ? log ($o) : 0) / log (1024)), count ($u) - 1);
+    $o /= pow (1024, $p);
+    return round ($o, 1) . $u[$p];
+} 
+
+function
+jirafeau_clean_rm_link ($link)
+{
+    $p = s2p ("$link");
+    if (file_exists (VAR_LINKS . $p . $link))
+        unlink (VAR_LINKS . $p . $link);
+    $parse = VAR_LINKS . $p;
+    $scan = array();
+    while (file_exists ($parse)
+           && ($scan = scandir ($parse))
+           && count ($scan) == 2 // '.' and '..' folders => empty.
+           && basename ($parse) != basename (VAR_LINKS)) 
+    {
+        rmdir ($parse);
+        $parse = substr ($parse, 0, strlen($parse) - strlen(basename ($parse)) - 1);
+    }
+}
+
+function
+jirafeau_clean_rm_file ($md5)
+{
+    $p = s2p ("$md5");
+    if (file_exists (VAR_FILES . $p . $md5))
+        unlink (VAR_FILES . $p . $md5);
+    if (file_exists (VAR_FILES . $p . $md5 . '_count'))
+        unlink (VAR_FILES . $p . $md5 . '_count');
+    $parse = VAR_FILES . $p;
+    $scan = array();
+    while (file_exists ($parse)
+           && ($scan = scandir ($parse))
+           && count ($scan) == 2 // '.' and '..' folders => empty.
+           && basename ($parse) != basename (VAR_FILES)) 
+    {
+        rmdir ($parse);
+        $parse = substr ($parse, 0, strlen($parse) - strlen(basename ($parse)) - 1);
+    }
+}
+
 /**
  * transforms a php.ini string representing a value in an integer
  * @param $value the value from php.ini
@@ -46,13 +108,14 @@ function jirafeau_ini_to_bytes ($value)
 
 /**
  * gets the maximum upload size according to php.ini
- * @returns the maximum upload size
+ * @returns the maximum upload size string
  */
 function
 jirafeau_get_max_upload_size ()
 {
-    return min (jirafeau_ini_to_bytes (ini_get ('post_max_size')),
-                jirafeau_ini_to_bytes (ini_get ('upload_max_filesize')));
+    return jirafeau_human_size(
+            min (jirafeau_ini_to_bytes (ini_get ('post_max_size')),
+                 jirafeau_ini_to_bytes (ini_get ('upload_max_filesize'))));
 }
 
 /**
@@ -94,37 +157,34 @@ jirafeau_upload_errstr ($code)
  */
 
 function
-jirafeau_delete ($link)
+jirafeau_delete_link ($link)
 {
-    if (!file_exists ( VAR_LINKS . $link))
+    $l = jirafeau_get_link ($link);
+    if (!count ($l))
         return;
 
-    $content = file (VAR_LINKS . $link);
-    $md5 = trim ($content[5]);
-    unlink (VAR_LINKS . $link);
+    jirafeau_clean_rm_link ($link);
+
+    $md5 = $l['md5'];
+    $p = s2p ("$md5");
 
     $counter = 1;
-    if (file_exists ( VAR_FILES . $md5. '_count'))
+    if (file_exists (VAR_FILES . $p . $md5. '_count'))
     {
-        $content = file ( VAR_FILES . $md5. '_count');
+        $content = file (VAR_FILES . $p . $md5. '_count');
         $counter = trim ($content[0]);
     }
     $counter--;
 
     if ($counter >= 1)
     {
-        $handle = fopen ( VAR_FILES . $md5. '_count', 'w');
+        $handle = fopen (VAR_FILES . $p . $md5. '_count', 'w');
         fwrite ($handle, $counter);
         fclose ($handle);
     }
 
     if ($counter == 0)
-    {
-        if (file_exists (VAR_FILES . $md5))
-            unlink ( VAR_FILES . $md5);
-        if (file_exists (VAR_FILES . $md5 . '_count'))
-        unlink ( VAR_FILES . $md5. '_count');
-    }
+        jirafeau_clean_rm_file ($md5);
 }
 
 /**
@@ -134,27 +194,38 @@ function
 jirafeau_delete_file ($md5)
 {
     $count = 0;
-    $links_dir = scandir (VAR_LINKS);
-    
-    foreach ($links_dir as $link)
+    /* Get all links files. */
+    $stack = array (VAR_LINKS);
+    while (($d = array_shift ($stack)) && $d != NULL)
     {
-        if (strcmp ($link, '.') == 0 || strcmp ($link, '..') == 0 ||
-            preg_match ('/\.tmp/i', "$link"))
-            continue;
-        /* Read link informations. */
-        $l = jirafeau_get_link ($link);
-        if ($l['md5'] == $md5)
+        $dir = scandir ($d);
+
+        foreach ($dir as $node)
         {
-            $count++;
-            jirafeau_delete ($link);
+            if (strcmp ($node, '.') == 0 || strcmp ($node, '..') == 0 ||
+                preg_match ('/\.tmp/i', "$node"))
+                continue;
+            
+            if (is_dir ($d . $node))
+            {
+                /* Push new found directory. */
+                $stack[] = $d . $node . '/';
+            }
+            elseif (is_file ($d . $node))
+            {
+                /* Read link informations. */
+                $l = jirafeau_get_link (basename ($node));
+                if (!count ($l))
+                    continue;
+                if ($l['md5'] == $md5)
+                {
+                    $count++;
+                    jirafeau_delete_link ($node);
+                }   
+            }
         }
     }
-
-    if (file_exists (VAR_FILES . $md5 . '_count'))
-        unlink (VAR_FILES . $md5. '_count');
-    if (file_exists (VAR_FILES . $md5))
-        unlink (VAR_FILES . $md5);
-
+    jirafeau_clean_rm_file ($md5);
     return $count;
 }
 
@@ -164,7 +235,6 @@ jirafeau_delete_file ($md5)
  * @param $one_time_download is the file a one time download ?
  * @param $key if not empty, protect the file with this key
  * @param $time the time of validity of the file
- * @param $cfg the current configuration
  * @param $ip uploader's ip
  * @returns an array containing some information
  *   'error' => information on possible errors
@@ -172,7 +242,7 @@ jirafeau_delete_file ($md5)
  *   'delete_link' => the link code to delete file
  */
 function
-jirafeau_upload ($file, $one_time_download, $key, $time, $cfg, $ip)
+jirafeau_upload ($file, $one_time_download, $key, $time, $ip)
 {
     if (empty ($file['tmp_name']) || !is_uploaded_file ($file['tmp_name']))
     {
@@ -195,11 +265,13 @@ jirafeau_upload ($file, $one_time_download, $key, $time, $cfg, $ip)
 
     /* does file already exist ? */
     $rc = false;
-    if (file_exists ( VAR_FILES . $md5))
+    $p = s2p ("$md5");
+    if (file_exists (VAR_FILES . $p .  $md5))
     {
         $rc = unlink ($file['tmp_name']);
     }
-    elseif (move_uploaded_file ($file['tmp_name'],  VAR_FILES . $md5))
+    elseif ((file_exists (VAR_FILES . $p) || @mkdir (VAR_FILES . $p, 0755, true))
+            && move_uploaded_file ($file['tmp_name'], VAR_FILES . $p . $md5))
     {
         $rc = true;
     }
@@ -208,20 +280,20 @@ jirafeau_upload ($file, $one_time_download, $key, $time, $cfg, $ip)
         return (array(
                  'error' =>
                    array ('has_error' => true,
-                          'why' => t('Internal error during file creation. ')),
+                          'why' => t('Internal error during file creation.')),
                  'link' =>'',
                  'delete_link' => ''));
     }
 
     /* increment or create count file */
     $counter = 0;
-    if (file_exists (VAR_FILES . $md5 . '_count'))
+    if (file_exists (VAR_FILES . $p . $md5 . '_count'))
     {
-        $content = file ( VAR_FILES . $md5. '_count');
+        $content = file (VAR_FILES . $p . $md5. '_count');
         $counter = trim ($content[0]);
     }
     $counter++;
-    $handle = fopen ( VAR_FILES . $md5. '_count', 'w');
+    $handle = fopen (VAR_FILES . $p . $md5. '_count', 'w');
     fwrite ($handle, $counter);
     fclose ($handle);
 
@@ -236,28 +308,31 @@ jirafeau_upload ($file, $one_time_download, $key, $time, $cfg, $ip)
         $password = md5 ($key);
 
     /* create link file */
-    $link_tmp_name =  VAR_LINKS . $md5.rand (0, 10000) . ' .tmp';
+    $link_tmp_name =  VAR_LINKS . $md5 . rand (0, 10000) . ' .tmp';
     $handle = fopen ($link_tmp_name, 'w');
     fwrite ($handle,
-            $name . NL. $mime_type . NL. $size . NL. $password . NL. $time . NL . $md5.
-            NL.($one_time_download ? 'O' : 'R') . NL.date ('U') . NL. $ip . NL.
-            $delete_link_code . NL);
+            $name . NL. $mime_type . NL. $size . NL. $password . NL. $time .
+            NL . $md5. NL . ($one_time_download ? 'O' : 'R') . NL.date ('U') .
+            NL. $ip . NL. $delete_link_code . NL);
     fclose ($handle);
     $md5_link = md5_file ($link_tmp_name);
-    if (!rename ($link_tmp_name,  VAR_LINKS . $md5_link))
+    $l = s2p ("$md5_link");
+    if (!@mkdir (VAR_LINKS . $l, 0755, true) ||
+        !rename ($link_tmp_name,  VAR_LINKS . $l . $md5_link))
     {
-        unlink ($link_tmp_name);
+        if (file_exists ($link_tmp_name))
+            unlink ($link_tmp_name);
+        
         $counter--;
         if ($counter >= 1)
         {
-            $handle = fopen ( VAR_FILES . $md5. '_count', 'w');
+            $handle = fopen (VAR_FILES . $p . $md5. '_count', 'w');
             fwrite ($handle, $counter);
             fclose ($handle);
         }
         else
         {
-            unlink ( VAR_FILES . $md5. '_count');
-            unlink ( VAR_FILES . $md5);
+            jirafeau_clean_rm_file ($md5_link);
         }
         return (array(
                  'error' =>
@@ -343,7 +418,7 @@ function
 jirafeau_get_link ($hash)
 {
     $out = array ();
-    $link = VAR_LINKS . $hash;
+    $link = VAR_LINKS . s2p ("$hash") . $hash;
 
     if (!file_exists ($link))
         return $out;
@@ -363,23 +438,12 @@ jirafeau_get_link ($hash)
     return $out;
 }
 
-function
-jirafeau_human_size ($octets)
-{
-    $u = array ('B', 'KB', 'MB', 'GB', 'TB');
-    $o = max ($octets, 0);
-    $p = min (floor (($o ? log ($o) : 0) / log (1024)), count ($u) - 1);
-    $o /= pow (1024, $p);
-    return round ($o, 1) . $u[$p];
-} 
-
 /**
  * List files in admin interface.
  */
 function
 jirafeau_admin_list ($name, $file_hash, $link_hash)
 {
-    $links_dir = scandir (VAR_LINKS);
     echo '<fieldset><legend>';
     if (!empty ($name))
         echo $name . ' ';
@@ -401,45 +465,61 @@ jirafeau_admin_list ($name, $file_hash, $link_hash)
     echo '<td>' . t('Origin') . '</td>';
     echo '<td>' . t('Action') . '</td>';
     echo '</tr>';
-    foreach ($links_dir as $link)
+
+    /* Get all links files. */
+    $stack = array (VAR_LINKS);
+    while (($d = array_shift ($stack)) && $d != NULL)
     {
-        if (strcmp ($link, '.') == 0 || strcmp ($link, '..') == 0 ||
-            preg_match ('/\.tmp/i', "$link"))
-            continue;
-        /* Read link informations. */
-        $l = jirafeau_get_link ($link);
-        
-        /* Filter. */
-        if (!empty ($name) && $name != $l['file_name'])
-            continue;
-        if (!empty ($file_hash) && $file_hash != $l['md5'])
-            continue;
-        if (!empty ($link_hash) && $link_hash != $link)
-            continue;
-        
-        /* Print link informations. */
-        echo '<tr>';
-        echo '<td>' . $l['file_name'] . '</td>';
-        echo '<td>' . $l['mime_type'] . '</td>';
-        echo '<td>' . jirafeau_human_size ($l['file_size']) . '</td>';
-        echo '<td>' . ($l['time'] == -1 ? '' : strftime ('%c', $l['time'])) .
-             '</td>';
-        echo '<td>' . $l['onetime'] . '</td>';
-        echo '<td>' . strftime ('%c', $l['upload_date']) . '</td>';
-        echo '<td>' . $l['ip'] . '</td>';
-        echo '<td>' .
-        '<form action = "admin.php" method = "post">' .
-        '<input type = "hidden" name = "action" value = "delete_link"/>' .
-        '<input type = "hidden" name = "link" value = "' . $link . '"/>' .
-        '<input type = "submit" value = "' . t('Del link') . '" />' .
-        '</form>' .
-        '<form action = "admin.php" method = "post">' .
-        '<input type = "hidden" name = "action" value = "delete_file"/>' .
-        '<input type = "hidden" name = "md5" value = "' . $l['md5'] . '"/>' .
-        '<input type = "submit" value = "' . t('Del file and links') . '" />' .
-        '</form>' .
-        '</td>';
-        echo '</tr>';
+        $dir = scandir ($d);
+        foreach ($dir as $node)
+        {
+            if (strcmp ($node, '.') == 0 || strcmp ($node, '..') == 0 ||
+                preg_match ('/\.tmp/i', "$node"))
+                continue;
+            if (is_dir ($d . $node))
+            {
+                /* Push new found directory. */
+                $stack[] = $d . $node . '/';
+            }
+            elseif (is_file ($d . $node))
+            {
+                /* Read link informations. */
+                $l = jirafeau_get_link ($node);
+                if (!count ($l))
+                    continue;
+
+                /* Filter. */
+                if (!empty ($name) && $name != $l['file_name'])
+                    continue;
+                if (!empty ($file_hash) && $file_hash != $l['md5'])
+                    continue;
+                if (!empty ($link_hash) && $link_hash != $link)
+                    continue;
+                /* Print link informations. */
+                echo '<tr>';
+                echo '<td>' . $l['file_name'] . '</td>';
+                echo '<td>' . $l['mime_type'] . '</td>';
+                echo '<td>' . jirafeau_human_size ($l['file_size']) . '</td>';
+                echo '<td>' . ($l['time'] == -1 ? '' : strftime ('%c', $l['time'])) .
+                     '</td>';
+                echo '<td>' . $l['onetime'] . '</td>';
+                echo '<td>' . strftime ('%c', $l['upload_date']) . '</td>';
+                echo '<td>' . $l['ip'] . '</td>';
+                echo '<td>' .
+                '<form action = "admin.php" method = "post">' .
+                '<input type = "hidden" name = "action" value = "delete_link"/>' .
+                '<input type = "hidden" name = "link" value = "' . $node . '"/>' .
+                '<input type = "submit" value = "' . t('Del link') . '" />' .
+                '</form>' .
+                '<form action = "admin.php" method = "post">' .
+                '<input type = "hidden" name = "action" value = "delete_file"/>' .
+                '<input type = "hidden" name = "md5" value = "' . $l['md5'] . '"/>' .
+                '<input type = "submit" value = "' . t('Del file and links') . '" />' .
+                '</form>' .
+                '</td>';
+                echo '</tr>';
+            }
+        }
     }
     echo '</table></fieldset>';
 }
@@ -451,24 +531,41 @@ jirafeau_admin_list ($name, $file_hash, $link_hash)
 function
 jirafeau_admin_clean ()
 {
-    $c = 0;
-    $links_dir = scandir (VAR_LINKS);
-
-    foreach ($links_dir as $link)
+    $count = 0;
+    /* Get all links files. */
+    $stack = array (VAR_LINKS);
+    while (($d = array_shift ($stack)) && $d != NULL)
     {
-        if (strcmp ($link, '.') == 0 || strcmp ($link, '..') == 0 ||
-            preg_match ('/\.tmp/i', "$link"))
-            continue;
-        /* Read link informations. */
-        $l = jirafeau_get_link ($link);
-        if ($l['time'] > 0 && $l['time'] < time () || // expired
-            !file_exists (VAR_FILES . $l['md5']) || // invalid
-            !file_exists (VAR_FILES . $l['md5'] . '_count')) // invalid
+        $dir = scandir ($d);
+
+        foreach ($dir as $node)
         {
-            jirafeau_delete ($link);
-            $c++;
+            if (strcmp ($node, '.') == 0 || strcmp ($node, '..') == 0 ||
+                preg_match ('/\.tmp/i', "$node"))
+                continue;
+            
+            if (is_dir ($d . $node))
+            {
+                /* Push new found directory. */
+                $stack[] = $d . $node . '/';
+            }
+            elseif (is_file ($d . $node))
+            {
+                /* Read link informations. */
+                $l = jirafeau_get_link (basename ($node));
+                if (!count ($l))
+                    continue;
+                $p = s2p ($l['md5']);
+                if ($l['time'] > 0 && $l['time'] < time () || // expired
+                    !file_exists (VAR_FILES . $p . $l['md5']) || // invalid
+                    !file_exists (VAR_FILES . $p . $l['md5'] . '_count')) // invalid
+                {
+                    jirafeau_delete_link ($node);
+                    $count++;
+                }
+            }
         }
     }
-    return $c;
+    return $count;
 }
 ?>

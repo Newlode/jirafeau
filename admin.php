@@ -219,7 +219,7 @@ if (isset ($_POST['action']))
     }
     elseif (strcmp ($_POST['action'], 'delete_link') == 0)
     {
-        jirafeau_delete ($_POST['link']);
+        jirafeau_delete_link ($_POST['link']);
         echo '<div class="message">' . NL;
         echo '<p>' . t('Link deleted') . '</p></div>';
     }

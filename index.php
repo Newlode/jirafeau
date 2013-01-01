@@ -64,7 +64,7 @@ if ($writable && isset ($_POST['jirafeau']))
 
     $res =
         jirafeau_upload ($_FILES['file'], isset ($_POST['one_time_download']),
-                         $key, $time, $cfg, $_SERVER['REMOTE_ADDR']);
+                         $key, $time, $_SERVER['REMOTE_ADDR']);
 }
 
 require (JIRAFEAU_ROOT . 'lib/template/header.php');
@@ -138,9 +138,8 @@ if (!has_error () && $writable)
         <legend><?php echo t('Upload a file');
     ?></legend> <p><input type = "file" name = "file" size =
         "30" /></p> <p class =
-        "config"><?php printf ('%s: %dMB', t('Maximum file size'),
-                               jirafeau_get_max_upload_size () / (1024 *
-                                                                  1024));
+        "config"><?php printf ('%s: %s', t('Maximum file size'),
+                               jirafeau_get_max_upload_size ());
     ?></p><p>
     <input type = "submit" id='send' value ="<?php echo t('Send'); ?>"
     onclick="

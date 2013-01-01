@@ -49,10 +49,10 @@ if (isset ($_GET['h']) && !empty ($_GET['h']))
         require (JIRAFEAU_ROOT.'lib/template/footer.php');
         exit;
     }
-    
-    if (!file_exists (VAR_FILES . $link['md5']))
+    $p = s2p ($link['md5']);
+    if (!file_exists (VAR_FILES . $p . $link['md5']))
     {
-        jirafeau_delete ($link_name);
+        jirafeau_delete_link ($link_name);
         require (JIRAFEAU_ROOT.'lib/template/header.php');
         echo '<div class="error"><p>'.t('File not available.').
         '</p></div>';
@@ -62,7 +62,7 @@ if (isset ($_GET['h']) && !empty ($_GET['h']))
 
     if (!empty ($delete_code) && $delete_code == $link['link_code'])
     {
-        jirafeau_delete ($link_name);
+        jirafeau_delete_link ($link_name);
         require (JIRAFEAU_ROOT.'lib/template/header.php');
         echo '<div class="message"><p>'.t('File has been deleted.').
          '</p></div>';
@@ -70,15 +70,15 @@ if (isset ($_GET['h']) && !empty ($_GET['h']))
         exit;
     }
 
-    if ($link['time'] != JIRAFEAU_INFINITY && time ()> $link['time'])
+    if ($link['time'] != JIRAFEAU_INFINITY && time () > $link['time'])
     {
-        jirafeau_delete ($link_name);
+        jirafeau_delete_link ($link_name);
         require (JIRAFEAU_ROOT.'lib/template/header.php');
         echo '<div class="error"><p>'.
         t('The time limit of this file has expired.') . ' ' .
         t('File has been deleted.') .
         '</p></div>';
-        require (JIRAFEAU_ROOT.'lib/template/footer.php');
+        require (JIRAFEAU_ROOT . 'lib/template/footer.php');
         exit;
     }
 
@@ -108,7 +108,6 @@ if (isset ($_GET['h']) && !empty ($_GET['h']))
         if ($link['key'] != md5 ($_POST['key']))
         {
             header ("Access denied");
-
             require (JIRAFEAU_ROOT.'lib/template/header.php');
             echo '<div class="error"><p>' . t('Access denied') .
             '</p></div>';
@@ -125,10 +124,10 @@ if (isset ($_GET['h']) && !empty ($_GET['h']))
         header ('Content-Disposition: attachment; filename="' .
             $link['file_name'] . '"');
     }
-    readfile (VAR_FILES . $link['md5']);
+    readfile (VAR_FILES . $p . $link['md5']);
 
     if ($link['onetime'] == 'O')
-        jirafeau_delete ($link_name);
+        jirafeau_delete_link ($link_name);
     exit;
 }
 else
