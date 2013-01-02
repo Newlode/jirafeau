@@ -340,7 +340,7 @@ case 4:
         ?><form action = "<?php echo basename(__FILE__); ?>" method =
             "post"> <input type = "hidden" name = "jirafeau" value =
             "<?php echo JIRAFEAU_VERSION; ?>" /><input type = "hidden" name =
-            "step" value = "3" /><input type = "submit" name =
+            "step" value = "4" /><input type = "submit" name =
             "retry" value =
             "<?php echo t('Retry this step'); ?>" /></form>
             <?php echo '</p></div>';
