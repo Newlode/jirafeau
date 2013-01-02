@@ -446,11 +446,11 @@ jirafeau_admin_list ($name, $file_hash, $link_hash)
 {
     echo '<fieldset><legend>';
     if (!empty ($name))
-        echo $name . ' ';
+        echo t('Filename') . ": $name ";
     if (!empty ($file_hash))
-        echo $file_hash . ' ';
+        echo t('file') . ": $file_hash ";
     if (!empty ($link_hash))
-        echo $link_hash . ' ';
+        echo t('link') . ": $link_hash ";
     if (empty ($name) && empty ($file_hash) && empty ($link_hash))
         echo t('List all files');
     echo '</legend>';
@@ -489,11 +489,11 @@ jirafeau_admin_list ($name, $file_hash, $link_hash)
                     continue;
 
                 /* Filter. */
-                if (!empty ($name) && $name != $l['file_name'])
+                if (!empty ($name) && !preg_match ("/$name/i", $l['file_name']))
                     continue;
                 if (!empty ($file_hash) && $file_hash != $l['md5'])
                     continue;
-                if (!empty ($link_hash) && $link_hash != $link)
+                if (!empty ($link_hash) && $link_hash != $node)
                     continue;
                 /* Print link informations. */
                 echo '<tr>';
