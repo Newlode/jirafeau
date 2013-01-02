@@ -36,6 +36,9 @@ $cfg['style'] = 'industrial';
 $cfg['rewrite'] = false;
 /* An empty admin password will disable the admin interface. */
 $cfg['admin_password'] = '';
+/* preview: false (will download file) or true (will preview in browser if
+ * possible) . */
+$cfg['preview'] = true;
 
 if ((basename (__FILE__) != 'config.local.php')
     && file_exists (JIRAFEAU_ROOT.'lib/config.local.php'))

@@ -119,7 +119,7 @@ if (isset ($_GET['h']) && !empty ($_GET['h']))
 
     header ('Content-Length: ' . $link['file_size']);
     header ('Content-Type: ' . $link['mime_type']);
-    if (!jirafeau_is_viewable ($link['mime_type']))
+    if (!jirafeau_is_viewable ($link['mime_type']) || !$cfg['preview'])
     {
         header ('Content-Disposition: attachment; filename="' .
             $link['file_name'] . '"');
