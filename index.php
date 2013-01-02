@@ -144,6 +144,7 @@ if (!has_error () && $writable)
     <input type = "submit" id='send' value ="<?php echo t('Send'); ?>"
     onclick="
         document.getElementById('send').value='<?php echo t ('Uploading ...'); ?>';
+        document.getElementById('send').submit ();
         document.getElementById('send').disabled='true';
     "/>
     </p><hr /><div id = "moreoptions"> <p><label><input type =
