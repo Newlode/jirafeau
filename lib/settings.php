@@ -18,7 +18,7 @@
  */
 /* Jirafeau constants */
 define ('JIRAFEAU_PACKAGE', 'Jirafeau');
-define ('JIRAFEAU_VERSION', '0.9');
+define ('JIRAFEAU_VERSION', '1.0');
 
 /* Directories. */
 define ('VAR_FILES', $cfg['var_root'] . 'files/');
