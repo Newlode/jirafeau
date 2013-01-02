@@ -497,7 +497,13 @@ jirafeau_admin_list ($name, $file_hash, $link_hash)
                     continue;
                 /* Print link informations. */
                 echo '<tr>';
-                echo '<td>' . $l['file_name'] . '</td>';
+                echo '<td>' .
+                '<form action = "admin.php" method = "post">' .
+                '<input type = "hidden" name = "action" value = "download"/>' .
+                '<input type = "hidden" name = "link" value = "' . $node . '"/>' .
+                '<input type = "submit" value = "' . $l['file_name'] . '" />' .
+                '</form>';
+                echo '</td>';
                 echo '<td>' . $l['mime_type'] . '</td>';
                 echo '<td>' . jirafeau_human_size ($l['file_size']) . '</td>';
                 echo '<td>' . ($l['time'] == -1 ? '' : strftime ('%c', $l['time'])) .

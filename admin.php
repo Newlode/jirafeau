@@ -229,6 +229,19 @@ if (isset ($_POST['action']))
         echo '<div class="message">' . NL;
         echo '<p>' . t('Deleted links') . ' : ' . $count . '</p></div>';
     }
+    elseif (strcmp ($_POST['action'], 'download') == 0)
+    {
+        $l = jirafeau_get_link ($_POST['link']);
+        if (!count ($l))
+            return;
+        $p = s2p ($l['md5']);
+        header ('Content-Length: ' . $l['file_size']);
+        header ('Content-Type: ' . $l['mime_type']);
+        header ('Content-Disposition: attachment; filename="' .
+                $l['file_name'] . '"');
+        if (file_exists(VAR_FILES . $p . $l['md5']))
+            readfile (VAR_FILES . $p . $l['md5']);
+    }
 }
 
 require (JIRAFEAU_ROOT.'lib/template/footer.php');
