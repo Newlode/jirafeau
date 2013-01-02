@@ -24,87 +24,110 @@ require (JIRAFEAU_ROOT . 'lib/config.php');
 require (JIRAFEAU_ROOT . 'lib/settings.php');
 require (JIRAFEAU_ROOT . 'lib/functions.php');
 
-if (isset ($_GET['h']) && !empty ($_GET['h']))
+if (!isset ($_GET['h']) || empty ($_GET['h']))
 {
-    $link_name = $_GET['h'];
+    header ('Location: ' . $cfg['web_root']);
+    exit;
+}
 
-    $delete_code = '';
-    if (isset ($_GET['d']) && !empty ($_GET['d']))
-        $delete_code = $_GET['d'];
+$link_name = $_GET['h'];
 
-    if (!preg_match ('/[0-9a-f]{32}$/', $link_name))
+if (!preg_match ('/[0-9a-f]{32}$/', $link_name))
+{
+    require (JIRAFEAU_ROOT.'lib/template/header.php');
+    echo '<div class="error"><p>' . t('Sorry, the requested file is not found') . '</p></div>';
+    require (JIRAFEAU_ROOT.'lib/template/footer.php');
+    exit;
+}
+
+$link = jirafeau_get_link ($link_name);
+if (count ($link) == 0)
+{
+    require (JIRAFEAU_ROOT.'lib/template/header.php');
+    echo '<div class="error"><p>' . t('Sorry, the requested file is not found') .
+    '</p></div>';
+    require (JIRAFEAU_ROOT.'lib/template/footer.php');
+    exit;
+}
+
+$delete_code = '';
+if (isset ($_GET['d']) && !empty ($_GET['d']))
+    $delete_code = $_GET['d'];
+
+$button_download = false;
+if (isset ($_GET['bd']) && !empty ($_GET['bd']))
+    $button_download = true;
+
+$button_preview = false;
+if (isset ($_GET['bp']) && !empty ($_GET['bp']))
+    $button_preview = true;
+
+$p = s2p ($link['md5']);
+if (!file_exists (VAR_FILES . $p . $link['md5']))
+{
+    jirafeau_delete_link ($link_name);
+    require (JIRAFEAU_ROOT.'lib/template/header.php');
+    echo '<div class="error"><p>'.t('File not available.').
+    '</p></div>';
+    require (JIRAFEAU_ROOT.'lib/template/footer.php');
+    exit;
+}
+
+if (!empty ($delete_code) && $delete_code == $link['link_code'])
+{
+    jirafeau_delete_link ($link_name);
+    require (JIRAFEAU_ROOT.'lib/template/header.php');
+    echo '<div class="message"><p>'.t('File has been deleted.').
+     '</p></div>';
+    require (JIRAFEAU_ROOT.'lib/template/footer.php');
+    exit;
+}
+
+if ($link['time'] != JIRAFEAU_INFINITY && time () > $link['time'])
+{
+    jirafeau_delete_link ($link_name);
+    require (JIRAFEAU_ROOT.'lib/template/header.php');
+    echo '<div class="error"><p>'.
+    t('The time limit of this file has expired.') . ' ' .
+    t('File has been deleted.') .
+    '</p></div>';
+    require (JIRAFEAU_ROOT . 'lib/template/footer.php');
+    exit;
+}
+
+$password_challenged = false;
+if (!empty ($link['key']))
+{
+    if (!isset ($_POST['key']))
     {
         require (JIRAFEAU_ROOT.'lib/template/header.php');
-        echo '<div class="error"><p>' . t('Sorry, the requested file is not found') . '</p></div>';
-        require (JIRAFEAU_ROOT.'lib/template/footer.php');
-        exit;
-    }
+        echo '<div id = "upload">' .
+             '<form action = "' . $_SERVER['REQUEST_URI'] . '" ' .
+                'method = "post" id = "submit">'; ?>
+             <input type = "hidden" name = "jirafeau" value = "<?php echo JIRAFEAU_VERSION ?>"/><?php
+        echo '<fieldset>' .
+             '<legend>' . t('Password protection') .
+             '</legend><table><tr><td>' .
+             t('Give the password of this file') . ' : ' .
+             '<input type = "password" name = "key" />' .
+             '</td></tr><tr><td>';
 
-    $link = jirafeau_get_link ($link_name);
-    if (count ($link) == 0)
-    {
-        require (JIRAFEAU_ROOT.'lib/template/header.php');
-        echo '<div class="error"><p>' . t('Sorry, the requested file is not found') .
-        '</p></div>';
-        require (JIRAFEAU_ROOT.'lib/template/footer.php');
-        exit;
-    }
-    $p = s2p ($link['md5']);
-    if (!file_exists (VAR_FILES . $p . $link['md5']))
-    {
-        jirafeau_delete_link ($link_name);
-        require (JIRAFEAU_ROOT.'lib/template/header.php');
-        echo '<div class="error"><p>'.t('File not available.').
-        '</p></div>';
-        require (JIRAFEAU_ROOT.'lib/template/footer.php');
-        exit;
-    }
+            ?><input type="submit" id = "submit_download"  value="<?php echo t('Download'); ?>"
+            onclick="document.getElementById('submit').action='<?php echo $_SERVER['REQUEST_URI'] ?>&amp;bd=1';
+                     document.getElementById('submit_download').submit ();"/><?php
 
-    if (!empty ($delete_code) && $delete_code == $link['link_code'])
-    {
-        jirafeau_delete_link ($link_name);
-        require (JIRAFEAU_ROOT.'lib/template/header.php');
-        echo '<div class="message"><p>'.t('File has been deleted.').
-         '</p></div>';
-        require (JIRAFEAU_ROOT.'lib/template/footer.php');
-        exit;
-    }
-
-    if ($link['time'] != JIRAFEAU_INFINITY && time () > $link['time'])
-    {
-        jirafeau_delete_link ($link_name);
-        require (JIRAFEAU_ROOT.'lib/template/header.php');
-        echo '<div class="error"><p>'.
-        t('The time limit of this file has expired.') . ' ' .
-        t('File has been deleted.') .
-        '</p></div>';
-        require (JIRAFEAU_ROOT . 'lib/template/footer.php');
-        exit;
-    }
-
-    if (!empty ($link['key']))
-    {
-        if (!isset ($_POST['key']))
+        if ($cfg['download_page'] && $cfg['preview'])
         {
-        require (JIRAFEAU_ROOT.'lib/template/header.php');
-        ?><div id = "upload">
-            <form action =
-            "<?php echo $_SERVER['REQUEST_URI']; ?>" method =
-            "post"> <input type = "hidden" name = "jirafeau" value =
-            "<?php echo JIRAFEAU_VERSION; ?>" /><fieldset>
-            <legend><?php echo t('Password protection');
-        ?></legend> <table> <tr>
-            <td><?php echo t('Give the password of this file') . ' : ';
-        ?><input type = "password" name =
-            "key" /></td> </tr> <tr> <td><input type =
-            "submit" value =
-            "<?php echo t('Download'); ?>"
-            /></td> </tr> </table> </fieldset> </form> </div>
-            <?php require (JIRAFEAU_ROOT.'lib/template/footer.php');
-        exit;
+            ?><input type="submit" id = "submit_preview"  value="<?php echo t('Preview'); ?>"
+            onclick="document.getElementById('submit').action='<?php echo $_SERVER['REQUEST_URI'] ?>&amp;bp=1';
+                     document.getElementById('submit_preview').submit ();"/><?php
         }
-        else
-        {
+        echo '</td></tr></table></fieldset></form></div>';
+        require (JIRAFEAU_ROOT.'lib/template/footer.php');
+        exit;
+    }
+    else
+    {
         if ($link['key'] != md5 ($_POST['key']))
         {
             header ("Access denied");
@@ -114,26 +137,48 @@ if (isset ($_GET['h']) && !empty ($_GET['h']))
             require (JIRAFEAU_ROOT.'lib/template/footer.php');
             exit;
         }
-        }
+        else
+            $password_challenged = true;
     }
-
-    header ('Content-Length: ' . $link['file_size']);
-    header ('Content-Type: ' . $link['mime_type']);
-    if (!jirafeau_is_viewable ($link['mime_type']) || !$cfg['preview'])
-    {
-        header ('Content-Disposition: attachment; filename="' .
-            $link['file_name'] . '"');
-    }
-    readfile (VAR_FILES . $p . $link['md5']);
-
-    if ($link['onetime'] == 'O')
-        jirafeau_delete_link ($link_name);
-    exit;
 }
-else
+
+if ($cfg['download_page'] && !$password_challenged && !$button_download && !$button_preview)
 {
-    header ('Location: '.$cfg['web_root']);
-    exit;
+        require (JIRAFEAU_ROOT.'lib/template/header.php');
+        echo '<div id = "upload">' .
+             '<form action = "' . $_SERVER['REQUEST_URI'] . '" ' .
+                'method = "post" id = "submit">'; ?>
+             <input type = "hidden" name = "jirafeau" value = "<?php echo JIRAFEAU_VERSION ?>"/><?php
+        echo '<fieldset>' .
+             '<p>' . ('You are about to download ') . substr ($link['file_name'], 0, 20) . ' (' . jirafeau_human_size($link['file_size']) . ')</p>' .
+             '<p>' . t('By using our services, you accept of our '). '<a href="' . $cfg['web_root'] . '/tos.php' . '">' . t('Term Of Service') . '</a>' . '</p>'.
+             '<p>'
+            ?><input type="submit" id = "submit_download"  value="<?php echo t('Download'); ?>"
+            onclick="document.getElementById('submit').action='<?php echo $_SERVER['REQUEST_URI'] ?>&amp;bd=1';
+                     document.getElementById('submit_download').submit ();"/><?php
+
+        if ($cfg['download_page'] && $cfg['preview'])
+        {
+            ?><input type="submit" id = "submit_preview"  value="<?php echo t('Preview'); ?>"
+            onclick="document.getElementById('submit').action='<?php echo $_SERVER['REQUEST_URI'] ?>&amp;bp=1';
+                     document.getElementById('submit_preview').submit ();"/><?php
+        }
+        echo '</p></fieldset></form></div>';
+        require (JIRAFEAU_ROOT.'lib/template/footer.php');
+        exit;
 }
+
+header ('Content-Length: ' . $link['file_size']);
+header ('Content-Type: ' . $link['mime_type']);
+if (!jirafeau_is_viewable ($link['mime_type']) || !$cfg['preview'] || $button_download)
+{
+    header ('Content-Disposition: attachment; filename="' .
+        $link['file_name'] . '"');
+}
+readfile (VAR_FILES . $p . $link['md5']);
+
+if ($link['onetime'] == 'O')
+    jirafeau_delete_link ($link_name);
+exit;
 
 ?>

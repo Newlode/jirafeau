@@ -39,6 +39,10 @@ $cfg['admin_password'] = '';
 /* preview: false (will download file) or true (will preview in browser if
  * possible) . */
 $cfg['preview'] = true;
+/* Download page:
+ * true: Will show a download page (with preview if permited and possible).
+ * false: Will directly download file or preview (if permited and possible). */
+$cfg['download_page'] = false;
 
 if ((basename (__FILE__) != 'config.local.php')
     && file_exists (JIRAFEAU_ROOT.'lib/config.local.php'))
