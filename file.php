@@ -110,8 +110,11 @@ if (!empty ($link['key']))
              '</legend><table><tr><td>' .
              t('Give the password of this file') . ' : ' .
              '<input type = "password" name = "key" />' .
-             '</td></tr><tr><td>';
-
+             '</td></tr>' .
+             '<tr><td>' .
+             t('By using our services, you accept of our'). ' <a href="' . $cfg['web_root'] . '/tos.php' . '">' . t('Term Of Service') . '</a>' .
+             '</td></tr>' .
+             '<tr><td>';
             ?><input type="submit" id = "submit_download"  value="<?php echo t('Download'); ?>"
             onclick="document.getElementById('submit').action='<?php echo $_SERVER['REQUEST_URI'] ?>&amp;bd=1';
                      document.getElementById('submit_download').submit ();"/><?php
@@ -149,10 +152,12 @@ if ($cfg['download_page'] && !$password_challenged && !$button_download && !$but
              '<form action = "' . $_SERVER['REQUEST_URI'] . '" ' .
                 'method = "post" id = "submit">'; ?>
              <input type = "hidden" name = "jirafeau" value = "<?php echo JIRAFEAU_VERSION ?>"/><?php
-        echo '<fieldset>' .
-             '<p>' . ('You are about to download ') . substr ($link['file_name'], 0, 20) . ' (' . jirafeau_human_size($link['file_size']) . ')</p>' .
-             '<p>' . t('By using our services, you accept of our '). '<a href="' . $cfg['web_root'] . '/tos.php' . '">' . t('Term Of Service') . '</a>' . '</p>'.
-             '<p>'
+        echo '<fieldset><legend>' . $link['file_name'] . '</legend><table>' .
+             '<tr><td>' .
+             t('You are about to download') . ' "' . $link['file_name'] . '" (' . jirafeau_human_size($link['file_size']) . ')' .
+             '</td></tr>' .
+             '<tr><td>' .
+             t('By using our services, you accept of our'). ' <a href="' . $cfg['web_root'] . '/tos.php' . '">' . t('Term Of Service') . '</a>';
             ?><input type="submit" id = "submit_download"  value="<?php echo t('Download'); ?>"
             onclick="document.getElementById('submit').action='<?php echo $_SERVER['REQUEST_URI'] ?>&amp;bd=1';
                      document.getElementById('submit_download').submit ();"/><?php
@@ -163,7 +168,8 @@ if ($cfg['download_page'] && !$password_challenged && !$button_download && !$but
             onclick="document.getElementById('submit').action='<?php echo $_SERVER['REQUEST_URI'] ?>&amp;bp=1';
                      document.getElementById('submit_preview').submit ();"/><?php
         }
-        echo '</p></fieldset></form></div>';
+        echo '</td></tr>';
+        echo '</table></fieldset></form></div>';
         require (JIRAFEAU_ROOT.'lib/template/footer.php');
         exit;
 }

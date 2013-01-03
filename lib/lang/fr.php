@@ -52,6 +52,9 @@ $tr = array (
              'Password protection' => 'Protection par mot de passe',
              'Give the password of this file' => 'Donnez le mot de passe pour ce fichier',
              'Access denied' => 'Accès interdit',
+             'You are about to download' => 'Vous êtes sur le point de télécharger',
+             'By using our services, you accept of our' => 'En utilisant nos services, vous acceptez nos',
+             'Term Of Service' => 'Conditions d\'utilisation',
              /* functions.php */
              'Internal error during file creation.' => 'Erreur interne durant la creation de fichier.',
              /* install.hpp */
