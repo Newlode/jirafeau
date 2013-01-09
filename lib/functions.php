@@ -31,6 +31,31 @@ s2p ($s)
     return $p;
 }
 
+/**
+ * Convert base 16 to base 64
+ * @returns A string based on 64 characters (0-9, a-z, A-Z, "-" and "_")
+ */
+function
+base_16_to_64 ($num)
+{
+    $o = '';
+    $m = implode ('', array_merge (range (0,9),
+                                   range ('a', 'z'),
+                                   range ('A', 'Z'),
+                                   ['-', '_']));
+    $i = 0;
+    $size = strlen ($num);
+    $b='';
+    for ($i = 0; $i < $size; $i++)
+        $b .= base_convert ($num{$i}, 16, 2);
+    $size = strlen ($b);
+    for ($i = $size - 6; $i >= 0; $i -= 6)
+        $o = $m{bindec (substr ($b, $i, 6))} . $o;
+    if ($i < 0 && $i > -6)
+        $o = $m{bindec (substr ($b, 0, $i + 6))} . $o;
+    return $o;
+}
+
 function
 jirafeau_human_size ($octets)
 {
@@ -315,7 +340,7 @@ jirafeau_upload ($file, $one_time_download, $key, $time, $ip)
             NL . $md5. NL . ($one_time_download ? 'O' : 'R') . NL.date ('U') .
             NL. $ip . NL. $delete_link_code . NL);
     fclose ($handle);
-    $md5_link = md5_file ($link_tmp_name);
+    $md5_link = base_16_to_64 (md5_file ($link_tmp_name));
     $l = s2p ("$md5_link");
     if (!@mkdir (VAR_LINKS . $l, 0755, true) ||
         !rename ($link_tmp_name,  VAR_LINKS . $l . $md5_link))
