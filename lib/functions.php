@@ -38,14 +38,11 @@ s2p ($s)
 function
 base_16_to_64 ($num)
 {
-    $o = '';
-    $m = implode ('', array_merge (range (0,9),
-                                   range ('a', 'z'),
-                                   range ('A', 'Z'),
-                                   ['-', '_']));
+    $m = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ-_';
+    $o = '';    
+    $b = '';
     $i = 0;
     $size = strlen ($num);
-    $b='';
     for ($i = 0; $i < $size; $i++)
         $b .= base_convert ($num{$i}, 16, 2);
     $size = strlen ($b);
