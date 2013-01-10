@@ -32,7 +32,7 @@ if (!isset ($_GET['h']) || empty ($_GET['h']))
 
 $link_name = $_GET['h'];
 
-if (!preg_match ('/[0-9a-fA-Z-_]*$/', $link_name))
+if (!preg_match ('/[0-9a-zA-Z_-]{22}$/', $link_name))
 {
     require (JIRAFEAU_ROOT.'lib/template/header.php');
     echo '<div class="error"><p>' . t('Sorry, the requested file is not found') . '</p></div>';

@@ -39,15 +39,34 @@ function
 base_16_to_64 ($num)
 {
     $m = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ-_';
+    $hex2bin = ['0000', # 0
+                '0001', # 1
+                '0010', # 2
+                '0011', # 3
+                '0100', # 4
+                '0101', # 5
+                '0110', # 6
+                '0111', # 7
+                '1000', # 8
+                '1001', # 9
+                '1010', # a
+                '1011', # b
+                '1100', # c
+                '1101', # d
+                '1110', # e
+                '1111']; # f
     $o = '';    
     $b = '';
     $i = 0;
+    # Convert long hex string to bin.
     $size = strlen ($num);
     for ($i = 0; $i < $size; $i++)
-        $b .= base_convert ($num{$i}, 16, 2);
-    $size = strlen ($b);
+        $b .= $hex2bin{hexdec ($num{$i})};
+    # Convert long bin to base 64.
+    $size *= 4;
     for ($i = $size - 6; $i >= 0; $i -= 6)
         $o = $m{bindec (substr ($b, $i, 6))} . $o;
+    # Some few bits remaining ?
     if ($i < 0 && $i > -6)
         $o = $m{bindec (substr ($b, 0, $i + 6))} . $o;
     return $o;
