@@ -35,9 +35,13 @@ if (file_exists (JIRAFEAU_ROOT . 'install.php')
 $writable = is_writable (VAR_FILES) && is_writable (VAR_LINKS);
 
 $res = array ();
-if ($writable && isset ($_POST['jirafeau']))
+if ($writable && isset ($_POST['jirafeau']) && isset ($_FILES['file'])
+    && isset ($_POST['time']))
 {
-    $key = $_POST['key'];
+    if (!isset ($_POST['key']))
+        $key = '';
+    else    
+        $key = $_POST['key'];
 
     $time = time ();
     switch ($_POST['time'])
