@@ -127,5 +127,21 @@ $tr = array (
             'Del link' => 'Suppr lien',
             'Del file and links' => 'Suppr fichier et liens',
             'Deleted links' => 'Liens supprimés',
+            /* script.php */
+            'This interface permits to script your uploads and downloads.' => 'Cette interface permet de programmer vos envoie et téléversements.',
+            'The instructions above show how to query this interface.' => 'Les instructions ci-dessous montrent comment interroger cette interface.',
+            'Get server capacity' => 'Récupérer la capacité d\'envoie du serveur',
+            'Send a GET query to' => 'Envoyez une requette GET à',
+            'Required' => 'Requis',
+            'Optional' => 'Optionel',
+            'Parameters' => 'Paramètres',
+            'This will return brut text content.' => 'Retourne un texte brut.',
+            'First line is the server capacity (in Bytes).' => 'La première ligne correspond à la capacité du serveur (en octets).',
+            'Example' => 'Exemple',
+            'If a password has been set, send a POST request with it.' => 'Si un mot de passe a été définis, envoyer une requette POST avec.',
+            'Delete a file' => 'Supprimer un fichier',
+            'This will return "Ok" if succeded, "Error" otherwhise.' => 'Retourne "OK" en cas de succès, "Error" dans le cas contraire.',
+            'Get a generated scripts' => 'Récupérer un script généré',
+            'This will return brut text content of the code.' => 'Renvoie le code sous forme the texte brut.',
     );
  ?>

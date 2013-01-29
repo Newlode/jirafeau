@@ -134,3 +134,26 @@ input:hover {
   content: url('ok.png');
   padding-right: 1ex;
 }
+
+.info {
+  text-align: left;
+  width: 40em;
+  margin: auto;
+  background: #E2f5ff;
+  border: 2px solid #02233f;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+}
+
+.info h2 {
+  text-align: center;
+}
+
+.info h3 {
+  text-align: center;
+}
+
+.info p {
+  margin-left: 5%;
+  margin-right: 5%;
+}
