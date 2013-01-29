@@ -128,6 +128,7 @@ $tr = array (
             'Del file and links' => 'Suppr fichier et liens',
             'Deleted links' => 'Liens supprimés',
             /* script.php */
+            'Welcome to Jirafeau\'s query interface' => 'Bienvenue sur l\'interface programmable de Jirafeau',
             'This interface permits to script your uploads and downloads.' => 'Cette interface permet de programmer vos envoie et téléversements.',
             'The instructions above show how to query this interface.' => 'Les instructions ci-dessous montrent comment interroger cette interface.',
             'Get server capacity' => 'Récupérer la capacité d\'envoie du serveur',
