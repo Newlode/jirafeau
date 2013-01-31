@@ -451,6 +451,32 @@ show_errors ()
     }
 }
 
+function check_errors ()
+{
+    if (file_exists (JIRAFEAU_ROOT . 'install.php')
+        && !file_exists (JIRAFEAU_ROOT . 'lib/config.local.php'))
+    {
+        header('Location: install.php'); 
+        exit;
+    }
+
+    /* check if the destination dirs are writable */
+    $writable = is_writable (VAR_FILES) && is_writable (VAR_LINKS);
+
+    /* Checking for errors. */
+    if (!is_writable (VAR_FILES))
+        add_error (t('The file directory is not writable!'), VAR_FILES);
+
+    if (!is_writable (VAR_LINKS))
+        add_error (t('The link directory is not writable!'), VAR_LINKS);
+
+    /* Check if the install.php script is still in the directory. */
+    if (file_exists (JIRAFEAU_ROOT . 'install.php'))
+        add_error (t('Installer script still present'),
+             t('Please make sure to delete the installer script ' .
+               '"install.php" before continuing.'));
+}
+
 /**
  * Read link informations
  * @return array containing informations.

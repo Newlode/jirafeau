@@ -157,3 +157,27 @@ input:hover {
   margin-left: 5%;
   margin-right: 5%;
 }
+
+#upload {
+  text-align: center;
+  width: 30em;
+  background: #E2f5ff;
+  border: 2px solid #02233f;
+  margin: auto;
+}
+
+#uploading {
+  text-align: center;
+  width: 30em;
+  background: #E2f5ff;
+  border: 2px solid #02233f;
+  margin: auto;
+}
+
+#upload_finished {
+  text-align: center;
+  width: 60em;
+  background: #E2f5ff;
+  border: 2px solid #02233f;
+  margin: auto;
+}

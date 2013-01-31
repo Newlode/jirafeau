@@ -1,7 +1,6 @@
 <?php
 /*
  *  Jirafeau, your web file repository
- *  Copyright (C) 2008  Julien "axolotl" BERNARD <axolotl@magieeternelle.org>
  *  Copyright (C) 2012  Jerome Jutteau <j.jutteau@gmail.com>
  *
  *  This program is free software: you can redistribute it and/or modify
@@ -23,153 +22,89 @@ require (JIRAFEAU_ROOT . 'lib/config.php');
 require (JIRAFEAU_ROOT . 'lib/settings.php');
 require (JIRAFEAU_ROOT . 'lib/functions.php');
 require (JIRAFEAU_ROOT . 'lib/lang.php');
-
-if (file_exists (JIRAFEAU_ROOT . 'install.php')
-    && !file_exists (JIRAFEAU_ROOT . 'lib/config.local.php'))
-{
-    header('Location: install.php'); 
-    exit;
-}
-
-/* check if the destination dirs are writable */
-$writable = is_writable (VAR_FILES) && is_writable (VAR_LINKS);
-
-$res = array ();
-if ($writable && isset ($_POST['jirafeau']) && isset ($_FILES['file'])
-    && isset ($_POST['time']))
-{
-    if (!isset ($_POST['key']))
-        $key = '';
-    else    
-        $key = $_POST['key'];
-
-    $time = time ();
-    switch ($_POST['time'])
-    {
-    case 'minute':
-        $time += JIRAFEAU_MINUTE;
-        break;
-    case 'hour':
-        $time += JIRAFEAU_HOUR;
-        break;
-    case 'day':
-        $time += JIRAFEAU_DAY;
-        break;
-    case 'week':
-        $time += JIRAFEAU_WEEK;
-        break;
-    case 'month':
-        $time += JIRAFEAU_MONTH;
-        break;
-    default:
-        $time = JIRAFEAU_INFINITY;
-        break;
-    }
-
-    $res =
-        jirafeau_upload ($_FILES['file'], isset ($_POST['one_time_download']),
-                         $key, $time, $_SERVER['REMOTE_ADDR']);
-}
-
 require (JIRAFEAU_ROOT . 'lib/template/header.php');
 
-/* Checking for errors. */
-if (!is_writable (VAR_FILES))
-    add_error (t('The file directory is not writable!'), VAR_FILES);
-
-if (!is_writable (VAR_LINKS))
-    add_error (t('The link directory is not writable!'), VAR_LINKS);
-
-/* Check if the install.php script is still in the directory. */
-if (file_exists (JIRAFEAU_ROOT . 'install.php'))
-    add_error (t('Installer script still present'),
-               t('Please make sure to delete the installer script ' .
-                 '"install.php" before continuing.'));
-
-if (!has_error () && !empty ($res))
-{
-    if ($res['error']['has_error'])
-        add_error (t('An error occurred.'), $res['error']['why']);
-    else
-    {
-        $link = $cfg['web_root'];
-        $delete_link = $cfg['web_root'];
-
-        if ($cfg['rewrite'])
-        {
-            $link .= 'file-'.$res['link'];
-            $delete_link .=
-                'file-'.$res['link'].'-delete-'.$res['delete_link'];
-        }
-        else
-        {
-            /* h because 'h' looks like a jirafeau ;) */
-            $link .= 'file.php?h='.$res['link'];
-            $delete_link .=
-                'file.php?h='.$res['link'].'&amp;d='.$res['delete_link'];
-        }
-
-        echo '<div class="message">'.NL;
-        echo '<p>' . t('File uploaded! Copy the following URL to get it') .
-            ':<br />' . NL;
-        echo '<a href="'.$link.'">'.$link.'</a>' . NL;
-
-        if ($time != JIRAFEAU_INFINITY)
-        {
-            echo '<br />' . t('This file is valid until the following date') .
-                ':<br /><strong>' . strftime ('%c', $time) . '</strong>';
-        }
-
-        echo '</p></div>';
-
-        echo '<div class="message">' . NL;
-        echo '<p>' . t('Keep the following URL to delete it at any moment') . ':<br />' . NL;
-        echo '<a href="' . $delete_link . '">' . $delete_link . '</a>' . NL;
-        echo '</p></div>';
-    }
-}
-
+check_errors ();
 if (has_error ())
     show_errors ();
 
-if (!has_error () && $writable)
-{
-    ?><div id = "upload">
-        <form enctype = "multipart/form-data" action = "
-        <?php echo $cfg['web_root']; ?>" method =
-        "post"> <div><input type = "hidden" name = "jirafeau" value = "
-        <?php echo JIRAFEAU_VERSION; ?>" /></div> <fieldset>
-        <legend><?php echo t('Upload a file');
-    ?></legend> <p><input type = "file" name = "file" size =
-        "30" /></p> <p class =
-        "config"><?php printf ('%s: %s', t('Maximum file size'),
-                               jirafeau_get_max_upload_size ());
-    ?></p><p>
-    <input type = "submit" id='send' value ="<?php echo t('Send'); ?>"
-    onclick="
-        document.getElementById('send').value='<?php echo t ('Uploading ...'); ?>';
-        document.getElementById('send').submit ();
-        document.getElementById('send').disabled='true';
-    "/>
-    </p><hr /><div id = "moreoptions"> <p><label><input type =
-        "checkbox" name =
-        "one_time_download" /><?php echo t('One time download');
-    ?></label></p><br/><p><label for = "input_key"
-       ><?php echo t('Password') . ':';
-    ?></label><input type = "text" name = "key" id = "input_key" /></p>
-        <p><label for = "select_time"
-       ><?php echo t('Time limit') . ':';
-    ?></label>
-        <select name = "time" id = "select_time">
-        <option value = "none"><?php echo t('None');
-    ?></option> <option value = "minute"><?php echo t('One minute');
-    ?></option> <option value = "hour"><?php echo t('One hour');
-    ?></option> <option value = "day"><?php echo t('One day');
-    ?></option> <option value = "week"><?php echo t('One week');
-    ?></option> <option value = "month"><?php echo t('One month');
-    ?></option>
-        </select> </p> </div> </fieldset> </form> </div> <?php
-}
-
-require (JIRAFEAU_ROOT.'lib/template/footer.php');
 ?>
+<div id="upload_finished">
+    <p>
+    <?php echo t('File uploaded! Copy the following URL to get it') ?>:
+    <br />
+    <a id="upload_link" href=""></a>
+    <br />
+    </p>
+
+    <p>
+    <?php echo t('Keep the following URL to delete it at any moment'); ?>:
+    <br />
+    <a id="delete_link" href=""></a>
+    </p>
+    
+    <p id="validity">
+    <?php echo t('This file is valid until the following date'); ?>:
+    <br /><strong><div id="date"></div></strong>
+    </p>
+</div>
+
+<div id="uploading">
+    <p>
+    <?php echo t ('Uploading ...'); ?><div id="uploaded_percentage"></div>
+    </p>
+</div>
+
+<div id="upload">
+    <legend>
+    <?php echo t('Select a file'); ?> :
+    </legend>
+    <p>
+    <input type="file" id="file_select" size="30"
+    onchange="
+        document.getElementById('options').style.display = '';
+        document.getElementById('send').style.display = '';
+    "/>
+    </p>
+    <p class="config">
+    <?php echo t('Maximum file size') . ': ' . jirafeau_get_max_upload_size (); ?>
+    </p>
+    <p>
+    <input type="submit" id="send" value="<?php echo t('Send'); ?>"
+    onclick="
+        document.getElementById('upload').style.display = 'none';
+        document.getElementById('uploading').style.display = '';
+        start_upload('<?php echo $cfg['web_root']; ?>');
+    "/>
+    </p>
+    <div id="options">
+        <table id="option_table">
+        <tr>
+        <td><?php echo t('One time download'); ?>:</td>
+        <td><input type="checkbox" id="one_time_download" /></td>
+        </tr>
+        <tr>
+        <td><label for="input_key"><?php echo t('Password') . ':'; ?></label></td>
+        <td><input type="text" name="key" id="input_key" /></td>
+        </tr>
+        <tr>
+        <td><label for="select_time"><?php echo t('Time limit') . ':'; ?></label></td>
+        <td><select name="time" id="select_time">
+        <option value="none"><?php echo t('None'); ?></option>
+        <option value = "minute"><?php echo t('One minute'); ?></option>
+        <option value = "hour"><?php echo t('One hour'); ?></option>
+        <option value = "day"><?php echo t('One day'); ?></option>
+        <option value = "week"><?php echo t('One week'); ?></option>
+        <option value = "month"><?php echo t('One month');?></option>
+        </select></td>
+        </tr>
+        </table>
+    </div> 
+</div>
+<script lang="Javascript">
+    document.getElementById('uploading').style.display = 'none';
+    document.getElementById('upload_finished').style.display = 'none';
+    document.getElementById('options').style.display = 'none';
+    document.getElementById('send').style.display = 'none';
+</script>
+<?php require (JIRAFEAU_ROOT . 'lib/template/footer.php'); ?>

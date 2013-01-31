@@ -30,19 +30,15 @@ require (JIRAFEAU_ROOT . 'lib/settings.php');
 require (JIRAFEAU_ROOT . 'lib/functions.php');
 require (JIRAFEAU_ROOT . 'lib/lang.php');
 
-if (file_exists (JIRAFEAU_ROOT . 'install.php'))
-{
-    header('Content-Type: text; charset=utf-8');
-    echo "Error";
-    exit;
-}
-
  global $script_langages;
  $script_langages = array ('bash' => 'Bash');
 
 if ($_SERVER['REQUEST_METHOD'] == "GET" && count ($_GET) == 0)
 {
     require (JIRAFEAU_ROOT . 'lib/template/header.php');
+    check_errors ();
+    if (has_error ())
+        show_errors ();
     echo '<div class="info">';
     echo '<h2>' . t('Welcome to Jirafeau\'s query interface') . '</h2>';
     echo '<p>';

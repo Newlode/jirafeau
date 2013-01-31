@@ -101,7 +101,7 @@ if (!empty ($link['key']))
     if (!isset ($_POST['key']))
     {
         require (JIRAFEAU_ROOT.'lib/template/header.php');
-        echo '<div id = "upload">' .
+        echo '<div>' .
              '<form action = "' . $_SERVER['REQUEST_URI'] . '" ' .
                 'method = "post" id = "submit">'; ?>
              <input type = "hidden" name = "jirafeau" value = "<?php echo JIRAFEAU_VERSION ?>"/><?php
@@ -148,7 +148,7 @@ if (!empty ($link['key']))
 if ($cfg['download_page'] && !$password_challenged && !$button_download && !$button_preview)
 {
         require (JIRAFEAU_ROOT.'lib/template/header.php');
-        echo '<div id = "upload">' .
+        echo '<div>' .
              '<form action = "' . $_SERVER['REQUEST_URI'] . '" ' .
                 'method = "post" id = "submit">'; ?>
              <input type = "hidden" name = "jirafeau" value = "<?php echo JIRAFEAU_VERSION ?>"/><?php

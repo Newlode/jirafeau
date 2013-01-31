@@ -20,7 +20,7 @@
 $tr = array (
             /* index.php */
              'Jirafeau, your web file repository' => 'Jirafeau, votre dépot de fichiers',
-             'Upload a file' => 'Envoyer un fichier',
+             'Select a file' => 'Sélectionnez un fichier',
              'Send' => 'Envoyer',
              'Uploading ...' => 'Envoie ...',
              'One time download' => 'Téléchargement unique',
@@ -35,8 +35,8 @@ $tr = array (
              'One day' => 'Une journée',
              'One week' => 'Une semaine',
              'One month' => 'Un mois',
-             'The file directory is not writable!' => 'Le dossier \'file\' ne peut être écrit.',
-             'The link directory is not writable!' => 'Le dossier \'link\' ne peut être écrit.',
+             'The file directory is not writable' => 'Le dossier \'file\' ne peut être écrit.',
+             'The link directory is not writable' => 'Le dossier \'link\' ne peut être écrit.',
              'Installer script still present' => 'Le script d\'installation est toujours présent',
              'Please make sure to delete the installer script "install.php" before continuing.' => 'Assurez vous de supprimer le fichier "install.php" avant de continuer.',
              'An error occurred.' => 'Une erreur s\'est produite',
