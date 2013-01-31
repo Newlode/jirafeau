@@ -50,6 +50,19 @@ if ($_SERVER['REQUEST_METHOD'] == "GET" && count ($_GET) == 0)
             ' ' . t('The instructions above show how to query this interface.');
     echo '</p>';
     
+    echo '<h3>' . t('Get Jirafeau\'s version') . ':</h3>';
+    echo '<p>';
+    echo t('Send a GET query to') . ': <i>' . $web_root . 'script.php</i><br />';
+    echo '<br />';
+    echo t('Parameters') . ':<br />';
+    echo "<b>get_version=</b>1<i> (" . t('Required') . ")</i> <br />";
+    echo '</p>';
+    echo '<p>' . t('This will return brut text content.') . ' ' .
+            t('First line is the version number.') . '<br /></p>';
+    echo '<p>';
+    echo t('Example') . ": <a href=\"" . $web_root . "script.php?get_version=1\">" . $web_root . "script.php?get_version=1</a> ";
+    echo '</p>';
+
     echo '<h3>' . t('Get server capacity') . ':</h3>';
     echo '<p>';
     echo t('Send a GET query to') . ': <i>' . $web_root . 'script.php</i><br />';
@@ -239,6 +252,10 @@ elseif (isset ($_GET['get_capacity']))
 {
     echo min (jirafeau_ini_to_bytes (ini_get ('post_max_size')),
               jirafeau_ini_to_bytes (ini_get ('upload_max_filesize')));
+}
+elseif (isset ($_GET['get_version']))
+{
+    echo JIRAFEAU_VERSION;
 }
 elseif (isset ($_GET['lang']))
 {

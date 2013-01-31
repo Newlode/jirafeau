@@ -132,6 +132,7 @@ $tr = array (
             'This interface permits to script your uploads and downloads.' => 'Cette interface permet de programmer vos envoie et téléversements.',
             'The instructions above show how to query this interface.' => 'Les instructions ci-dessous montrent comment interroger cette interface.',
             'Get server capacity' => 'Récupérer la capacité d\'envoie du serveur',
+            'Get Jirafeau\'s version' => 'Récupérer la version de Jirafeau',
             'Send a GET query to' => 'Envoyez une requette GET à',
             'Send a POST query to' => 'Envoyez une requette POST à',
             'Required' => 'Requis',
