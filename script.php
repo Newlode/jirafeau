@@ -38,7 +38,11 @@ if ($_SERVER['REQUEST_METHOD'] == "GET" && count ($_GET) == 0)
     require (JIRAFEAU_ROOT . 'lib/template/header.php');
     check_errors ();
     if (has_error ())
+    {
         show_errors ();
+        require (JIRAFEAU_ROOT . 'lib/template/footer.php');
+        exit;
+    }
     echo '<div class="info">';
     echo '<h2>' . t('Welcome to Jirafeau\'s query interface') . '</h2>';
     echo '<p>';

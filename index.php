@@ -26,8 +26,11 @@ require (JIRAFEAU_ROOT . 'lib/template/header.php');
 
 check_errors ();
 if (has_error ())
+{
     show_errors ();
-
+    require (JIRAFEAU_ROOT . 'lib/template/footer.php');
+    exit;
+}
 ?>
 <div id="upload_finished">
     <p>
