@@ -174,14 +174,24 @@ if ($cfg['download_page'] && !$password_challenged && !$button_download && !$but
         exit;
 }
 
+header ('HTTP/1.0 200 OK');
 header ('Content-Length: ' . $link['file_size']);
-header ('Content-Type: ' . $link['mime_type']);
 if (!jirafeau_is_viewable ($link['mime_type']) || !$cfg['preview'] || $button_download)
-{
     header ('Content-Disposition: attachment; filename="' .
         $link['file_name'] . '"');
+else
+    header ('Content-Type: ' . $link['mime_type']);
+
+/* Read file */
+$r = fopen (VAR_FILES . $p . $link['md5'], 'r');
+while (!feof ($r))
+{
+    print fread ($r, 1024);
+    ob_flush();
 }
-readfile (VAR_FILES . $p . $link['md5']);
+fclose ($r);
+
+//readfile (VAR_FILES . $p . $link['md5']);
 
 if ($link['onetime'] == 'O')
     jirafeau_delete_link ($link_name);

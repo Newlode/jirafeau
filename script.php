@@ -135,6 +135,47 @@ if ($_SERVER['REQUEST_METHOD'] == "GET" && count ($_GET) == 0)
     foreach ($script_langages as $lang => $name)
         echo "$name: <a href=\"" . $web_root . "script.php?lang=$lang\">" . $web_root . "script.php?lang=$lang</a> ";
     echo '</p>';
+    
+    echo '<h3>' . t('Initalize a asynchronous transfert') . ':</h3>';
+    echo '<p>';
+    echo t('The goal is to permit to transfert big file, chunk by chunk.') . ' ';
+    echo t('Chunks of data must be sent in order.');
+    echo '</p>';
+    echo '<p>';
+    echo t('Send a GET query to') . ': <i>' . $web_root . 'script.php?init_async</i><br />';
+    echo '<br />';
+    echo t('Parameters') . ':<br />';
+    echo "<b>filename=</b>file_name.ext<i> (" . t('Required') . ")</i> <br />";
+    echo "<b>type=</b>MIME_TYPE<i> (" . t('Optional') . ")</i> <br />";
+    echo "<b>time=</b>[minute|hour|day|week|month|none]<i> (" . t('Optional') . ', '. t('default: none') . ")</i> <br />";
+    echo "<b>password=</b>your_password<i> (" . t('Optional') . ")</i> <br />";
+    echo "<b>one_time_download=</b>1<i> (" . t('Optional') . ")</i> <br />";
+    echo '</p>';
+    echo '<p>' . t('This will return brut text content.') . ' ' .
+         t('First line is the asynchronous transfert reference and the second line the code to use in the next operation.') . '<br /></p>';
+
+    echo '<h3>' . t('Push data during asynchronous transfert') . ':</h3>';
+    echo '<p>';
+    echo t('Send a GET query to') . ': <i>' . $web_root . 'script.php?push_async</i><br />';
+    echo '<br />';
+    echo t('Parameters') . ':<br />';
+    echo "<b>ref=</b>async_reference<i> (" . t('Required') . ")</i> <br />";
+    echo "<b>data=</b>data_chunk<i> (" . t('Required') . ")</i> <br />";
+    echo "<b>code=</b>last_provided_code<i> (" . t('Required') . ")</i> <br />";
+    echo '</p>';
+    echo '<p>' . t('This will return brut text content.') . ' ' .
+         t('Returns the next code to use.') . '<br /></p>';
+
+    echo '<h3>' . t('Finalize asynchronous transfert') . ':</h3>';
+    echo '<p>';
+    echo t('Send a GET query to') . ': <i>' . $web_root . 'script.php?end_async</i><br />';
+    echo '<br />';
+    echo t('Parameters') . ':<br />';
+    echo "<b>ref=</b>async_reference<i> (" . t('Required') . ")</i> <br />";
+    echo "<b>code=</b>last_provided_code<i> (" . t('Required') . ")</i> <br />";
+    echo '</p>';
+    echo '<p>' . t('This will return brut text content.') . ' ' .
+         t('First line is the download reference and the second line the delete code.') . '<br /></p>';
 
     echo '</div><br />';
     require (JIRAFEAU_ROOT . 'lib/template/footer.php');
@@ -238,11 +279,19 @@ elseif (isset ($_GET['h']))
         exit;
     }
 
+    /* Read file. */
     header ('Content-Length: ' . $link['file_size']);
     header ('Content-Type: ' . $link['mime_type']);
     header ('Content-Disposition: attachment; filename="' .
             $link['file_name'] . '"');
-    readfile (VAR_FILES . $p . $link['md5']);
+
+    $r = fopen (VAR_FILES . $p . $link['md5'], 'r');
+    while (!feof ($r))
+    {
+        print fread ($r, 1024);
+        ob_flush();
+    }
+    fclose ($r);
 
     if ($link['onetime'] == 'O')
         jirafeau_delete_link ($link_name);
@@ -392,6 +441,74 @@ fi
         echo "Error";
         exit;
     }
+}
+/* Initialize an asynchronous upload. */
+elseif (isset ($_GET['init_async']))
+{
+    if (!isset ($_POST['filename']))
+    {
+        echo "Error";
+        exit;
+    }
+
+    $type = '';
+    if (isset ($_POST['type']))
+        $type = $_POST['type'];
+    
+    $key = '';
+    if (isset ($_POST['password']))
+        $key = $_POST['password'];
+
+    $time = time ();
+    if (!isset ($_POST['time']))
+        $time = JIRAFEAU_INFINITY;
+    else
+        switch ($_POST['time'])
+        {
+            case 'minute':
+                $time += JIRAFEAU_MINUTE;
+                break;
+            case 'hour':
+                $time += JIRAFEAU_HOUR;
+                break;
+            case 'day':
+                $time += JIRAFEAU_DAY;
+                break;
+            case 'week':
+                $time += JIRAFEAU_WEEK;
+                break;
+            case 'month':
+                $time += JIRAFEAU_MONTH;
+                break;
+            default:
+                $time = JIRAFEAU_INFINITY;
+                break;
+        }
+    echo jirafeau_async_init ($_POST['filename'],
+                                     $type,
+                                     isset ($_POST['one_time_download']),
+                                     $key,
+                                     $time,
+                                     $_SERVER['REMOTE_ADDR']);
+}
+/* Continue an asynchronous upload. */
+elseif (isset ($_GET['push_async']))
+{
+    if ((!isset ($_POST['ref']))
+        || (!isset ($_FILES['data']))
+        || (!isset ($_POST['code'])))
+        echo "Error";
+    else
+        echo jirafeau_async_push ($_POST['ref'], $_FILES['data'], $_POST['code']);                                      
+}
+/* Finalize an asynchronous upload. */
+elseif (isset ($_GET['end_async']))
+{
+    if (!isset ($_POST['ref'])
+        || !isset ($_POST['code']))
+        echo "Error";
+    else
+        echo jirafeau_async_end ($_POST['ref'], $_POST['code']);
 }
 else
     echo "Error";

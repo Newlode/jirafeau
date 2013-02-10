@@ -37,6 +37,7 @@ $tr = array (
              'One month' => 'Un mois',
              'The file directory is not writable' => 'Le dossier \'file\' ne peut être écrit.',
              'The link directory is not writable' => 'Le dossier \'link\' ne peut être écrit.',
+             'The async directory is not writable!' => 'Le dossier \'async\' ne peut être écrit.',
              'Installer script still present' => 'Le script d\'installation est toujours présent',
              'Please make sure to delete the installer script "install.php" before continuing.' => 'Assurez vous de supprimer le fichier "install.php" avant de continuer.',
              'An error occurred.' => 'Une erreur s\'est produite',
@@ -102,6 +103,7 @@ $tr = array (
             'Wrong password.' => 'Mot de passe invalide.',
             'Admin interface' => 'Interface d\'adminitration',
             'Clean expired files' => 'Nettoie les fichiers périmés',
+            'Clean old unfinished transferts' => 'Nettoie les vieux transferts inachevés',
             'Clean' => 'Nettoyage',
             'Search files by name' => 'Rechercher les fichiers par leur nom',
             'Search' => 'Rechercher',
@@ -147,5 +149,13 @@ $tr = array (
             'This will return "Ok" if succeded, "Error" otherwhise.' => 'Retourne "OK" en cas de succès, "Error" dans le cas contraire.',
             'Get a generated scripts' => 'Récupérer un script généré',
             'This will return brut text content of the code.' => 'Renvoie le code sous forme the texte brut.',
+            'Initalize a asynchronous transfert' => 'Initialiser un transfert asynchrone',
+            'The goal is to permit to transfert big file, chunk by chunk.' => 'Le but est de permettre de transférer de gros fichiers, morceaux par morceaux.',
+            'Chunks of data must be sent in order.' => 'Chaque morceau doit être envoyé dans l\'ordre.',
+            'First line is the asynchronous transfert reference and the second line the code to use in the next operation.'
+                => 'La première ligne correspond à la référence de transfert asynchrone, la seconde au code à utiliser dans la prochaine requette.',
+            'Push data during asynchronous transfert' => 'Envoyer des données pendant un transfert asynchrone',
+            'Returns the next code to use.' => 'Renvoie le prochain code à utiliser.',
+            'Finalize asynchronous transfert' => 'Finalise un transfert asynchrone',
     );
  ?>

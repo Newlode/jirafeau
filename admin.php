@@ -130,6 +130,18 @@ require (JIRAFEAU_ROOT . 'lib/template/header.php');
         </form>
         <form action = "<?php echo basename(__FILE__); ?>" method = "post">
         <tr>
+            <input type = "hidden" name = "action" value = "clean_async"/>
+            <td class = "info">
+                <?php echo t('Clean old unfinished transferts'); ?>
+            </td>
+            <td></td>
+            <td>
+                <input type = "submit" value = "<?php echo t('Clean'); ?>" />
+            </td>
+        </tr>
+        </form>
+        <form action = "<?php echo basename(__FILE__); ?>" method = "post">
+        <tr>
             <input type = "hidden" name = "action" value = "list"/>
             <td class = "info">
                 <?php echo t('List all files'); ?>
@@ -196,6 +208,14 @@ if (isset ($_POST['action']))
     if (strcmp ($_POST['action'], 'clean') == 0)
     {
         $total = jirafeau_admin_clean ();
+        echo '<div class="message">' . NL;
+        echo '<p>';
+        echo t('Number of cleaned files') . ' : ' . $total;
+        echo '</p></div>';
+    }
+    elseif (strcmp ($_POST['action'], 'clean_async') == 0)
+    {
+        $total = jirafeau_admin_clean_async ();
         echo '<div class="message">' . NL;
         echo '<p>';
         echo t('Number of cleaned files') . ' : ' . $total;

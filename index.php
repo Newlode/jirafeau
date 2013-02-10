@@ -69,15 +69,13 @@ if (has_error ())
         document.getElementById('send').style.display = '';
     "/>
     </p>
-    <p class="config">
-    <?php echo t('Maximum file size') . ': ' . jirafeau_get_max_upload_size (); ?>
-    </p>
+    <p id="max_file_size" class="config"></p>
     <p>
     <input type="submit" id="send" value="<?php echo t('Send'); ?>"
     onclick="
         document.getElementById('upload').style.display = 'none';
         document.getElementById('uploading').style.display = '';
-        start_upload('<?php echo $cfg['web_root']; ?>');
+        upload ('<?php echo $cfg['web_root']; ?>', <?php echo jirafeau_get_max_upload_size_bytes (); ?>);
     "/>
     </p>
     <div id="options">
@@ -109,5 +107,9 @@ if (has_error ())
     document.getElementById('upload_finished').style.display = 'none';
     document.getElementById('options').style.display = 'none';
     document.getElementById('send').style.display = 'none';
+    if (!check_html5_file_api ())
+        document.getElementById('max_file_size').innerHTML = '<?php
+             echo t('You browser may not support HTML5 so the maximum file size is ') . jirafeau_get_max_upload_size ();
+             ?>';
 </script>
 <?php require (JIRAFEAU_ROOT . 'lib/template/footer.php'); ?>

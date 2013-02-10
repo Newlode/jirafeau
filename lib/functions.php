@@ -72,6 +72,24 @@ base_16_to_64 ($num)
     return $o;
 }
 
+/**
+  * Generate a random code.
+  * @param $l code length
+  * @return  random code.
+  */
+function
+jirafeau_gen_random ($l)
+{
+    if ($l <= 0)
+        return 42;
+
+    $code="";
+    for ($i = 0; $i < $l; $i++)
+        $code .= dechex (rand (0, 15));
+
+    return $code;
+}
+
 function
 jirafeau_human_size ($octets)
 {
@@ -145,6 +163,17 @@ function jirafeau_ini_to_bytes ($value)
         break;
     }
     return $bytes;
+}
+
+/**
+ * gets the maximum upload size according to php.ini
+ * @returns the maximum upload size in bytes
+ */
+function
+jirafeau_get_max_upload_size_bytes ()
+{
+    return min (jirafeau_ini_to_bytes (ini_get ('post_max_size')),
+                jirafeau_ini_to_bytes (ini_get ('upload_max_filesize')));
 }
 
 /**
@@ -326,7 +355,7 @@ jirafeau_upload ($file, $one_time_download, $key, $time, $ip)
                  'delete_link' => ''));
     }
 
-    /* increment or create count file */
+    /* Increment or create count file. */
     $counter = 0;
     if (file_exists (VAR_FILES . $p . $md5 . '_count'))
     {
@@ -339,9 +368,7 @@ jirafeau_upload ($file, $one_time_download, $key, $time, $ip)
     fclose ($handle);
 
     /* Create delete code. */
-    $delete_link_code = 0;
-    for ($i = 0; $i < 8; $i++)
-        $delete_link_code .= dechex (rand (0, 16));
+    $delete_link_code = jirafeau_gen_random (8);
 
     /* md5 password or empty */
     $password = '';
@@ -353,8 +380,8 @@ jirafeau_upload ($file, $one_time_download, $key, $time, $ip)
     $handle = fopen ($link_tmp_name, 'w');
     fwrite ($handle,
             $name . NL. $mime_type . NL. $size . NL. $password . NL. $time .
-            NL . $md5. NL . ($one_time_download ? 'O' : 'R') . NL.date ('U') .
-            NL. $ip . NL. $delete_link_code . NL);
+            NL . $md5. NL . ($one_time_download ? 'O' : 'R') . NL . date ('U') .
+            NL . $ip . NL. $delete_link_code . NL);
     fclose ($handle);
     $md5_link = base_16_to_64 (md5_file ($link_tmp_name));
     $l = s2p ("$md5_link");
@@ -404,7 +431,6 @@ jirafeau_is_viewable ($mime)
     }
     return false;
 }
-
 
 // Error handling functions.
 //! Global array that contains all registered errors.
@@ -469,6 +495,9 @@ function check_errors ()
 
     if (!is_writable (VAR_LINKS))
         add_error (t('The link directory is not writable!'), VAR_LINKS);
+    
+    if (!is_writable (VAR_ASYNC))
+        add_error (t('The async directory is not writable!'), VAR_ASYNC);
 
     /* Check if the install.php script is still in the directory. */
     if (file_exists (JIRAFEAU_ROOT . 'install.php'))
@@ -640,5 +669,254 @@ jirafeau_admin_clean ()
         }
     }
     return $count;
+}
+
+
+/**
+ * Clean old async transferts.
+ * @return number of cleaned files.
+ */
+function
+jirafeau_admin_clean_async ()
+{
+    $count = 0;
+    /* Get all links files. */
+    $stack = array (VAR_ASYNC);
+    while (($d = array_shift ($stack)) && $d != NULL)
+    {
+        $dir = scandir ($d);
+
+        foreach ($dir as $node)
+        {
+            if (strcmp ($node, '.') == 0 || strcmp ($node, '..') == 0 ||
+                preg_match ('/\.tmp/i', "$node"))
+                continue;
+            
+            if (is_dir ($d . $node))
+            {
+                /* Push new found directory. */
+                $stack[] = $d . $node . '/';
+            }
+            elseif (is_file ($d . $node))
+            {
+                /* Read async informations. */
+                $a = jirafeau_get_async_ref (basename ($node));
+                if (!count ($a))
+                    continue;
+                /* Delete transferts older than 1 hour. */
+                if (date ('U') - $a['last_edited'] > 3600)
+                {
+                    jirafeau_async_delete (basename ($node));
+                    $count++;
+                }
+            }
+        }
+    }
+    return $count;
+}
+/**
+ * Read async transfert informations
+ * @return array containing informations.
+ */
+function
+jirafeau_get_async_ref ($ref)
+{
+    $out = array ();
+    $refinfos = VAR_ASYNC . s2p ("$ref") . "$ref";
+
+    if (!file_exists ($refinfos))
+        return $out;
+    
+    $c = file ($refinfos);
+    $out['file_name'] = trim ($c[0]);
+    $out['mime_type'] = trim ($c[1]);
+    $out['key'] = trim ($c[2], NL);
+    $out['time'] = trim ($c[3]);
+    $out['onetime'] = trim ($c[4]);
+    $out['ip'] = trim ($c[5]);
+    $out['last_edited'] = trim ($c[6]);
+    $out['next_code'] = trim ($c[7]);
+    return $out;
+}
+
+/**
+ * Delete async transfert informations
+  */
+function
+jirafeau_async_delete ($ref)
+{
+    $p = s2p ("$ref");
+    if (file_exists (VAR_ASYNC . $p . $ref))
+        unlink (VAR_ASYNC . $p . $ref);
+    if (file_exists (VAR_ASYNC . $p . $ref . '_data'))
+        unlink (VAR_ASYNC . $p . $ref . '_data');
+    $parse = VAR_ASYNC . $p;
+    $scan = array();
+    while (file_exists ($parse)
+           && ($scan = scandir ($parse))
+           && count ($scan) == 2 // '.' and '..' folders => empty.
+           && basename ($parse) != basename (VAR_ASYNC)) 
+    {
+        rmdir ($parse);
+        $parse = substr ($parse, 0, strlen($parse) - strlen(basename ($parse)) - 1);
+    }
+}
+
+/**
+  * Init a new asynchronous upload.
+  * @param $finename Name of the file to send
+  * @param $one_time One time upload parameter
+  * @param $key eventual password (or blank)
+  * @param $time time limit
+  * @param $ip ip address of the client
+  * @return  a string containing a temporary reference followed by a code or the string "Error"
+  */
+function
+jirafeau_async_init ($filename, $type, $one_time, $key, $time, $ip)
+{
+    $res = 'Error';
+
+    /* Create temporary folder. */
+    $ref;
+    $p;
+    $code = jirafeau_gen_random (4);
+    do
+    {
+        $ref = jirafeau_gen_random (32);
+        $p = VAR_ASYNC . s2p ($ref);
+    } while (file_exists ($p));
+    @mkdir ($p, 0755, true);
+    if (!file_exists ($p))
+    {
+        echo "Error";
+        return;
+    }
+    
+    /* md5 password or empty */
+    $password = '';
+    if (!empty ($key))
+        $password = md5 ($key);
+
+    /* Store informations. */
+    $p .= $ref;
+    $handle = fopen ($p, 'w');
+    fwrite ($handle,
+            $filename . NL. $type . NL. $password . NL. $time . NL .
+            ($one_time ? 'O' : 'R') . NL . $ip . NL . date ('U') . NL .
+            $code . NL);
+    fclose ($handle);
+
+    return $ref . NL . $code ;
+}
+
+/**
+  * Append a piece of file on the asynchronous upload.
+  * @param $ref asynchronous upload reference
+  * @param $file piece of data
+  * @param $code client code for this operation
+  * @return  a string containing a next code to use or the string "Error"
+  */
+function
+jirafeau_async_push ($ref, $data, $code)
+{
+    /* Get async infos. */
+    $a = jirafeau_get_async_ref ($ref);
+    
+    /* Check some errors. */
+    if (count ($a) == 0
+        || $a['next_code'] != "$code"
+        || empty ($data['tmp_name'])
+        || !is_uploaded_file ($data['tmp_name']))
+        return "Error";
+    
+    $p = s2p ($ref);
+
+    /* Concatenate data. */
+    $r = fopen ($data['tmp_name'], 'r');
+    $w = fopen (VAR_ASYNC . $p . $ref . '_data', 'a');
+    while (!feof ($r))
+    {
+        if (fwrite ($w, fread ($r, 1024)) === false)
+        {
+            fclose ($r);
+            fclose ($w);
+            jirafeau_async_delete ($ref);
+            return "Error";
+        }
+    }
+    fclose ($r);
+    fclose ($w);
+    unlink ($data['tmp_name']);
+    
+    /* Update async file. */
+    $code = jirafeau_gen_random (4);
+    $handle = fopen (VAR_ASYNC . $p . $ref, 'w');
+    fwrite ($handle,
+            $a['file_name'] . NL. $a['mime_type'] . NL. $a['key'] . NL .
+            $a['time'] . NL . $a['onetime'] . NL . $a['ip'] . NL .
+            date ('U') . NL . $code . NL);
+    fclose ($handle);
+    return $code;
+}
+
+/**
+  * Finalyze an asynchronous upload.
+  * @param $ref asynchronous upload reference
+  * @param $code client code for this operation
+  * @return  a string containing the download reference followed by a delete code or the string "Error"
+  */
+function
+jirafeau_async_end ($ref, $code)
+{
+    /* Get async infos. */
+    $a = jirafeau_get_async_ref ($ref);
+    if (count ($a) == 0
+        || $a['next_code'] != "$code")
+        return "Error";
+    
+    /* Generate link infos. */
+    $p = VAR_ASYNC . s2p ($ref) . $ref . "_data";
+    if (!file_exists($p))
+        return "Error";
+    $md5 = md5_file ($p);
+    $size = filesize($p);
+    $np = s2p ($md5);
+    $delete_link_code = jirafeau_gen_random (8);
+    
+    /* File already exist ? */ 
+    if (!file_exists (VAR_FILES . $np))
+        @mkdir (VAR_FILES . $np, 0755, true);
+    if (!file_exists (VAR_FILES . $np . $md5))
+        rename ($p, VAR_FILES . $np . $md5);
+    
+    /* Increment or create count file. */
+    $counter = 0;
+    if (file_exists (VAR_FILES . $np . $md5 . '_count'))
+    {
+        $content = file (VAR_FILES . $np . $md5. '_count');
+        $counter = trim ($content[0]);
+    }
+    $counter++;
+    $handle = fopen (VAR_FILES . $np . $md5. '_count', 'w');
+    fwrite ($handle, $counter);
+    fclose ($handle);
+    
+    /* Create link. */
+    $link_tmp_name =  VAR_LINKS . $md5 . rand (0, 10000) . ' .tmp';
+    $handle = fopen ($link_tmp_name, 'w');
+    fwrite ($handle,
+            $a['file_name'] . NL . $a['mime_type'] . NL . $size . NL .
+            $a['key'] . NL . $a['time'] . NL . $md5 . NL . $a['onetime'] . NL .
+            date ('U') . NL . $a['ip'] . NL . $delete_link_code . NL);
+    fclose ($handle);
+    $md5_link = base_16_to_64 (md5_file ($link_tmp_name));
+    $l = s2p ("$md5_link");
+    if (!@mkdir (VAR_LINKS . $l, 0755, true) ||
+        !rename ($link_tmp_name,  VAR_LINKS . $l . $md5_link))
+        echo "Error";
+    
+    /* Clean async upload. */
+    jirafeau_async_delete ($ref);
+    return $md5_link . NL . $delete_link_code;
 }
 ?>
