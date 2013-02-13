@@ -1,4 +1,7 @@
 <?php
+/* This license text is under Creative Commons - Attribution 3.0 Unported.
+ * It has been based on this work: <a href="http://opensource.org/ToS">http://opensource.org/ToS
+ */
 $tos="
 TERMS OF SERVICE
 
@@ -6,7 +9,7 @@ TERMS OF SERVICE
 $org provides the information on this Web site as provided in these Terms of Service (\"TOS\"). $org may update the TOS at any time and without prior notice by posting a new version at $url. The information on this site and your use of it is subject to the most recent version of the TOS posted.
 
 2. DESCRIPTION OF SERVICE
-$org provides you with access to discussion lists, forums, licenses and a variety of other services. (\"$org Service\"). Unless explicitly stated otherwise, any new features that augment or enhance the current $org Service shall be subject to the TOS.
+$org provides you an upload service and a variety of other services. (\"$org Service\"). Unless explicitly stated otherwise, any new features that augment or enhance the current $org Service shall be subject to the TOS.
 
 3. CONDUCT
 You understand that all information, data, text, software, graphics or other materials (\"Content\"), whether publicly posted or privately transmitted, are the sole responsibility of the person from whom such Content originated. This means that you, and not $org, are entirely responsible for all Content that you upload, post, email, transmit or otherwise make available via the $org Service. $org does not control the Content posted via the $org Service and, as such, does not guarantee the accuracy, integrity or quality of such Content. Under no circumstances will $org be liable in any way for any Content, including, but not limited to, any errors or omissions in any Content, or any loss or damage of any kind incurred as a result of the use of any Content posted, emailed, transmitted or otherwise made available via the $org Service. You agree to not use the $org Service to:
@@ -23,12 +26,12 @@ You understand that all information, data, text, software, graphics or other mat
     11) \"stalk\" or otherwise harass another; and/or
     12) collect or store personal data about other users in connection with the prohibited conduct and activities set forth in paragraphs above. You acknowledge that $org may or may not pre-screen Content, but that $org and its designees shall have the right (but not the obligation) in their sole discretion to pre-screen, refuse, move, or remove any Content that is available via the $org Service and which violates the TOS. You agree that you must evaluate, and bear all risks associated with, the use of any Content, including any reliance on the accuracy, completeness, or usefulness of such Content. You acknowledge, consent and agree that $org may access, preserve and disclose your account information and Content if required to do so by law or in a good faith belief that such access preservation or disclosure is reasonably necessary to:            
     (a) comply with legal process;
-        (b) enforce the TOS;
-        (c) respond to claims that any Content violates the rights of third parties;
-        (d) respond to your requests for customer service; or (e) protect the rights, property or personal safety of $org its users and the public.
+    (b) enforce the TOS;
+    (c) respond to claims that any Content violates the rights of third parties;
+    (d) respond to your requests for customer service; or (e) protect the rights, property or personal safety of $org its users and the public.
 
 4. CONTENT MADE AVAILABLE FOR INCLUSION ON THE $org SERVICE
-$org does not claim ownership of Content you submit or make available for inclusion via the $org Service. However, with respect to Content you submit or make available for inclusion on the publicly available $org Service, you irrevocably grant $org the perpetual, worldwide, royalty-free and non-exclusive license, with the right to sublicense through multiple tiers of sublicensees, to use, distribute, reproduce, modify, adapt, publicly perform and publicly display such Content, in whole or in part, on the $org Service or other publications by $org in any media whether now existing or which come into the existence into the future and to provide that information under the license set forth on the initial page of the $url/ Web site. And for Content you submit for private discussions, you grant $org the worldwide, royalty-free and non-exclusive license to use, distribute, reproduce, modify, adapt, publicly perform and publicly display such Content on the associated private discussion group.
+$org does not claim ownership of Content you submit or make available for inclusion via the $org Service. However, with respect to Content you submit or make available for inclusion on the publicly available $org Service, you irrevocably grant $org the perpetual, worldwide, royalty-free and non-exclusive license, with the right to sublicense through multiple tiers of sublicensees, to use, distribute, reproduce, modify, adapt, publicly perform and publicly display such Content, in whole or in part, on the $org Service or other publications by $org in any media whether now existing or which come into the existence into the future and to provide that information under the license set forth on the initial page of the $url Web site. And for Content you submit for private discussions, you grant $org the worldwide, royalty-free and non-exclusive license to use, distribute, reproduce, modify, adapt, publicly perform and publicly display such Content on the associated private discussion group.
 
 5. INDEMNITY
 You agree to indemnify and hold $org and its subsidiaries, affiliates, officers, agents, employees, partners and licensors harmless from any claim or demand, including but not limited to reasonable attorneys' fees, made by any third party due to or arising out of Content you submit, post, transmit or otherwise make available through the Service, your use of the $org Service, your connection to the Service, your violation of the TOS, or your violation of any rights of another.
