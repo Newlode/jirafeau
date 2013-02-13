@@ -801,9 +801,10 @@ jirafeau_async_init ($filename, $type, $one_time, $key, $time, $ip)
     $p .= $ref;
     $handle = fopen ($p, 'w');
     fwrite ($handle,
-            str_replace (NL, '', trim ($filename)) . NL. trim ($type) . NL. $password . NL. $time . NL .
-            ($one_time ? 'O' : 'R') . NL . $ip . NL . date ('U') . NL .
-            $code . NL);
+            str_replace (NL, '', trim ($filename)) . NL .
+            str_replace (NL, '', trim ($type)) . NL . $password . NL .
+            $time . NL . ($one_time ? 'O' : 'R') . NL . $ip . NL .
+            date ('U') . NL . $code . NL);
     fclose ($handle);
 
     return $ref . NL . $code ;
