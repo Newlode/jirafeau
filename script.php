@@ -485,11 +485,11 @@ elseif (isset ($_GET['init_async']))
                 break;
         }
     echo jirafeau_async_init ($_POST['filename'],
-                                     $type,
-                                     isset ($_POST['one_time_download']),
-                                     $key,
-                                     $time,
-                                     $_SERVER['REMOTE_ADDR']);
+                              $type,
+                              isset ($_POST['one_time_download']),
+                              $key,
+                              $time,
+                              $_SERVER['REMOTE_ADDR']);
 }
 /* Continue an asynchronous upload. */
 elseif (isset ($_GET['push_async']))

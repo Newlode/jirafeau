@@ -329,7 +329,7 @@ jirafeau_upload ($file, $one_time_download, $key, $time, $ip)
 
     /* file informations */
     $md5 = md5_file ($file['tmp_name']);
-    $name = trim ($file['name']);
+    $name = str_replace (NL, '', trim ($file['name']));
     $mime_type = $file['type'];
     $size = $file['size'];
 
@@ -801,7 +801,7 @@ jirafeau_async_init ($filename, $type, $one_time, $key, $time, $ip)
     $p .= $ref;
     $handle = fopen ($p, 'w');
     fwrite ($handle,
-            $filename . NL. $type . NL. $password . NL. $time . NL .
+            str_replace (NL, '', trim ($filename)) . NL. trim ($type) . NL. $password . NL. $time . NL .
             ($one_time ? 'O' : 'R') . NL . $ip . NL . date ('U') . NL .
             $code . NL);
     fclose ($handle);
