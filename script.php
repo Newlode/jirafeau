@@ -33,6 +33,11 @@ require (JIRAFEAU_ROOT . 'lib/lang.php');
  global $script_langages;
  $script_langages = array ('bash' => 'Bash');
 
+/* Operations may take a long time.
+ * Be sure PHP's safe mode is off.
+ */
+ set_time_limit(0);
+
 if ($_SERVER['REQUEST_METHOD'] == "GET" && count ($_GET) == 0)
 {
     require (JIRAFEAU_ROOT . 'lib/template/header.php');

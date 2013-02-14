@@ -30,6 +30,11 @@ if (!isset ($_GET['h']) || empty ($_GET['h']))
     exit;
 }
 
+/* Operations may take a long time.
+ * Be sure PHP's safe mode is off.
+ */
+ set_time_limit(0);
+
 $link_name = $_GET['h'];
 
 if (!preg_match ('/[0-9a-zA-Z_-]{22}$/', $link_name))

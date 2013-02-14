@@ -107,6 +107,11 @@ elseif (!isset ($_SESSION['admin_auth']) || $_SESSION['admin_auth'] != true)
     exit;
 }
 
+/* Operations may take a long time.
+ * Be sure PHP's safe mode is off.
+ */
+ set_time_limit(0);
+
 /* Admin interface. */
 require (JIRAFEAU_ROOT . 'lib/template/header.php');
 ?><h2><?php echo t('Admin interface'); ?></h2><?php
