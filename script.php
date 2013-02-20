@@ -182,6 +182,57 @@ if ($_SERVER['REQUEST_METHOD'] == "GET" && count ($_GET) == 0)
     echo '<p>' . t('This will return brut text content.') . ' ' .
          t('First line is the download reference and the second line the delete code.') . '<br /></p>';
 
+    if ($cfg['enable_blocks'])
+    {
+        echo '<h3>' . t('Create a data block') . ':</h3>';
+        echo '<p>';
+        echo t('This interface permits to create a block of data filled with zeros.') .
+            ' ' . t('You can read selected parts, write (using a code) and delete the block.') .
+            ' ' . t('Blocks may be removed after a month of non usage.');
+        echo '</p>';
+        echo '<p>';
+        echo t('Send a GET query to') . ': <i>' . $web_root . 'script.php?init_block</i><br />';
+        echo '<br />';
+        echo t('Parameters') . ':<br />';
+        echo "<b>size=</b>size_in_bytes<i> (" . t('Required') . ")</i> <br />";
+        echo '</p>';
+        echo '<p>' . t('This will return brut text content.') . ' ' .
+             t('First line is a block id the second line the edit/delete code.') . '<br /></p>';
+
+        echo '<h3>' . t('Read data in a block') . ':</h3>';
+        echo '<p>';
+        echo t('Send a GET query to') . ': <i>' . $web_root . 'script.php?read_block</i><br />';
+        echo '<br />';
+        echo t('Parameters') . ':<br />';
+        echo "<b>id=</b>block_id<i> (" . t('Required') . ")</i> <br />";
+        echo "<b>start=</b>byte_position_starting_from_zero<i> (" . t('Required') . ")</i> <br />";
+        echo "<b>length=</b>length_to_read_in_bytes<i> (" . t('Required') . ")</i> <br />";
+        echo '</p>';
+        echo '<p>' . t('This will return asked data or "Error" string.') . '<br /></p>';
+
+        echo '<h3>' . t('Write data in a block') . ':</h3>';
+        echo '<p>';
+        echo t('Send a GET query to') . ': <i>' . $web_root . 'script.php?write_block</i><br />';
+        echo '<br />';
+        echo t('Parameters') . ':<br />';
+        echo "<b>id=</b>block_id<i> (" . t('Required') . ")</i> <br />";
+        echo "<b>code=</b>block_code<i> (" . t('Required') . ")</i> <br />";
+        echo "<b>start=</b>byte_position_starting_from_zero<i> (" . t('Required') . ")</i> <br />";
+        echo "<b>data=</b>data_to_write<i> (" . t('Required') . ")</i> <br />";
+        echo '</p>';
+        echo '<p>' . t('This will return "Ok" or "Error" string.') . '<br /></p>';
+
+        echo '<h3>' . t('Delete a block') . ':</h3>';
+        echo '<p>';
+        echo t('Send a GET query to') . ': <i>' . $web_root . 'script.php?delete_block</i><br />';
+        echo '<br />';
+        echo t('Parameters') . ':<br />';
+        echo "<b>id=</b>block_id<i> (" . t('Required') . ")</i> <br />";
+        echo "<b>code=</b>block_code<i> (" . t('Required') . ")</i> <br />";
+        echo '</p>';
+        echo '<p>' . t('This will return "Ok" or "Error" string.') . '<br /></p>';
+    }
+
     echo '</div><br />';
     require (JIRAFEAU_ROOT . 'lib/template/footer.php');
     exit;
@@ -514,6 +565,44 @@ elseif (isset ($_GET['end_async']))
         echo "Error";
     else
         echo jirafeau_async_end ($_POST['ref'], $_POST['code']);
+}
+/* Initialize block. */
+elseif (isset ($_GET['init_block']) && $cfg['enable_blocks'])
+{
+    if (!isset ($_POST['size']))
+        echo "Error";
+    else
+        echo jirafeau_block_init ($_POST['size']);
+}
+/* Read data in block. */
+elseif (isset ($_GET['read_block']) && $cfg['enable_blocks'])
+{
+    if (!isset ($_POST['id'])
+        || !isset ($_POST['start'])
+        || !isset ($_POST['length']))
+        echo "Error";
+    else
+        jirafeau_block_read ($_POST['id'], $_POST['start'], $_POST['length']);
+}
+/* Write data in block. */
+elseif (isset ($_GET['write_block']) && $cfg['enable_blocks'])
+{
+    if (!isset ($_POST['id'])
+        || !isset ($_POST['start'])
+        || !isset ($_FILES['data'])
+        || !isset ($_POST['code']))
+        echo "Error";
+    else
+        echo jirafeau_block_write ($_POST['id'], $_POST['start'], $_FILES['data'], $_POST['code']);
+}
+/* Delete block. */
+elseif (isset ($_GET['delete_block']) && $cfg['enable_blocks'])
+{
+    if (!isset ($_POST['id'])
+        || !isset ($_POST['code']))
+        echo "Error";
+    else
+        echo jirafeau_block_delete ($_POST['id'], $_POST['code']);
 }
 else
     echo "Error";

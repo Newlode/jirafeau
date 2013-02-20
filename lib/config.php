@@ -43,6 +43,10 @@ $cfg['preview'] = true;
  * true: Will show a download page (with preview if permited and possible).
  * false: Will directly download file or preview (if permited and possible). */
 $cfg['download_page'] = false;
+/* Block feature:
+   The scripting interface can propose to create, read, write, delete blocks
+   of data. */
+$cfg['enable_blocks'] = false;
 
 if ((basename (__FILE__) != 'config.local.php')
     && file_exists (JIRAFEAU_ROOT.'lib/config.local.php'))

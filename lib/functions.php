@@ -60,8 +60,8 @@ base_16_to_64 ($num)
     $i = 0;
     # Convert long hex string to bin.
     $size = strlen ($num);
-    for ($i = 0; $i < $size; $i++)
-        $b .= $hex2bin{hexdec ($num{$i})};
+
+    $b .= $hex2bin{hexdec ($num{$i})};
     # Convert long bin to base 64.
     $size *= 4;
     for ($i = $size - 6; $i >= 0; $i -= 6)
@@ -499,7 +499,10 @@ function check_errors ()
     if (!is_writable (VAR_ASYNC))
         add_error (t('The async directory is not writable!'), VAR_ASYNC);
 
-    /* Check if the install.php script is still in the directory. */
+     if (!is_writable (VAR_BLOCK))
+        add_error (t('The block directory is not writable!'), VAR_BLOCK);
+
+   /* Check if the install.php script is still in the directory. */
     if (file_exists (JIRAFEAU_ROOT . 'install.php'))
         add_error (t('Installer script still present'),
              t('Please make sure to delete the installer script ' .
@@ -920,4 +923,309 @@ jirafeau_async_end ($ref, $code)
     jirafeau_async_delete ($ref);
     return $md5_link . NL . $delete_link_code;
 }
+
+/**
+  * Delete a block.
+  * @param $id identifier of the block.
+  */
+function
+jirafeau_block_delete_ ($id)
+{
+    $p = VAR_BLOCK . s2p ($id);
+    if (!file_exists ($p))
+        return;
+        
+    if (file_exists ($p . $id))
+	unlink ($p . $id);
+    if (file_exists ($p . $id . '_infos'))
+        unlink ($p . $id . '_infos');
+    $parse = $p;
+    $scan = array();
+    while (file_exists ($parse)
+           && ($scan = scandir ($parse))
+           && count ($scan) == 2 // '.' and '..' folders => empty.
+           && basename ($parse) != basename (VAR_BLOCK)) 
+    {
+        rmdir ($parse);
+        $parse = substr ($parse, 0, strlen($parse) - strlen(basename ($parse)) - 1);
+    }
+}
+
+/**
+  * Create a file filled with zeros.
+  * @param $size size of the file.
+  * @return  a string corresponding to an id or the string "Error"
+  */
+function
+jirafeau_block_init ($size)
+{
+    if (!ctype_digit ($size) || $size <= 0)
+        return "Error";
+
+    /* Create folder. */
+    $id;
+    do
+    {
+        $id = jirafeau_gen_random (32);
+        $p = VAR_BLOCK . s2p ($id);
+    } while (file_exists ($p));
+    @mkdir ($p, 0755, true);
+    if (!file_exists ($p))
+    {
+        echo "Error";
+        return;
+    }
+
+    /* Create block. */
+    $p .= $id;
+    $h = fopen ($p, 'w');
+    $fill = str_repeat ("\0", 1024);
+    for ($cnt = 0; $cnt < $size; $cnt += 1024)
+    {
+	if ($size - $cnt < 1024)
+            $fill = str_repeat ("\0", $size - $cnt);
+        if (fwrite ($h, $fill) === false)
+        {
+            fclose ($h);
+            jirafeau_block_delete_ ($id);
+            return "Error";
+        }
+    }
+    fclose ($h);
+
+    /* Generate a write/delete code. */
+    $code = jirafeau_gen_random (12);
+
+    /* Add block infos. */
+    if (file_put_contents ($p . '_infos', date ('U') . NL . $size . NL . $code) === FALSE)
+    {
+        jirafeau_block_delete_ ($id);
+        return "Error";
+    }
+
+    return $id . NL . $code;
+}
+
+/**
+  * Read some data in a block.
+  * @param $id identifier of the block
+  * @param $start where to read data (starting from zero).
+  * @param $length length to read.
+  * @return  echo data
+  */
+function
+jirafeau_block_read ($id, $start, $length)
+{
+    if (!ctype_digit ($start) || $start < 0
+        || !ctype_digit ($length) || $length <= 0)
+    {
+        echo "Error";
+        return;
+    }
+
+    $p = VAR_BLOCK . s2p ($id) . $id;
+    if (!file_exists ($p))
+    {
+        echo "Error";
+        return;
+    }
+
+    /* Check date. */
+    $f = file ($p . '_infos');
+    $date = trim ($f[0]);
+    $block_size = trim ($f[1]);
+    $stored_code = trim ($f[2]);
+    /* Update date. */
+    if (date ('U') - $date > JIRAFEAU_HOUR
+        && date ('U') - $date < JIRAFEAU_MONTH)
+    {
+        if (file_put_contents ($p . '_infos', date ('U') . NL . $block_size . NL . $stored_code) === FALSE)
+        {
+            jirafeau_block_delete_ ($id);
+            echo "Error";
+            return;
+        }
+    }
+    /* Remove data. */
+    elseif (date ('U') - $date >= JIRAFEAU_MONTH)
+    {
+        echo date ('U'). " $date ";
+        jirafeau_block_delete_ ($id);
+        echo "Error";
+        return;
+    }
+
+    if ($start + $length > $block_size)
+    {
+        echo "Error";
+        return;
+    }
+
+    /* Read content. */
+    header ('Content-Length: ' . $length);
+    header ('Content-Disposition: attachment');
+
+    $r = fopen ($p, 'r');
+    if (fseek ($r, $start) != 0)
+    {
+        echo "Error";
+        return;
+    }
+    $c = 1024;
+    for ($cnt = 0; $cnt < $length && !feof ($r); $cnt += 1024)
+    {
+        if ($length - $cnt < 1024)
+            $c = $length - $cnt;
+        print fread ($r, $c);
+        ob_flush();
+    }
+    fclose ($r);
+}
+
+/**
+  * Write some data in a block.
+  * @param $id identifier of the block
+  * @param $start where to writing data (starting from zero).
+  * @param $data data to write.
+  * @param $code code to allow writing.
+  * @return  string "Ok" or string "Error".
+  */
+function
+jirafeau_block_write ($id, $start, $data, $code)
+{
+    if (!ctype_digit ($start) || $start < 0
+        || strlen ($code) == 0)
+        return "Error";
+
+    $p = VAR_BLOCK . s2p ($id) . $id;
+    if (!file_exists ($p))
+        return "Error";
+
+    /* Check date. */
+    $f = file ($p . '_infos');
+    $date = trim ($f[0]);
+    $block_size = trim ($f[1]);
+    $stored_code = trim ($f[2]);
+    /* Update date. */
+    if (date ('U') - $date > JIRAFEAU_HOUR
+        && date ('U') - $date < JIRAFEAU_MONTH)
+    {
+        if (file_put_contents ($p . '_infos', date ('U') . NL . $block_size . NL . $stored_code) === FALSE)
+        {
+            jirafeau_block_delete_ ($id);
+            return "Error";
+        }
+    }
+    /* Remove data. */
+    elseif (date ('U') - $date >= JIRAFEAU_MONTH)
+    {
+        jirafeau_block_delete_ ($id);
+        return "Error";
+    }
+
+    /* Check code. */
+    if ($stored_code != $code)
+    {
+        echo "Error";
+        return;
+    }
+
+    /* Check data. */
+    $size = $data['size'];
+    if ($size <= 0)
+        return "Error";
+    if ($start + $size > $block_size)
+        return "Error";
+    
+    /* Open data. */
+    $r = fopen ($data['tmp_name'], 'r');
+
+    /* Open Block. */
+    $w = fopen ($p, 'r+');
+    if (fseek ($w, $start) != 0)
+        return "Error";
+
+    /* Write content. */
+    $c = 1024;
+    for ($cnt = 0; $cnt <= $size && !feof ($w); $cnt += 1024)
+    {
+        if ($size - $cnt < 1024)
+            $c = $size - $cnt;
+        $d = fread ($r, $c);
+        fwrite ($w, $d);
+    }
+    fclose ($r);
+    fclose ($w);
+    unlink ($data['tmp_name']);
+    return "Ok";
+}
+
+/**
+  * Delete a block.
+  * @param $id identifier of the block.
+  * @param $code code to allow writing.
+  * @return  string "Ok" or string "Error".
+  */
+function
+jirafeau_block_delete ($id, $code)
+{
+    $p = VAR_BLOCK . s2p ($id) . $id;
+
+    if (!file_exists ($p))
+        return "Error";
+
+    $f = file ($p . '_infos');
+    $date = trim ($f[0]);
+    $block_size = trim ($f[1]);
+    $stored_code = trim ($f[2]);
+
+    if ($code != $stored_code)
+        return "Error";
+
+    jirafeau_block_delete_ ($id);
+    return "Ok";
+}
+
+/**
+ * Clean old unused blocks.
+ * @return number of cleaned blocks.
+ */
+function
+jirafeau_admin_clean_block ()
+{
+    $count = 0;
+    /* Get all blocks. */
+    $stack = array (VAR_BLOCK);
+    while (($d = array_shift ($stack)) && $d != NULL)
+    {
+        $dir = scandir ($d);
+
+        foreach ($dir as $node)
+        {
+            if (strcmp ($node, '.') == 0 || strcmp ($node, '..') == 0)
+                continue;
+
+            if (is_dir ($d . $node))
+            {
+                /* Push new found directory. */
+                $stack[] = $d . $node . '/';
+            }
+            elseif (is_file ($d . $node) && preg_match ('/\_infos/i', "$node"))
+            {
+                /* Read block informations. */
+                $f = file ($d . $node);
+                $date = trim ($f[0]);
+                $block_size = trim ($f[1]);
+                if (date ('U') - $date >= JIRAFEAU_MONTH)
+                {
+                    jirafeau_block_delete_ (substr($node, 0, -6));
+                    $count++;
+                }
+            }
+        }
+    }
+    return $count;
+}
+
+
 ?>

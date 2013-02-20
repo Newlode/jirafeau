@@ -145,6 +145,26 @@ require (JIRAFEAU_ROOT . 'lib/template/header.php');
             </td>
         </tr>
         </form>
+	<?php
+        if ($cfg['enable_blocks'])
+        {
+        ?>
+        <form action = "<?php echo basename(__FILE__); ?>" method = "post">
+        <tr>
+            <input type = "hidden" name = "action" value = "clean_block"/>
+            <td class = "info">
+                <?php echo t('Clean unused blocks'); ?>
+            </td>
+            <td></td>
+            <td>
+                <input type = "submit" value = "<?php echo t('Clean'); ?>" />
+            </td>
+        </tr>
+        </form>
+        <?php
+        }
+        ?>
+
         <form action = "<?php echo basename(__FILE__); ?>" method = "post">
         <tr>
             <input type = "hidden" name = "action" value = "list"/>
@@ -221,6 +241,14 @@ if (isset ($_POST['action']))
     elseif (strcmp ($_POST['action'], 'clean_async') == 0)
     {
         $total = jirafeau_admin_clean_async ();
+        echo '<div class="message">' . NL;
+        echo '<p>';
+        echo t('Number of cleaned files') . ' : ' . $total;
+        echo '</p></div>';
+    }
+    elseif (strcmp ($_POST['action'], 'clean_block') == 0)
+    {
+        $total = jirafeau_admin_clean_block ();
         echo '<div class="message">' . NL;
         echo '<p>';
         echo t('Number of cleaned files') . ' : ' . $total;
