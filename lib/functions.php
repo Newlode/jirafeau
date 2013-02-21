@@ -60,8 +60,8 @@ base_16_to_64 ($num)
     $i = 0;
     # Convert long hex string to bin.
     $size = strlen ($num);
-
-    $b .= $hex2bin{hexdec ($num{$i})};
+    for ($i = 0; $i < $size; $i++)
+        $b .= $hex2bin{hexdec ($num{$i})};
     # Convert long bin to base 64.
     $size *= 4;
     for ($i = $size - 6; $i >= 0; $i -= 6)
