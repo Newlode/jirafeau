@@ -199,6 +199,15 @@ if ($_SERVER['REQUEST_METHOD'] == "GET" && count ($_GET) == 0)
         echo '<p>' . t('This will return brut text content.') . ' ' .
              t('First line is a block id the second line the edit/delete code.') . '<br /></p>';
 
+        echo '<h3>' . t('Get block size') . ':</h3>';
+        echo '<p>';
+        echo t('Send a GET query to') . ': <i>' . $web_root . 'script.php?get_block_size</i><br />';
+        echo '<br />';
+        echo t('Parameters') . ':<br />';
+        echo "<b>id=</b>block_id<i> (" . t('Required') . ")</i> <br />";
+        echo '</p>';
+        echo '<p>' . t('This will return asked data or "Error" string.') . '<br /></p>';
+
         echo '<h3>' . t('Read data in a block') . ':</h3>';
         echo '<p>';
         echo t('Send a GET query to') . ': <i>' . $web_root . 'script.php?read_block</i><br />';
@@ -573,6 +582,14 @@ elseif (isset ($_GET['init_block']) && $cfg['enable_blocks'])
         echo "Error";
     else
         echo jirafeau_block_init ($_POST['size']);
+}
+/* Get block size. */
+elseif (isset ($_GET['get_block_size']) && $cfg['enable_blocks'])
+{
+    if (!isset ($_POST['id']))
+        echo "Error";
+    else
+        echo jirafeau_block_get_size ($_POST['id']);
 }
 /* Read data in block. */
 elseif (isset ($_GET['read_block']) && $cfg['enable_blocks'])

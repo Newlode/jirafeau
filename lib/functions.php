@@ -1006,6 +1006,43 @@ jirafeau_block_init ($size)
     return $id . NL . $code;
 }
 
+/** Get block size in bytes.
+  * @param $id identifier of the block
+  * @return  block size in bytes
+  */
+function
+jirafeau_block_get_size ($id)
+{
+    $p = VAR_BLOCK . s2p ($id) . $id;
+    if (!file_exists ($p))
+        return "Error";
+
+    /* Check date. */
+    $f = file ($p . '_infos');
+    $date = trim ($f[0]);
+    $block_size = trim ($f[1]);
+    $stored_code = trim ($f[2]);
+    /* Update date. */
+    if (date ('U') - $date > JIRAFEAU_HOUR
+        && date ('U') - $date < JIRAFEAU_MONTH)
+    {
+        if (file_put_contents ($p . '_infos', date ('U') . NL . $block_size . NL . $stored_code) === FALSE)
+        {
+            jirafeau_block_delete_ ($id);
+            return "Error";
+        }
+    }
+    /* Remove data. */
+    elseif (date ('U') - $date >= JIRAFEAU_MONTH)
+    {
+        echo date ('U'). " $date ";
+        jirafeau_block_delete_ ($id);
+        return "Error";
+    }
+
+    return $block_size;
+}
+
 /**
   * Read some data in a block.
   * @param $id identifier of the block

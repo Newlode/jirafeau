@@ -164,6 +164,7 @@ $tr = array (
             'This interface permits to create a block of data filled with zeros.' => 'Cette interface permet de creer un bloque de données remplies de zeros.',
             'You can read selected parts, write (using a code) and delete the block.' => 'Vous pouvez lire, écrire (en utilisant un code) et supprimer le bloque.',
             'Blocks may be removed after a month of non usage.' => 'Les bloques non utilisés depuis plus d\'un mois seront probablement supprimés.',
+            'Get block size' => 'Récupérer la taille d\'un bloque',
             'Read data in a block' => 'Lire des données dans un bloque',
             'Write data in a block' => 'Ecrire des données dans un bloque',
             'First line is a block id the second line the edit/delete code.' => 'La premiere ligne est l\'identifiant du bloque, la seconde est son code d\'écriture/suppression.',
