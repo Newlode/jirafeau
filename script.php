@@ -250,6 +250,13 @@ if ($_SERVER['REQUEST_METHOD'] == "GET" && count ($_GET) == 0)
 /* Lets use interface now. */
 header('Content-Type: text; charset=utf-8');
 
+check_errors ();
+if (has_error ())
+{
+    echo "Error";
+    exit;
+}
+
 /* Upload file */
 if (isset ($_FILES['file']) && is_writable (VAR_FILES)
     && is_writable (VAR_LINKS))
