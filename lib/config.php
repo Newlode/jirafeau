@@ -47,6 +47,11 @@ $cfg['download_page'] = false;
    The scripting interface can propose to create, read, write, delete blocks
    of data. */
 $cfg['enable_blocks'] = false;
+/* Encryption feature. disabled by default.
+ * This feature needs to have mcrypt php module installed.
+ * Note: activating encryption will make file-deduplication to fail.
+ */
+$cfg['enable_crypt'] = false;
 
 if ((basename (__FILE__) != 'config.local.php')
     && file_exists (JIRAFEAU_ROOT.'lib/config.local.php'))

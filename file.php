@@ -33,7 +33,7 @@ if (!isset ($_GET['h']) || empty ($_GET['h']))
 /* Operations may take a long time.
  * Be sure PHP's safe mode is off.
  */
- set_time_limit(0);
+set_time_limit(0);
 
 $link_name = $_GET['h'];
 
@@ -58,6 +58,10 @@ if (count ($link) == 0)
 $delete_code = '';
 if (isset ($_GET['d']) && !empty ($_GET['d']))
     $delete_code = $_GET['d'];
+
+$crypt_key = '';
+if (isset ($_GET['k']) && !empty ($_GET['k']))
+    $crypt_key = $_GET['k'];
 
 $button_download = false;
 if (isset ($_GET['bd']) && !empty ($_GET['bd']))
@@ -100,6 +104,15 @@ if ($link['time'] != JIRAFEAU_INFINITY && time () > $link['time'])
     exit;
 }
 
+if (empty ($crypt_key) && $link['crypted'])
+{
+    require (JIRAFEAU_ROOT.'lib/template/header.php');
+    echo '<div class="error"><p>' . t('Sorry, the requested file is not found') .
+    '</p></div>';
+    require (JIRAFEAU_ROOT.'lib/template/footer.php');
+    exit;
+}
+
 $password_challenged = false;
 if (!empty ($link['key']))
 {
@@ -107,8 +120,10 @@ if (!empty ($link['key']))
     {
         require (JIRAFEAU_ROOT.'lib/template/header.php');
         echo '<div>' .
-             '<form action = "' . $_SERVER['REQUEST_URI'] . '" ' .
-                'method = "post" id = "submit">'; ?>
+             '<form action = "';
+        echo $cfg['web_root'] . '/file.php';
+        echo '" ' .
+             'method = "post" id = "submit">'; ?>
              <input type = "hidden" name = "jirafeau" value = "<?php echo JIRAFEAU_VERSION ?>"/><?php
         echo '<fieldset>' .
              '<legend>' . t('Password protection') .
@@ -121,14 +136,23 @@ if (!empty ($link['key']))
              '</td></tr>' .
              '<tr><td>';
             ?><input type="submit" id = "submit_download"  value="<?php echo t('Download'); ?>"
-            onclick="document.getElementById('submit').action='<?php echo $_SERVER['REQUEST_URI'] ?>&amp;bd=1';
-                     document.getElementById('submit_download').submit ();"/><?php
-
+            onclick="document.getElementById('submit').action='
+<?php
+        echo $cfg['web_root'] . '/file.php?h=' . $link_name . '&amp;bd=1';
+        if (!empty($crypt_key))
+            echo '&amp;k=' . urlencode($crypt_key);
+?>';
+        document.getElementById('submit_download').submit ();"/><?php
         if ($cfg['download_page'] && $cfg['preview'])
         {
             ?><input type="submit" id = "submit_preview"  value="<?php echo t('Preview'); ?>"
-            onclick="document.getElementById('submit').action='<?php echo $_SERVER['REQUEST_URI'] ?>&amp;bp=1';
-                     document.getElementById('submit_preview').submit ();"/><?php
+            onclick="document.getElementById('submit').action='
+<?php
+        echo $cfg['web_root'] . '/file.php?h=' . $link_name . '&amp;bp=1';
+        if (!empty($crypt_key))
+            echo '&amp;k=' . urlencode($crypt_key);
+?>';
+        document.getElementById('submit_preview').submit ();"/><?php
         }
         echo '</td></tr></table></fieldset></form></div>';
         require (JIRAFEAU_ROOT.'lib/template/footer.php');
@@ -136,7 +160,9 @@ if (!empty ($link['key']))
     }
     else
     {
-        if ($link['key'] != md5 ($_POST['key']))
+        if ($link['key'] == md5 ($_POST['key']))
+            $password_challenged = true;
+	else
         {
             header ("Access denied");
             require (JIRAFEAU_ROOT.'lib/template/header.php');
@@ -145,8 +171,6 @@ if (!empty ($link['key']))
             require (JIRAFEAU_ROOT.'lib/template/footer.php');
             exit;
         }
-        else
-            $password_challenged = true;
     }
 }
 
@@ -154,8 +178,10 @@ if ($cfg['download_page'] && !$password_challenged && !$button_download && !$but
 {
         require (JIRAFEAU_ROOT.'lib/template/header.php');
         echo '<div>' .
-             '<form action = "' . $_SERVER['REQUEST_URI'] . '" ' .
-                'method = "post" id = "submit">'; ?>
+             '<form action = "';
+        echo $cfg['web_root'] . '/file.php';
+        echo '" ' .
+             'method = "post" id = "submit">'; ?>
              <input type = "hidden" name = "jirafeau" value = "<?php echo JIRAFEAU_VERSION ?>"/><?php
         echo '<fieldset><legend>' . $link['file_name'] . '</legend><table>' .
              '<tr><td>' .
@@ -164,14 +190,24 @@ if ($cfg['download_page'] && !$password_challenged && !$button_download && !$but
              '<tr><td>' .
              t('By using our services, you accept of our'). ' <a href="' . $cfg['web_root'] . '/tos.php' . '">' . t('Term Of Service') . '</a>';
             ?><input type="submit" id = "submit_download"  value="<?php echo t('Download'); ?>"
-            onclick="document.getElementById('submit').action='<?php echo $_SERVER['REQUEST_URI'] ?>&amp;bd=1';
-                     document.getElementById('submit_download').submit ();"/><?php
+            onclick="document.getElementById('submit').action='
+<?php
+        echo $cfg['web_root'] . '/file.php?h=' . $link_name . '&amp;bd=1';
+        if (!empty($crypt_key))
+            echo '&amp;k=' . urlencode($crypt_key);
+?>';
+        document.getElementById('submit_download').submit ();"/><?php
 
         if ($cfg['download_page'] && $cfg['preview'])
         {
             ?><input type="submit" id = "submit_preview"  value="<?php echo t('Preview'); ?>"
-            onclick="document.getElementById('submit').action='<?php echo $_SERVER['REQUEST_URI'] ?>&amp;bp=1';
-                     document.getElementById('submit_preview').submit ();"/><?php
+            onclick="document.getElementById('submit').action='
+<?php
+        echo $cfg['web_root'] . '/file.php?h=' . $link_name . '&amp;bp=1';
+        if (!empty($crypt_key))
+            echo '&amp;k=' . urlencode($crypt_key);
+?>';
+        document.getElementById('submit_preview').submit ();"/><?php
         }
         echo '</td></tr>';
         echo '</table></fieldset></form></div>';
@@ -187,16 +223,41 @@ if (!jirafeau_is_viewable ($link['mime_type']) || !$cfg['preview'] || $button_do
 else
     header ('Content-Type: ' . $link['mime_type']);
 
-/* Read file */
-$r = fopen (VAR_FILES . $p . $link['md5'], 'r');
-while (!feof ($r))
+/* Read encrypted file. */
+if ($link['crypted'])
 {
-    print fread ($r, 1024);
-    ob_flush();
+    /* Extract key and iv. */
+    $ex = explode (".", $crypt_key);
+    $key = $ex[0];
+    $iv = base64_decode($ex[1]);
+    error_log ("crypt_key: " . $crypt_key . " iv: " . $v . " key: ". $key . "\n", 3, "debug.log");
+    /* Init module */
+    $m = mcrypt_module_open('rijndael-256', '', 'ofb', '');
+    mcrypt_generic_init($m, $key, $iv);
+    /* Decrypt file. */
+    $r = fopen (VAR_FILES . $p . $link['md5'], 'r');
+    while (!feof ($r))
+    {
+        $dec = mdecrypt_generic($m, fread ($r, 1024));
+        print $dec;
+        ob_flush();
+    }
+    fclose ($r);
+    /* Cleanup. */
+    mcrypt_generic_deinit($m);
+    mcrypt_module_close($m);
 }
-fclose ($r);
-
-//readfile (VAR_FILES . $p . $link['md5']);
+/* Read file. */
+else
+{
+    $r = fopen (VAR_FILES . $p . $link['md5'], 'r');
+    while (!feof ($r))
+    {
+        print fread ($r, 1024);
+        ob_flush();
+    }
+    fclose ($r);
+}
 
 if ($link['onetime'] == 'O')
     jirafeau_delete_link ($link_name);

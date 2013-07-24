@@ -292,7 +292,8 @@ if (isset ($_FILES['file']) && is_writable (VAR_FILES)
         }
     $res = jirafeau_upload ($_FILES['file'],
                             isset ($_POST['one_time_download']),
-                            $key, $time, $_SERVER['REMOTE_ADDR']);
+                            $key, $time, $_SERVER['REMOTE_ADDR'],
+                            $cfg['enable_crypt']);
     
     if (empty($res) || $res['error']['has_error'])
     {
@@ -301,9 +302,12 @@ if (isset ($_FILES['file']) && is_writable (VAR_FILES)
     }
     /* Print direct link. */
     echo $res['link'];
-    echo NL;
     /* Print delete link. */
+    echo NL;
     echo $res['delete_link'];
+    /* Print decrypt key. */
+    echo NL;
+    echo urlencode($res['crypt_key']);
 }
 elseif (isset ($_GET['h']))
 {
@@ -580,7 +584,7 @@ elseif (isset ($_GET['end_async']))
         || !isset ($_POST['code']))
         echo "Error";
     else
-        echo jirafeau_async_end ($_POST['ref'], $_POST['code']);
+        echo jirafeau_async_end ($_POST['ref'], $_POST['code'], $cfg['enable_crypt']);
 }
 /* Initialize block. */
 elseif (isset ($_GET['init_block']) && $cfg['enable_blocks'])
