@@ -307,13 +307,14 @@ jirafeau_delete_file ($md5)
  * @param $time the time of validity of the file
  * @param $ip uploader's ip
  * @param $crypt boolean asking to crypt or not
+ * @param $link_name_length size of the link name
  * @returns an array containing some information
  *   'error' => information on possible errors
  *   'link' => the link name of the uploaded file
  *   'delete_link' => the link code to delete file
  */
 function
-jirafeau_upload ($file, $one_time_download, $key, $time, $ip, $crypt)
+jirafeau_upload ($file, $one_time_download, $key, $time, $ip, $crypt, $link_name_length)
 {
     if (empty ($file['tmp_name']) || !is_uploaded_file ($file['tmp_name']))
     {
@@ -379,7 +380,7 @@ jirafeau_upload ($file, $one_time_download, $key, $time, $ip, $crypt)
     fclose ($handle);
 
     /* Create delete code. */
-    $delete_link_code = jirafeau_gen_random (8);
+    $delete_link_code = jirafeau_gen_random (5);
 
     /* md5 password or empty. */
     $password = '';
@@ -394,7 +395,7 @@ jirafeau_upload ($file, $one_time_download, $key, $time, $ip, $crypt)
             NL . $md5. NL . ($one_time_download ? 'O' : 'R') . NL . date ('U') .
             NL . $ip . NL. $delete_link_code . NL . ($crypted ? 'C' : 'O'));
     fclose ($handle);
-    $md5_link = base_16_to_64 (md5_file ($link_tmp_name));
+    $md5_link = substr(base_16_to_64 (md5_file ($link_tmp_name)), 0, $link_name_length);
     $l = s2p ("$md5_link");
     if (!@mkdir (VAR_LINKS . $l, 0755, true) ||
         !rename ($link_tmp_name,  VAR_LINKS . $l . $md5_link))
@@ -882,10 +883,11 @@ jirafeau_async_push ($ref, $data, $code)
   * @param $ref asynchronous upload reference
   * @param $code client code for this operation
   * @param $crypt boolean asking to crypt or not
+  * @param $link_name_length link name lenght
   * @return  a string containing the download reference followed by a delete code or the string "Error"
   */
 function
-jirafeau_async_end ($ref, $code, $crypt)
+jirafeau_async_end ($ref, $code, $crypt, $link_name_length)
 {
     /* Get async infos. */
     $a = jirafeau_get_async_ref ($ref);
@@ -910,7 +912,7 @@ jirafeau_async_end ($ref, $code, $crypt)
     $md5 = md5_file ($p);
     $size = filesize($p);
     $np = s2p ($md5);
-    $delete_link_code = jirafeau_gen_random (8);
+    $delete_link_code = jirafeau_gen_random (5);
     
     /* File already exist ? */ 
     if (!file_exists (VAR_FILES . $np))
@@ -938,7 +940,7 @@ jirafeau_async_end ($ref, $code, $crypt)
             $a['key'] . NL . $a['time'] . NL . $md5 . NL . $a['onetime'] . NL .
             date ('U') . NL . $a['ip'] . NL . $delete_link_code . NL . ($crypted ? 'C' : 'O'));
     fclose ($handle);
-    $md5_link = base_16_to_64 (md5_file ($link_tmp_name));
+    $md5_link = substr(base_16_to_64 (md5_file ($link_tmp_name)), 0, $link_name_length);
     $l = s2p ("$md5_link");
     if (!@mkdir (VAR_LINKS . $l, 0755, true) ||
         !rename ($link_tmp_name,  VAR_LINKS . $l . $md5_link))
@@ -1289,6 +1291,16 @@ jirafeau_admin_clean_block ()
     return $count;
 }
 
+function
+jirafeau_crypt_create_iv($base, $size)
+{
+    $iv = '';
+    while (strlen ($iv) < $size)
+        $iv = $iv . $base;
+    $iv = substr($iv, 0, $size);
+    return $iv;
+}
+
 /**
  * Crypt file and returns decrypt key.
  * @param $fp_src file path to the file to crypt.
@@ -1304,12 +1316,12 @@ jirafeau_encrypt_file ($fp_src, $fp_dst)
 
     /* Prepare module. */
     $m = mcrypt_module_open('rijndael-256', '', 'ofb', '');
-    $iv = mcrypt_create_iv(mcrypt_enc_get_iv_size($m), MCRYPT_DEV_URANDOM);
     /* Generate key. */
-    $ks = mcrypt_enc_get_key_size($m);
-    $key = substr(md5(jirafeau_gen_random(12)), 0, $ks);
+    $crypt_key = jirafeau_gen_random (10);
+    $md5_key = md5($crypt_key);
+    $iv = jirafeau_crypt_create_iv ($md5_key, mcrypt_enc_get_iv_size($m));
     /* Init module. */
-    mcrypt_generic_init($m, $key, $iv);
+    mcrypt_generic_init($m, $md5_key, $iv);
     /* Crypt file. */
     $r = fopen ($fp_src, 'r');
     $w = fopen ($fp_dst, 'c');
@@ -1324,7 +1336,7 @@ jirafeau_encrypt_file ($fp_src, $fp_dst)
     /* Cleanup. */
     mcrypt_generic_deinit($m);
     mcrypt_module_close($m);
-    return $key . "." . base64_encode($iv);
+    return $crypt_key;
 }
 
 /**
@@ -1341,13 +1353,12 @@ jirafeau_decrypt_file ($fp_src, $fp_dst, $k)
     if ($fs === false || $fs == 0 || !extension_loaded('mcrypt'))
         return false;
 
-    /* Extract key and iv. */
-    $ex = explode (".", $k);
-    $key = $ex[0];
-    $iv = base64_decode($ex[1]);
     /* Init module */
     $m = mcrypt_module_open('rijndael-256', '', 'ofb', '');
-    mcrypt_generic_init($m, $key, $iv);
+    /* Extract key and iv. */
+    $crypt_key = $k;
+    $md5_key = md5($crypt_key);
+    $iv = jirafeau_crypt_create_iv ($md5_key, mcrypt_enc_get_iv_size($m));
     /* Decrypt file. */
     $r = fopen ($fp_src, 'r');
     $w = fopen ($fp_dst, 'c');

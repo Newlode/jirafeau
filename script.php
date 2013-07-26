@@ -293,7 +293,7 @@ if (isset ($_FILES['file']) && is_writable (VAR_FILES)
     $res = jirafeau_upload ($_FILES['file'],
                             isset ($_POST['one_time_download']),
                             $key, $time, $_SERVER['REMOTE_ADDR'],
-                            $cfg['enable_crypt']);
+                            $cfg['enable_crypt'], $cfg['link_name_lenght']);
     
     if (empty($res) || $res['error']['has_error'])
     {
@@ -584,7 +584,7 @@ elseif (isset ($_GET['end_async']))
         || !isset ($_POST['code']))
         echo "Error";
     else
-        echo jirafeau_async_end ($_POST['ref'], $_POST['code'], $cfg['enable_crypt']);
+        echo jirafeau_async_end ($_POST['ref'], $_POST['code'], $cfg['enable_crypt'], $cfg['link_name_lenght']);
 }
 /* Initialize block. */
 elseif (isset ($_GET['init_block']) && $cfg['enable_blocks'])

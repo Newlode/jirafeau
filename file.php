@@ -37,7 +37,7 @@ set_time_limit(0);
 
 $link_name = $_GET['h'];
 
-if (!preg_match ('/[0-9a-zA-Z_-]{22}$/', $link_name))
+if (!preg_match ('/[0-9a-zA-Z_-]+$/', $link_name))
 {
     require (JIRAFEAU_ROOT.'lib/template/header.php');
     echo '<div class="error"><p>' . t('Sorry, the requested file is not found') . '</p></div>';
@@ -226,14 +226,13 @@ else
 /* Read encrypted file. */
 if ($link['crypted'])
 {
-    /* Extract key and iv. */
-    $ex = explode (".", $crypt_key);
-    $key = $ex[0];
-    $iv = base64_decode($ex[1]);
-    error_log ("crypt_key: " . $crypt_key . " iv: " . $v . " key: ". $key . "\n", 3, "debug.log");
     /* Init module */
     $m = mcrypt_module_open('rijndael-256', '', 'ofb', '');
-    mcrypt_generic_init($m, $key, $iv);
+    /* Extract key and iv. */
+    $md5_key = md5 ($crypt_key);
+    $iv = jirafeau_crypt_create_iv ($md5_key, mcrypt_enc_get_iv_size($m));
+    /* Init module. */
+    mcrypt_generic_init ($m, $md5_key, $iv);
     /* Decrypt file. */
     $r = fopen (VAR_FILES . $p . $link['md5'], 'r');
     while (!feof ($r))
