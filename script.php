@@ -319,7 +319,7 @@ elseif (isset ($_GET['h']))
     if (isset ($_GET['d']))
         $d = $_GET['d'];
     
-    if (!preg_match ('/[0-9a-zA-Z_-]{22}$/', $link_name))
+    if (!preg_match ('/[0-9a-zA-Z_-]+$/', $link_name))
     {
         echo "Error";
         exit;
