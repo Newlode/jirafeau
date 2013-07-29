@@ -189,7 +189,7 @@ if ($cfg['download_page'] && !$password_challenged && !$button_download && !$but
              '</td></tr>' .
              '<tr><td>' .
              t('By using our services, you accept of our'). ' <a href="' . $cfg['web_root'] . '/tos.php' . '">' . t('Term Of Service') . '</a>';
-            ?><input type="submit" id = "submit_download"  value="<?php echo t('Download'); ?>"
+            ?></td></tr><tr><td><input type="submit" id = "submit_download"  value="<?php echo t('Download'); ?>"
             onclick="document.getElementById('submit').action='
 <?php
         echo $cfg['web_root'] . '/f.php?h=' . $link_name . '&amp;bd=1';
