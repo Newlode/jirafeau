@@ -389,7 +389,7 @@ jirafeau_upload ($file, $one_time_download, $key, $time, $ip, $crypt, $link_name
         $password = md5 ($key);
 
     /* create link file */
-    $link_tmp_name =  VAR_LINKS . $md5 . rand (0, 10000) . ' .tmp';
+    $link_tmp_name =  VAR_LINKS . $md5 . rand (0, 10000) . '.tmp';
     $handle = fopen ($link_tmp_name, 'w');
     fwrite ($handle,
             $name . NL. $mime_type . NL. $size . NL. $password . NL. $time .
@@ -934,7 +934,7 @@ jirafeau_async_end ($ref, $code, $crypt, $link_name_length)
     fclose ($handle);
     
     /* Create link. */
-    $link_tmp_name =  VAR_LINKS . $md5 . rand (0, 10000) . ' .tmp';
+    $link_tmp_name =  VAR_LINKS . $md5 . rand (0, 10000) . '.tmp';
     $handle = fopen ($link_tmp_name, 'w');
     fwrite ($handle,
             $a['file_name'] . NL . $a['mime_type'] . NL . $size . NL .
