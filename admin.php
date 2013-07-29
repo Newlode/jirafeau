@@ -19,7 +19,7 @@
  
 define ('JIRAFEAU_ROOT', dirname (__FILE__) . '/');
 
-require (JIRAFEAU_ROOT . 'lib/config.php');
+require (JIRAFEAU_ROOT . 'lib/config.original.php');
 require (JIRAFEAU_ROOT . 'lib/settings.php');
 require (JIRAFEAU_ROOT . 'lib/functions.php');
 require (JIRAFEAU_ROOT . 'lib/lang.php');

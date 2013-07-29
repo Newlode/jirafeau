@@ -51,7 +51,7 @@ $cfg['enable_blocks'] = false;
  * By disabling it, file-level deduplication will be effective. */
 $cfg['enable_crypt'] = true;
 /* Split lenght of link refenrece. */
-$cfg['link_name_lenght'] = 5;
+$cfg['link_name_lenght'] = 8;
 
 if ((basename (__FILE__) != 'config.local.php')
     && file_exists (JIRAFEAU_ROOT.'lib/config.local.php'))
