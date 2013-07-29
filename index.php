@@ -1,7 +1,9 @@
 <?php
 /*
  *  Jirafeau, your web file repository
- *  Copyright (C) 2012  Jerome Jutteau <j.jutteau@gmail.com>
+ *  Copyright (C) 2013
+ *  Jerome Jutteau <j.jutteau@gmail.com>
+ *  Jimmy Beauvois <jimmy.beauvois@gmail.com>
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU Affero General Public License as
@@ -59,8 +61,9 @@ if (has_error ())
 </div>
 
 <div id="upload">
+<fieldset>
     <legend>
-    <?php echo t('Select a file'); ?> :
+    <?php echo t('Select a file'); ?> 
     </legend>
     <p>
     <input type="file" id="file_select" size="30"
@@ -69,15 +72,7 @@ if (has_error ())
         document.getElementById('send').style.display = '';
     "/>
     </p>
-    <p id="max_file_size" class="config"></p>
-    <p>
-    <input type="submit" id="send" value="<?php echo t('Send'); ?>"
-    onclick="
-        document.getElementById('upload').style.display = 'none';
-        document.getElementById('uploading').style.display = '';
-        upload ('<?php echo $cfg['web_root']; ?>', <?php echo jirafeau_get_max_upload_size_bytes (); ?>);
-    "/>
-    </p>
+    
     <div id="options">
         <table id="option_table">
         <tr>
@@ -99,9 +94,19 @@ if (has_error ())
         <option value = "month"><?php echo t('One month');?></option>
         </select></td>
         </tr>
+		<p id="max_file_size" class="config"></p>
+    <p>
+    <input type="submit" id="send" value="<?php echo t('Send'); ?>"
+    onclick="
+        document.getElementById('upload').style.display = 'none';
+        document.getElementById('uploading').style.display = '';
+        upload ('<?php echo $cfg['web_root']; ?>', <?php echo jirafeau_get_max_upload_size_bytes (); ?>);
+    "/>
+    </p>
         </table>
-    </div> 
+    </div> </fieldset>
 </div>
+
 <script lang="Javascript">
     document.getElementById('uploading').style.display = 'none';
     document.getElementById('upload_finished').style.display = 'none';
