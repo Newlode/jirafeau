@@ -122,10 +122,11 @@ function
 jirafeau_clean_rm_file ($md5)
 {
     $p = s2p ("$md5");
-    if (file_exists (VAR_FILES . $p . $md5))
-        unlink (VAR_FILES . $p . $md5);
-    if (file_exists (VAR_FILES . $p . $md5 . '_count'))
-        unlink (VAR_FILES . $p . $md5 . '_count');
+    $f = VAR_FILES . $p . $md5;
+    if (file_exists ($f) && is_file ($f))
+        unlink ($f);
+    if (file_exists ($f . '_count') && is_file ($f . '_count'))
+        unlink ($f . '_count');
     $parse = VAR_FILES . $p;
     $scan = array();
     while (file_exists ($parse)
