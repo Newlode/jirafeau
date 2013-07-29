@@ -317,8 +317,6 @@ jirafeau_delete_file ($md5)
 function
 jirafeau_upload ($file, $one_time_download, $key, $time, $ip, $crypt, $link_name_length)
 {
-    if (!is_int ($link_name_length))
-        $link_name_length = 8;
     if (empty ($file['tmp_name']) || !is_uploaded_file ($file['tmp_name']))
     {
         return (array(
@@ -424,10 +422,10 @@ jirafeau_upload ($file, $one_time_download, $key, $time, $ip, $crypt, $link_name
                  'link' =>'',
                  'delete_link' => ''));
     }
-    return (array ('error' => $noerr,
-                   'link' => $md5_link,
-                   'delete_link' => $delete_link_code,
-                   'crypt_key' => $crypt_key));
+   return (array ('error' => $noerr,
+                  'link' => $md5_link,
+                  'delete_link' => $delete_link_code,
+                  'crypt_key' => $crypt_key));
 }
 
 /**
@@ -892,8 +890,6 @@ jirafeau_async_push ($ref, $data, $code)
 function
 jirafeau_async_end ($ref, $code, $crypt, $link_name_length)
 {
-    if (!is_int ($link_name_length))
-        $link_name_length = 8;
     /* Get async infos. */
     $a = jirafeau_get_async_ref ($ref);
     if (count ($a) == 0
