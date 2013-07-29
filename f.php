@@ -121,7 +121,7 @@ if (!empty ($link['key']))
         require (JIRAFEAU_ROOT.'lib/template/header.php');
         echo '<div>' .
              '<form action = "';
-        echo $cfg['web_root'] . '/file.php';
+        echo $cfg['web_root'] . '/f.php';
         echo '" ' .
              'method = "post" id = "submit">'; ?>
              <input type = "hidden" name = "jirafeau" value = "<?php echo JIRAFEAU_VERSION ?>"/><?php
@@ -138,7 +138,7 @@ if (!empty ($link['key']))
             ?><input type="submit" id = "submit_download"  value="<?php echo t('Download'); ?>"
             onclick="document.getElementById('submit').action='
 <?php
-        echo $cfg['web_root'] . '/file.php?h=' . $link_name . '&amp;bd=1';
+        echo $cfg['web_root'] . '/f.php?h=' . $link_name . '&amp;bd=1';
         if (!empty($crypt_key))
             echo '&amp;k=' . urlencode($crypt_key);
 ?>';
@@ -148,7 +148,7 @@ if (!empty ($link['key']))
             ?><input type="submit" id = "submit_preview"  value="<?php echo t('Preview'); ?>"
             onclick="document.getElementById('submit').action='
 <?php
-        echo $cfg['web_root'] . '/file.php?h=' . $link_name . '&amp;bp=1';
+        echo $cfg['web_root'] . '/f.php?h=' . $link_name . '&amp;bp=1';
         if (!empty($crypt_key))
             echo '&amp;k=' . urlencode($crypt_key);
 ?>';
@@ -179,7 +179,7 @@ if ($cfg['download_page'] && !$password_challenged && !$button_download && !$but
         require (JIRAFEAU_ROOT.'lib/template/header.php');
         echo '<div>' .
              '<form action = "';
-        echo $cfg['web_root'] . '/file.php';
+        echo $cfg['web_root'] . '/f.php';
         echo '" ' .
              'method = "post" id = "submit">'; ?>
              <input type = "hidden" name = "jirafeau" value = "<?php echo JIRAFEAU_VERSION ?>"/><?php
@@ -192,7 +192,7 @@ if ($cfg['download_page'] && !$password_challenged && !$button_download && !$but
             ?><input type="submit" id = "submit_download"  value="<?php echo t('Download'); ?>"
             onclick="document.getElementById('submit').action='
 <?php
-        echo $cfg['web_root'] . '/file.php?h=' . $link_name . '&amp;bd=1';
+        echo $cfg['web_root'] . '/f.php?h=' . $link_name . '&amp;bd=1';
         if (!empty($crypt_key))
             echo '&amp;k=' . urlencode($crypt_key);
 ?>';
@@ -203,7 +203,7 @@ if ($cfg['download_page'] && !$password_challenged && !$button_download && !$but
             ?><input type="submit" id = "submit_preview"  value="<?php echo t('Preview'); ?>"
             onclick="document.getElementById('submit').action='
 <?php
-        echo $cfg['web_root'] . '/file.php?h=' . $link_name . '&amp;bp=1';
+        echo $cfg['web_root'] . '/f.php?h=' . $link_name . '&amp;bp=1';
         if (!empty($crypt_key))
             echo '&amp;k=' . urlencode($crypt_key);
 ?>';

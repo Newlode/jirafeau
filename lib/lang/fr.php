@@ -46,7 +46,7 @@ $tr = array (
              'File uploaded! Copy the following URL to get it' => 'Fichier envoyé! Le fichier sera accessible à l\'adresse suivante',
              'This file is valid until the following date' => 'Ce fichier est valable jusqu\'à la date suivante',
              'Keep the following URL to delete it at any moment' => 'Vous pouvez supprimer le fichier lorsque vous le désirez via l\'adresse suivante',
-             /* file.php */
+             /* f.php */
              'Download' => 'Télécharger',
              'Sorry, the requested file is not found' => 'Désolé, le fichier que vous demandez n\'existe pas ou n\'existe plus',
              'File not available.' => 'Fichier non disponible',
