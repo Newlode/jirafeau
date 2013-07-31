@@ -47,9 +47,9 @@ $cfg['download_page'] = false;
    The scripting interface can propose to create, read, write, delete blocks
    of data. */
 $cfg['enable_blocks'] = false;
-/* Encryption feature. enabled by default (if possible).
- * By disabling it, file-level deduplication will be effective. */
-$cfg['enable_crypt'] = true;
+/* Encryption feature. disable it by default.
+ * By enabling it, file-level deduplication won't work. */
+$cfg['enable_crypt'] = false;
 /* Split lenght of link refenrece. */
 $cfg['link_name_lenght'] = 8;
 
