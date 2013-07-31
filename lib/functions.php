@@ -905,7 +905,7 @@ jirafeau_async_end ($ref, $code, $crypt, $link_name_length)
     $crypt_key = '';
     if ($crypt == true && extension_loaded('mcrypt'))
     {
-        $cypt_key = jirafeau_encrypt_file ($p, $p);
+        $crypt_key = jirafeau_encrypt_file ($p, $p);
         if (strlen($crypt_key) > 0)
             $crypted = true;
     }
