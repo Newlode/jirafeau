@@ -263,6 +263,12 @@ if (has_error ())
 if (isset ($_FILES['file']) && is_writable (VAR_FILES)
     && is_writable (VAR_LINKS))
 {
+    if (strlen ($cfg['upload_password']) > 0 && (!isset ($_POST['upload_password']) || $_POST['upload_password'] != $cfg['upload_password']))
+    {
+        echo "Error";
+        exit;
+    }
+
     $key = '';
     if (isset ($_POST['key']))
         $key = $_POST['key'];
@@ -523,6 +529,12 @@ fi
 /* Initialize an asynchronous upload. */
 elseif (isset ($_GET['init_async']))
 {
+    if (strlen ($cfg['upload_password']) > 0 && (!isset ($_POST['upload_password']) || $_POST['upload_password'] != $cfg['upload_password']))
+    {
+        echo "Error";
+        exit;
+    }
+
     if (!isset ($_POST['filename']))
     {
         echo "Error";
@@ -591,6 +603,12 @@ elseif (isset ($_GET['end_async']))
 /* Initialize block. */
 elseif (isset ($_GET['init_block']) && $cfg['enable_blocks'])
 {
+    if (strlen ($cfg['upload_password']) > 0 && (!isset ($_POST['upload_password']) || $_POST['upload_password'] != $cfg['upload_password']))
+    {
+        echo "Error";
+        exit;
+    }
+
     if (!isset ($_POST['size']))
         echo "Error";
     else

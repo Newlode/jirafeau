@@ -52,6 +52,8 @@ $cfg['enable_blocks'] = false;
 $cfg['enable_crypt'] = false;
 /* Split lenght of link refenrece. */
 $cfg['link_name_lenght'] = 8;
+/* Upload password. Empty string disable the password. */
+$cfg['upload_password'] = '';
 
 if ((basename (__FILE__) != 'config.local.php')
     && file_exists (JIRAFEAU_ROOT.'lib/config.local.php'))

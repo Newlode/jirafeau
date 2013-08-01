@@ -33,6 +33,62 @@ if (has_error ())
     require (JIRAFEAU_ROOT . 'lib/template/footer.php');
     exit;
 }
+
+/* Ask password if upload password is set. */
+if (strlen ($cfg['upload_password']) > 0)
+{
+    session_start();
+
+    /* Unlog if asked. */
+    if (isset ($_POST['action']) && (strcmp ($_POST['action'], 'logout') == 0))
+        $_SESSION['upload_auth'] = false;
+
+    /* Auth. */
+    if (isset ($_POST['upload_password']))
+    {
+        if (strcmp ($cfg['upload_password'], $_POST['upload_password']) == 0)
+            $_SESSION['upload_auth'] = true;
+        else
+        {
+            $_SESSION['admin_auth'] = false;
+            echo '<div class="error"><p>' . t('Wrong password.') . '</p></div>';
+            require (JIRAFEAU_ROOT.'lib/template/footer.php');
+            exit;
+        }
+    }
+
+    /* Show auth page. */
+    if (!isset ($_SESSION['upload_auth']) || $_SESSION['upload_auth'] != true)
+    {
+	?>
+        <form action = "<?php echo basename(__FILE__); ?>" method = "post">
+        <fieldset>
+            <table>
+            <tr>
+                <td class = "label"><label for = "enter_password">
+                <?php echo t('Upload password') . ':';?></label>
+                </td>
+                <td class = "field"><input type = "password"
+                name = "upload_password" id = "upload_password"
+                size = "40" />
+                </td>
+            </tr>
+            <tr class = "nav">
+                <td></td>
+                <td class = "nav next">
+                <input type = "submit" name = "key" value =
+                "<?php echo t('Login'); ?>" />
+                </td>
+            </tr>
+            </table>
+        </fieldset>
+        </form>
+        <?php
+        require (JIRAFEAU_ROOT.'lib/template/footer.php');
+        exit;
+    }
+}
+
 ?>
 <div id="upload_finished">
     <p>
@@ -96,6 +152,8 @@ if (has_error ())
         </tr>
 		<p id="max_file_size" class="config"></p>
     <p>
+
+    <input type="hidden" id="upload_password" name="upload_password" value="<?php echo $cfg['upload_password']?>"/>
     <input type="submit" id="send" value="<?php echo t('Send'); ?>"
     onclick="
         document.getElementById('upload').style.display = 'none';
@@ -105,6 +163,19 @@ if (has_error ())
     </p>
         </table>
     </div> </fieldset>
+
+    <?php
+    if (strlen ($cfg['upload_password']) > 0)
+    {
+    ?>
+    <form action = "<?php echo basename(__FILE__); ?>" method = "post">
+        <input type = "hidden" name = "action" value = "logout"/>
+        <input type = "submit" value = "<?php echo t('Logout'); ?>" />
+    </form>
+    <?php
+    }
+    ?>
+
 </div>
 
 <script lang="Javascript">
