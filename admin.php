@@ -110,7 +110,9 @@ elseif (!isset ($_SESSION['admin_auth']) || $_SESSION['admin_auth'] != true)
 /* Operations may take a long time.
  * Be sure PHP's safe mode is off.
  */
- set_time_limit(0);
+@set_time_limit(0);
+/* Remove errors. */
+@error_reporting(0);
 
 /* Admin interface. */
 require (JIRAFEAU_ROOT . 'lib/template/header.php');
