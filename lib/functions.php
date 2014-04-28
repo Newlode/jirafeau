@@ -515,12 +515,6 @@ function check_errors ()
 
      if (!is_writable (VAR_BLOCK))
         add_error (t('The block directory is not writable!'), VAR_BLOCK);
-
-   /* Check if the install.php script is still in the directory. */
-    if (file_exists (JIRAFEAU_ROOT . 'install.php'))
-        add_error (t('Installer script still present'),
-             t('Please make sure to delete the installer script ' .
-               '"install.php" before continuing.'));
 }
 
 /**

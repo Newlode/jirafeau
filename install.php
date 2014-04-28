@@ -134,6 +134,11 @@ if (!file_exists (JIRAFEAU_CFG))
         exit;
     }
 }
+else
+{
+    header('Location: index.php');
+    exit;
+}
 
 if (!is_writable (JIRAFEAU_CFG) && !@chmod (JIRAFEAU_CFG, '0666'))
 {
