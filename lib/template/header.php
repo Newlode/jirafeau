@@ -8,9 +8,15 @@ if (stristr ($_SERVER['HTTP_ACCEPT'], 'application/xhtml+xml'))
 
 header('Content-Type: ' . $content_type);
 
+$protocol = (bool)is_ssl() ? 'https' : 'http';
+
+if ( !empty($cfg['web_root']) ) {
+    $cfg['web_root'] = preg_replace('#https?://#', $protocol . '://', $cfg['web_root'], 1);
+}
+
 /* Avoids irritating errors with the installer (no conf file is present then). */
 if (!isset ($cfg['web_root']))
-    $web_root = 'http://' . $_SERVER['HTTP_HOST'] . '/';
+    $web_root = $protocol+'://' . $_SERVER['HTTP_HOST'] . '/';
 else
     $web_root = $cfg['web_root'];
 
