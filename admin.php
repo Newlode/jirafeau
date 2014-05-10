@@ -32,19 +32,8 @@ if (file_exists (JIRAFEAU_ROOT . 'install.php')
     exit;
 }
 
-/* Check if the install.php script is still in the directory. */
-if (file_exists (JIRAFEAU_ROOT . 'install.php'))
-{
-    require (JIRAFEAU_ROOT . 'lib/template/header.php');
-    echo '<div class="error"><p>'.
-         t('Installer script still present') .
-         '</p></div>';
-    require (JIRAFEAU_ROOT.'lib/template/footer.php');
-    exit;
-}
-
 /* Disable admin interface if we have a empty admin password. */
-if (!$cfg['admin_password'])
+if (empty($cfg['admin_password']))
 {
     require (JIRAFEAU_ROOT . 'lib/template/header.php');
     echo '<div class="error"><p>'.
