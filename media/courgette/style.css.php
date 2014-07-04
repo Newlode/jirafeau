@@ -1,0 +1,332 @@
+<?php
+/*
+ *  Jyraphe, your web file repository
+ *  Copyright (C) 2013
+ *  Jerome Jutteau <j.jutteau@gmail.com>
+ *  Jimmy Beauvois <jimmy.beauvois@gmail.com>
+ *
+ *  This program is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Affero General Public License as
+ *  published by the Free Software Foundation, either version 3 of the
+ *  License, or (at your option) any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Affero General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Affero General Public License
+ *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+/*
+ * This stylesheet is the default stylesheet for Jyraphe.
+ * The content is dynamically generated for easier handling.
+ */
+
+$dark = '#8B4513';
+
+header("Content-type: text/css");
+
+?>
+
+/* ==========================================================================
+   Sommaire
+
+   1 = Basic Style
+   2 = Copyright
+   3 = Options
+   4 = Upload
+   5 = Terms of service
+   
+   ========================================================================== */
+
+/* ==========================================================================
+   1 = Basic Style
+   ========================================================================== */
+
+body {
+  background: #efebe9;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  line-height: 1.5;
+}
+
+h1 a {
+  display: block;
+  background: url(logo-jirafeau.svg) no-repeat;
+  background-size: 100% 100%;
+  text-indent: -9999px;
+  width: 194px;
+  height: 185px;
+  margin: 1em auto;
+  position: relative;
+  left: 0.4em;
+}
+
+h2 {
+  text-align: center;
+  color: #795548;
+}
+
+fieldset {
+  border: 0;
+  padding: 1.5em;
+  margin: 0 auto;
+  border-radius: 2px;
+  width: 20em;
+  border: 7px dashed #bcaaa4;
+  min-height: 15em;
+  position: relative;
+}
+
+legend {
+  padding: 0.5em 1em;
+  background: #efebe9;
+  color: #663D1C;
+  font-size: 1.2em;
+  display: block;
+  width: 100%;
+  text-align: center;
+}
+
+input[type="submit"] {
+  background: #0D9CB2;
+  border: 0;
+  padding: 0.4em 2.2em;
+  font-size: 1.1em;
+  color: #FFF;
+  border-bottom: 5px solid #085B69;
+  cursor: pointer;
+}
+
+input[type="submit"]:hover,
+input[type="submit"]:focus {
+  border: 0;
+  position: relative;
+  top: 5px;
+  margin-bottom: 5px;
+}
+
+select,
+input[type="text"],
+input[type="password"] {
+  border: 0;
+  padding: 0.5em 1em;
+  font-size: 1em;
+  width: 100%;
+}
+
+label {
+  font-weight: bold;
+  color: #663D1C;
+}
+
+#upload_password { width: 80%; }
+
+.next input[type="submit"] {
+  position: relative;
+  margin-top: 0.5em;
+  padding: 0.4em 2.65em;
+}
+
+input[value="Déconnexion"] {
+  background: none;
+  color: #663D1C;
+  border: 0;
+  display: block;
+  margin: auto;
+  padding-left: 4em;
+  font-size: 1em;
+  font-style:italic;
+}
+
+input[value="Déconnexion"]:hover,
+input[value="Déconnexion"]:focus {
+  top: 0;
+  margin-bottom: 0;
+  text-decoration: underline;
+}
+
+form[action="index.php"] .label {
+  width: 7em;
+}
+
+form[action="index.php"] fieldset {
+  border: 0;
+  background: #d7ccc8;
+  min-height: 5em;
+}
+
+select { width: 127%; }
+
+
+
+.inner {
+  margin-top: 3em;
+}
+
+#upload fieldset {
+  background: url(upload.svg) no-repeat center;
+  -webkit-transition: all 0.5s ease;
+     -moz-transition: all 0.5s ease;
+      -ms-transition: all 0.5s ease;
+       -o-transition: all 0.5s ease;
+          transition: all 0.5s ease;
+}
+
+#upload fieldset:hover {
+  border-color: #663D1C;
+}
+
+#file_select {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  opacity: 0;
+}
+
+
+
+/* ==========================================================================
+   2 = Copyright
+   ========================================================================== */
+
+#copyright {
+  text-align: center;
+  font-size: 0.8em;
+  color: #795548;
+  padding-left: 3em;
+}
+
+#copyright a {
+  color: #795548;
+  text-decoration: none;
+}
+
+#copyright a:hover,
+#copyright a:focus {
+  text-decoration: underline;
+}
+
+/* ==========================================================================
+   3 = Options
+   ========================================================================== */
+
+#options {
+  position: relative;
+  z-index: 10;
+  background: #efebe9;
+}
+
+#options tr { height: 2.7em; }
+
+#option_table tr:first-child td:first-child {
+  width: 12em;
+  font-weight: bold;
+  color: #663D1C;
+}
+
+#option_table tr td:first-child {
+  
+}
+
+#options input[type="submit"] {
+  position: relative;
+  left: 11.2em;
+}
+
+/* ==========================================================================
+   4 = Upload
+   ========================================================================== */
+
+#upload_finished,
+#uploading,
+.message,
+.error {
+  text-align: center;
+  color: #795548;
+  padding-left: 3em;
+}
+
+#upload_finished a,
+#uploading a,
+#submit a {
+  font-weight: bold;
+  text-decoration: none;
+  color: #795548;
+}
+
+#submit a:before {
+  content: "› ";
+}
+
+#uploaded_percentage {
+  font-size: 2em;
+  font-weight: bold;
+}
+
+#upload_finished a:hover,
+#uploading a:hover,
+#upload_finished a:focus,
+#uploading a:focus,
+#submit a:hover,
+#submit a:focus {
+  text-decoration: underline;
+}
+
+.message,
+.error {
+  font-style: italic;
+}
+
+#submit tr:first-child td:first-child {
+  font-weight: bold;
+  color: #795548;
+}
+
+#submit tr + tr td {
+  padding-top: 1em;
+}
+
+#submit td {
+  color: #795548;
+}
+
+/* ==========================================================================
+   5 = Terms of service
+   ========================================================================== */
+
+
+
+textarea[readonly="readonly"] {
+  border: 0;
+  color: #795548;
+  font-family: Arial, sans-serif;
+  background: none;
+  margin: auto;
+  display: block;
+}
+
+textarea[readonly="readonly"] + p,
+textarea[readonly="readonly"] + p + p {
+  text-align: center;
+  color: #795548;
+}
+
+textarea[readonly="readonly"] + p a,
+textarea[readonly="readonly"] + p + p a {
+  font-weight: bold;
+  text-decoration: none;
+  color: #795548;
+}
+
+textarea[readonly="readonly"] + p a:hover,
+textarea[readonly="readonly"] + p + p a:hover,
+textarea[readonly="readonly"] + p a:focus,
+textarea[readonly="readonly"] + p + p a:focus {
+  text-decoration: underline;
+}
