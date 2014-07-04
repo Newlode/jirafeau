@@ -45,6 +45,12 @@ header("Content-type: text/css");
    1 = Basic Style
    ========================================================================== */
 
+* {
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
 body {
   background: #efebe9;
   font-family: Arial, sans-serif;
@@ -60,8 +66,6 @@ h1 a {
   width: 194px;
   height: 185px;
   margin: 1em auto;
-  position: relative;
-  left: 0.4em;
 }
 
 h2 {
@@ -74,9 +78,9 @@ fieldset {
   padding: 1.5em;
   margin: 0 auto;
   border-radius: 2px;
-  width: 20em;
+  width: 25em;
   border: 7px dashed #bcaaa4;
-  min-height: 15em;
+  min-height: 17em;
   position: relative;
 }
 
@@ -158,8 +162,6 @@ form[action="index.php"] fieldset {
   min-height: 5em;
 }
 
-select { width: 127%; }
-
 
 
 .inner {
@@ -199,7 +201,6 @@ select { width: 127%; }
   text-align: center;
   font-size: 0.8em;
   color: #795548;
-  padding-left: 3em;
 }
 
 #copyright a {
@@ -249,7 +250,6 @@ select { width: 127%; }
 .error {
   text-align: center;
   color: #795548;
-  padding-left: 3em;
 }
 
 #upload_finished a,
