@@ -38,18 +38,13 @@ header("Content-type: text/css");
    3 = Options
    4 = Upload
    5 = Terms of service
+   6 = Admin
    
    ========================================================================== */
 
 /* ==========================================================================
    1 = Basic Style
    ========================================================================== */
-
-* {
-  -webkit-box-sizing: border-box;
-     -moz-box-sizing: border-box;
-          box-sizing: border-box;
-}
 
 body {
   background: #efebe9;
@@ -66,6 +61,8 @@ h1 a {
   width: 194px;
   height: 185px;
   margin: 1em auto;
+  position: relative;
+  left: 0.4em;
 }
 
 h2 {
@@ -77,10 +74,10 @@ fieldset {
   border: 0;
   padding: 1.5em;
   margin: 0 auto;
-  border-radius: 2px;
-  width: 25em;
+  border-radius: 8px;
+  width: 20em;
   border: 7px dashed #bcaaa4;
-  min-height: 17em;
+  min-height: 15em;
   position: relative;
 }
 
@@ -94,6 +91,13 @@ legend {
   text-align: center;
 }
 
+table a { color: #000;}
+
+  table a:hover,
+  table a:focus {
+    text-decoration: none;
+  }
+
 input[type="submit"] {
   background: #0D9CB2;
   border: 0;
@@ -104,6 +108,17 @@ input[type="submit"] {
   cursor: pointer;
 }
 
+select,
+input[type="text"],
+input[type="password"] {
+  border: 0;
+  padding: 0.5em 1em;
+  font-size: 1em;
+  width: 89%;
+}
+
+select { width: 127%; }
+
 input[type="submit"]:hover,
 input[type="submit"]:focus {
   border: 0;
@@ -111,58 +126,6 @@ input[type="submit"]:focus {
   top: 5px;
   margin-bottom: 5px;
 }
-
-select,
-input[type="text"],
-input[type="password"] {
-  border: 0;
-  padding: 0.5em 1em;
-  font-size: 1em;
-  width: 100%;
-}
-
-label {
-  font-weight: bold;
-  color: #663D1C;
-}
-
-#upload_password { width: 80%; }
-
-.next input[type="submit"] {
-  position: relative;
-  margin-top: 0.5em;
-  padding: 0.4em 2.65em;
-}
-
-input[value="Déconnexion"] {
-  background: none;
-  color: #663D1C;
-  border: 0;
-  display: block;
-  margin: auto;
-  padding-left: 4em;
-  font-size: 1em;
-  font-style:italic;
-}
-
-input[value="Déconnexion"]:hover,
-input[value="Déconnexion"]:focus {
-  top: 0;
-  margin-bottom: 0;
-  text-decoration: underline;
-}
-
-form[action="index.php"] .label {
-  width: 7em;
-}
-
-form[action="index.php"] fieldset {
-  border: 0;
-  background: #d7ccc8;
-  min-height: 5em;
-}
-
-
 
 .inner {
   margin-top: 3em;
@@ -179,6 +142,11 @@ form[action="index.php"] fieldset {
 
 #upload fieldset:hover {
   border-color: #663D1C;
+}
+
+#upload > form {
+  text-align: center;
+  margin: 1em 0 0 3em;
 }
 
 #file_select {
@@ -201,6 +169,7 @@ form[action="index.php"] fieldset {
   text-align: center;
   font-size: 0.8em;
   color: #795548;
+  padding-left: 3em;
 }
 
 #copyright a {
@@ -225,11 +194,7 @@ form[action="index.php"] fieldset {
 
 #options tr { height: 2.7em; }
 
-#option_table tr:first-child td:first-child {
-  width: 12em;
-  font-weight: bold;
-  color: #663D1C;
-}
+#option_table tr:first-child td:first-child { width: 12em; }
 
 #option_table tr td:first-child {
   
@@ -250,18 +215,14 @@ form[action="index.php"] fieldset {
 .error {
   text-align: center;
   color: #795548;
+  padding-left: 3em;
 }
 
 #upload_finished a,
-#uploading a,
-#submit a {
+#uploading a {
   font-weight: bold;
   text-decoration: none;
   color: #795548;
-}
-
-#submit a:before {
-  content: "› ";
 }
 
 #uploaded_percentage {
@@ -272,28 +233,13 @@ form[action="index.php"] fieldset {
 #upload_finished a:hover,
 #uploading a:hover,
 #upload_finished a:focus,
-#uploading a:focus,
-#submit a:hover,
-#submit a:focus {
+#uploading a:focus {
   text-decoration: underline;
 }
 
 .message,
 .error {
   font-style: italic;
-}
-
-#submit tr:first-child td:first-child {
-  font-weight: bold;
-  color: #795548;
-}
-
-#submit tr + tr td {
-  padding-top: 1em;
-}
-
-#submit td {
-  color: #795548;
 }
 
 /* ==========================================================================
@@ -328,5 +274,77 @@ textarea[readonly="readonly"] + p a:hover,
 textarea[readonly="readonly"] + p + p a:hover,
 textarea[readonly="readonly"] + p a:focus,
 textarea[readonly="readonly"] + p + p a:focus {
+  text-decoration: underline;
+}
+
+/* ==========================================================================
+   6 = Admin
+   ========================================================================== */
+
+#install fieldset,
+#install + fieldset {
+  width: auto;
+  max-width: 50em;
+  border: 0;
+}
+
+#install table,
+#install + fieldset table {
+  width: 100%;
+  border-collapse: collapse;
+  border-bottom: 2px solid #FFF;
+}
+
+#install td,
+#install + fieldset td {
+  padding: 0.5em 1em;
+  border: 2px solid #FFF;
+  border-bottom: 0;
+}
+
+#install td:empty {
+  width: 13.1em;
+}
+
+#install table form:nth-child(odd),
+#install + fieldset tr:nth-child(odd) {
+  background: #bcaaa4;
+}
+
+#install fieldset > form {
+  margin-top: 2em;
+  text-align: center;
+}
+
+#install form {
+  display: table;
+  width: 100%;
+}
+
+#install td:last-child { text-align: right; }
+
+#install .info { width: 19em; }
+
+#install input[type="submit"] {
+  min-width: 10.5em;
+}
+
+#install + fieldset table {
+  font-size: 0.9em;
+}
+
+#install + fieldset td:first-child input[type="submit"] {
+  background: none;
+  padding: 0;
+  color: #000;
+  font-weight: bold;
+  border-bottom: 0;
+  width: 12em;
+}
+
+#install + fieldset td:first-child input[type="submit"]:hover,
+#install + fieldset td:first-child input[type="submit"]:focus {
+  position: static;
+  margin: 0;
   text-decoration: underline;
 }
