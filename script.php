@@ -43,7 +43,7 @@ require (JIRAFEAU_ROOT . 'lib/lang.php');
 if ($_SERVER['REQUEST_METHOD'] == "GET" && count ($_GET) == 0)
 {
     require (JIRAFEAU_ROOT . 'lib/template/header.php');
-    check_errors ();
+    check_errors ($cfg);
     if (has_error ())
     {
         show_errors ();
@@ -252,7 +252,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET" && count ($_GET) == 0)
 /* Lets use interface now. */
 header('Content-Type: text; charset=utf-8');
 
-check_errors ();
+check_errors ($cfg);
 if (has_error ())
 {
     echo "Error";

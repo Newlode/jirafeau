@@ -55,6 +55,9 @@ $cfg['link_name_lenght'] = 8;
 /* Upload password. Empty string disable the password. */
 $cfg['upload_password'] = '';
 
+/* Installation is done ? */
+$cfg['installation_done'] = false;
+
 if ((basename (__FILE__) != 'config.local.php')
     && file_exists (JIRAFEAU_ROOT.'lib/config.local.php'))
 {

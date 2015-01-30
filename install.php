@@ -118,6 +118,12 @@ jirafeau_add_ending_slash ($path)
     return $path . ((substr ($path, -1) == '/') ? '' : '/');
 }
 
+if ($cfg['installation_done'] === true)
+{
+    header('Location: index.php');
+    exit;
+}
+
 if (!file_exists (JIRAFEAU_CFG))
 {
     /* We try to create an empty one. */
@@ -135,11 +141,6 @@ if (!file_exists (JIRAFEAU_CFG))
         exit;
     }
 }
-#else
-#{
-#    header('Location: index.php');
-#    exit;
-#}
 
 if (!is_writable (JIRAFEAU_CFG) && !@chmod (JIRAFEAU_CFG, '0666'))
 {
@@ -170,6 +171,7 @@ if (isset ($_POST['step']) && isset ($_POST['next']))
     case 3:
         $cfg['web_root'] = jirafeau_add_ending_slash ($_POST['web_root']);
         $cfg['var_root'] = jirafeau_add_ending_slash ($_POST['var_root']);
+        $cfg['installation_done'] = true;
         jirafeau_export_cfg ($cfg);
         break;
 

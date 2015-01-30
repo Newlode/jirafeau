@@ -26,7 +26,7 @@ require (JIRAFEAU_ROOT . 'lib/functions.php');
 require (JIRAFEAU_ROOT . 'lib/lang.php');
 require (JIRAFEAU_ROOT . 'lib/template/header.php');
 
-check_errors ();
+check_errors ($cfg);
 if (has_error ())
 {
     show_errors ();

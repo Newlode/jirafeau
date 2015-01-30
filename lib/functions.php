@@ -503,10 +503,10 @@ show_errors ()
     }
 }
 
-function check_errors ()
+function check_errors ($cfg)
 {
     if (file_exists (JIRAFEAU_ROOT . 'install.php')
-        && !file_exists (JIRAFEAU_ROOT . 'lib/config.local.php'))
+        && !($cfg['installation_done'] === true))
     {
         header('Location: install.php'); 
         exit;
