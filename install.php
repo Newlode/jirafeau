@@ -23,6 +23,7 @@ define ('QUOTE', "'");
 define ('JIRAFEAU_CFG', JIRAFEAU_ROOT.'lib/config.local.php');
 define ('JIRAFEAU_VAR_RAND_LENGTH', 15);
 
+require (JIRAFEAU_ROOT . 'lib/functions.php');
 require (JIRAFEAU_ROOT . 'lib/lang.php');
 require (JIRAFEAU_ROOT . 'lib/config.original.php');
 
