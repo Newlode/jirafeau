@@ -356,6 +356,7 @@ case 4:
     }
     else
     {
+        $cfg['style'] = 'courgette';
         $cfg['installation_done'] = true;
         jirafeau_export_cfg ($cfg);
         echo '<div class="message"><p>' .
