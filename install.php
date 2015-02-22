@@ -171,7 +171,6 @@ if (isset ($_POST['step']) && isset ($_POST['next']))
     case 3:
         $cfg['web_root'] = jirafeau_add_ending_slash ($_POST['web_root']);
         $cfg['var_root'] = jirafeau_add_ending_slash ($_POST['var_root']);
-        $cfg['installation_done'] = true;
         jirafeau_export_cfg ($cfg);
         break;
 
@@ -357,6 +356,8 @@ case 4:
     }
     else
     {
+        $cfg['installation_done'] = true;
+        jirafeau_export_cfg ($cfg);
         echo '<div class="message"><p>' .
              t('Jirafeau is now fully operational') . ':' .
              '<br /><a href="' . $cfg['web_root'] . '">' .
