@@ -555,6 +555,8 @@ jirafeau_get_link ($hash)
     $out['link_code'] = trim ($c[9]);
     if (trim ($c[10]) == 'C')
 	    $out['crypted'] = true;
+    else
+	    $out['crypted'] = false;
     
     return $out;
 }
