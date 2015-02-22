@@ -222,8 +222,7 @@ header ('Content-Length: ' . $link['file_size']);
 if (!jirafeau_is_viewable ($link['mime_type']) || !$cfg['preview'] || $button_download)
     header ('Content-Disposition: attachment; filename="' .
         $link['file_name'] . '"');
-else
-    header ('Content-Type: ' . $link['mime_type']);
+header ('Content-Type: ' . $link['mime_type']);
 
 /* Read encrypted file. */
 if ($link['crypted'])
