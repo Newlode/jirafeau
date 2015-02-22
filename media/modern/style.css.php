@@ -81,6 +81,12 @@ h1 a {
   color: #333;
 }
 
+h2 {
+  text-decoration: none;
+  color: #333;
+  text-align: center;
+}
+
 fieldset p {
   margin-left: 25%;
 }
