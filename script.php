@@ -546,8 +546,8 @@ elseif (isset ($_GET['init_async']))
         $type = $_POST['type'];
     
     $key = '';
-    if (isset ($_POST['password']))
-        $key = $_POST['password'];
+    if (isset ($_POST['key']))
+        $key = $_POST['key'];
 
     $time = time ();
     if (!isset ($_POST['time']))
