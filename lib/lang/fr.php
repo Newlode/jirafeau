@@ -154,7 +154,7 @@ $tr = array (
             'This will return "Ok" if succeded, "Error" otherwhise.' => 'Retourne "OK" en cas de succès, "Error" dans le cas contraire.',
             'Get a generated scripts' => 'Récupérer un script généré',
             'This will return brut text content of the code.' => 'Renvoie le code sous forme the texte brut.',
-            'Initalize a asynchronous transfert' => 'Initialiser un transfert asynchrone',
+            'Initalize an asynchronous transfert' => 'Initialiser un transfert asynchrone',
             'The goal is to permit to transfert big file, chunk by chunk.' => 'Le but est de permettre de transférer de gros fichiers, morceaux par morceaux.',
             'Chunks of data must be sent in order.' => 'Chaque morceau doit être envoyé dans l\'ordre.',
             'First line is the asynchronous transfert reference and the second line the code to use in the next operation.'

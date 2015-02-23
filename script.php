@@ -92,6 +92,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET" && count ($_GET) == 0)
     echo "<b>time=</b>[minute|hour|day|week|month|none]<i> (" . t('Optional') . ', '. t('default: none') . ")</i> <br />";
     echo "<b>password=</b>your_password<i> (" . t('Optional') . ")</i> <br />";
     echo "<b>one_time_download=</b>1<i> (" . t('Optional') . ")</i> <br />";
+    echo "<b>upload_password=</b>your_upload_password<i> (" . t('Optional') . ")</i> <br />";
     echo '</p>';
     echo '<p>' . t('This will return brut text content.') . ' ' .
          t('First line is the download reference and the second line the delete code.') . '<br /></p>';
@@ -143,7 +144,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET" && count ($_GET) == 0)
         echo "$name: <a href=\"" . $web_root . "script.php?lang=$lang\">" . $web_root . "script.php?lang=$lang</a> ";
     echo '</p>';
     
-    echo '<h3>' . t('Initalize a asynchronous transfert') . ':</h3>';
+    echo '<h3>' . t('Initalize an asynchronous transfert') . ':</h3>';
     echo '<p>';
     echo t('The goal is to permit to transfert big file, chunk by chunk.') . ' ';
     echo t('Chunks of data must be sent in order.');
@@ -157,6 +158,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET" && count ($_GET) == 0)
     echo "<b>time=</b>[minute|hour|day|week|month|none]<i> (" . t('Optional') . ', '. t('default: none') . ")</i> <br />";
     echo "<b>password=</b>your_password<i> (" . t('Optional') . ")</i> <br />";
     echo "<b>one_time_download=</b>1<i> (" . t('Optional') . ")</i> <br />";
+    echo "<b>upload_password=</b>your_upload_password<i> (" . t('Optional') . ")</i> <br />";
     echo '</p>';
     echo '<p>' . t('This will return brut text content.') . ' ' .
          t('First line is the asynchronous transfert reference and the second line the code to use in the next operation.') . '<br /></p>';
