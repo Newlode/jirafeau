@@ -101,7 +101,7 @@ jirafeau_check_var_dir ($path)
                                $path . '</code><br />' . $solution_str .
                                '<br />' . $mkdir_str2);
 
-    foreach (array ('files', 'links', 'async', 'block') as $subdir)
+    foreach (array ('files', 'links', 'async') as $subdir)
     {
         $subpath = $path.$subdir;
 

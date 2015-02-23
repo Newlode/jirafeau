@@ -43,10 +43,6 @@ $cfg['preview'] = true;
  * true: Will show a download page (with preview if permited and possible).
  * false: Will directly download file or preview (if permited and possible). */
 $cfg['download_page'] = false;
-/* Block feature:
-   The scripting interface can propose to create, read, write, delete blocks
-   of data. */
-$cfg['enable_blocks'] = false;
 /* Encryption feature. disable it by default.
  * By enabling it, file-level deduplication won't work. */
 $cfg['enable_crypt'] = false;
