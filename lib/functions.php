@@ -345,7 +345,9 @@ jirafeau_upload ($file, $one_time_download, $key, $time, $ip, $crypt, $link_name
     /* Crypt file if option is enabled. */
     $crypted = false;
     $crypt_key = '';
-    if ($crypt == true && extension_loaded('mcrypt'))
+    if ($crypt == true && !(extension_loaded('mcrypt') == true))
+        error_log ("PHP extension mcrypt not loaded, won't encrypt in Jirafeau");
+    if ($crypt == true && extension_loaded('mcrypt') == true)
     {
         $crypt_key = jirafeau_encrypt_file ($file['tmp_name'], $file['tmp_name']);
         if (strlen($crypt_key) > 0)
@@ -908,7 +910,7 @@ jirafeau_async_end ($ref, $code, $crypt, $link_name_length)
 
     $crypted = false;
     $crypt_key = '';
-    if ($crypt == true && extension_loaded('mcrypt'))
+    if ($crypt == true && extension_loaded('mcrypt') == true)
     {
         $crypt_key = jirafeau_encrypt_file ($p, $p);
         if (strlen($crypt_key) > 0)
@@ -977,7 +979,7 @@ function
 jirafeau_encrypt_file ($fp_src, $fp_dst)
 {
     $fs = filesize ($fp_src);
-    if ($fs === false || $fs == 0 || !extension_loaded('mcrypt'))
+    if ($fs === false || $fs == 0 || !(extension_loaded('mcrypt') == true))
         return '';
 
     /* Prepare module. */
@@ -1016,7 +1018,7 @@ function
 jirafeau_decrypt_file ($fp_src, $fp_dst, $k)
 {
     $fs = filesize ($fp_src);
-    if ($fs === false || $fs == 0 || !extension_loaded('mcrypt'))
+    if ($fs === false || $fs == 0 || !(extension_loaded('mcrypt') == true))
         return false;
 
     /* Init module */
@@ -1063,7 +1065,6 @@ function jirafeau_challenge_upload_password ($cfg, $password)
     forEach ($cfg['upload_password'] as $p)
         if ($password == $p)
             return true;
-    error_log("password not found $password");
     return false;
 }
 
