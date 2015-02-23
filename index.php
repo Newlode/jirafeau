@@ -35,19 +35,22 @@ if (has_error ())
 }
 
 /* Ask password if upload password is set. */
-if (strlen ($cfg['upload_password']) > 0)
+if (jirafeau_has_upload_password ($cfg))
 {
     session_start();
 
     /* Unlog if asked. */
     if (isset ($_POST['action']) && (strcmp ($_POST['action'], 'logout') == 0))
-        $_SESSION['upload_auth'] = false;
+        session_unset ();
 
     /* Auth. */
     if (isset ($_POST['upload_password']))
     {
-        if (strcmp ($cfg['upload_password'], $_POST['upload_password']) == 0)
+        if (jirafeau_challenge_upload_password ($cfg, $_POST['upload_password']))
+        {
             $_SESSION['upload_auth'] = true;
+            $_SESSION['user_upload_password'] = $_POST['upload_password'];
+        }
         else
         {
             $_SESSION['admin_auth'] = false;
@@ -152,8 +155,20 @@ if (strlen ($cfg['upload_password']) > 0)
         </tr>
 		<p id="max_file_size" class="config"></p>
     <p>
-
-    <input type="hidden" id="upload_password" name="upload_password" value="<?php echo $cfg['upload_password']?>"/>
+    <?php
+    if (jirafeau_has_upload_password ($cfg) && $_SESSION['upload_auth'])
+    {
+    ?>
+    <input type="hidden" id="upload_password" name="upload_password" value="<?php echo $_SESSION['user_upload_password'] ?>"/>
+    <?php
+    }
+    else
+    {
+    ?>
+    <input type="hidden" id="upload_password" name="upload_password" value=""/>
+    <?php
+    }
+    ?>
     <input type="submit" id="send" value="<?php echo t('Send'); ?>"
     onclick="
         document.getElementById('upload').style.display = 'none';
@@ -165,7 +180,7 @@ if (strlen ($cfg['upload_password']) > 0)
     </div> </fieldset>
 
     <?php
-    if (strlen ($cfg['upload_password']) > 0)
+    if (jirafeau_has_upload_password ($cfg))
     {
     ?>
     <form action = "<?php echo basename(__FILE__); ?>" method = "post">

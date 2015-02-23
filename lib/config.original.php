@@ -21,7 +21,7 @@
  * default configuration
  * if you want to change this, overwrite in a config.local.php file
  */
- global $cfg;
+global $cfg;
  
 /* don't forget the ending '/' */
 $cfg['web_root'] = '';
@@ -52,8 +52,13 @@ $cfg['enable_blocks'] = false;
 $cfg['enable_crypt'] = false;
 /* Split lenght of link refenrece. */
 $cfg['link_name_lenght'] = 8;
-/* Upload password. Empty string disable the password. */
-$cfg['upload_password'] = '';
+/* Upload password(s). Empty array disable password authentification.
+ * $cfg['upload_password'] = array();               // No password
+ * $cfg['upload_password'] = array('psw1');         // One password
+ * $cfg['upload_password'] = array('psw1', 'psw2'); // Two passwords
+ * ... and so on
+ */
+$cfg['upload_password'] = array();
 
 /* Installation is done ? */
 $cfg['installation_done'] = false;

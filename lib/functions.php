@@ -1385,4 +1385,28 @@ jirafeau_decrypt_file ($fp_src, $fp_dst, $k)
     return true;
 }
 
-?>
+/**
+ * Check if Jirafeau is password protected for visitors.
+ * @return true if Jirafeau is password protected, false otherwise.
+ */
+function jirafeau_has_upload_password ($cfg)
+{
+    return count ($cfg['upload_password']) > 0;
+}
+
+/**
+ * Challenge password for a visitor.
+ * @param $password password to be challenged
+ * @return true if password is valid, false otherwise.
+ */
+function jirafeau_challenge_upload_password ($cfg, $password)
+{
+    if (!jirafeau_has_upload_password($cfg))
+        return false;
+    forEach ($cfg['upload_password'] as $p)
+        if ($password == $p)
+            return true;
+    error_log("password not found $password");
+    return false;
+}
+

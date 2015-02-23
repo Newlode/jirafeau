@@ -263,7 +263,9 @@ if (has_error ())
 if (isset ($_FILES['file']) && is_writable (VAR_FILES)
     && is_writable (VAR_LINKS))
 {
-    if (strlen ($cfg['upload_password']) > 0 && (!isset ($_POST['upload_password']) || $_POST['upload_password'] != $cfg['upload_password']))
+    if (jirafeau_has_upload_password ($cfg) &&
+         (!isset ($_POST['upload_password']) ||
+          !jirafeau_challenge_upload_password ($cfg, $_POST['upload_password'])))
     {
         echo "Error";
         exit;
@@ -529,7 +531,9 @@ fi
 /* Initialize an asynchronous upload. */
 elseif (isset ($_GET['init_async']))
 {
-    if (strlen ($cfg['upload_password']) > 0 && (!isset ($_POST['upload_password']) || $_POST['upload_password'] != $cfg['upload_password']))
+    if (jirafeau_has_upload_password ($cfg) &&
+         (!isset ($_POST['upload_password']) ||
+          !jirafeau_challenge_upload_password ($cfg, $_POST['upload_password'])))
     {
         echo "Error";
         exit;
@@ -603,7 +607,9 @@ elseif (isset ($_GET['end_async']))
 /* Initialize block. */
 elseif (isset ($_GET['init_block']) && $cfg['enable_blocks'])
 {
-    if (strlen ($cfg['upload_password']) > 0 && (!isset ($_POST['upload_password']) || $_POST['upload_password'] != $cfg['upload_password']))
+    if (jirafeau_has_upload_password ($cfg) &&
+         (!isset ($_POST['upload_password']) ||
+          !jirafeau_challenge_upload_password ($cfg, $_POST['upload_password'])))
     {
         echo "Error";
         exit;

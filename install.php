@@ -52,6 +52,9 @@ jirafeau_export_cfg ($cfg)
             fwrite ($handle, jirafeau_quoted ($item));
         else if (is_int ($item))
             fwrite ($handle, $item);
+        else if (is_array ($item))
+            fwrite ($handle, str_replace(array("\n", "\r"), "",
+                                         var_export ($item, true)));
         else
             fwrite ($handle, 'null');
         fwrite ($handle, ';'.NL);
