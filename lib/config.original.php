@@ -35,16 +35,10 @@ $cfg['var_root'] = '';
 $cfg['lang'] = 'auto';
 /* Select your style :) See media folder */
 $cfg['style'] = 'modern';
-/* Set preview option.
- * true: will propose user's browser to preview file if possible.
- * false: will just download the file, whatever the content is.
- */
+/* Propose a preview link if file type is previewable is set to true. */
 $cfg['preview'] = true;
-/* Download page:
- * true: Will show a download page (with preview if permited and possible).
- * false: Will directly download file or preview (if permited and possible).
- */
-$cfg['download_page'] = false;
+/* Download page: propose a link to a download page is set to true. */
+$cfg['download_page'] = true;
 /* Encryption feature. disable it by default.
  * By enabling it, file-level deduplication won't work.
  */

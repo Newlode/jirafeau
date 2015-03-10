@@ -94,18 +94,40 @@ if (jirafeau_has_upload_password ($cfg))
 
 ?>
 <div id="upload_finished">
-    <p>
-    <?php echo t('File uploaded! Copy the following URL to get it') ?>:
+    <p><?php echo t('File uploaded !') ?></p>
     <br />
-    <a id="upload_link" href=""></a>
-    <br />
-    </p>
 
-    <p>
-    <?php echo t('Keep the following URL to delete it at any moment'); ?>:
+    <?php if ($cfg['download_page'] == true) { ?>
+    <div id="upload_finished_download_page">
+    <?php echo t('Download page') ?>
+    <p><a id="upload_link" href=""></a></p>
     <br />
-    <a id="delete_link" href=""></a>
-    </p>
+    </div>
+    <?php } ?>
+
+    <div id="upload_password_page">
+    <p><?php echo t('Download page') ?>:</p>
+    <p><a id="password_link" href=""></a></p>
+    <br />
+    </div>
+
+    <?php if ($cfg['preview'] == true) { ?>
+    <div id="upload_finished_preview">
+    <p><?php echo t('View link') ?>:</p>
+    <p><a id="preview_link" href=""></a></p>
+    <br />
+    </div>
+    <?php } ?>
+
+    <div id="upload_direct_download">
+    <p><?php echo t('Direct download link') ?>:</p>
+    <p><a id="direct_link" href=""></a></p>
+    <br />
+    </div>
+
+    <p><?php echo t('Delete link') ?>:</p>
+    <p><a id="delete_link" href=""></a></p>
+    <br />
     
     <p id="validity">
     <?php echo t('This file is valid until the following date'); ?>:

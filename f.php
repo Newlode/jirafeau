@@ -145,16 +145,16 @@ if (!empty ($link['key']))
             echo '&amp;k=' . urlencode($crypt_key);
 ?>';
         document.getElementById('submit_download').submit ();"/><?php
-        if ($cfg['download_page'] && $cfg['preview'])
+        if ($cfg['download_page'] && $cfg['preview'] && jirafeau_is_viewable($link['mime_type']))
         {
             ?><input type="submit" id = "submit_preview"  value="<?php echo t('Preview'); ?>"
             onclick="document.getElementById('submit').action='
-<?php
-        echo $cfg['web_root'] . '/f.php?h=' . $link_name . '&amp;p=1';
-        if (!empty($crypt_key))
-            echo '&amp;k=' . urlencode($crypt_key);
-?>';
-        document.getElementById('submit_preview').submit ();"/><?php
+            <?php
+            echo $cfg['web_root'] . '/f.php?h=' . $link_name . '&amp;p=1';
+            if (!empty($crypt_key))
+                echo '&amp;k=' . urlencode($crypt_key);
+            ?>';
+            document.getElementById('submit_preview').submit ();"/><?php
         }
         echo '</td></tr></table></fieldset></form></div>';
         require (JIRAFEAU_ROOT.'lib/template/footer.php');
@@ -200,7 +200,7 @@ if ($cfg['download_page'] && !$password_challenged && !$do_download && !$do_prev
 ?>';
         document.getElementById('submit_download').submit ();"/><?php
 
-        if ($cfg['download_page'] && $cfg['preview'])
+        if ($cfg['download_page'] && $cfg['preview'] && jirafeau_is_viewable($link['mime_type']))
         {
             ?><input type="submit" id = "submit_preview"  value="<?php echo t('Preview'); ?>"
             onclick="document.getElementById('submit').action='

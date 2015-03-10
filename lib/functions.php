@@ -453,7 +453,7 @@ jirafeau_is_viewable ($mime)
     if (!empty ($mime))
     {
         /* Actually, verify if mime-type is an image or a text. */
-        $viewable = array ('image', 'text');
+        $viewable = array ('image', 'text', 'video', 'audio');
         $decomposed = explode ('/', $mime);
         return in_array ($decomposed[0], $viewable);
     }
