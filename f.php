@@ -65,13 +65,13 @@ $crypt_key = '';
 if (isset ($_GET['k']) && !empty ($_GET['k']))
     $crypt_key = $_GET['k'];
 
-$button_download = false;
-if (isset ($_GET['bd']) && !empty ($_GET['bd']))
-    $button_download = true;
+$do_download = false;
+if (isset ($_GET['d']) && !empty ($_GET['d']))
+    $do_download = true;
 
-$button_preview = false;
-if (isset ($_GET['bp']) && !empty ($_GET['bp']))
-    $button_preview = true;
+$do_preview = false;
+if (isset ($_GET['p']) && !empty ($_GET['p']))
+    $do_preview = true;
 
 $p = s2p ($link['md5']);
 if (!file_exists (VAR_FILES . $p . $link['md5']))
@@ -140,7 +140,7 @@ if (!empty ($link['key']))
             ?><input type="submit" id = "submit_download"  value="<?php echo t('Download'); ?>"
             onclick="document.getElementById('submit').action='
 <?php
-        echo $cfg['web_root'] . '/f.php?h=' . $link_name . '&amp;bd=1';
+        echo $cfg['web_root'] . '/f.php?h=' . $link_name . '&amp;d=1';
         if (!empty($crypt_key))
             echo '&amp;k=' . urlencode($crypt_key);
 ?>';
@@ -150,7 +150,7 @@ if (!empty ($link['key']))
             ?><input type="submit" id = "submit_preview"  value="<?php echo t('Preview'); ?>"
             onclick="document.getElementById('submit').action='
 <?php
-        echo $cfg['web_root'] . '/f.php?h=' . $link_name . '&amp;bp=1';
+        echo $cfg['web_root'] . '/f.php?h=' . $link_name . '&amp;p=1';
         if (!empty($crypt_key))
             echo '&amp;k=' . urlencode($crypt_key);
 ?>';
@@ -176,7 +176,7 @@ if (!empty ($link['key']))
     }
 }
 
-if ($cfg['download_page'] && !$password_challenged && !$button_download && !$button_preview)
+if ($cfg['download_page'] && !$password_challenged && !$do_download && !$do_preview)
 {
         require (JIRAFEAU_ROOT.'lib/template/header.php');
         echo '<div>' .
@@ -194,7 +194,7 @@ if ($cfg['download_page'] && !$password_challenged && !$button_download && !$but
             ?></td></tr><tr><td><input type="submit" id = "submit_download"  value="<?php echo t('Download'); ?>"
             onclick="document.getElementById('submit').action='
 <?php
-        echo $cfg['web_root'] . '/f.php?h=' . $link_name . '&amp;bd=1';
+        echo $cfg['web_root'] . '/f.php?h=' . $link_name . '&amp;d=1';
         if (!empty($crypt_key))
             echo '&amp;k=' . urlencode($crypt_key);
 ?>';
@@ -205,7 +205,7 @@ if ($cfg['download_page'] && !$password_challenged && !$button_download && !$but
             ?><input type="submit" id = "submit_preview"  value="<?php echo t('Preview'); ?>"
             onclick="document.getElementById('submit').action='
 <?php
-        echo $cfg['web_root'] . '/f.php?h=' . $link_name . '&amp;bp=1';
+        echo $cfg['web_root'] . '/f.php?h=' . $link_name . '&amp;p=1';
         if (!empty($crypt_key))
             echo '&amp;k=' . urlencode($crypt_key);
 ?>';
@@ -219,7 +219,7 @@ if ($cfg['download_page'] && !$password_challenged && !$button_download && !$but
 
 header ('HTTP/1.0 200 OK');
 header ('Content-Length: ' . $link['file_size']);
-if (!jirafeau_is_viewable ($link['mime_type']) || !$cfg['preview'] || $button_download)
+if (!jirafeau_is_viewable ($link['mime_type']) || !$cfg['preview'] || $do_download)
     header ('Content-Disposition: attachment; filename="' .
         $link['file_name'] . '"');
 header ('Content-Type: ' . $link['mime_type']);
