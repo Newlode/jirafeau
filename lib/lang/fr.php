@@ -102,6 +102,7 @@ $tr = array (
             'Administration password' => 'Mot de passe d\'administration',
             /* admin.php */
             'Sorry, the admin interface is not enabled.' => 'Désolé, l\'interface d\'administration n\'est pas activée.',
+            'Sorry, you are not authenticated on admin interface.' => 'Désolé, vous n\'êtes pas authentifié sur l\'interface d\'administration',
             'Login' => 'Connexion',
             'Wrong password.' => 'Mot de passe invalide.',
             'Admin interface' => 'Interface d\'administration',

@@ -2,6 +2,7 @@
 /*
  *  Jirafeau, your web file repository
  *  Copyright (C) 2008  Julien "axolotl" BERNARD <axolotl@magieeternelle.org>
+ *  Copyright (C) 2015  Jerome Jutteau <j.jutteau@gmail.com>
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU Affero General Public License as
@@ -34,8 +35,6 @@ $cfg['var_root'] = '';
 $cfg['lang'] = 'auto';
 $cfg['style'] = 'modern';
 $cfg['rewrite'] = false;
-/* An empty admin password will disable the admin interface. */
-$cfg['admin_password'] = '';
 /* preview: false (will download file) or true (will preview in browser if
  * possible) . */
 $cfg['preview'] = true;
@@ -55,10 +54,21 @@ $cfg['link_name_lenght'] = 8;
  * ... and so on
  */
 $cfg['upload_password'] = array();
-
+/* An empty admin password will disable the classic admin password
+ * authentication.
+ */
+$cfg['admin_password'] = '';
+/* If set, let's the user to be authenticated as administrator.
+ * The user provided here is the user authenticated by HTTP authentication.
+ * Note that Jirafeau does not manage the HTTP login part, it just check
+ * that the provided user is logged.
+ * If admin_password parameter is also set, admin_password is ignored.
+ */
+$cfg['admin_http_auth_user'] = '';
 /* Installation is done ? */
 $cfg['installation_done'] = false;
 
+/* Try to include user's local configuration. */
 if ((basename (__FILE__) != 'config.local.php')
     && file_exists (JIRAFEAU_ROOT.'lib/config.local.php'))
 {

@@ -33,7 +33,7 @@ if (file_exists (JIRAFEAU_ROOT . 'install.php')
 }
 
 /* Disable admin interface if we have a empty admin password. */
-if (empty($cfg['admin_password']))
+if (empty($cfg['admin_password']) && empty($cfg['admin_http_auth_user']))
 {
     require (JIRAFEAU_ROOT . 'lib/template/header.php');
     echo '<div class="error"><p>'.
@@ -50,8 +50,8 @@ session_start();
 if (isset ($_POST['action']) && (strcmp ($_POST['action'], 'logout') == 0))
     $_SESSION['admin_auth'] = false;
 
-/* Check password. */
-if (isset ($_POST['admin_password']))
+/* Check classic admin password authentification. */
+if (isset ($_POST['admin_password']) && empty($cfg['admin_http_auth_user']))
 {
     if (strcmp ($cfg['admin_password'], $_POST['admin_password']) == 0)
         $_SESSION['admin_auth'] = true;
@@ -65,8 +65,9 @@ if (isset ($_POST['admin_password']))
         exit;
     }
 }
-/* Ask for password. */
-elseif (!isset ($_SESSION['admin_auth']) || $_SESSION['admin_auth'] != true)
+/* Ask for classic admin password authentification. */
+elseif ((!isset ($_SESSION['admin_auth']) || $_SESSION['admin_auth'] != true)
+        && empty($cfg['admin_http_auth_user']))
 {
     require (JIRAFEAU_ROOT . 'lib/template/header.php'); ?>
     <form action = "<?php echo basename(__FILE__); ?>" method = "post">
@@ -94,6 +95,25 @@ elseif (!isset ($_SESSION['admin_auth']) || $_SESSION['admin_auth'] != true)
     <?php
     require (JIRAFEAU_ROOT.'lib/template/footer.php');
     exit;
+}
+/* Check authenticated user if HTTP authentification is enable. */
+elseif ((!isset ($_SESSION['admin_auth']) || $_SESSION['admin_auth'] != true)
+        && !empty($cfg['admin_http_auth_user']))
+{
+    if ($cfg['admin_http_auth_user'] == $_SERVER['PHP_AUTH_USER'])
+        $_SESSION['admin_auth'] = true;
+}
+
+/* Be sure that no one can access further without admin_auth. */
+if (!isset ($_SESSION['admin_auth']) || $_SESSION['admin_auth'] != true)
+{
+         $_SESSION['admin_auth'] = false;
+        require (JIRAFEAU_ROOT . 'lib/template/header.php');
+        echo '<div class="error"><p>'.
+         t('Sorry, you are not authenticated on admin interface.') .
+         '</p></div>';
+        require (JIRAFEAU_ROOT.'lib/template/footer.php');
+        exit;
 }
 
 /* Operations may take a long time.
