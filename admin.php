@@ -1,7 +1,7 @@
 <?php
 /*
  *  Jirafeau, your web file repository
- *  Copyright (C) 2012  Jerome Jutteau <j.jutteau@gmail.com>
+ *  Copyright (C) 2015  Jerome Jutteau <j.jutteau@gmail.com>
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU Affero General Public License as
