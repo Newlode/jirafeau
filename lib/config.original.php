@@ -24,26 +24,30 @@
  */
 global $cfg;
  
-/* don't forget the ending '/' */
+/* Don't forget the ending '/' */
 $cfg['web_root'] = '';
 $cfg['var_root'] = '';
 
 /* Lang choice between 'auto', 'en' and 'fr'.
-   'auto' mode will take the user's browser informations. Will take english if
-   user's langage is not available.
+ * 'auto' mode will take the user's browser informations.
+ * Will take english if user's langage is not available.
  */
 $cfg['lang'] = 'auto';
+/* Select your style :) See media folder */
 $cfg['style'] = 'modern';
-$cfg['rewrite'] = false;
-/* preview: false (will download file) or true (will preview in browser if
- * possible) . */
+/* Set preview option.
+ * true: will propose user's browser to preview file if possible.
+ * false: will just download the file, whatever the content is.
+ */
 $cfg['preview'] = true;
 /* Download page:
  * true: Will show a download page (with preview if permited and possible).
- * false: Will directly download file or preview (if permited and possible). */
+ * false: Will directly download file or preview (if permited and possible).
+ */
 $cfg['download_page'] = false;
 /* Encryption feature. disable it by default.
- * By enabling it, file-level deduplication won't work. */
+ * By enabling it, file-level deduplication won't work.
+ */
 $cfg['enable_crypt'] = false;
 /* Split lenght of link refenrece. */
 $cfg['link_name_lenght'] = 8;
