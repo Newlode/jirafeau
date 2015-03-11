@@ -111,7 +111,7 @@ input[type="submit"] {
 select,
 input[type="text"],
 input[type="password"] {
-  border: 0;
+  border: 1;
   padding: 0.5em 1em;
   font-size: 1em;
   width: 89%;
