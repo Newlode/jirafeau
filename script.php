@@ -89,7 +89,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET" && count ($_GET) == 0)
     echo '<br />';
     echo t('Parameters') . ':<br />';
     echo "<b>file=</b>C:\\your\\file\\path<i> (" . t('Required') . ")</i> <br />";
-    echo "<b>time=</b>[minute|hour|day|week|month|none]<i> (" . t('Optional') . ', '. t('default: none') . ")</i> <br />";
+    echo "<b>time=</b>[minute|hour|day|week|month|year|none]<i> (" . t('Optional') . ', '. t('default: none') . ")</i> <br />";
     echo "<b>password=</b>your_password<i> (" . t('Optional') . ")</i> <br />";
     echo "<b>one_time_download=</b>1<i> (" . t('Optional') . ")</i> <br />";
     echo "<b>upload_password=</b>your_upload_password<i> (" . t('Optional') . ")</i> <br />";
@@ -155,7 +155,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET" && count ($_GET) == 0)
     echo t('Parameters') . ':<br />';
     echo "<b>filename=</b>file_name.ext<i> (" . t('Required') . ")</i> <br />";
     echo "<b>type=</b>MIME_TYPE<i> (" . t('Optional') . ")</i> <br />";
-    echo "<b>time=</b>[minute|hour|day|week|month|none]<i> (" . t('Optional') . ', '. t('default: none') . ")</i> <br />";
+    echo "<b>time=</b>[minute|hour|day|week|month|year|none]<i> (" . t('Optional') . ', '. t('default: none') . ")</i> <br />";
     echo "<b>password=</b>your_password<i> (" . t('Optional') . ")</i> <br />";
     echo "<b>one_time_download=</b>1<i> (" . t('Optional') . ")</i> <br />";
     echo "<b>upload_password=</b>your_upload_password<i> (" . t('Optional') . ")</i> <br />";
@@ -218,8 +218,11 @@ if (isset ($_FILES['file']) && is_writable (VAR_FILES)
         $key = $_POST['key'];
 
     $time = time ();
-    if (!isset ($_POST['time']))
-        $time = JIRAFEAU_INFINITY;
+    if (!isset ($_POST['time']) || !$cfg['availabilities'][$_POST['time']])
+    {
+        echo "Error";
+        exit;
+    }
     else
         switch ($_POST['time'])
         {
@@ -238,7 +241,10 @@ if (isset ($_FILES['file']) && is_writable (VAR_FILES)
             case 'month':
                 $time += JIRAFEAU_MONTH;
                 break;
-            default:
+            case 'year':
+                $time += JIRAFEAU_YEAR;
+                break;
+           default:
                 $time = JIRAFEAU_INFINITY;
                 break;
         }
@@ -348,7 +354,7 @@ elseif (isset ($_GET['lang']))
 # Config
 proxy='' # ex: proxy='proxysever.test.com:3128' or set JIRAFEAU_PROXY global variable
 url='<?php echo $cfg['web_root'] . 'script.php'; ?>' # or set JIRAFEAU_URL ex: url='http://mysite/jirafeau/script.php'
-time='none' # minute, hour, day, week, month or none. Or set JIRAFEAU_TIME.
+time='none' # minute, hour, day, week, month, year or none. Or set JIRAFEAU_TIME.
 one_time='' # ex: one_time="1" or set JIRAFEAU_ONE_TIME.
 curl='' # curl path to download or set JIRAFEAU_CURL_PATH.
 # End of config
@@ -399,7 +405,7 @@ if [ -z "$2" ]; then
     echo "Global variables to export:"
     echo "    JIRAFEAU_PROXY : example: proxysever.test.com:3128"
     echo "    JIRAFEAU_URL : example: http://mysite/jirafeau/script.php"
-    echo "    JIRAFEAU_TIME : minute, hour, day, week, month or none"
+    echo "    JIRAFEAU_TIME : minute, hour, day, week, year, month or none"
     echo "    JIRAFEAU_ONE_TIME : set anything or set empty"
     echo "    JIRAFEAU_CURL : path to your curl binary"
 
@@ -496,8 +502,11 @@ elseif (isset ($_GET['init_async']))
         $key = $_POST['key'];
 
     $time = time ();
-    if (!isset ($_POST['time']))
-        $time = JIRAFEAU_INFINITY;
+    if (!isset ($_POST['time']) || !$cfg['availabilities'][$_POST['time']])
+    {
+        echo "Error";
+        exit;
+    }
     else
         switch ($_POST['time'])
         {
@@ -515,6 +524,9 @@ elseif (isset ($_GET['init_async']))
                 break;
             case 'month':
                 $time += JIRAFEAU_MONTH;
+                break;
+            case 'year':
+                $time += JIRAFEAU_YEAR;
                 break;
             default:
                 $time = JIRAFEAU_INFINITY;

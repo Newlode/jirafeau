@@ -63,6 +63,23 @@ $cfg['admin_password'] = '';
  * If admin_password parameter is also set, admin_password is ignored.
  */
 $cfg['admin_http_auth_user'] = '';
+/* Select different options for availability of uploaded files.
+ * Possible values in array:
+ * 'minute': file is available for one minute
+ * 'hour': file available for one hour
+ * 'day': file available for one day
+ * 'week': file available for one week
+ * 'month': file is available for one month
+ * 'year': file available for one year
+ * 'none': unlimited availability
+ */
+$cfg['availabilities'] = array ('minute' => true,
+                                'hour' => true,
+                                'day' => true,
+                                'week' => true,
+                                'month' => true,
+                                'year' => false,
+                                'none' => false);
 /* Installation is done ? */
 $cfg['installation_done'] = false;
 
