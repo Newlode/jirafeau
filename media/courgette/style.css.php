@@ -114,12 +114,11 @@ select,
 input[type="text"],
 input[type="password"] {
   border: 1;
-  padding: 0.5em 1em;
+  padding: 5px 5px;
   font-size: 1em;
-  width: 89%;
 }
 
-select { width: 127%; }
+select { width: 100%; }
 
 input[type="submit"]:hover,
 input[type="submit"]:focus {
@@ -148,7 +147,6 @@ input[type="submit"]:focus {
 
 #upload > form {
   text-align: center;
-  margin: 1em 0 0 3em;
 }
 
 #file_select {
@@ -189,17 +187,21 @@ input[type="submit"]:focus {
    ========================================================================== */
 
 #options {
-  position: relative;
+  position: absolute;
   z-index: 10;
   background: #efebe9;
+  width: 100%;
+  height: 90%;
 }
 
 #options tr { height: 2.7em; }
 
-#option_table tr:first-child td:first-child { width: 12em; }
+#option_table tr:first-child {
+  width: 100%;
+  height: 100%;
+}
 
-#option_table tr td:first-child {
-  
+#option_table td:first-child {
 }
 
 #options input[type="submit"] {
