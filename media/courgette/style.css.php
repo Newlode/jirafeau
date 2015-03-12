@@ -78,6 +78,7 @@ fieldset {
   width: 20em;
   border: 7px dashed #bcaaa4;
   min-height: 15em;
+  min-width: 30em;
   position: relative;
 }
 
