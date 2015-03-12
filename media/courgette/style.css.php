@@ -106,6 +106,7 @@ input[type="submit"] {
   color: #FFF;
   border-bottom: 5px solid #085B69;
   cursor: pointer;
+  margin: 10px;
 }
 
 select,
