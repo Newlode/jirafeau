@@ -841,10 +841,11 @@ jirafeau_async_init ($filename, $type, $one_time, $key, $time, $ip)
   * @param $ref asynchronous upload reference
   * @param $file piece of data
   * @param $code client code for this operation
+  * @param $max_file_size maximum allowed file size
   * @return  a string containing a next code to use or the string "Error"
   */
 function
-jirafeau_async_push ($ref, $data, $code)
+jirafeau_async_push ($ref, $data, $code, $max_file_size)
 {
     /* Get async infos. */
     $a = jirafeau_get_async_ref ($ref);
@@ -858,9 +859,21 @@ jirafeau_async_push ($ref, $data, $code)
     
     $p = s2p ($ref);
 
+    /* File path. */
+    $r_path = $data['tmp_name'];
+    $w_path = VAR_ASYNC . $p . $ref . '_data';
+
+    /* Check that file size is not above upload limit. */
+    if ($max_file_size > 0 &&
+        filesize ($r_path) + filesize ($w_path) > $max_file_size * 1024 * 1024)
+    {
+        jirafeau_async_delete ($ref);
+        return "Error";
+    }
+
     /* Concatenate data. */
-    $r = fopen ($data['tmp_name'], 'r');
-    $w = fopen (VAR_ASYNC . $p . $ref . '_data', 'a');
+    $r = fopen ($r_path, 'r');
+    $w = fopen ($w_path, 'a');
     while (!feof ($r))
     {
         if (fwrite ($w, fread ($r, 1024)) === false)
@@ -873,7 +886,7 @@ jirafeau_async_push ($ref, $data, $code)
     }
     fclose ($r);
     fclose ($w);
-    unlink ($data['tmp_name']);
+    unlink ($r_path);
     
     /* Update async file. */
     $code = jirafeau_gen_random (4);

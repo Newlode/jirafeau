@@ -141,6 +141,9 @@ if (jirafeau_has_upload_password ($cfg))
     </p>
 </div>
 
+<div id="error_pop" class="error">
+</div>
+
 <div id="upload">
 <fieldset>
     <legend>
@@ -148,12 +151,9 @@ if (jirafeau_has_upload_password ($cfg))
     </legend>
     <p>
     <input type="file" id="file_select" size="30"
-    onchange="
-        document.getElementById('options').style.display = '';
-        document.getElementById('send').style.display = '';
-    "/>
+    onchange="control_selected_file_size(<?php echo $cfg['maximal_upload_size'] ?>, '<?php echo t ('File is too big') . ', ' . t ('File size is limited to') . " " . $cfg['maximal_upload_size'] . " MB"; ?>')"/>
     </p>
-    
+
     <div id="options">
         <table id="option_table">
         <tr>
@@ -190,6 +190,15 @@ if (jirafeau_has_upload_password ($cfg))
         <?php } ?>
         </select></td>
         </tr>
+
+        <?php
+        if ($cfg['maximal_upload_size'] > 0)
+        {
+        echo '<p class="config">' . t ('File size is limited to');
+        echo " " . $cfg['maximal_upload_size'] . " MB</p>";
+        }
+        ?>
+
 		<p id="max_file_size" class="config"></p>
     <p>
     <?php
@@ -231,6 +240,7 @@ if (jirafeau_has_upload_password ($cfg))
 </div>
 
 <script lang="Javascript">
+    document.getElementById('error_pop').style.display = 'none';
     document.getElementById('uploading').style.display = 'none';
     document.getElementById('upload_finished').style.display = 'none';
     document.getElementById('options').style.display = 'none';

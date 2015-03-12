@@ -80,6 +80,10 @@ $cfg['availabilities'] = array ('minute' => true,
                                 'month' => true,
                                 'year' => false,
                                 'none' => false);
+/* Set maximal upload size expressed in MB.
+ * 0 mean unlimited upload size.
+ */
+$cfg['maximal_upload_size'] = 0;
 /* Installation is done ? */
 $cfg['installation_done'] = false;
 

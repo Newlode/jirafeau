@@ -239,7 +239,9 @@ input[type="submit"]:focus {
 
 .message,
 .error {
+  color: #d55548;
   font-style: italic;
+  font-weight: bold;
 }
 
 /* ==========================================================================

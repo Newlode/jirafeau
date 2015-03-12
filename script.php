@@ -82,6 +82,19 @@ if ($_SERVER['REQUEST_METHOD'] == "GET" && count ($_GET) == 0)
     echo '<p>';
     echo t('Example') . ": <a href=\"" . $web_root . "script.php?get_capacity=1\">" . $web_root . "script.php?get_capacity=1</a> ";
     echo '</p>';
+
+    echo '<h3>' . t('Maximal allowed size of an uploaded file') . ':</h3>';
+    echo '<p>';
+    echo t('Send a GET query to') . ': <i>' . $web_root . 'script.php</i><br />';
+    echo '<br />';
+    echo t('Parameters') . ':<br />';
+    echo "<b>get_maximal_upload_size=</b>1<i> (" . t('Required') . ")</i> <br />";
+    echo '</p>';
+    echo '<p>' . t('This will return brut text content.') . ' ' .
+            t('First line returns size (in MB).') . '<br /></p>';
+    echo '<p>';
+    echo t('Example') . ": <a href=\"" . $web_root . "script.php?get_maximal_upload_size=1\">" . $web_root . "script.php?get_maximal_upload_size=1</a> ";
+    echo '</p>';
     
     echo '<h3>' . t('Upload a file') . ':</h3>';
     echo '<p>';
@@ -248,6 +261,15 @@ if (isset ($_FILES['file']) && is_writable (VAR_FILES)
                 $time = JIRAFEAU_INFINITY;
                 break;
         }
+
+    // Check file size
+    if ($cfg['maximal_upload_size'] > 0 &&
+        $_FILES['file']['size'] > $cfg['maximal_upload_size'] * 1024 * 1024)
+    {
+        echo "Error";
+        exit;
+    }
+
     $res = jirafeau_upload ($_FILES['file'],
                             isset ($_POST['one_time_download']),
                             $key, $time, $_SERVER['REMOTE_ADDR'],
@@ -335,6 +357,10 @@ elseif (isset ($_GET['get_capacity']))
 {
     echo min (jirafeau_ini_to_bytes (ini_get ('post_max_size')),
               jirafeau_ini_to_bytes (ini_get ('upload_max_filesize')));
+}
+elseif (isset ($_GET['get_maximal_upload_size']))
+{
+    echo $cfg['maximal_upload_size'];
 }
 elseif (isset ($_GET['get_version']))
 {
@@ -547,7 +573,12 @@ elseif (isset ($_GET['push_async']))
         || (!isset ($_POST['code'])))
         echo "Error";
     else
-        echo jirafeau_async_push ($_POST['ref'], $_FILES['data'], $_POST['code']);                                      
+    {
+        echo jirafeau_async_push ($_POST['ref'],
+                                  $_FILES['data'],
+                                  $_POST['code'],
+                                  $cfg['maximal_upload_size']);
+    }
 }
 /* Finalize an asynchronous upload. */
 elseif (isset ($_GET['end_async']))
