@@ -88,7 +88,6 @@ legend {
   color: #663D1C;
   font-size: 1.2em;
   display: block;
-  width: 30%;
   min-width: 8em;
   text-align: center;
 }
