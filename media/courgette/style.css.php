@@ -345,12 +345,9 @@ textarea[readonly="readonly"] + p + p a:focus {
   color: #000;
   font-weight: bold;
   border-bottom: 0;
-  width: 12em;
 }
 
 #install + fieldset td:first-child input[type="submit"]:hover,
 #install + fieldset td:first-child input[type="submit"]:focus {
-  position: static;
-  margin: 0;
   text-decoration: underline;
 }
