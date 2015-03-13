@@ -1,0 +1,30 @@
+Hi,
+
+This document is only made for newcomers in Jirafeau who are digging into
+the code.
+
+Here is a little explaination of Jirafeau's arboresence in a simplified
+view only to show the most importants files and their role.
+
+.
+├── admin.php : adminitration interface, also permits to download files
+├── f.php : permits to download files or show the download page
+├── index.php : only provide a html/javascript client to interact with API
+├── script.php : API interface and it's html documentation
+├── install.php : installation script
+├── tos.php : terms of use the user may edit
+├── lib
+│   ├── config.local.php : user's parameters
+│   ├── config.original.php : default parameters with their documentation
+│   ├── functions.js : javascript functions for html/javascript client
+│   ├── functions.php : core functions and tools of jirafeau
+│   ├── lang : langage folder, contain all langage files
+│   └── template
+│       ├── footer.php
+│       └── header.php
+├── media : folder containing all skins
+└── var-xxxxxxx : folder containing all data
+    ├── async : chunks of uploaded files
+    ├── files : all files that has been successfully uploaded
+    └── links : all links pointing to files with meta-informations
+
