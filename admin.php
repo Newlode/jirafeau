@@ -123,12 +123,12 @@ if (!isset ($_SESSION['admin_auth']) || $_SESSION['admin_auth'] != true)
 /* Remove errors. */
 @error_reporting(0);
 
-/* Admin interface. */
-require (JIRAFEAU_ROOT . 'lib/template/header.php');
-?><h2><?php echo t('Admin interface'); ?></h2><?php
-
-/* Show admin interface. */
+/* Show admin interface if not downloading a file. */
+if (!(isset ($_POST['action']) && strcmp ($_POST['action'], 'download') == 0))
 {
+        require (JIRAFEAU_ROOT . 'lib/template/header.php');
+        ?><h2><?php echo t('Admin interface'); ?></h2><?php
+
         ?><div id = "install">
         <fieldset><legend><?php echo t('Actions');?></legend>
         <table>
@@ -277,6 +277,7 @@ if (isset ($_POST['action']))
                 $l['file_name'] . '"');
         if (file_exists(VAR_FILES . $p . $l['md5']))
             readfile (VAR_FILES . $p . $l['md5']);
+        exit;
     }
 }
 
