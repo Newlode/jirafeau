@@ -88,7 +88,8 @@ legend {
   color: #663D1C;
   font-size: 1.2em;
   display: block;
-  width: 100%;
+  width: 30%;
+  min-width: 8em;
   text-align: center;
 }
 
@@ -187,7 +188,7 @@ input[type="submit"]:focus {
    ========================================================================== */
 
 #options {
-  position: absolute;
+  position: relative;
   z-index: 10;
   background: #efebe9;
   width: 100%;
