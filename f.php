@@ -58,7 +58,7 @@ if (count ($link) == 0)
 }
 
 $delete_code = '';
-if (isset ($_GET['d']) && !empty ($_GET['d']))
+if (isset ($_GET['d']) && !empty ($_GET['d']) &&  $_GET['d'] != '1')
     $delete_code = $_GET['d'];
 
 $crypt_key = '';
@@ -66,7 +66,7 @@ if (isset ($_GET['k']) && !empty ($_GET['k']))
     $crypt_key = $_GET['k'];
 
 $do_download = false;
-if (isset ($_GET['d']) && !empty ($_GET['d']))
+if (isset ($_GET['d']) && $_GET['d'] == '1')
     $do_download = true;
 
 $do_preview = false;

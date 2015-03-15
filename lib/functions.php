@@ -443,7 +443,7 @@ jirafeau_upload ($file, $one_time_download, $key, $time, $ip, $crypt, $link_name
 }
 
 /**
- * tells if a mime-type is viewable in a browser
+ * Tells if a mime-type is viewable in a browser
  * @param $mime the mime type
  * @returns a boolean telling if a mime type is viewable
  */
