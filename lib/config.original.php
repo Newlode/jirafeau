@@ -34,7 +34,7 @@ $cfg['var_root'] = '';
  */
 $cfg['lang'] = 'auto';
 /* Select your style :) See media folder */
-$cfg['style'] = 'modern';
+$cfg['style'] = 'courgette';
 /* Propose a preview link if file type is previewable is set to true. */
 $cfg['preview'] = true;
 /* Download page: propose a link to a download page is set to true. */

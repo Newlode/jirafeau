@@ -291,7 +291,7 @@ textarea[readonly="readonly"] + p + p a:focus {
 #install + fieldset {
   width: auto;
   max-width: 50em;
-  border: 0;
+  border: 7px dashed #bcaaa4;
 }
 
 #install table,
@@ -327,7 +327,7 @@ textarea[readonly="readonly"] + p + p a:focus {
   width: 100%;
 }
 
-#install td:last-child { text-align: right; }
+#install td:last-child { text-align: left; }
 
 #install .info { width: 19em; }
 
