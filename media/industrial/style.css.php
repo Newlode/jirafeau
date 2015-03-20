@@ -158,13 +158,7 @@ input:hover {
   margin-right: 5%;
 }
 
-#upload {
-  text-align: center;
-  width: 30em;
-  background: #E2f5ff;
-  border: 2px solid #02233f;
-  margin: auto;
-}
+#upload {}
 
 #uploading {
   text-align: center;
