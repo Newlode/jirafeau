@@ -167,26 +167,26 @@ if (jirafeau_has_upload_password ($cfg))
         <tr>
         <td><label for="select_time"><?php echo t('Time limit') . ':'; ?></label></td>
         <td><select name="time" id="select_time">
-        <?php if ($cfg['availabilities']['minute']) { ?>
-        <option value = "minute"><?php echo t('One minute'); ?></option>
-        <?php } ?>
-        <?php if ($cfg['availabilities']['hour']) { ?>
-        <option value = "hour"><?php echo t('One hour'); ?></option>
-        <?php } ?>
-        <?php if ($cfg['availabilities']['day']) { ?>
-        <option value = "day"><?php echo t('One day'); ?></option>
-        <?php } ?>
-        <?php if ($cfg['availabilities']['week']) { ?>
-        <option value = "week"><?php echo t('One week'); ?></option>
-        <?php } ?>
-        <?php if ($cfg['availabilities']['month']) { ?>
-        <option value = "month"><?php echo t('One month');?></option>
+        <?php if ($cfg['availabilities']['none']) { ?>
+        <option value="none"><?php echo t('None'); ?></option>
         <?php } ?>
         <?php if ($cfg['availabilities']['year']) { ?>
         <option value = "year"><?php echo t('One year');?></option>
         <?php } ?>
-        <?php if ($cfg['availabilities']['none']) { ?>
-        <option value="none"><?php echo t('None'); ?></option>
+        <?php if ($cfg['availabilities']['month']) { ?>
+        <option value = "month"><?php echo t('One month');?></option>
+        <?php } ?>
+        <?php if ($cfg['availabilities']['week']) { ?>
+        <option value = "week"><?php echo t('One week'); ?></option>
+        <?php } ?>
+        <?php if ($cfg['availabilities']['day']) { ?>
+        <option value = "day"><?php echo t('One day'); ?></option>
+        <?php } ?>
+        <?php if ($cfg['availabilities']['hour']) { ?>
+        <option value = "hour"><?php echo t('One hour'); ?></option>
+        <?php } ?>
+        <?php if ($cfg['availabilities']['minute']) { ?>
+        <option value = "minute"><?php echo t('One minute'); ?></option>
         <?php } ?>
         </select></td>
         </tr>
