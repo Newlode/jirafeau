@@ -16,7 +16,7 @@ view only to show the most importants files and their role.
 ├── lib
 │   ├── config.local.php : user's parameters
 │   ├── config.original.php : default parameters with their documentation
-│   ├── functions.js : javascript functions for html/javascript client
+│   ├── functions_*.js : javascript functions for html/javascript client
 │   ├── functions.php : core functions and tools of jirafeau
 │   ├── lang : langage folder, contain all langage files
 │   └── template
