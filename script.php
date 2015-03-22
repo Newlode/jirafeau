@@ -135,7 +135,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET" && count ($_GET) == 0)
     echo "<b>h=</b>your_download_reference<i> (" . t('Required') . ")</i> <br />";
     echo "<b>d=</b>yout_delete_code<i> (" . t('Required') . ")</i> <br />";
     echo '</p>';
-    echo '<p>' . t('This will return "Ok" if succeded, "Error" otherwhise.') . '<br /></p>';
+    echo '<p>' . t('This will return "Ok" if succeeded, "Error" otherwhise.') . '<br /></p>';
     echo '<p>';
     echo t('Example') . ": <a href=\"" . $web_root . "script.php?h=30ngy0hsDcpfrF8zR7x9iU&amp;d=0d210a952\">" . $web_root . "script.php?h=30ngy0hsDcpfrF8zR7x9iU&amp;d=0d210a952</a> ";
     echo '</p>';
