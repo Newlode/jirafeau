@@ -164,14 +164,14 @@ $tr = array (
             'This will return "Ok" if succeeded, "Error" otherwhise.' => 'Retourne "OK" en cas de succès, "Error" dans le cas contraire.',
             'Get a generated script' => 'Récupérer un script généré',
             'This will return brut text content of the code.' => 'Renvoie le code sous forme the texte brut.',
-            'Initalize an asynchronous transfert' => 'Initialiser un transfert asynchrone',
+            'Initalize an asynchronous transfer' => 'Initialiser un transfert asynchrone',
             'The goal is to permit to transfer big file, chunk by chunk.' => 'Le but est de permettre de transférer de gros fichiers, morceaux par morceaux.',
             'Chunks of data must be sent in order.' => 'Chaque morceau doit être envoyé dans l\'ordre.',
             'First line is the asynchronous transfer reference and the second line the code to use in the next operation.'
                 => 'La première ligne correspond à la référence de transfert asynchrone, la seconde au code à utiliser dans la prochaine requette.',
-            'Push data during asynchronous transfert' => 'Envoyer des données pendant un transfert asynchrone',
+            'Push data during asynchronous transfer' => 'Envoyer des données pendant un transfert asynchrone',
             'Returns the next code to use.' => 'Renvoie le prochain code à utiliser.',
-            'Finalize asynchronous transfert' => 'Finaliser un transfert asynchrone',
+            'Finalize asynchronous transfer' => 'Finaliser un transfert asynchrone',
             'This will return "Ok" or "Error" string.' => 'Retourn la chaine "Ok" ou "Error".',
     );
  ?>

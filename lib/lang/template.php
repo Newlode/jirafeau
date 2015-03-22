@@ -144,14 +144,14 @@ $tr = array (
             'This will return "Ok" if succeeded, "Error" otherwhise.' => '',
             'Get a generated script' => '',
             'This will return brut text content of the code.' => '',
-            'Initalize an asynchronous transfert' => '',
+            'Initalize an asynchronous transfer' => '',
             'The goal is to permit to transfer big file, chunk by chunk.' => '',
             'Chunks of data must be sent in order.' => '',
             'First line is the asynchronous transfer reference and the second line the code to use in the next operation.'
                 => '',
-            'Push data during asynchronous transfert' => '',
+            'Push data during asynchronous transfer' => '',
             'Returns the next code to use.' => '',
-            'Finalize asynchronous transfert' => '',
+            'Finalize asynchronous transfer' => '',
             'This will return "Ok" or "Error" string.' => '',
     );
 ?>

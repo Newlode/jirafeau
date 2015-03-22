@@ -157,7 +157,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET" && count ($_GET) == 0)
         echo "$name: <a href=\"" . $web_root . "script.php?lang=$lang\">" . $web_root . "script.php?lang=$lang</a> ";
     echo '</p>';
     
-    echo '<h3>' . t('Initalize an asynchronous transfert') . ':</h3>';
+    echo '<h3>' . t('Initalize an asynchronous transfer') . ':</h3>';
     echo '<p>';
     echo t('The goal is to permit to transfer big file, chunk by chunk.') . ' ';
     echo t('Chunks of data must be sent in order.');
@@ -176,7 +176,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET" && count ($_GET) == 0)
     echo '<p>' . t('This will return brut text content.') . ' ' .
          t('First line is the asynchronous transfer reference and the second line the code to use in the next operation.') . '<br /></p>';
 
-    echo '<h3>' . t('Push data during asynchronous transfert') . ':</h3>';
+    echo '<h3>' . t('Push data during asynchronous transfer') . ':</h3>';
     echo '<p>';
     echo t('Send a GET query to') . ': <i>' . $web_root . 'script.php?push_async</i><br />';
     echo '<br />';
@@ -188,7 +188,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET" && count ($_GET) == 0)
     echo '<p>' . t('This will return brut text content.') . ' ' .
          t('Returns the next code to use.') . '<br /></p>';
 
-    echo '<h3>' . t('Finalize asynchronous transfert') . ':</h3>';
+    echo '<h3>' . t('Finalize asynchronous transfer') . ':</h3>';
     echo '<p>';
     echo t('Send a GET query to') . ': <i>' . $web_root . 'script.php?end_async</i><br />';
     echo '<br />';
