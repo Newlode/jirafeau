@@ -73,15 +73,15 @@ $tr = array (
              'The following directory could not be created' => 'Le dossier suivant ne peut être créé',
              'You should create this directory by hand.' => 'Vous devriez creer manuelement ce dossier',
              'The following directory is not writable' => 'Le dossier suivant ne peut être créé',
-             'You should give the write right to the web server on this directory.' => 'Vous devriez donner le droits d\'écriture à ce repertoire pour le rendre accessible par le serveur web.',
+             'You should give the write permission to the web server on this directory.' => 'Vous devriez donner le droits d\'écriture à ce repertoire pour le rendre accessible par le serveur web.',
              'Here is a solution' => 'Une solution possible',
              'The local configuration file could not be created. Create a ' .
                 '<code>lib/config.local.php</code> file and give the write ' .
                 'right to the web server (preferred solution), or give the ' .
-                'write right to the web server on the <code>lib</code> ' .
+                'write permission to the web server on the <code>lib</code> ' .
                 'directory.' => 'Le fichier de configuration local ne peut être créé. Creez le fichier <code>lib/config.local.php</code> et donnez lui les droits d\'écriture par le serveur web (solution préférable) ou bien donnez les accès en écriture au dossier <code>lib</code>',
             'The local configuration is not writable by the web server. ' .
-                'Give the write right to the web server on the ' .
+                'Give the write permission to the web server on the ' .
                 '<code>lib/config.local.php</code> file.' => 'Le fichier de configuration local ne peut être écrit. Donnez les droits d\'écriture au fichier <code>lib/config.local.php</code> par le serveur web.',
             'Installation of Jirafeau' => 'Installation de Jirafeau',
             'step' => 'étape',

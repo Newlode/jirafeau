@@ -91,7 +91,7 @@ jirafeau_check_var_dir ($path)
     $mkdir_str1 = t('The following directory could not be created') . ':';
     $mkdir_str2 = t('You should create this directory by hand.');
     $write_str1 = t('The following directory is not writable') . ':';
-    $write_str2 = t('You should give the write right to the web server on ' .
+    $write_str2 = t('You should give the write permission to the web server on ' .
                     'this directory.');
     $solution_str = t('Here is a solution') . ':';
 
@@ -137,7 +137,7 @@ if (!file_exists (JIRAFEAU_CFG))
              t('The local configuration file could not be created. Create a ' .
                '<code>lib/config.local.php</code> file and give the write ' .
                'right to the web server (preferred solution), or give the ' .
-               'write right to the web server on the <code>lib</code> ' .
+               'write permission to the web server on the <code>lib</code> ' .
                'directory.') .
              '</p></div>';
         require (JIRAFEAU_ROOT . 'lib/template/footer.php');
@@ -150,7 +150,7 @@ if (!is_writable (JIRAFEAU_CFG) && !@chmod (JIRAFEAU_CFG, '0666'))
     require (JIRAFEAU_ROOT . 'lib/template/header.php');
     echo '<div class="error"><p>' .
          t('The local configuration is not writable by the web server. ' .
-           'Give the write right to the web server on the ' .
+           'Give the write permission to the web server on the ' .
            '<code>lib/config.local.php</code> file.') .
          '</p></div>';
     require (JIRAFEAU_ROOT . 'lib/template/footer.php');

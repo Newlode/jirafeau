@@ -53,15 +53,15 @@ $tr = array (
              'The following directory could not be created' => '',
              'You should create this directory by hand.' => '',
              'The following directory is not writable' => '',
-             'You should give the write right to the web server on this directory.' => '',
+             'You should give the write permission to the web server on this directory.' => '',
              'Here is a solution' => 'Une solution possible',
              'The local configuration file could not be created. Create a ' .
                 '<code>lib/config.local.php</code> file and give the write ' .
                 'right to the web server (preferred solution), or give the ' .
-                'write right to the web server on the <code>lib</code> ' .
+                'write permission to the web server on the <code>lib</code> ' .
                 'directory.' => '',
             'The local configuration is not writable by the web server. ' .
-                'Give the write right to the web server on the ' .
+                'Give the write permission to the web server on the ' .
                 '<code>lib/config.local.php</code> file.' => '',
             'Installation of Jirafeau' => '',
             'step' => '',
