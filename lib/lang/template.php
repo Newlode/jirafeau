@@ -147,7 +147,7 @@ $tr = array (
             'Initalize an asynchronous transfert' => '',
             'The goal is to permit to transfer big file, chunk by chunk.' => '',
             'Chunks of data must be sent in order.' => '',
-            'First line is the asynchronous transfert reference and the second line the code to use in the next operation.'
+            'First line is the asynchronous transfer reference and the second line the code to use in the next operation.'
                 => '',
             'Push data during asynchronous transfert' => '',
             'Returns the next code to use.' => '',

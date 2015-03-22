@@ -174,7 +174,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET" && count ($_GET) == 0)
     echo "<b>upload_password=</b>your_upload_password<i> (" . t('Optional') . ")</i> <br />";
     echo '</p>';
     echo '<p>' . t('This will return brut text content.') . ' ' .
-         t('First line is the asynchronous transfert reference and the second line the code to use in the next operation.') . '<br /></p>';
+         t('First line is the asynchronous transfer reference and the second line the code to use in the next operation.') . '<br /></p>';
 
     echo '<h3>' . t('Push data during asynchronous transfert') . ':</h3>';
     echo '<p>';
