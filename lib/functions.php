@@ -904,7 +904,7 @@ jirafeau_async_push ($ref, $data, $code, $max_file_size)
   * @param $ref asynchronous upload reference
   * @param $code client code for this operation
   * @param $crypt boolean asking to crypt or not
-  * @param $link_name_length link name lenght
+  * @param $link_name_length link name length
   * @return  a string containing the download reference followed by a delete code or the string "Error"
   */
 function
