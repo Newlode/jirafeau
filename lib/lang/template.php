@@ -145,7 +145,7 @@ $tr = array (
             'Get a generated script' => '',
             'This will return brut text content of the code.' => '',
             'Initalize an asynchronous transfert' => '',
-            'The goal is to permit to transfert big file, chunk by chunk.' => '',
+            'The goal is to permit to transfer big file, chunk by chunk.' => '',
             'Chunks of data must be sent in order.' => '',
             'First line is the asynchronous transfert reference and the second line the code to use in the next operation.'
                 => '',

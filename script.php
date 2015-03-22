@@ -159,7 +159,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET" && count ($_GET) == 0)
     
     echo '<h3>' . t('Initalize an asynchronous transfert') . ':</h3>';
     echo '<p>';
-    echo t('The goal is to permit to transfert big file, chunk by chunk.') . ' ';
+    echo t('The goal is to permit to transfer big file, chunk by chunk.') . ' ';
     echo t('Chunks of data must be sent in order.');
     echo '</p>';
     echo '<p>';
