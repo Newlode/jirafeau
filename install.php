@@ -89,7 +89,7 @@ function
 jirafeau_check_var_dir ($path)
 {
     $mkdir_str1 = t('The following directory could not be created') . ':';
-    $mkdir_str2 = t('You should create this directory by hand.');
+    $mkdir_str2 = t('You should create this directory manually.');
     $write_str1 = t('The following directory is not writable') . ':';
     $write_str2 = t('You should give the write permission to the web server on ' .
                     'this directory.');
