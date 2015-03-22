@@ -44,7 +44,7 @@ $tr = array (
              'Give the password of this file' => '',
              'Access denied' => '',
              'You are about to download' => '',
-             'By using our services, you accept of our' => '',
+             'By using our services, you accept our' => '',
              'Term Of Service' => '',
              /* functions.php */
              'Internal error during file creation.' => '',
