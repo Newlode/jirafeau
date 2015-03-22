@@ -57,7 +57,7 @@ $tr = array (
              'Here is a solution' => 'Une solution possible',
              'The local configuration file could not be created. Create a ' .
                 '<code>lib/config.local.php</code> file and give the write ' .
-                'right to the web server (preferred solution), or give the ' .
+                'permission to the web server (preferred solution), or give the ' .
                 'write permission to the web server on the <code>lib</code> ' .
                 'directory.' => '',
             'The local configuration is not writable by the web server. ' .

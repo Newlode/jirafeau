@@ -136,7 +136,7 @@ if (!file_exists (JIRAFEAU_CFG))
         echo '<div class="error"><p>' .
              t('The local configuration file could not be created. Create a ' .
                '<code>lib/config.local.php</code> file and give the write ' .
-               'right to the web server (preferred solution), or give the ' .
+               'permission to the web server (preferred solution), or give the ' .
                'write permission to the web server on the <code>lib</code> ' .
                'directory.') .
              '</p></div>';

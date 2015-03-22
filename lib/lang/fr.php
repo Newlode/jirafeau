@@ -77,7 +77,7 @@ $tr = array (
              'Here is a solution' => 'Une solution possible',
              'The local configuration file could not be created. Create a ' .
                 '<code>lib/config.local.php</code> file and give the write ' .
-                'right to the web server (preferred solution), or give the ' .
+                'permission to the web server (preferred solution), or give the ' .
                 'write permission to the web server on the <code>lib</code> ' .
                 'directory.' => 'Le fichier de configuration local ne peut être créé. Creez le fichier <code>lib/config.local.php</code> et donnez lui les droits d\'écriture par le serveur web (solution préférable) ou bien donnez les accès en écriture au dossier <code>lib</code>',
             'The local configuration is not writable by the web server. ' .
