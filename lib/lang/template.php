@@ -73,10 +73,10 @@ $tr = array (
             'Retry this step' => '',
             'Jirafeau is now fully operational' => '',
             'Information' => '',
-            'The base address of Jirafeau is the first part of the URL, until (and including) the last slash. For example: "http://www.example.com/". Do not forget the ending slash!'
+            'The base address of Jirafeau is the first part of the URL, until (and including) the last slash. For example: "http://www.example.com/". Do not forget the trailing slash!'
                 => '',
             'Base address' => 'Addresse d\'origine',
-            'The data directory is where your files and information about your files will be stored. You should put it outside your web site, or at least restrict the access to this directory. Do not forget the ending slash!'
+            'The data directory is where your files and information about your files will be stored. You should put it outside your web site, or at least restrict the access to this directory. Do not forget the trailing slash!'
                 => '',
             'Data directory' => '',
             'Jirafeau is internationalised. Choose a specific langage or choose Automatic (langage is provided by user\'s browser).'

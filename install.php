@@ -282,7 +282,7 @@ case 3:
         t
         ('The base address of Jirafeau is the first part of the URL, until ' .
          '(and including) the last slash. For example: ' .
-         '"http://www.example.com/". Do not forget the ending slash!');
+         '"http://www.example.com/". Do not forget the trailing slash!');
     ?></td> </tr> <tr> <td class = "label"><label for = "input_web_root"
        ><?php echo t('Base address') . ':';
     ?></label></td>
@@ -296,7 +296,7 @@ case 3:
         echo t('The data directory is where your files and information about' .
         ' your files will be stored. You should put it outside your web ' .
         'site, or at least restrict the access to this directory. Do not ' .
-        'forget the ending slash!');
+        'forget the trailing slash!');
     ?></td> </tr> <tr> <td class = "label"><label for = "input_var_root"
        ><?php echo t('Data directory') . ':';
     ?></label></td>
