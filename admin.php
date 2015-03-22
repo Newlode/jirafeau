@@ -148,7 +148,7 @@ if (!(isset ($_POST['action']) && strcmp ($_POST['action'], 'download') == 0))
         <tr>
             <input type = "hidden" name = "action" value = "clean_async"/>
             <td class = "info">
-                <?php echo t('Clean old unfinished transferts'); ?>
+                <?php echo t('Clean old unfinished transfers'); ?>
             </td>
             <td></td>
             <td>
