@@ -54,7 +54,7 @@ $tr = array (
              'You should create this directory manually.' => '',
              'The following directory is not writable' => '',
              'You should give the write permission to the web server on this directory.' => '',
-             'Here is a solution' => 'Une solution possible',
+             'Here is a solution' => '',
              'The local configuration file could not be created. Create a ' .
                 '<code>lib/config.local.php</code> file and give the write ' .
                 'permission to the web server (preferred solution), or give the ' .
