@@ -295,7 +295,7 @@ case 3:
         </tr> <tr> <td class = "info" colspan = "2"><?php
         echo t('The data directory is where your files and information about' .
         ' your files will be stored. You should put it outside your web ' .
-        'site, or at least restrict the access of this directory. Do not ' .
+        'site, or at least restrict the access to this directory. Do not ' .
         'forget the ending slash!');
     ?></td> </tr> <tr> <td class = "label"><label for = "input_var_root"
        ><?php echo t('Data directory') . ':';
