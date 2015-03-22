@@ -104,7 +104,7 @@ $tr = array (
             'Choose the default language' => 'Choisissez la langue par defaut',
             'Next step' => 'Etape suivante',
             'Jirafeau has an administration interface (through admin.php). ' .
-            'You can set a password to access the interface or let it be empty ' .
+            'You can set a password to access the interface or leave it empty ' .
             'to disable the interface.' => 'Jirafeau a une interface d\'administration (accessible via admin.php). Vous pouvez saisir un mot de passe pour y acceder ou ne pas en mettre pour désactiver l\'accès à l\'interface.',
             'Administration password' => 'Mot de passe d\'administration',
             /* admin.php */

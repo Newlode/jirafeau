@@ -84,7 +84,7 @@ $tr = array (
             'Choose the default language' => '',
             'Next step' => '',
             '' .
-            'You can set a password to access the interface or let it be empty ' .
+            'You can set a password to access the interface or leave it empty ' .
             'to disable the interface.' => '',
             'Administration password' => '',
             /* admin.php */
