@@ -249,7 +249,7 @@ case 2:
         "2"><?php echo
         t
         ('Jirafeau has an administration interface (through admin.php). ' .
-        'You can set a password to access the intercace or let it be empty ' .
+        'You can set a password to access the interface or leave it be empty ' .
         'to disable the interface.');
     ?></td> </tr> <tr> <td class = "label"><label for = "select_password"
        ><?php echo t('Administration password') . ':';
