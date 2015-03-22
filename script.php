@@ -140,7 +140,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET" && count ($_GET) == 0)
     echo t('Example') . ": <a href=\"" . $web_root . "script.php?h=30ngy0hsDcpfrF8zR7x9iU&amp;d=0d210a952\">" . $web_root . "script.php?h=30ngy0hsDcpfrF8zR7x9iU&amp;d=0d210a952</a> ";
     echo '</p>';
     
-    echo '<h3>' . t('Get a generated scripts') . ':</h3>';
+    echo '<h3>' . t('Get a generated script') . ':</h3>';
     echo '<p>';
     echo t('Send a GET query to') . ': <i>' . $web_root . 'script.php</i><br />';
     echo '<br />';
