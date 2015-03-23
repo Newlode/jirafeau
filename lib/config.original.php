@@ -43,8 +43,8 @@ $cfg['download_page'] = true;
  * By enabling it, file-level deduplication won't work.
  */
 $cfg['enable_crypt'] = false;
-/* Split lenght of link refenrece. */
-$cfg['link_name_lenght'] = 8;
+/* Split length of link refenrece. */
+$cfg['link_name_length'] = 8;
 /* Upload password(s). Empty array disable password authentification.
  * $cfg['upload_password'] = array();               // No password
  * $cfg['upload_password'] = array('psw1');         // One password

@@ -135,12 +135,12 @@ if ($_SERVER['REQUEST_METHOD'] == "GET" && count ($_GET) == 0)
     echo "<b>h=</b>your_download_reference<i> (" . t('Required') . ")</i> <br />";
     echo "<b>d=</b>yout_delete_code<i> (" . t('Required') . ")</i> <br />";
     echo '</p>';
-    echo '<p>' . t('This will return "Ok" if succeded, "Error" otherwhise.') . '<br /></p>';
+    echo '<p>' . t('This will return "Ok" if succeeded, "Error" otherwhise.') . '<br /></p>';
     echo '<p>';
     echo t('Example') . ": <a href=\"" . $web_root . "script.php?h=30ngy0hsDcpfrF8zR7x9iU&amp;d=0d210a952\">" . $web_root . "script.php?h=30ngy0hsDcpfrF8zR7x9iU&amp;d=0d210a952</a> ";
     echo '</p>';
     
-    echo '<h3>' . t('Get a generated scripts') . ':</h3>';
+    echo '<h3>' . t('Get a generated script') . ':</h3>';
     echo '<p>';
     echo t('Send a GET query to') . ': <i>' . $web_root . 'script.php</i><br />';
     echo '<br />';
@@ -157,9 +157,9 @@ if ($_SERVER['REQUEST_METHOD'] == "GET" && count ($_GET) == 0)
         echo "$name: <a href=\"" . $web_root . "script.php?lang=$lang\">" . $web_root . "script.php?lang=$lang</a> ";
     echo '</p>';
     
-    echo '<h3>' . t('Initalize an asynchronous transfert') . ':</h3>';
+    echo '<h3>' . t('Initalize an asynchronous transfer') . ':</h3>';
     echo '<p>';
-    echo t('The goal is to permit to transfert big file, chunk by chunk.') . ' ';
+    echo t('The goal is to permit to transfer big file, chunk by chunk.') . ' ';
     echo t('Chunks of data must be sent in order.');
     echo '</p>';
     echo '<p>';
@@ -174,9 +174,9 @@ if ($_SERVER['REQUEST_METHOD'] == "GET" && count ($_GET) == 0)
     echo "<b>upload_password=</b>your_upload_password<i> (" . t('Optional') . ")</i> <br />";
     echo '</p>';
     echo '<p>' . t('This will return brut text content.') . ' ' .
-         t('First line is the asynchronous transfert reference and the second line the code to use in the next operation.') . '<br /></p>';
+         t('First line is the asynchronous transfer reference and the second line the code to use in the next operation.') . '<br /></p>';
 
-    echo '<h3>' . t('Push data during asynchronous transfert') . ':</h3>';
+    echo '<h3>' . t('Push data during asynchronous transfer') . ':</h3>';
     echo '<p>';
     echo t('Send a GET query to') . ': <i>' . $web_root . 'script.php?push_async</i><br />';
     echo '<br />';
@@ -188,7 +188,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET" && count ($_GET) == 0)
     echo '<p>' . t('This will return brut text content.') . ' ' .
          t('Returns the next code to use.') . '<br /></p>';
 
-    echo '<h3>' . t('Finalize asynchronous transfert') . ':</h3>';
+    echo '<h3>' . t('Finalize asynchronous transfer') . ':</h3>';
     echo '<p>';
     echo t('Send a GET query to') . ': <i>' . $web_root . 'script.php?end_async</i><br />';
     echo '<br />';
@@ -273,7 +273,7 @@ if (isset ($_FILES['file']) && is_writable (VAR_FILES)
     $res = jirafeau_upload ($_FILES['file'],
                             isset ($_POST['one_time_download']),
                             $key, $time, $_SERVER['REMOTE_ADDR'],
-                            $cfg['enable_crypt'], $cfg['link_name_lenght']);
+                            $cfg['enable_crypt'], $cfg['link_name_length']);
     
     if (empty($res) || $res['error']['has_error'])
     {
@@ -587,7 +587,7 @@ elseif (isset ($_GET['end_async']))
         || !isset ($_POST['code']))
         echo "Error";
     else
-        echo jirafeau_async_end ($_POST['ref'], $_POST['code'], $cfg['enable_crypt'], $cfg['link_name_lenght']);
+        echo jirafeau_async_end ($_POST['ref'], $_POST['code'], $cfg['enable_crypt'], $cfg['link_name_length']);
 }
 else
     echo "Error";

@@ -89,9 +89,9 @@ function
 jirafeau_check_var_dir ($path)
 {
     $mkdir_str1 = t('The following directory could not be created') . ':';
-    $mkdir_str2 = t('You should create this directory by hand.');
+    $mkdir_str2 = t('You should create this directory manually.');
     $write_str1 = t('The following directory is not writable') . ':';
-    $write_str2 = t('You should give the write right to the web server on ' .
+    $write_str2 = t('You should give the write permission to the web server on ' .
                     'this directory.');
     $solution_str = t('Here is a solution') . ':';
 
@@ -136,8 +136,8 @@ if (!file_exists (JIRAFEAU_CFG))
         echo '<div class="error"><p>' .
              t('The local configuration file could not be created. Create a ' .
                '<code>lib/config.local.php</code> file and give the write ' .
-               'right to the web server (preferred solution), or give the ' .
-               'write right to the web server on the <code>lib</code> ' .
+               'permission to the web server (preferred solution), or give the ' .
+               'write permission to the web server on the <code>lib</code> ' .
                'directory.') .
              '</p></div>';
         require (JIRAFEAU_ROOT . 'lib/template/footer.php');
@@ -150,7 +150,7 @@ if (!is_writable (JIRAFEAU_CFG) && !@chmod (JIRAFEAU_CFG, '0666'))
     require (JIRAFEAU_ROOT . 'lib/template/header.php');
     echo '<div class="error"><p>' .
          t('The local configuration is not writable by the web server. ' .
-           'Give the write right to the web server on the ' .
+           'Give the write permission to the web server on the ' .
            '<code>lib/config.local.php</code> file.') .
          '</p></div>';
     require (JIRAFEAU_ROOT . 'lib/template/footer.php');
@@ -249,7 +249,7 @@ case 2:
         "2"><?php echo
         t
         ('Jirafeau has an administration interface (through admin.php). ' .
-        'You can set a password to access the intercace or let it be empty ' .
+        'You can set a password to access the interface or leave it be empty ' .
         'to disable the interface.');
     ?></td> </tr> <tr> <td class = "label"><label for = "select_password"
        ><?php echo t('Administration password') . ':';
@@ -282,7 +282,7 @@ case 3:
         t
         ('The base address of Jirafeau is the first part of the URL, until ' .
          '(and including) the last slash. For example: ' .
-         '"http://www.example.com/". Do not forget the ending slash!');
+         '"http://www.example.com/". Do not forget the trailing slash!');
     ?></td> </tr> <tr> <td class = "label"><label for = "input_web_root"
        ><?php echo t('Base address') . ':';
     ?></label></td>
@@ -295,8 +295,8 @@ case 3:
         </tr> <tr> <td class = "info" colspan = "2"><?php
         echo t('The data directory is where your files and information about' .
         ' your files will be stored. You should put it outside your web ' .
-        'site, or at least restrict the access of this directory. Do not ' .
-        'forget the ending slash!');
+        'site, or at least restrict the access to this directory. Do not ' .
+        'forget the trailing slash!');
     ?></td> </tr> <tr> <td class = "label"><label for = "input_var_root"
        ><?php echo t('Data directory') . ':';
     ?></label></td>

@@ -134,7 +134,7 @@ if (!empty ($link['key']))
              '<input type = "password" name = "key" />' .
              '</td></tr>' .
              '<tr><td>' .
-             t('By using our services, you accept of our'). ' <a href="' . $cfg['web_root'] . '/tos.php' . '">' . t('Term Of Service') . '</a>' .
+             t('By using our services, you accept our'). ' <a href="' . $cfg['web_root'] . '/tos.php' . '">' . t('Term Of Service') . '</a>' .
              '</td></tr>' .
              '<tr><td>';
             ?><input type="submit" id = "submit_download"  value="<?php echo t('Download'); ?>"
@@ -190,7 +190,7 @@ if ($cfg['download_page'] && !$password_challenged && !$do_download && !$do_prev
              t('You are about to download') . ' "' . $link['file_name'] . '" (' . jirafeau_human_size($link['file_size']) . ')' .
              '</td></tr>' .
              '<tr><td>' .
-             t('By using our services, you accept of our'). ' <a href="' . $cfg['web_root'] . '/tos.php' . '">' . t('Term Of Service') . '</a>';
+             t('By using our services, you accept our'). ' <a href="' . $cfg['web_root'] . '/tos.php' . '">' . t('Term Of Service') . '</a>';
             ?></td></tr><tr><td><input type="submit" id = "submit_download"  value="<?php echo t('Download'); ?>"
             onclick="document.getElementById('submit').action='
 <?php
