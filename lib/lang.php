@@ -44,7 +44,7 @@ function t ($text)
     if ($found && strcmp ($l, "en"))
     {
         /* $tr is defined in this requirement. */
-        require (JIRAFEAU_ROOT . "lib/lang/$l.php");
+        require (JIRAFEAU_ROOT . "lib/lang/lang_$l.php");
 
         foreach ($tr as $o => $t)
             if (strcmp ($text, $o) == 0)
