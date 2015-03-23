@@ -129,7 +129,7 @@ if (!(isset ($_POST['action']) && strcmp ($_POST['action'], 'download') == 0))
         require (JIRAFEAU_ROOT . 'lib/template/header.php');
         ?><h2><?php echo t('Admin interface'); ?></h2><?php
 
-        ?><div id = "install">
+        ?><div id = "admin">
         <fieldset><legend><?php echo t('Actions');?></legend>
         <table>
         <form action = "<?php echo basename(__FILE__); ?>" method = "post">

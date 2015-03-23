@@ -284,7 +284,7 @@ textarea[readonly="readonly"] + p + p a:focus {
 }
 
 /* ==========================================================================
-   6 = Admin
+   6 = Install
    ========================================================================== */
 
 #install fieldset,
@@ -349,3 +349,74 @@ textarea[readonly="readonly"] + p + p a:focus {
 #install + fieldset td:first-child input[type="submit"]:focus {
   text-decoration: underline;
 }
+
+/* ==========================================================================
+   7 = Admin
+   ========================================================================== */
+
+#admin fieldset,
+#admin + fieldset {
+  width: auto;
+  max-width: 50em;
+  border: 7px dashed #bcaaa4;
+}
+
+#admin table,
+#admin + fieldset table {
+  width: 100%;
+  border-collapse: collapse;
+  border-bottom: 2px solid #FFF;
+}
+
+#admin td,
+#admin + fieldset td {
+  padding: 0.5em 1em;
+  border: 2px solid #FFF;
+  border-bottom: 0;
+}
+
+#admin td:empty {
+  width: 13.1em;
+}
+
+#admin table form:nth-child(odd),
+#admin + fieldset tr:nth-child(odd) {
+  background: #bcaaa4;
+}
+
+#admin fieldset > form {
+  margin-top: 2em;
+  text-align: center;
+}
+
+#admin form {
+  display: table;
+  width: 100%;
+}
+
+#admin td:last-child { text-align: left; }
+
+#admin .info { width: 19em; }
+
+#admin input[type="submit"] {
+  min-width: 10.5em;
+}
+
+#admin + fieldset table {
+  font-size: 0.9em;
+}
+
+#admin + fieldset td:first-child input[type="submit"] {
+  background: none;
+  padding: 0;
+  color: #000;
+  font-weight: bold;
+  border-bottom: 0;
+}
+
+#admin + fieldset td:first-child input[type="submit"]:hover,
+#admin + fieldset td:first-child input[type="submit"]:focus {
+  text-decoration: underline;
+}
+
+

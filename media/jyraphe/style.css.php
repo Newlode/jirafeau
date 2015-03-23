@@ -176,3 +176,51 @@ h1 a {
 #install .navleft {
   float: left;
 }
+
+#admin {
+  width: 40em;
+  margin: 5ex auto;
+}
+
+#admin table {
+  width: 100%;
+}
+
+#admin label {
+  font-style: italic;
+}
+
+#admin .info {
+  text-align: justify;
+  padding-bottom: 1ex;
+}
+
+#admin .label {
+  text-align: justify;
+  vertical-align: top;
+}
+
+#admin .field {
+  text-align: right;
+  vertical-align: bottom;
+}
+
+#admin .nav {
+  padding-top: 2em;
+}
+
+#admin .next {
+  text-align: right;
+}
+
+#admin .previous {
+  text-align: left;
+}
+
+#admin .navright { 
+  float: right;
+}
+
+#admin .navleft {
+  float: left;
+}
