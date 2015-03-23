@@ -35,6 +35,6 @@ else
   <link href="<?php echo $web_root . 'media/' . $style . '/style.css.php'; ?>" rel="stylesheet" type="text/css" />
 </head>
 <body>
-<script language="Javascript" src="lib/functions_v3.js"></script>
+<script language="Javascript" src="lib/functions_v4.js"></script>
 <div id="content">
 <h1><a href="<?php echo $web_root; ?>"><?php echo t('Jirafeau, your web file repository'); ?></a></h1>
