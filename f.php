@@ -125,7 +125,7 @@ if (!empty ($link['key']))
              '<form action = "';
         echo $cfg['web_root'] . '/f.php';
         echo '" ' .
-             'method = "post" id = "submit">'; ?>
+             'method = "post" id = "submit_post">'; ?>
              <input type = "hidden" name = "jirafeau" value = "<?php echo JIRAFEAU_VERSION ?>"/><?php
         echo '<fieldset>' .
              '<legend>' . t('Password protection') .
@@ -138,7 +138,7 @@ if (!empty ($link['key']))
              '</td></tr>' .
              '<tr><td>';
             ?><input type="submit" id = "submit_download"  value="<?php echo t('Download'); ?>"
-            onclick="document.getElementById('submit').action='
+            onclick="document.getElementById('submit_post').action='
 <?php
         echo $cfg['web_root'] . '/f.php?h=' . $link_name . '&amp;d=1';
         if (!empty($crypt_key))
@@ -148,7 +148,7 @@ if (!empty ($link['key']))
         if ($cfg['download_page'] && $cfg['preview'] && jirafeau_is_viewable($link['mime_type']))
         {
             ?><input type="submit" id = "submit_preview"  value="<?php echo t('Preview'); ?>"
-            onclick="document.getElementById('submit').action='
+            onclick="document.getElementById('submit_post').action='
             <?php
             echo $cfg['web_root'] . '/f.php?h=' . $link_name . '&amp;p=1';
             if (!empty($crypt_key))
@@ -183,7 +183,7 @@ if ($cfg['download_page'] && !$password_challenged && !$do_download && !$do_prev
              '<form action = "';
         echo $cfg['web_root'] . '/f.php';
         echo '" ' .
-             'method = "post" id = "submit">'; ?>
+             'method = "post" id = "submit_post">'; ?>
              <input type = "hidden" name = "jirafeau" value = "<?php echo JIRAFEAU_VERSION ?>"/><?php
         echo '<fieldset><legend>' . $link['file_name'] . '</legend><table>' .
              '<tr><td>' .
@@ -192,7 +192,7 @@ if ($cfg['download_page'] && !$password_challenged && !$do_download && !$do_prev
              '<tr><td>' .
              t('By using our services, you accept our'). ' <a href="' . $cfg['web_root'] . '/tos.php' . '">' . t('Term Of Service') . '</a>';
             ?></td></tr><tr><td><input type="submit" id = "submit_download"  value="<?php echo t('Download'); ?>"
-            onclick="document.getElementById('submit').action='
+            onclick="document.getElementById('submit_post').action='
 <?php
         echo $cfg['web_root'] . '/f.php?h=' . $link_name . '&amp;d=1';
         if (!empty($crypt_key))
@@ -203,7 +203,7 @@ if ($cfg['download_page'] && !$password_challenged && !$do_download && !$do_prev
         if ($cfg['download_page'] && $cfg['preview'] && jirafeau_is_viewable($link['mime_type']))
         {
             ?><input type="submit" id = "submit_preview"  value="<?php echo t('Preview'); ?>"
-            onclick="document.getElementById('submit').action='
+            onclick="document.getElementById('submit_post').action='
 <?php
         echo $cfg['web_root'] . '/f.php?h=' . $link_name . '&amp;p=1';
         if (!empty($crypt_key))
