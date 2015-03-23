@@ -220,8 +220,9 @@ if ($cfg['download_page'] && !$password_challenged && !$do_download && !$do_prev
 header ('HTTP/1.0 200 OK');
 header ('Content-Length: ' . $link['file_size']);
 if (!jirafeau_is_viewable ($link['mime_type']) || !$cfg['preview'] || $do_download)
-    header ('Content-Disposition: attachment; filename="' .
-        $link['file_name'] . '"');
+    header ('Content-Disposition: attachment; filename="' . $link['file_name'] . '"');
+else
+    header ('Content-Disposition: filename="' . $link['file_name'] . '"');
 header ('Content-Type: ' . $link['mime_type']);
 
 /* Read encrypted file. */
