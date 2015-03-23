@@ -198,7 +198,7 @@ if ($cfg['download_page'] && !$password_challenged && !$do_download && !$do_prev
         if (!empty($crypt_key))
             echo '&amp;k=' . urlencode($crypt_key);
 ?>';
-        document.getElementById('submit_download').submit ();"/><?php
+        document.getElementById('submit_post').submit ();"/><?php
 
         if ($cfg['download_page'] && $cfg['preview'] && jirafeau_is_viewable($link['mime_type']))
         {
@@ -209,7 +209,7 @@ if ($cfg['download_page'] && !$password_challenged && !$do_download && !$do_prev
         if (!empty($crypt_key))
             echo '&amp;k=' . urlencode($crypt_key);
 ?>';
-        document.getElementById('submit_preview').submit ();"/><?php
+        document.getElementById('submit_post').submit ();"/><?php
         }
         echo '</td></tr>';
         echo '</table></fieldset></form></div>';
