@@ -298,13 +298,11 @@ textarea[readonly="readonly"] + p + p a:focus {
 #install + fieldset table {
   width: 100%;
   border-collapse: collapse;
-  border-bottom: 2px solid #FFF;
 }
 
 #install td,
 #install + fieldset td {
   padding: 0.5em 1em;
-  border: 2px solid #FFF;
   border-bottom: 0;
 }
 
