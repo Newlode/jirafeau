@@ -166,7 +166,6 @@ if (!empty ($link['key']))
             $password_challenged = true;
 	else
         {
-            header ("Access denied");
             require (JIRAFEAU_ROOT.'lib/template/header.php');
             echo '<div class="error"><p>' . t('Access denied') .
             '</p></div>';
