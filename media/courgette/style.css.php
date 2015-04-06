@@ -38,7 +38,9 @@ header("Content-type: text/css");
    3 = Options
    4 = Upload
    5 = Terms of service
-   6 = Admin
+   6 = Install
+   7 = Admin
+   8 = Download page
    
    ========================================================================== */
 
@@ -252,8 +254,6 @@ input[type="submit"]:focus {
    5 = Terms of service
    ========================================================================== */
 
-
-
 textarea[readonly="readonly"] {
   border: 0;
   color: #795548;
@@ -419,4 +419,18 @@ textarea[readonly="readonly"] + p + p a:focus {
   text-decoration: underline;
 }
 
+/* ==========================================================================
+   8 = Download page
+   ========================================================================== */
+
+#self_destruct {
+  font-weight: bold;
+  color: red;
+  background-image: url('pixel_bomb.png');
+  background-size: 40px 40px;
+  background-repeat: no-repeat;
+  padding-left: 40px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
 

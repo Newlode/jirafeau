@@ -175,3 +175,8 @@ input:hover {
   border: 2px solid #02233f;
   margin: auto;
 }
+
+#self_destruct {
+  font-weight: bold;
+  color: red;
+}

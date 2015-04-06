@@ -224,3 +224,8 @@ h1 a {
 #admin .navleft {
   float: left;
 }
+
+#self_destruct {
+  font-weight: bold;
+  color: red;
+}

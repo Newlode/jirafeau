@@ -66,6 +66,7 @@ $tr = array (
              'You are about to download' => 'Vous êtes sur le point de télécharger',
              'By using our services, you accept our' => 'En utilisant nos services, vous acceptez nos',
              'Term Of Service' => 'Conditions d\'utilisation',
+             'Warning, this file will self-destruct after being read' => 'Attention, ce fichier s\'auto-détruira après sa lecture',
              /* functions.php */
              'Internal error during file creation.' => 'Erreur interne lors la creation de fichier.',
              /* install.hpp */

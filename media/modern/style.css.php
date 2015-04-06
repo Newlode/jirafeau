@@ -220,3 +220,8 @@ font-size:90%;
     -moz-border-radius: 5px;
     border-radius: 5px;
 }
+
+#self_destruct {
+  font-weight: bold;
+  color: red;
+}

@@ -135,10 +135,17 @@ if (!empty ($link['key']))
              '</td></tr>' .
              '<tr><td>' .
              t('By using our services, you accept our'). ' <a href="' . $cfg['web_root'] . '/tos.php' . '">' . t('Term Of Service') . '</a>' .
-             '</td></tr>' .
-             '<tr><td>';
-            ?><input type="submit" id = "submit_download"  value="<?php echo t('Download'); ?>"
-            onclick="document.getElementById('submit_post').action='
+             '</td></tr>';
+
+        if ($link['onetime'] == 'O')
+        {
+            echo '<tr><td id="self_destruct">' .
+                 t('Warning, this file will self-destruct after being read') .
+                 '</td></tr>';
+        }
+
+        ?><tr><td><input type="submit" id = "submit_download"  value="<?php echo t('Download'); ?>"
+        onclick="document.getElementById('submit_post').action='
 <?php
         echo $cfg['web_root'] . '/f.php?h=' . $link_name . '&amp;d=1';
         if (!empty($crypt_key))
@@ -189,9 +196,19 @@ if ($cfg['download_page'] && !$password_challenged && !$do_download && !$do_prev
              t('You are about to download') . ' "' . $link['file_name'] . '" (' . jirafeau_human_size($link['file_size']) . ')' .
              '</td></tr>' .
              '<tr><td>' .
-             t('By using our services, you accept our'). ' <a href="' . $cfg['web_root'] . '/tos.php' . '">' . t('Term Of Service') . '</a>';
-            ?></td></tr><tr><td><input type="submit" id = "submit_download"  value="<?php echo t('Download'); ?>"
-            onclick="document.getElementById('submit_post').action='
+             t('By using our services, you accept our'). ' <a href="' . $cfg['web_root'] . '/tos.php' . '">' . t('Term Of Service') . '</a>' .
+             '</td></tr>';
+
+        if ($link['onetime'] == 'O')
+        {
+            echo '<tr><td id="self_destruct">' .
+                 t('Warning, this file will self-destruct after being read') .
+                 '</td></tr>';
+        }
+
+        ?>
+        <tr><td><input type="submit" id = "submit_download"  value="<?php echo t('Download'); ?>"
+        onclick="document.getElementById('submit_post').action='
 <?php
         echo $cfg['web_root'] . '/f.php?h=' . $link_name . '&amp;d=1';
         if (!empty($crypt_key))

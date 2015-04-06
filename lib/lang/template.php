@@ -46,6 +46,7 @@ $tr = array (
              'You are about to download' => '',
              'By using our services, you accept our' => '',
              'Term Of Service' => '',
+             'Warning, this file will self-destruct after being read' => '',
              /* functions.php */
              'Internal error during file creation.' => '',
              /* install.hpp */
