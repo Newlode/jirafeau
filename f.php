@@ -152,7 +152,7 @@ if (!empty ($link['key']))
             echo '&amp;k=' . urlencode($crypt_key);
 ?>';
         document.getElementById('submit_download').submit ();"/><?php
-        if ($cfg['download_page'] && $cfg['preview'] && jirafeau_is_viewable($link['mime_type']))
+        if ($cfg['preview'] && jirafeau_is_viewable($link['mime_type']))
         {
             ?><input type="submit" id = "submit_preview"  value="<?php echo t('Preview'); ?>"
             onclick="document.getElementById('submit_post').action='
@@ -182,7 +182,7 @@ if (!empty ($link['key']))
     }
 }
 
-if ($cfg['download_page'] && !$password_challenged && !$do_download && !$do_preview)
+if (!$password_challenged && !$do_download && !$do_preview)
 {
         require (JIRAFEAU_ROOT.'lib/template/header.php');
         echo '<div>' .
@@ -216,7 +216,7 @@ if ($cfg['download_page'] && !$password_challenged && !$do_download && !$do_prev
 ?>';
         document.getElementById('submit_post').submit ();"/><?php
 
-        if ($cfg['download_page'] && $cfg['preview'] && jirafeau_is_viewable($link['mime_type']))
+        if ($cfg['preview'] && jirafeau_is_viewable($link['mime_type']))
         {
             ?><input type="submit" id = "submit_preview"  value="<?php echo t('Preview'); ?>"
             onclick="document.getElementById('submit_post').action='

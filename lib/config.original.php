@@ -37,8 +37,6 @@ $cfg['lang'] = 'auto';
 $cfg['style'] = 'courgette';
 /* Propose a preview link if file type is previewable is set to true. */
 $cfg['preview'] = true;
-/* Download page: propose a link to a download page is set to true. */
-$cfg['download_page'] = true;
 /* Encryption feature. disable it by default.
  * By enabling it, file-level deduplication won't work.
  */
