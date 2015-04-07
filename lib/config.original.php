@@ -35,7 +35,7 @@ $cfg['var_root'] = '';
 $cfg['lang'] = 'auto';
 /* Select your style :) See media folder */
 $cfg['style'] = 'courgette';
-/* Propose a preview link if file type is previewable is set to true. */
+/* Propose a preview link if file type is previewable. */
 $cfg['preview'] = true;
 /* Encryption feature. disable it by default.
  * By enabling it, file-level deduplication won't work.
