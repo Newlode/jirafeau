@@ -40,18 +40,27 @@ function t ($text)
         if (strcmp ($l, $key) == 0)
             $found = true;
 
-    /* Get translation execpt for english. */
-    if ($found && strcmp ($l, "en"))
-    {
-        /* $tr is defined in this requirement. */
-        require (JIRAFEAU_ROOT . "lib/lang/lang_$l.php");
+    /* Don't translate english. */
+    if (!($found && strcmp ($l, "en")))
+        return $text;
 
-        foreach ($tr as $o => $t)
-            if (strcmp ($text, $o) == 0)
-                return "$t";
-    }
-    /* Return original text if no translation is found or already in english. */
-    return ($text);
+    /* Open translation file. */
+    $trans_j = file_get_contents (JIRAFEAU_ROOT . "lib/locales/$l.json");
+    if ($trans_j === FALSE)
+        return $text;
+
+    /* Decode JSON. */
+    $trans = json_decode ($trans_j, true);
+    error_log(print_r($trans, true));
+    if ($trans === NULL)
+        return $text;
+
+    /* Try to find translation. */
+    $translation = $trans[$text];
+    if (empty ($translation))
+        return $text;
+
+    return $translation;
 }
 
 ?>
