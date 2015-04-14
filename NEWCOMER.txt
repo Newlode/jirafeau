@@ -18,7 +18,7 @@ view only to show the most importants files and their role.
 │   ├── config.original.php : default parameters with their documentation
 │   ├── functions_*.js : javascript functions for html/javascript client
 │   ├── functions.php : core functions and tools of jirafeau
-│   ├── lang : langage folder, contain all langage files
+│   ├── locales : langage folder, contain all langage files
 │   └── template
 │       ├── footer.php
 │       └── header.php
