@@ -19,6 +19,7 @@
 
  global $languages_list;
  $languages_list = array ('auto' => 'Automatic',
+                          'de' => 'Deutsch',
                           'en' => 'English',
                           'fr' => 'Français');
 
