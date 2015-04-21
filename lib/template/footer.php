@@ -1,6 +1,11 @@
 
 <div id="copyright">
-<p><a href="https://gitlab.com/mojo42/Jirafeau/wikis/home"></a><br /><a href="http://www.gnu.org/licenses/agpl.html">agplv3</a> | <a href="https://gitlab.com/mojo42/Jirafeau/wikis/home">Jirafeau Project</a> | <a href="<?php echo $cfg['web_root'] . '/tos.php'; ?>">Terms of Service</a></p>
+    <p>
+        <br />
+        <a href="https://www.gnu.org/licenses/agpl.html">agplv3</a> |
+        <a href="https://gitlab.com/mojo42/Jirafeau/wikis/home"><?php echo t('Jirafeau Project') ?></a> |
+        <a href="<?php echo rtrim($cfg['web_root'], '/') . '/tos.php'; ?>"><?php echo t('Term Of Service') ?></a>
+    </p>
 </div>
 </div>
 <div id="jyraphe">
