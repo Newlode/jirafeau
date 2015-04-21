@@ -100,7 +100,7 @@
     "The base address of Jirafeau is the first part of the URL, until (and including) the last slash. For example: \"http://www.example.com/\". Do not forget the trailing slash!": "Die Basisadresse von Jirafeau ist der erste Teil der URL, bis (und einschließlich) dem letzten Schrägstrich. Zum Beispiel: \"http://www.example.com/\". Vergessen Sie nicht den abschließenden Schrägstrich!", 
     "The data directory is where your files and information about your files will be stored. You should put it outside your web site, or at least restrict the access to this directory. Do not forget the trailing slash!": "", 
     "The file directory is not writable": "Das Dateiverzeichnis ist nicht beschreibbar", 
-    "The following directory could not be created": "", 
+    "The following directory could not be created": "Der folgende Ordner konnte nicht erstellt werden", 
     "The following directory is not writable": "Das folgende Verzeichnis ist nicht beschreibbar", 
     "The goal is to permit to transfer big file, chunk by chunk.": "Das Ziel ist, dass große Dateien, Stück für Stück übertragen werden.", 
     "The instructions above show how to query this interface.": "Die oben aufgeführten Anleitungen zeigen, wie diese Schnittstelle abgefragt werden.", 
