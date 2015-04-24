@@ -52,16 +52,14 @@ function t ($text)
 
     /* Decode JSON. */
     $trans = json_decode ($trans_j, true);
-    error_log(print_r($trans, true));
     if ($trans === NULL)
         return $text;
 
     /* Try to find translation. */
-    $translation = $trans[$text];
-    if (empty ($translation))
+    if (!array_key_exists ($text, $trans))
         return $text;
 
-    return $translation;
+    return $trans[$text];
 }
 
 ?>
