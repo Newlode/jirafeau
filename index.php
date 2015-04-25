@@ -103,12 +103,6 @@ if (jirafeau_has_upload_password ($cfg))
     <br />
     </div>
 
-    <div id="upload_password_page">
-    <p><?php echo t('Download page') ?>:</p>
-    <p><a id="password_link" href=""></a></p>
-    <br />
-    </div>
-
     <?php if ($cfg['preview'] == true) { ?>
     <div id="upload_finished_preview">
     <p><?php echo t('View link') ?>:</p>
