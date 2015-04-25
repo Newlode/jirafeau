@@ -97,7 +97,10 @@ if (jirafeau_has_upload_password ($cfg))
     <p><?php echo t('File uploaded !') ?></p>
 
     <div id="upload_finished_download_page">
-    <p><?php echo t('Download page') ?></p>
+    <p>
+          <?php echo t('Download page') ?> 
+          <a id="upload_link_email" href=""><img id="upload_image_email"/></a>
+    </p>
     <p><a id="upload_link" href=""></a></p>
     </div>
 

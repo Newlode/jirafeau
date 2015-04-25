@@ -229,3 +229,9 @@ h1 a {
   font-weight: bold;
   color: red;
 }
+
+#upload_image_email {
+  padding-left: 20px;
+  margin-left: 10px;
+  background: url(email.png) no-repeat;
+}

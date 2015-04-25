@@ -263,6 +263,12 @@ input[type="submit"]:focus {
   font-weight: bold;
 }
 
+#upload_image_email {
+  padding-left: 20px;
+  margin-left: 10px;
+  background: url(email.png) no-repeat;
+}
+
 /* ==========================================================================
    5 = Terms of service
    ========================================================================== */
