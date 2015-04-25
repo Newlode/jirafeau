@@ -224,7 +224,20 @@ input[type="submit"]:focus {
   padding-left: 3em;
 }
 
-#upload_finished a,
+#upload_finished > p:nth-child(1) {
+  color: #0D9CB2;
+  font-weight: bold;
+}
+
+#upload_finished div p:nth-child(1) {
+  font-weight: bold;
+}
+
+#upload_finished a {
+  text-decoration: none;
+  color: #795548;
+}
+
 #uploading a {
   font-weight: bold;
   text-decoration: none;
