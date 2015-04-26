@@ -21,7 +21,8 @@
  $languages_list = array ('auto' => 'Automatic',
                           'de' => 'Deutsch',
                           'en' => 'English',
-                          'fr' => 'Français');
+                          'fr' => 'Français',
+                          'it' => 'Italian');
 
 /* Translation */
 function t ($text)
