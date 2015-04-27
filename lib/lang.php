@@ -22,7 +22,7 @@
                           'de' => 'Deutsch',
                           'en' => 'English',
                           'fr' => 'Français',
-                          'it' => 'Italian');
+                          'it' => 'Italiano');
 
 /* Translation */
 function t ($text)
