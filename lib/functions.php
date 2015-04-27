@@ -1084,3 +1084,27 @@ function jirafeau_challenge_upload_password ($cfg, $password)
     return false;
 }
 
+/**
+ * Test if visitor's IP is authorized to upload.
+ * @param $ip IP to be challenged
+ * @return true if IP is authorized, false otherwise.
+ */
+function jirafeau_challenge_upload_ip ($cfg, $ip)
+{
+    if (count ($cfg['upload_ip']) == 0)
+        return true;
+    forEach ($cfg['upload_ip'] as $i)
+    {
+        if ($i == $ip)
+            return true;
+        // CIDR test for IPv4 only.
+        if (strpos ($i, '/') !== false)
+        {
+            list ($subnet, $mask) = explode('/', $i);
+            if ((ip2long ($ip) & ~((1 << (32 - $mask)) - 1) ) == ip2long ($subnet))
+                return true;
+        }
+    }
+    return false;
+}
+

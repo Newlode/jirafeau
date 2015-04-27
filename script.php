@@ -218,6 +218,12 @@ if (has_error ())
 if (isset ($_FILES['file']) && is_writable (VAR_FILES)
     && is_writable (VAR_LINKS))
 {
+    if (!jirafeau_challenge_upload_ip ($cfg, $_SERVER['REMOTE_ADDR']))
+    {
+        echo "Error";
+        exit;
+    }
+
     if (jirafeau_has_upload_password ($cfg) &&
          (!isset ($_POST['upload_password']) ||
           !jirafeau_challenge_upload_password ($cfg, $_POST['upload_password'])))
@@ -505,6 +511,12 @@ fi
 /* Initialize an asynchronous upload. */
 elseif (isset ($_GET['init_async']))
 {
+    if (!jirafeau_challenge_upload_ip ($cfg, $_SERVER['REMOTE_ADDR']))
+    {
+        echo "Error";
+        exit;
+    }
+
     if (jirafeau_has_upload_password ($cfg) &&
          (!isset ($_POST['upload_password']) ||
           !jirafeau_challenge_upload_password ($cfg, $_POST['upload_password'])))

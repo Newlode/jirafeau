@@ -50,6 +50,13 @@ $cfg['link_name_length'] = 8;
  * ... and so on
  */
 $cfg['upload_password'] = array();
+/* List of IP allowed to upload a file.
+ * If list is empty, then there is no upload restriction based on IP
+ * Elements of the list can be a single IP (e.g. "123.45.67.89") or
+ * an IP range (e.g. "123.45.0.0/16").
+ * Note that CIDR notation is available for IPv4 only for the moment.
+ */
+$cfg['upload_ip'] = array();
 /* An empty admin password will disable the classic admin password
  * authentication.
  */
