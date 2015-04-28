@@ -21,7 +21,7 @@
  $languages_list = array ('auto' => 'Automatic',
                           'de' => 'Deutsch',
                           'en' => 'English',
-                          'fi' => 'Suomi'
+                          'fi' => 'Suomi',
                           'fr' => 'Français',
                           'it' => 'Italiano');
 
