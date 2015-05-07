@@ -35,7 +35,7 @@ if (has_error ())
 }
 
 /* Check if user is allowed to upload. */
-if (!jirafeau_challenge_upload_ip ($cfg, $_SERVER['REMOTE_ADDR']))
+if (!jirafeau_challenge_upload_ip ($cfg, get_ip_address($cfg)))
 {
     echo '<div class="error"><p>' . t('Access denied') . '</p></div>';
     require (JIRAFEAU_ROOT.'lib/template/footer.php');
