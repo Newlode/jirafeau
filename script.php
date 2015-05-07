@@ -218,7 +218,7 @@ if (has_error ())
 if (isset ($_FILES['file']) && is_writable (VAR_FILES)
     && is_writable (VAR_LINKS))
 {
-    if (!jirafeau_challenge_upload_ip ($cfg, $_SERVER['REMOTE_ADDR']))
+    if (!jirafeau_challenge_upload_ip ($cfg, get_ip_address($cfg)))
     {
         echo "Error";
         exit;
@@ -278,7 +278,7 @@ if (isset ($_FILES['file']) && is_writable (VAR_FILES)
 
     $res = jirafeau_upload ($_FILES['file'],
                             isset ($_POST['one_time_download']),
-                            $key, $time, $_SERVER['REMOTE_ADDR'],
+                            $key, $time, get_ip_address($cfg),
                             $cfg['enable_crypt'], $cfg['link_name_length']);
     
     if (empty($res) || $res['error']['has_error'])
@@ -511,7 +511,7 @@ fi
 /* Initialize an asynchronous upload. */
 elseif (isset ($_GET['init_async']))
 {
-    if (!jirafeau_challenge_upload_ip ($cfg, $_SERVER['REMOTE_ADDR']))
+    if (!jirafeau_challenge_upload_ip ($cfg, get_ip_address($cfg)))
     {
         echo "Error";
         exit;
@@ -575,7 +575,7 @@ elseif (isset ($_GET['init_async']))
                               isset ($_POST['one_time_download']),
                               $key,
                               $time,
-                              $_SERVER['REMOTE_ADDR']);
+                              get_ip_address($cfg));
 }
 /* Continue an asynchronous upload. */
 elseif (isset ($_GET['push_async']))

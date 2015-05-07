@@ -1108,3 +1108,29 @@ function jirafeau_challenge_upload_ip ($cfg, $ip)
     return false;
 }
 
+/**
+ * Get the ip address of the client from REMOTE_ADDR
+ * or from HTTP_X_FORWARDED_FOR if behind a proxy
+ * @returns an the client ip address
+ */
+function get_ip_address($cfg) {
+    if (count ($cfg['proxy_ip']) == 0 ||
+        empty ($_SERVER['HTTP_X_FORWARDED_FOR']))
+        return $_SERVER['REMOTE_ADDR'];
+
+    $iplist = explode (',', $_SERVER['HTTP_X_FORWARDED_FOR']);
+    if (count ($iplist) == 0)
+        return $_SERVER['REMOTE_ADDR'];
+
+    foreach ($cfg['proxy_ip'] as $proxy_ip)
+    {
+        if ($_SERVER['REMOTE_ADDR'] != $proxy_ip)
+            continue;
+
+        // Take the last IP (the one which has been set by our proxy).
+        $ip = end($iplist);
+        $ip = preg_replace ('/\s+/', '', $ip);
+        return $ip;
+    }
+    return $_SERVER['REMOTE_ADDR'];
+}

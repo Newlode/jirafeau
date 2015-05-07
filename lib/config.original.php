@@ -89,6 +89,13 @@ $cfg['availabilities'] = array ('minute' => true,
  * 0 mean unlimited upload size.
  */
 $cfg['maximal_upload_size'] = 0;
+/* If your Jirafeau is behind some reverse proxies, you can set there IPs
+ * so Jirafeau get visitor's IP from HTTP_X_FORWARDED_FOR instead of
+ * REMOTE_ADDR.
+ * for example:
+ * $cfg['proxy_ip'] = array('12.34.56.78');
+ */
+$cfg['proxy_ip'] = array();
 /* Installation is done ? */
 $cfg['installation_done'] = false;
 
