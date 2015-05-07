@@ -240,6 +240,7 @@ if (!jirafeau_is_viewable ($link['mime_type']) || !$cfg['preview'] || $do_downlo
 else
     header ('Content-Disposition: filename="' . $link['file_name'] . '"');
 header ('Content-Type: ' . $link['mime_type']);
+header ('Content-MD5: ' . hex_to_base64($link['md5']));
 
 /* Read encrypted file. */
 if ($link['crypted'])

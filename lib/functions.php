@@ -1134,3 +1134,14 @@ function get_ip_address($cfg) {
     }
     return $_SERVER['REMOTE_ADDR'];
 }
+
+/**
+ * Convert hexadecimal string to base64
+ */
+function hex_to_base64($hex)
+{
+    $b = '';
+    foreach (str_split ($hex, 2) as $pair)
+        $b .= chr (hexdec ($pair));
+    return base64_encode ($b);
+}
