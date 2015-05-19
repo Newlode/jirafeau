@@ -191,9 +191,9 @@ if (!$password_challenged && !$do_download && !$do_preview)
         echo '" ' .
              'method = "post" id = "submit_post">'; ?>
              <input type = "hidden" name = "jirafeau" value = "<?php echo JIRAFEAU_VERSION ?>"/><?php
-        echo '<fieldset><legend>' . $link['file_name'] . '</legend><table>' .
+        echo '<fieldset><legend>' . htmlspecialchars($link['file_name']) . '</legend><table>' .
              '<tr><td>' .
-             t('You are about to download') . ' "' . $link['file_name'] . '" (' . jirafeau_human_size($link['file_size']) . ')' .
+             t('You are about to download') . ' "' . htmlspecialchars($link['file_name']) . '" (' . jirafeau_human_size($link['file_size']) . ')' .
              '</td></tr>' .
              '<tr><td>' .
              t('By using our services, you accept our'). ' <a href="' . $cfg['web_root'] . '/tos.php' . '">' . t('Term Of Service') . '</a>' .
