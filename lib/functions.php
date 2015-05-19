@@ -614,7 +614,7 @@ jirafeau_admin_list ($name, $file_hash, $link_hash)
                     continue;
 
                 /* Filter. */
-                if (!empty ($name) && !preg_match ("/$name/i", $l['file_name']))
+                if (!empty ($name) && !preg_match ("/$name/i", htmlspecialchars($l['file_name'])))
                     continue;
                 if (!empty ($file_hash) && $file_hash != $l['md5'])
                     continue;
@@ -626,7 +626,7 @@ jirafeau_admin_list ($name, $file_hash, $link_hash)
                 '<form action = "admin.php" method = "post">' .
                 '<input type = "hidden" name = "action" value = "download"/>' .
                 '<input type = "hidden" name = "link" value = "' . $node . '"/>' .
-                '<input type = "submit" value = "' . $l['file_name'] . '" />' .
+                '<input type = "submit" value = "' . htmlspecialchars($l['file_name']) . '" />' .
                 '</form>';
                 echo '</td>';
                 echo '<td>' . $l['mime_type'] . '</td>';
