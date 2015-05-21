@@ -116,6 +116,12 @@ There are two ways to limit upload access (but not download):
 
 Check documentation of ```upload_password``` and ```upload_ip``` parameters in [lib/config.original.php](https://gitlab.com/mojo42/Jirafeau/blob/master/lib/config.original.php).
 
+### I have some troubles with IE
+
+If you have some strange behavior with IE, you may configure [compatibility mode](http://feedback.dominknow.com/knowledgebase/articles/159097-internet-explorer-ie8-ie9-ie10-and-ie11-compat).
+
+Anyway I would recommand you to use another browser :)
+
 ### I found a bug, what should I do ?
 
 Feel free to open a bug in the [gitlab's issues](https://gitlab.com/mojo42/Jirafeau/issues)
@@ -182,4 +188,3 @@ So:
 ### How to contact someone from Jirafeau ?
 
 Feel free to create an issue if you found a bug, else you can send an email at j.jutteau A.T gmail .DOT. com
-
