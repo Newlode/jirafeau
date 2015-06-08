@@ -96,7 +96,7 @@
     "Sorry, the requested file is not found": "", 
     "Sorry, you are not authenticated on admin interface.": "", 
     "Term Of Service": "Услови коришћења", 
-    "The async directory is not writable!": "", 
+    "The async directory is not writable!": "„async“ директоријум није уписив!", 
     "The base address of Jirafeau is the first part of the URL, until (and including) the last slash. For example: \"http://www.example.com/\". Do not forget the trailing slash!": "", 
     "The data directory is where your files and information about your files will be stored. You should put it outside your web site, or at least restrict the access to this directory. Do not forget the trailing slash!": "", 
     "The file directory is not writable": "", 
