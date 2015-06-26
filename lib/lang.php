@@ -23,7 +23,9 @@
                           'en' => 'English',
                           'fi' => 'Suomi',
                           'fr' => 'Français',
-                          'it' => 'Italiano');
+                          'it' => 'Italiano',
+                          'nl' => 'Nederlands',
+                          'ro' => 'Limba română');
 
 /* Translation */
 function t ($text)
