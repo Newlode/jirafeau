@@ -17,7 +17,7 @@ A demonstration of the latest version is available on [jirafeau.net](http://jira
 -  Optional Password protection (for uploading or downloading)
 -  Time limitation
 -  Option to self-destruct after reading
--  Simple language support :gb: :fr: :de: :it:
+-  Simple language support :gb: :fr: :de: :it: :nl: :ro:
 -  Small administration interface
 -  File level [Deduplication](http://en.wikipedia.org/wiki/Data_deduplication) for storage optimization
 -  A basic Terms Of Service which can be adapted to your needs
@@ -92,7 +92,9 @@ Of-course ! Translations are easy to make and no technical knowledge is required
 
 Simply go to [Jirafeau's Weblate](https://hosted.weblate.org/projects/jirafeau/master/)
 
-If you want to add a new language in the list, feel free to contact us or leave a comment in #9
+If you want to add a new language in the list, feel free to contact us or leave a comment in ticket #9.
+
+I would like to thanks to anonymous contributors on weblate :)
 
 ### How do I upgrade my Jirafeau ?
 
