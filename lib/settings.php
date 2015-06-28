@@ -24,6 +24,7 @@ define ('JIRAFEAU_VERSION', '1.0');
 define ('VAR_FILES', $cfg['var_root'] . 'files/');
 define ('VAR_LINKS', $cfg['var_root'] . 'links/');
 define ('VAR_ASYNC', $cfg['var_root'] . 'async/');
+define ('VAR_ALIAS', $cfg['var_root'] . 'alias/');
 
 /* Useful constants. */
 if (!defined ('NL'))
