@@ -105,8 +105,5 @@
     "Action": "",
     "Del link": "",
     "Del file and links": "",
-    "Deleted links": "",
-
-    "This will return \"Ok\" if succeeded, \"Error\" otherwhise.": "",
-    "This will return \"Ok\" or \"Error\" string.": ""
+    "Deleted links": ""
 }

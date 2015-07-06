@@ -25,7 +25,8 @@
                           'fr' => 'Français',
                           'it' => 'Italiano',
                           'nl' => 'Nederlands',
-                          'ro' => 'Limba română');
+                          'ro' => 'Limba română',
+                          'sk' => 'Slovenčina');
 
 /* Translation */
 function t ($text)
