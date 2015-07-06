@@ -218,6 +218,7 @@ input[type="submit"]:focus {
 #upload_finished,
 #uploading,
 .message,
+.info,
 .error {
   text-align: center;
   color: #795548;
