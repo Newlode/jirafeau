@@ -52,9 +52,9 @@ if ($_SERVER['REQUEST_METHOD'] == "GET" && count ($_GET) == 0)
     }
     ?>
     <div class="info">
-    <h2>Scriting interface</h2>
+    <h2>Scripting interface</h2>
     <p>This interface permits to script your uploads and downloads.</p>
-    <p>See <a href="https://gitlab.com/mojo42/Jirafeau/blob/master/script.php">source code</a> of this interface to understand availablee calls :)</p>
+    <p>See <a href="https://gitlab.com/mojo42/Jirafeau/blob/master/script.php">source code</a> of this interface to get available calls :)</p>
     </div>
     <br />
     <?php
