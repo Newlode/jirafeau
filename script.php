@@ -508,6 +508,82 @@ fi
         exit;
     }
 }
+/* Create alias. */
+elseif (isset ($_GET['alias_create']))
+{
+    $ip = get_ip_address($cfg);
+    if (!jirafeau_challenge_upload_ip ($cfg, $ip))
+    {
+        echo "Error";
+        exit;
+    }
+
+    if (jirafeau_has_upload_password ($cfg) &&
+         (!isset ($_POST['upload_password']) ||
+          !jirafeau_challenge_upload_password ($cfg, $_POST['upload_password'])))
+    {
+        echo "Error";
+        exit;
+    }
+
+    if (!isset ($_POST['alias']) ||
+        !isset ($_POST['destination']) ||
+        !isset ($_POST['password']))
+    {
+        echo "Error";
+        exit;
+    }
+
+    echo jirafeau_alias_create ($_POST['alias'],
+                                $_POST['destination'],
+                                $_POST['password'],
+                                $ip);
+}
+/* Get alias. */
+elseif (isset ($_GET['alias_get']))
+{
+    if (!isset ($_POST['alias']))
+    {
+        echo "Error";
+        exit;
+    }
+
+    echo jirafeau_alias_get ($_POST['alias']);
+}
+/* Update alias. */
+elseif (isset ($_GET['alias_update']))
+{
+    if (!isset ($_POST['alias']) ||
+        !isset ($_POST['destination']) ||
+        !isset ($_POST['password']))
+    {
+        echo "Error";
+        exit;
+    }
+
+    $new_password = '';
+    if (isset ($_POST['new_password']))
+        $new_password = $_POST['new_password'];
+
+    echo jirafeau_alias_update ($_POST['alias'],
+                                $_POST['destination'],
+                                $_POST['password'],
+                                $new_password,
+                                get_ip_address($cfg));
+}
+/* Delete alias. */
+elseif (isset ($_GET['alias_delete']))
+{
+    if (!isset ($_POST['alias']) ||
+        !isset ($_POST['password']))
+    {
+        echo "Error";
+        exit;
+    }
+
+    echo jirafeau_alias_delete ($_POST['alias'],
+                                $_POST['password']);
+}
 /* Initialize an asynchronous upload. */
 elseif (isset ($_GET['init_async']))
 {
