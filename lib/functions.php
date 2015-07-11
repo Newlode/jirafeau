@@ -3,6 +3,7 @@
  *  Jirafeau, your web file repository
  *  Copyright (C) 2008  Julien "axolotl" BERNARD <axolotl@magieeternelle.org>
  *  Copyright (C) 2015  Jerome Jutteau <j.jutteau@gmail.com>
+ *  Copyright (C) 2015  Nicola Spanti (RyDroid) <dev@nicola-spanti.info>
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU Affero General Public License as
@@ -15,12 +16,12 @@
  *  GNU Affero General Public License for more details.
  *
  *  You should have received a copy of the GNU Affero General Public License
- *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 /**
  * Transform a string in a path by seperating each letters by a '/'.
-  * @return path finishing with a '/'
+ * @return path finishing with a '/'
  */
 function
 s2p ($s)
@@ -39,22 +40,22 @@ function
 base_16_to_64 ($num)
 {
     $m = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ-_';
-    $hex2bin = array ('0000', # 0
-                      '0001', # 1
-                      '0010', # 2
-                      '0011', # 3
-                      '0100', # 4
-                      '0101', # 5
-                      '0110', # 6
-                      '0111', # 7
-                      '1000', # 8
-                      '1001', # 9
-                      '1010', # a
-                      '1011', # b
-                      '1100', # c
-                      '1101', # d
-                      '1110', # e
-                      '1111'); # f
+    $hex2bin = array ('0000',  # 0
+                      '0001',  # 1
+                      '0010',  # 2
+                      '0011',  # 3
+                      '0100',  # 4
+                      '0101',  # 5
+                      '0110',  # 6
+                      '0111',  # 7
+                      '1000',  # 8
+                      '1001',  # 9
+                      '1010',  # a
+                      '1011',  # b
+                      '1100',  # c
+                      '1101',  # d
+                      '1110',  # e
+                      '1111'); # f
     $o = '';    
     $b = '';
     $i = 0;
@@ -90,11 +91,11 @@ jirafeau_gen_random ($l)
     return $code;
 }
 
-function is_ssl() {
+function
+is_ssl() {
     if ( isset($_SERVER['HTTPS']) ) {
-        if ( 'on' == strtolower($_SERVER['HTTPS']) )
-            return true;
-        if ( '1' == $_SERVER['HTTPS'] )
+        if ( 'on' == strtolower($_SERVER['HTTPS']) ||
+             '1' == $_SERVER['HTTPS'] )
             return true;
     } elseif ( isset($_SERVER['SERVER_PORT']) && ( '443' == $_SERVER['SERVER_PORT'] ) ) {
         return true;
@@ -159,7 +160,8 @@ jirafeau_clean_rm_file ($md5)
  * @param $value the value from php.ini
  * @returns an integer for this value
  */
-function jirafeau_ini_to_bytes ($value)
+function
+jirafeau_ini_to_bytes ($value)
 {
     $modifier = substr ($value, -1);
     $bytes = substr ($value, 0, -1);
@@ -175,8 +177,6 @@ function jirafeau_ini_to_bytes ($value)
         $bytes *= 1024;
     case 'K':
         $bytes *= 1024;
-    default:
-        break;
     }
     return $bytes;
 }
@@ -217,23 +217,16 @@ jirafeau_upload_errstr ($code)
     case UPLOAD_ERR_INI_SIZE:
     case UPLOAD_ERR_FORM_SIZE:
         return t('Your file exceeds the maximum authorized file size. ');
-        break;
 
     case UPLOAD_ERR_PARTIAL:
     case UPLOAD_ERR_NO_FILE:
         return
-            t
-            ('Your file was not uploaded correctly. You may succeed in retrying. ');
-        break;
+            t('Your file was not uploaded correctly. You may succeed in retrying. ');
 
     case UPLOAD_ERR_NO_TMP_DIR:
     case UPLOAD_ERR_CANT_WRITE:
     case UPLOAD_ERR_EXTENSION:
         return t('Internal error. You may not succeed in retrying. ');
-        break;
-
-    default:
-        break;
     }
     return t('Unknown error. ');
 }
@@ -432,17 +425,17 @@ jirafeau_upload ($file, $one_time_download, $key, $time, $ip, $crypt, $link_name
         {
             jirafeau_clean_rm_file ($md5_link);
         }
-        return (array(
+        return array(
                  'error' =>
                    array ('has_error' => true,
                           'why' => t('Internal error during file creation. ')),
                  'link' =>'',
-                 'delete_link' => ''));
+                 'delete_link' => '');
     }
-   return (array ('error' => $noerr,
+   return array ( 'error' => $noerr,
                   'link' => $md5_link,
                   'delete_link' => $delete_link_code,
-                  'crypt_key' => $crypt_key));
+                  'crypt_key' => $crypt_key);
 }
 
 /**
@@ -555,10 +548,7 @@ jirafeau_get_link ($hash)
     $out['upload_date'] = trim ($c[7]);
     $out['ip'] = trim ($c[8]);
     $out['link_code'] = trim ($c[9]);
-    if (trim ($c[10]) == 'C')
-	    $out['crypted'] = true;
-    else
-	    $out['crypted'] = false;
+    $out['crypted'] = trim ($c[10]) == 'C';
     
     return $out;
 }
@@ -798,7 +788,7 @@ jirafeau_async_delete ($ref)
   * @param $key eventual password (or blank)
   * @param $time time limit
   * @param $ip ip address of the client
-  * @return  a string containing a temporary reference followed by a code or the string "Error"
+  * @return a string containing a temporary reference followed by a code or the string 'Error'
   */
 function
 jirafeau_async_init ($filename, $type, $one_time, $key, $time, $ip)
@@ -817,7 +807,7 @@ jirafeau_async_init ($filename, $type, $one_time, $key, $time, $ip)
     @mkdir ($p, 0755, true);
     if (!file_exists ($p))
     {
-        echo "Error";
+        echo 'Error';
         return;
     }
     
@@ -845,7 +835,7 @@ jirafeau_async_init ($filename, $type, $one_time, $key, $time, $ip)
   * @param $file piece of data
   * @param $code client code for this operation
   * @param $max_file_size maximum allowed file size
-  * @return  a string containing a next code to use or the string "Error"
+  * @return a string containing a next code to use or the string "Error"
   */
 function
 jirafeau_async_push ($ref, $data, $code, $max_file_size)
@@ -858,7 +848,7 @@ jirafeau_async_push ($ref, $data, $code, $max_file_size)
         || $a['next_code'] != "$code"
         || empty ($data['tmp_name'])
         || !is_uploaded_file ($data['tmp_name']))
-        return "Error";
+        return 'Error';
     
     $p = s2p ($ref);
 
@@ -871,7 +861,7 @@ jirafeau_async_push ($ref, $data, $code, $max_file_size)
         filesize ($r_path) + filesize ($w_path) > $max_file_size * 1024 * 1024)
     {
         jirafeau_async_delete ($ref);
-        return "Error";
+        return 'Error';
     }
 
     /* Concatenate data. */
@@ -884,7 +874,7 @@ jirafeau_async_push ($ref, $data, $code, $max_file_size)
             fclose ($r);
             fclose ($w);
             jirafeau_async_delete ($ref);
-            return "Error";
+            return 'Error';
         }
     }
     fclose ($r);
@@ -908,7 +898,7 @@ jirafeau_async_push ($ref, $data, $code, $max_file_size)
   * @param $code client code for this operation
   * @param $crypt boolean asking to crypt or not
   * @param $link_name_length link name length
-  * @return  a string containing the download reference followed by a delete code or the string "Error"
+  * @return a string containing the download reference followed by a delete code or the string 'Error'
   */
 function
 jirafeau_async_end ($ref, $code, $crypt, $link_name_length)
@@ -922,7 +912,7 @@ jirafeau_async_end ($ref, $code, $crypt, $link_name_length)
     /* Generate link infos. */
     $p = VAR_ASYNC . s2p ($ref) . $ref . "_data";
     if (!file_exists($p))
-        return "Error";
+        return 'Error';
 
     $crypted = false;
     $crypt_key = '';
@@ -1034,7 +1024,7 @@ function
 jirafeau_decrypt_file ($fp_src, $fp_dst, $k)
 {
     $fs = filesize ($fp_src);
-    if ($fs === false || $fs == 0 || !(extension_loaded('mcrypt') == true))
+    if ($fs === false || $fs == 0 || extension_loaded('mcrypt') == false)
         return false;
 
     /* Init module */
@@ -1064,7 +1054,8 @@ jirafeau_decrypt_file ($fp_src, $fp_dst, $k)
  * Check if Jirafeau is password protected for visitors.
  * @return true if Jirafeau is password protected, false otherwise.
  */
-function jirafeau_has_upload_password ($cfg)
+function
+jirafeau_has_upload_password ($cfg)
 {
     return count ($cfg['upload_password']) > 0;
 }
@@ -1074,7 +1065,8 @@ function jirafeau_has_upload_password ($cfg)
  * @param $password password to be challenged
  * @return true if password is valid, false otherwise.
  */
-function jirafeau_challenge_upload_password ($cfg, $password)
+function
+jirafeau_challenge_upload_password ($cfg, $password)
 {
     if (!jirafeau_has_upload_password($cfg))
         return false;
@@ -1089,7 +1081,8 @@ function jirafeau_challenge_upload_password ($cfg, $password)
  * @param $ip IP to be challenged
  * @return true if IP is authorized, false otherwise.
  */
-function jirafeau_challenge_upload_ip ($cfg, $ip)
+function
+jirafeau_challenge_upload_ip ($cfg, $ip)
 {
     if (count ($cfg['upload_ip']) == 0)
         return true;
@@ -1109,20 +1102,20 @@ function jirafeau_challenge_upload_ip ($cfg, $ip)
 }
 
 /** Tell if we have some HTTP headers generated by a proxy */
-function has_http_forwarded()
+function
+has_http_forwarded()
 {
-    if (!empty ($_SERVER['HTTP_X_FORWARDED_FOR']))
-        return true;
-    if (!empty ($_SERVER['http_X_forwarded_for']))
-        return true;
-    return false;
+    return
+        !empty ($_SERVER['HTTP_X_FORWARDED_FOR']) ||
+        !empty ($_SERVER['http_X_forwarded_for']);
 }
 
 /**
  * Generate IP list from HTTP headers generated by a proxy
  * @return  array of IP strings
  */
-function get_ip_list_http_forwarded()
+function
+get_ip_list_http_forwarded()
 {
     $ip_list = array();
     if (!empty ($_SERVER['HTTP_X_FORWARDED_FOR']))
@@ -1149,7 +1142,9 @@ function get_ip_list_http_forwarded()
  * or from HTTP_X_FORWARDED_FOR if behind a proxy
  * @returns the client ip address
  */
-function get_ip_address($cfg) {
+function
+get_ip_address($cfg)
+{
     $remote = $_SERVER['REMOTE_ADDR'];
     if (count ($cfg['proxy_ip']) == 0 || !has_http_forwarded ())
         return $remote;
@@ -1208,30 +1203,31 @@ jirafeau_get_alias ($hash)
  * @param $ip client's IP
  * @return  a string containing the edit code of the alias or the string "Error"
  */
-function jirafeau_alias_create ($alias, $destination, $password, $ip)
+function
+jirafeau_alias_create ($alias, $destination, $password, $ip)
 {
     /* Check that alias and password are long enough. */
     if (strlen ($alias) < 8 ||
         strlen ($alias) > 32 ||
         strlen ($password) < 8 ||
         strlen ($password) > 32)
-        return "Error";
+        return 'Error';
 
     /* Check that destination exists. */
     $l = jirafeau_get_link ($destination);
     if (!count ($l))
-        return "Error";
+        return 'Error';
 
     /* Check that alias does not already exists. */
     $alias = md5 ($alias);
     $p = VAR_ALIAS . s2p ($alias);
     if (file_exists ($p))
-        return "Error";
+        return 'Error';
     
     /* Create alias folder. */
     @mkdir ($p, 0755, true);
     if (!file_exists ($p))
-        return "Error";
+        return 'Error';
     
     /* Generate password. */
     $md5_password = md5 ($password);
@@ -1246,7 +1242,7 @@ function jirafeau_alias_create ($alias, $destination, $password, $ip)
             $destination . NL);
     fclose ($handle);
 
-    return "Ok";
+    return 'Ok';
 }
 
 /** Update an alias.
@@ -1257,30 +1253,31 @@ function jirafeau_alias_create ($alias, $destination, $password, $ip)
  * @param $ip client's IP
  * @return "Ok" or "Error" string
  */
-function jirafeau_alias_update ($alias, $destination, $password,
-                                $new_password, $ip)
+function
+jirafeau_alias_update ($alias, $destination, $password,
+                       $new_password, $ip)
 {
     $alias = md5 ($alias);
     /* Check that alias exits. */
     $a = jirafeau_get_alias ($alias);
     if (!count ($a))
-        return "Error";
+        return 'Error';
 
     /* Check that destination exists. */
     $l = jirafeau_get_link ($a["destination"]);
     if (!count ($l))
-        return "Error";
+        return 'Error';
 
     /* Check password. */
     if ($a["md5_password"] != md5 ($password))
-        return "Error";
+        return 'Error';
 
-    $p = $a["md5_password"];
+    $p = $a['md5_password'];
     if (strlen ($new_password) >= 8 &&
         strlen ($new_password) <= 32)
         $p = md5 ($new_password);
     else if (strlen ($new_password) > 0)
-        return "Error";
+        return 'Error';
 
     /* Rewrite informations. */
     $p = VAR_ALIAS . s2p ($alias) . $alias;
@@ -1291,25 +1288,27 @@ function jirafeau_alias_update ($alias, $destination, $password,
             date ('U') . NL .
             $destination . NL);
     fclose ($handle);
-    return "Ok";
+    return 'Ok';
 }
 
 /** Get an alias.
  * @param $alias alias to get
  * @return alias destination or "Error" string
  */
-function jirafeau_alias_get ($alias)
+function
+jirafeau_alias_get ($alias)
 {
     $alias = md5 ($alias);
     /* Check that alias exits. */
     $a = jirafeau_get_alias ($alias);
     if (!count ($a))
-        return "Error";
+        return 'Error';
 
-    return $a["destination"];
+    return $a['destination'];
 }
 
-function jirafeau_clean_rm_alias ($alias)
+function
+jirafeau_clean_rm_alias ($alias)
 {
     $p = s2p ("$alias");
     if (file_exists (VAR_ALIAS . $p . $alias))
@@ -1331,7 +1330,8 @@ function jirafeau_clean_rm_alias ($alias)
  * @param $password password to protect alias
  * @return "Ok" or "Error" string
  */
-function jirafeau_alias_delete ($alias, $password)
+function
+jirafeau_alias_delete ($alias, $password)
 {
     $alias = md5 ($alias);
     /* Check that alias exits. */
@@ -1341,9 +1341,9 @@ function jirafeau_alias_delete ($alias, $password)
 
     /* Check password. */
     if ($a["md5_password"] != md5 ($password))
-        return "Error";
+        return 'Error';
 
     jirafeau_clean_rm_alias ($alias);
-    return "Ok";
+    return 'Ok';
 }
 
