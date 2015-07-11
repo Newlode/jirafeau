@@ -16,7 +16,7 @@
  *  GNU Affero General Public License for more details.
  *
  *  You should have received a copy of the GNU Affero General Public License
- *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 /*
@@ -26,12 +26,12 @@
 
 $dark = '#8B4513';
 
-header("Content-type: text/css");
+header('Content-type: text/css');
 
 ?>
 
 /* ==========================================================================
-   Sommaire
+   Summary
 
    1 = Basic Style
    2 = Copyright
@@ -94,12 +94,14 @@ legend {
   text-align: center;
 }
 
-table a { color: #000;}
+table a {
+  color: #000;
+}
 
-  table a:hover,
-  table a:focus {
-    text-decoration: none;
-  }
+table a:hover,
+table a:focus {
+  text-decoration: none;
+}
 
 input[type="submit"] {
   background: #0D9CB2;
@@ -453,4 +455,3 @@ textarea[readonly="readonly"] + p + p a:focus {
   padding-top: 10px;
   padding-bottom: 10px;
 }
-

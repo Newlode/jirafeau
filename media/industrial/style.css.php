@@ -14,7 +14,7 @@
  *  GNU Affero General Public License for more details.
  *
  *  You should have received a copy of the GNU Affero General Public License
- *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 /*
@@ -24,7 +24,7 @@
 
 $dark = '#8B4513';
 
-header("Content-type: text/css");
+header('Content-type: text/css');
 
 ?>
 
@@ -44,6 +44,7 @@ fieldset {
   border: 2px solid #02233f;
   -moz-border-radius: 10px;
   -webkit-border-radius: 10px;
+  border-radius: 10px;
 }
 
 fieldset legend {
@@ -53,6 +54,7 @@ fieldset legend {
   padding: 1px 5px;
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
+  border-radius: 5px;
 }
 
 h1 {
@@ -99,9 +101,9 @@ input:hover {
   position: fixed;
   bottom: 0;
   right: 0;
-	height: 100px;
+  height: 100px;
   width: 100px;
-	clear:both;
+  clear:both;
 }
 
 #copyright {
@@ -143,6 +145,7 @@ input:hover {
   border: 2px solid #02233f;
   -moz-border-radius: 10px;
   -webkit-border-radius: 10px;
+  border-radius: 10px;
 }
 
 .info h2 {
@@ -186,4 +189,3 @@ input:hover {
   margin-left: 10px;
   background: url(email.png) no-repeat;
 }
-

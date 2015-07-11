@@ -14,7 +14,7 @@
  *  GNU Affero General Public License for more details.
  *
  *  You should have received a copy of the GNU Affero General Public License
- *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 /*
@@ -24,9 +24,11 @@
 
 $dark = '#8B4513';
 
-header("Content-type: text/css");
+header('Content-type: text/css');
 
 ?>
+
+@charset "UTF-8";
 
 body {
   text-align: center;

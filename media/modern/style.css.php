@@ -16,7 +16,7 @@
  *  GNU Affero General Public License for more details.
  *
  *  You should have received a copy of the GNU Affero General Public License
- *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
 /*
@@ -26,16 +26,16 @@
 
 $dark = '#8B4513';
 
-header("Content-type: text/css");
+header('Content-type: text/css');
 
 ?>
 
 body {
-font-family:"Lucida Grande","Lucida Sans Unicode",Tahoma,sans-serif;
-font-size: 100%;
-color:#333333;
-margin:0;
-background:#e5e5e5;
+    font-family:"Lucida Grande","Lucida Sans Unicode",Tahoma,sans-serif;
+    font-size: 100%;
+    color:#333333;
+    margin:0;
+    background:#e5e5e5;
 }
 
 a, a:link, a:visited {
@@ -50,25 +50,23 @@ fieldset {
   margin: auto;
   background: white;
   border: 2px solid #dbdbdb;
--webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
 }
 
 fieldset legend {
-
   color: white;
   font-size:130%;
   background: #cf3b19;
   border: 1px solid #A52E13;
   padding: 5px 20px;
--webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
 }
 
 h1 {
-
   font-size: 175%;
   width: 100%;
   text-align: center;
@@ -134,13 +132,13 @@ text-align: center;
   padding-bottom: 1ex;
   border: #FB7373 2px solid;
   background-color: #FBB;
-    -webkit-border-radius: 5px;
+  -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px;
 }
 
 .error p:before {
-text-align: center;
+  text-align: center;
   content: url('error.png');
   padding-right: 1ex;
     -webkit-border-radius: 5px;
@@ -153,7 +151,7 @@ text-align: center;
   padding: 1ex;
   border: #91C27C 2px solid;
   background-color: #BFB;
-    -webkit-border-radius: 5px;
+  -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px;
 }
@@ -217,8 +215,8 @@ font-size:90%;
   border: 2px solid #91C27C;
   margin: auto;
   -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
 }
 
 #self_destruct {
