@@ -16,7 +16,7 @@
  *  GNU Affero General Public License for more details.
  *
  *  You should have received a copy of the GNU Affero General Public License
- *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 define ('JIRAFEAU_ROOT', dirname (__FILE__) . '/');
 
@@ -242,7 +242,7 @@ if (jirafeau_has_upload_password ($cfg))
 
 </div>
 
-<script lang="Javascript">
+<script type="text/javascript" lang="Javascript">
     document.getElementById('error_pop').style.display = 'none';
     document.getElementById('uploading').style.display = 'none';
     document.getElementById('upload_finished').style.display = 'none';
