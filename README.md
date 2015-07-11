@@ -1,6 +1,6 @@
 # Introduction
 
-Welcome to the official Jirafeau project, an [Open-Source software](http://en.wikipedia.org/wiki/Open-source_software).
+Welcome to the official Jirafeau project, an [Open-Source software](https://en.wikipedia.org/wiki/Open-source_software).
 
 Jirafeau is a web site permitting to upload a file in a simple way and give an unique link to it.
 
@@ -31,7 +31,7 @@ Jirafeau is a fork of the original project [Jyraphe](http://home.gna.org/jyraphe
 
 As it's original project, Jirafeau is made in the [KISS](http://en.wikipedia.org/wiki/KISS_principle) way (Keep It Simple, Stupid).
 
-Jirafeau project won't evolve to a file manager and will focus to keep a very few dependencies
+Jirafeau project won't evolve to a file manager and will focus to keep a very few dependencies.
 
 # Screenshots
 
@@ -46,7 +46,7 @@ Here are some screenshots:
 - [Upload 4](http://i.imgur.com/P2oS1MY.jpg)
 
 # Installation
--  [Download](https://gitlab.com/mojo42/Jirafeau/repository/archive.zip) the last version of Jirafeau from Gitlab
+-  [Download](https://gitlab.com/mojo42/Jirafeau/repository/archive.zip) the last version of Jirafeau from GitLab
 -  Upload files on your web server
 -  Don't forget to set owner of uploaded files if you need to
 -  Get your web browser and go to you install location (e.g. ```http://your-web-site.org/jirafeau/```) and follow instructions
@@ -66,7 +66,7 @@ If you are using Apache, you can add the following lineto your configuration to 
 
 You should also remove un-necessessary write access once the installation is done (ex: configuration file).
 
-An other obvious basic security is to let access users to the site by https.
+An other obvious basic security is to let access users to the site by HTTPS.
 
 # Few notes about server side encryption
 
@@ -90,11 +90,11 @@ In a next step, encryption will be made by the client (in javascript), see issue
 
 Of-course ! Translations are easy to make and no technical knowledge is required.
 
-Simply go to [Jirafeau's Weblate](https://hosted.weblate.org/projects/jirafeau/master/)
+Simply go to [Jirafeau's Weblate](https://hosted.weblate.org/projects/jirafeau/master/).
 
 If you want to add a new language in the list, feel free to contact us or leave a comment in ticket #9.
 
-I would like to thanks to anonymous contributors on weblate :)
+We would like to thanks to anonymous contributors on weblate. :)
 
 ### How do I upgrade my Jirafeau ?
 
@@ -108,13 +108,13 @@ If you have some troubles:
 - It should probably come from your ```lib/config.local.php``` (configuration syntax may have changed). Just compare it with ```lib/config.original.php```
 - Check owner/permissions of your files.
 
-Anyway you should off-course make a backup of your current installation before doing anything :)
+Anyway you should off-course make a backup of your current installation before doing anything. :)
 
 ### How can I limit upload access ?
 
 There are two ways to limit upload access (but not download):
 - you can set one or more passwords in order to access the upload interface, or/and
-- you can configure a list of authorized IP ([CIDR notation](http://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing#CIDR_notation)) which are allowed to access to the upload page
+- you can configure a list of authorized IP ([CIDR notation](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing#CIDR_notation)) which are allowed to access to the upload page
 
 Check documentation of ```upload_password``` and ```upload_ip``` parameters in [lib/config.original.php](https://gitlab.com/mojo42/Jirafeau/blob/master/lib/config.original.php).
 
@@ -122,29 +122,29 @@ Check documentation of ```upload_password``` and ```upload_ip``` parameters in [
 
 If you have some strange behavior with IE, you may configure [compatibility mode](http://feedback.dominknow.com/knowledgebase/articles/159097-internet-explorer-ie8-ie9-ie10-and-ie11-compat).
 
-Anyway I would recommand you to use another browser :)
+Anyway I would recommand you to use another web browser. :)
 
 ### I found a bug, what should I do ?
 
-Feel free to open a bug in the [gitlab's issues](https://gitlab.com/mojo42/Jirafeau/issues)
+Feel free to open a bug in the [GitLab's issues](https://gitlab.com/mojo42/Jirafeau/issues).
 
 ### How to set maximum file size ?
 
 If your browser supports HTML5 file API, you can send files as big as you want.
 
 For browsers who does not support HTML5 file API, the limitation come from PHP configuration.
-You have to set [post_max_size](http://php.net/manual/en/ini.core.php#ini.post-max-size) and [upload_max_filesize](http://php.net/manual/en/ini.core.php#ini.upload-max-filesize) in your php configuration.
+You have to set [post_max_size](https://php.net/manual/en/ini.core.php#ini.post-max-size) and [upload_max_filesize](https://php.net/manual/en/ini.core.php#ini.upload-max-filesize) in your php configuration.
 
 If you don't want to allow unlimited upload size, you can still setup a maximal file size in Jirafeau's setting (see ```maximal_upload_size``` in your configuration)
 
 ### How can I edit an option ?
 
-Documentation of all default options are located in [lib/config.original.php](https://gitlab.com/mojo42/Jirafeau/blob/master/lib/config.original.php)
-If you want to change an option, just edit your ```lib/config.local.php```
+Documentation of all default options are located in [lib/config.original.php](https://gitlab.com/mojo42/Jirafeau/blob/master/lib/config.original.php).
+If you want to change an option, just edit your ```lib/config.local.php```.
 
 ### How can I access the admin interface ?
 
-Just go to ```/admin.php```
+Just go to ```/admin.php```.
 
 ### How can I use the scripting interface ?
 
@@ -160,11 +160,11 @@ The original project seems not to be continued anymore and I prefer to add more 
 
 ### What can we expect in the future ?
 
-Check [issues](https://gitlab.com/mojo42/Jirafeau/issues) to check open bugs and incoming new stuff :)
+Check [issues](https://gitlab.com/mojo42/Jirafeau/issues) to check open bugs and incoming new stuff. :)
 
 ### What is the Jirafeau's license ?
 
-Jirafeau is licensed under [AGPLv3](https://gitlab.com/mojo42/Jirafeau/blob/master/COPYING)
+Jirafeau is licensed under [AGPLv3](https://gitlab.com/mojo42/Jirafeau/blob/master/COPYING).
 
 ### How do I modify the TOS (terms of use) ?
 
