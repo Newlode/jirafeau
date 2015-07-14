@@ -27,4 +27,3 @@ view only to show the most importants files and their role.
     ├── async : chunks of uploaded files
     ├── files : all files that has been successfully uploaded
     └── links : all links pointing to files with meta-informations
-
