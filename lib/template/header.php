@@ -3,9 +3,6 @@ header('Vary: Accept');
 
 $content_type = 'text/html; charset=utf-8';
 
-if (stristr ($_SERVER['HTTP_ACCEPT'], 'application/xhtml+xml'))
-    $content_type = 'application/xhtml+xml; charset=utf-8';
-
 header('Content-Type: ' . $content_type);
 
 $protocol = (bool)is_ssl() ? 'https' : 'http';
