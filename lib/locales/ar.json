@@ -105,5 +105,11 @@
     "Action": "",
     "Del link": "",
     "Del file and links": "",
-    "Deleted links": ""
+    "Deleted links": "",
+    "year": "",
+    "day": "",
+    "minute": "",
+    "hour": "",
+    "second": "",
+    "less than a second": ""
 }

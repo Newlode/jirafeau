@@ -102,5 +102,12 @@
     "link": "link", 
     "out of": "din", 
     "powered by Open-Source project Jirafeau": "powered by Jirafeau - proiect open source", 
-    "step": "pas"
+    "step": "pas",
+    "year": "",
+    "day": "",
+    "minute": "",
+    "hour": "",
+    "second": "",
+    "less than a second": ""
+
 }

@@ -102,5 +102,12 @@
     "link": "lien", 
     "out of": "sur", 
     "powered by Open-Source project Jirafeau": "Propulsé par le projet Open-Source Jirafeau", 
-    "step": "étape"
+    "step": "étape",
+    "year": "année",
+    "day": "jour",
+    "minute": "minute",
+    "hour": "heure",
+    "second": "seconde",
+    "less than a second": "moins d'une seconde"
+
 }

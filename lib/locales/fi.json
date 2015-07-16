@@ -102,5 +102,12 @@
     "link": "linkki", 
     "out of": "/", 
     "powered by Open-Source project Jirafeau": "taustalla Avoimen lähdekoodin Jirafeau projekti", 
-    "step": "vaihe"
+    "step": "vaihe",
+    "year": "",
+    "day": "",
+    "minute": "",
+    "hour": "",
+    "second": "",
+    "less than a second": ""
+
 }

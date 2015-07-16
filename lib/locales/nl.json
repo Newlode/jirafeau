@@ -102,5 +102,12 @@
     "link": "link", 
     "out of": "van", 
     "powered by Open-Source project Jirafeau": "mogelijk gemaakt door open source project Jirafeau", 
-    "step": "stap"
+    "step": "stap",
+    "year": "",
+    "day": "",
+    "minute": "",
+    "hour": "",
+    "second": "",
+    "less than a second": ""
+
 }

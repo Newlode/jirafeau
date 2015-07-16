@@ -102,5 +102,12 @@
     "link": "odkaz", 
     "out of": "z", 
     "powered by Open-Source project Jirafeau": "poskytované open source projektom Jirafeau", 
-    "step": "krok"
+    "step": "krok",
+    "year": "",
+    "day": "",
+    "minute": "",
+    "hour": "",
+    "second": "",
+    "less than a second": ""
+
 }
