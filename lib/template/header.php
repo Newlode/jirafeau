@@ -3,6 +3,9 @@ header('Vary: Accept');
 
 $content_type = 'text/html; charset=utf-8';
 
+if (stristr ($_SERVER['HTTP_ACCEPT'], 'application/xhtml+xml'))
+    $content_type = 'application/xhtml+xml; charset=utf-8';
+
 header('Content-Type: ' . $content_type);
 
 $protocol = (bool)is_ssl() ? 'https' : 'http';
@@ -22,10 +25,22 @@ if (!isset ($cfg['style']))
 else
     $style = $cfg['style'];
 
-
+if (stristr ($_SERVER['HTTP_ACCEPT'], 'application/xhtml+xml'))
+{
+?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">    
+<?php
+}
+else
+{
 ?>
 <!DOCTYPE html>
 <html>
+<?php
+}
+?>
 <head>
   <title><?php echo t('Jirafeau, your web file repository'); ?></title>
   <meta http-equiv="Content-Type" content="<?php echo $content_type; ?>" />
