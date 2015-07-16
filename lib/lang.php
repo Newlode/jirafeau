@@ -67,4 +67,30 @@ function t ($text)
     return $trans[$text];
 }
 
+function json_lang_generator ()
+{
+    $cfg = $GLOBALS['cfg'];
+    $languages_list = $GLOBALS['languages_list'];
+
+    /* Detect user's langage if we are in automatic mode. */
+    if (strcmp ($cfg['lang'], 'auto') == 0)
+        $l = substr ($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
+    else
+        $l = $cfg['lang'];
+
+    /* Is the langage in the list ? */
+    $found = false;
+    foreach ($languages_list as $key => $v)
+        if (strcmp ($l, $key) == 0)
+            $found = true;
+
+    /* Don't translate english. */
+    if (!($found && strcmp ($l, "en")))
+        return "{}";
+
+    /* Open translation file. */
+    $trans_j = file_get_contents (JIRAFEAU_ROOT . "lib/locales/$l.json");
+    return $trans_j; 
+}
+
 ?>

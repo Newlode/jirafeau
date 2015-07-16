@@ -1,3 +1,4 @@
+<?php
 /*
  *  Jirafeau, your web file repository
  *  Copyright (C) 2015  Jerome Jutteau <j.jutteau@gmail.com>
@@ -16,6 +17,21 @@
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
+
+define ('JIRAFEAU_ROOT', dirname (__FILE__) . '/../');
+require (JIRAFEAU_ROOT . 'lib/config.original.php');
+require (JIRAFEAU_ROOT . 'lib/settings.php');
+require (JIRAFEAU_ROOT . 'lib/functions.php');
+require (JIRAFEAU_ROOT . 'lib/lang.php');
+?>
+
+function translate (expr)
+{
+    var lang_array = <?php echo json_lang_generator () ?>;
+    if (lang_array.hasOwnProperty(expr))
+        return lang_array[expr];
+    return expr;
+}
 
 function show_link (url, reference, delete_code, crypt_key, date)
 {
@@ -521,25 +537,25 @@ function milliseconds_to_time_string (milliseconds)
     var temp = Math.floor(milliseconds / 1000);
     var years = Math.floor(temp / 31536000);
     if (years) {
-        return years + ' year' + numberEnding(years);
+        return years + ' ' + translate ('year') + numberEnding(years);
     }
     var days = Math.floor((temp %= 31536000) / 86400);
     if (days) {
-        return days + ' day' + numberEnding(days);
+        return days + ' ' + translate ('day') + numberEnding(days);
     }
     var hours = Math.floor((temp %= 86400) / 3600);
     if (hours) {
-        return hours + ' hour' + numberEnding(hours);
+        return hours + ' ' + translate ('hour') + numberEnding(hours);
     }
     var minutes = Math.floor((temp %= 3600) / 60);
     if (minutes) {
-        return minutes + ' minute' + numberEnding(minutes);
+        return minutes + ' ' + translate ('minute') + numberEnding(minutes);
     }
     var seconds = temp % 60;
     if (seconds) {
-        return seconds + ' second' + numberEnding(seconds);
+        return seconds + ' ' + translate ('second') + numberEnding(seconds);
     }
-    return 'less than a second';
+    return translate ('less than a second');
 }
 
 function upload_time_estimation_time()
