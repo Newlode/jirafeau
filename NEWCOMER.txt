@@ -27,3 +27,13 @@ view only to show the most importants files and their role.
     ├── async : chunks of uploaded files
     ├── files : all files that has been successfully uploaded
     └── links : all links pointing to files with meta-informations
+
+Coding style:
+
+- PHP function keywords are alone on a line
+- Braces "{" must are put in a new line
+- Files must be in UTF-8 (without BOM)
+- Uses LF (\n) for end of lines
+
+The whole project is not clean about that, feel free to fix :)
+
