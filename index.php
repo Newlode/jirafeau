@@ -24,7 +24,6 @@ require (JIRAFEAU_ROOT . 'lib/config.original.php');
 require (JIRAFEAU_ROOT . 'lib/settings.php');
 require (JIRAFEAU_ROOT . 'lib/functions.php');
 require (JIRAFEAU_ROOT . 'lib/lang.php');
-require (JIRAFEAU_ROOT . 'lib/template/header.php');
 
 check_errors ($cfg);
 if (has_error ())
@@ -33,6 +32,8 @@ if (has_error ())
     require (JIRAFEAU_ROOT . 'lib/template/footer.php');
     exit;
 }
+
+require (JIRAFEAU_ROOT . 'lib/template/header.php');
 
 /* Check if user is allowed to upload. */
 if (!jirafeau_challenge_upload_ip ($cfg, get_ip_address($cfg)))
