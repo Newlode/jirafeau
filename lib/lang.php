@@ -14,19 +14,19 @@
  *  GNU Affero General Public License for more details.
  *
  *  You should have received a copy of the GNU Affero General Public License
- *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
- global $languages_list;
- $languages_list = array ('auto' => 'Automatic',
-                          'de' => 'Deutsch',
-                          'en' => 'English',
-                          'fi' => 'Suomi',
-                          'fr' => 'Français',
-                          'it' => 'Italiano',
-                          'nl' => 'Nederlands',
-                          'ro' => 'Limba română',
-                          'sk' => 'Slovenčina');
+global $languages_list;
+$languages_list = array ('auto' => 'Automatic',
+                         'de'   => 'Deutsch',
+                         'en'   => 'English',
+                         'fi'   => 'Suomi',
+                         'fr'   => 'Français',
+                         'it'   => 'Italiano',
+                         'nl'   => 'Nederlands',
+                         'ro'   => 'Limba română',
+                         'sk'   => 'Slovenčina');
 
 /* Translation */
 function t ($text)

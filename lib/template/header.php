@@ -1,5 +1,5 @@
 <?php
-header("Vary: Accept");
+header('Vary: Accept');
 
 $content_type = 'text/html; charset=utf-8';
 
@@ -27,14 +27,14 @@ else
 
 
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html>
 <head>
   <title><?php echo t('Jirafeau, your web file repository'); ?></title>
   <meta http-equiv="Content-Type" content="<?php echo $content_type; ?>" />
   <link href="<?php echo $web_root . 'media/' . $style . '/style.css.php'; ?>" rel="stylesheet" type="text/css" />
 </head>
 <body>
-<script language="Javascript" src="lib/functions_v7.js"></script>
+<script type="text/javascript" language="Javascript" src="lib/functions_v7.js"></script>
 <div id="content">
 <h1><a href="<?php echo $web_root; ?>"><?php echo t('Jirafeau, your web file repository'); ?></a></h1>
