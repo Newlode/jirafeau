@@ -2,6 +2,7 @@
 /*
  *  Jirafeau, your web file repository
  *  Copyright (C) 2008  Julien "axolotl" BERNARD <axolotl@magieeternelle.org>
+ *  Copyright (C) 2015  Nicola Spanti (RyDroid) <dev@nicola-spanti.info>
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU Affero General Public License as
@@ -14,7 +15,7 @@
  *  GNU Affero General Public License for more details.
  *
  *  You should have received a copy of the GNU Affero General Public License
- *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 define ('JIRAFEAU_ROOT', dirname (__FILE__) . '/');
 define ('NL', "\n");
@@ -67,9 +68,7 @@ jirafeau_export_cfg ($cfg)
 function
 jirafeau_mkdir ($path)
 {
-    if (!file_exists ($path) &&  !@mkdir ($path, 0755))
-        return false;
-    return true;
+    return !(!file_exists ($path) && !@mkdir ($path, 0755));
 }
 
 /**
@@ -182,8 +181,6 @@ if (isset ($_POST['step']) && isset ($_POST['next']))
         $cfg['var_root'] = jirafeau_add_ending_slash ($_POST['var_root']);
         jirafeau_export_cfg ($cfg);
         break;
-
-    default: break;
     }
 
 }

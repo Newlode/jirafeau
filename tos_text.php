@@ -1,6 +1,6 @@
 <?php
 /* This license text is under Creative Commons - Attribution 3.0 Unported.
- * It has been based on this work: <a href="http://opensource.org/ToS">http://opensource.org/ToS
+ * It has been based on this work: <a href="http://opensource.org/ToS">http://opensource.org/ToS</a>
  */
 $tos="
 TERMS OF SERVICE

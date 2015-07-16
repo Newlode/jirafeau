@@ -212,8 +212,8 @@ if (!(isset ($_POST['action']) && strcmp ($_POST['action'], 'download') == 0))
         </form>
         </table>
         <form action = "<?php echo basename(__FILE__); ?>" method = "post">
-        <input type = "hidden" name = "action" value = "logout"/>
-        <input type = "submit" value = "<?php echo t('Logout'); ?>" />
+            <input type = "hidden" name = "action" value = "logout" />
+            <input type = "submit" value = "<?php echo t('Logout'); ?>" />
         </form>
         </fieldset></div><?php
 }
