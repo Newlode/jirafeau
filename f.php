@@ -58,7 +58,7 @@ if (count ($link) == 0)
 if (count ($link) == 0)
 {
     require (JIRAFEAU_ROOT.'lib/template/header.php');
-    echo '<div class="error"><p>' . t('Sorry, the requested file is not found....' . $link_name) .
+    echo '<div class="error"><p>' . t('Sorry, the requested file is not found') .
     '</p></div>';
     require (JIRAFEAU_ROOT.'lib/template/footer.php');
     exit;
