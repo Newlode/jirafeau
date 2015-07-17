@@ -98,16 +98,15 @@
     "You are now loggued out": "Acum eşti deconectat", 
     "You should create this directory manually.": "Trebuie să creezi acest director manual.", 
     "You should give the write permission to the web server on this directory.": "Trebuie să dai permisiuni de scriere pe acest director.", 
+    "day": "zi", 
     "file": "fişier", 
+    "hour": "oră", 
+    "less than a second": "mai puţin de o secundă", 
     "link": "link", 
+    "minute": "minut", 
     "out of": "din", 
     "powered by Open-Source project Jirafeau": "powered by Jirafeau - proiect open source", 
-    "step": "pas",
-    "year": "",
-    "day": "",
-    "minute": "",
-    "hour": "",
-    "second": "",
-    "less than a second": ""
-
+    "second": "secundă", 
+    "step": "pas", 
+    "year": "an"
 }
