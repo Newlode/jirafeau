@@ -52,6 +52,10 @@ Here are some screenshots:
 -  Get your web browser and go to you install location (e.g. ```http://your-web-site.org/jirafeau/```) and follow instructions
 -  Some options are not configured from the minimal installation wizard, you may take a look at option documentation in ```lib/config.original.php``` and customize your ```lib/config.local.php```
 
+Note that ```lib/config.local.php``` is auto-generated during the installation.
+
+If you don't want to go through the installation wizard, you can just copy ```config.original.php``` to ```config.local.php``` and customize it.
+
 # Security
 
 ```var``` directory contain all files and links. It is randomly named to limit access but you may add better protection to prevent un-authorized access to it.
@@ -65,7 +69,6 @@ If you are using Apache, you can add the following lineto your configuration to 
 ```RedirectMatch 301 ^/var-.* http://my.service.jirafeau ```
 
 You should also remove un-necessessary write access once the installation is done (ex: configuration file).
-
 An other obvious basic security is to let access users to the site by HTTPS.
 
 # Few notes about server side encryption
