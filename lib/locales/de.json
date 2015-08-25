@@ -98,16 +98,15 @@
     "You are now loggued out": "Sie wurden abgemeldet", 
     "You should create this directory manually.": "Sie sollten dieses Verzeichnis manuell erstellen.", 
     "You should give the write permission to the web server on this directory.": "Geben Sie die Schreibberechtigung an dem Webserver in dieses Verzeichnis.", 
+    "day": "Tag", 
     "file": "Datei", 
+    "hour": "Stunde", 
+    "less than a second": "weniger als einer Sekunde", 
     "link": "Link", 
+    "minute": "Minute", 
     "out of": "von", 
     "powered by Open-Source project Jirafeau": "angetrieben von Open-Source-Projekt Jirafeau", 
-    "step": "Schritt",
-    "year": "",
-    "day": "",
-    "minute": "",
-    "hour": "",
-    "second": "",
-    "less than a second": ""
-
+    "second": "Sekunde", 
+    "step": "Schritt", 
+    "year": "Jahr"
 }
