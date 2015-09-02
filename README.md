@@ -82,8 +82,8 @@ By activating this feature, you have to be aware of few things:
 -  During the download, the server will decrypt on the fly (and use resource).
 -  This feature needs to have the mcrypt php module.
 -  File de-duplication will stop to work (as we can't compare two encrypted files).
--  Be sure you server do not log client's requests.
--  Don't forget to activate https.
+-  Be sure your server do not log client's requests.
+-  Don't forget to enable https.
 
 In a next step, encryption will be made by the client (in javascript), see issue #10.
 
