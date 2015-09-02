@@ -17,7 +17,7 @@ A demonstration of the latest version is available on [jirafeau.net](http://jira
 -  Optional Password protection (for uploading or downloading)
 -  Time limitation
 -  Option to self-destruct after reading
--  Simple language support :gb: :fr: :de: :it: :nl: :ro: :sk:
+-  Simple language support :gb: :fr: :de: :it: :nl: :ro: :sk: :hu:
 -  Small administration interface
 -  File level [Deduplication](http://en.wikipedia.org/wiki/Data_deduplication) for storage optimization
 -  A basic Terms Of Service which can be adapted to your needs
