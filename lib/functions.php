@@ -1121,6 +1121,8 @@ get_ip_list_http_forwarded()
     if (!empty ($_SERVER['HTTP_X_FORWARDED_FOR']))
     {
         $l = explode (',', $_SERVER['HTTP_X_FORWARDED_FOR']);
+        if ($l === FALSE)
+            return array();
         foreach ($l as $ip)
             array_push ($ip_list, preg_replace ('/\s+/', '', $ip));
     }
@@ -1130,7 +1132,10 @@ get_ip_list_http_forwarded()
         foreach ($l as $ip)
         {
             // Separate IP from port
-            $ip = explode (':', $ip)[0];
+            $ipa = explode (':', $ip);
+            if ($ipa === FALSE)
+                continue;
+            $ip = $ipa[0];
             array_push ($ip_list, preg_replace ('/\s+/', '', $ip));
         }
     }
