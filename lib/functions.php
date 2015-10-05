@@ -623,7 +623,12 @@ jirafeau_admin_list ($name, $file_hash, $link_hash)
                 echo '<td>' . jirafeau_human_size ($l['file_size']) . '</td>';
                 echo '<td>' . ($l['time'] == -1 ? '' : strftime ('%c', $l['time'])) .
                      '</td>';
-                echo '<td>' . $l['onetime'] . '</td>';
+                echo '<td>';
+                if ($l['onetime'] == 'O')
+                    echo 'Y';
+                else
+                    echo 'N';
+                echo '</td>';
                 echo '<td>' . strftime ('%c', $l['upload_date']) . '</td>';
                 echo '<td>' . $l['ip'] . '</td>';
                 echo '<td>' .
