@@ -3,7 +3,8 @@ header('Vary: Accept');
 
 $content_type = 'text/html; charset=utf-8';
 
-if (stristr ($_SERVER['HTTP_ACCEPT'], 'application/xhtml+xml'))
+if (isset ($_SERVER['HTTP_ACCEPT']) &&
+    stristr ($_SERVER['HTTP_ACCEPT'], 'application/xhtml+xml'))
     $content_type = 'application/xhtml+xml; charset=utf-8';
 
 header('Content-Type: ' . $content_type);
@@ -25,7 +26,8 @@ if (!isset ($cfg['style']))
 else
     $style = $cfg['style'];
 
-if (stristr ($_SERVER['HTTP_ACCEPT'], 'application/xhtml+xml'))
+if (isset ($_SERVER['HTTP_ACCEPT']) &&
+    stristr ($_SERVER['HTTP_ACCEPT'], 'application/xhtml+xml'))
 {
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
