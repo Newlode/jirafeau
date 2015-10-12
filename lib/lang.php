@@ -80,7 +80,12 @@ function json_lang_generator ()
 
     /* Detect user's langage if we are in automatic mode. */
     if (strcmp ($cfg['lang'], 'auto') == 0)
-        $l = substr ($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
+    {
+        if (isset ($_SERVER['HTTP_ACCEPT_LANGUAGE']))
+            $l = substr ($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
+        else
+            $l = "en";
+    }
     else
         $l = $cfg['lang'];
 
