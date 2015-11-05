@@ -192,4 +192,4 @@ So:
 
 ### How to contact someone from Jirafeau ?
 
-Feel free to create an issue if you found a bug, else you can send an email at j.jutteau A.T gmail .DOT. com
+Feel free to create an issue if you found a bug.
