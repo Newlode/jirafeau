@@ -189,6 +189,7 @@ elseif (isset ($_GET['h']))
     }
     if (strlen ($link['key']) > 0 && md5 ($key) != $link['key'])
     {
+        sleep (2);
         echo 'Error';
         exit;
     }
