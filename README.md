@@ -89,7 +89,7 @@ In a next step, encryption will be made by the client (in javascript), see issue
 
 # FAQ
 
-### Can I add a new language in Jirafeau ?
+### Can I add a new language in Jirafeau?
 
 Of-course ! Translations are easy to make and no technical knowledge is required.
 
@@ -99,7 +99,7 @@ If you want to add a new language in the list, feel free to contact us or leave 
 
 We would like to thanks to anonymous contributors on weblate. :)
 
-### How do I upgrade my Jirafeau ?
+### How do I upgrade my Jirafeau?
 
 If you have installed Jirafeau using git, it's pretty simple: just make a git pull and chown/chmod files who have the owner changed.
 
@@ -113,7 +113,7 @@ If you have some troubles:
 
 Anyway you should off-course make a backup of your current installation before doing anything. :)
 
-### How can I limit upload access ?
+### How can I limit upload access?
 
 There are two ways to limit upload access (but not download):
 - you can set one or more passwords in order to access the upload interface, or/and
@@ -127,11 +127,11 @@ If you have some strange behavior with IE, you may configure [compatibility mode
 
 Anyway I would recommand you to use another web browser. :)
 
-### I found a bug, what should I do ?
+### I found a bug, what should I do?
 
 Feel free to open a bug in the [GitLab's issues](https://gitlab.com/mojo42/Jirafeau/issues).
 
-### How to set maximum file size ?
+### How to set maximum file size?
 
 If your browser supports HTML5 file API, you can send files as big as you want.
 
@@ -140,16 +140,16 @@ You have to set [post_max_size](https://php.net/manual/en/ini.core.php#ini.post-
 
 If you don't want to allow unlimited upload size, you can still setup a maximal file size in Jirafeau's setting (see ```maximal_upload_size``` in your configuration)
 
-### How can I edit an option ?
+### How can I edit an option?
 
 Documentation of all default options are located in [lib/config.original.php](https://gitlab.com/mojo42/Jirafeau/blob/master/lib/config.original.php).
 If you want to change an option, just edit your ```lib/config.local.php```.
 
-### How can I access the admin interface ?
+### How can I access the admin interface?
 
 Just go to ```/admin.php```.
 
-### How can I use the scripting interface ?
+### How can I use the scripting interface (API)?
 
 Simply go to ```/script.php``` with your web browser.
 
@@ -157,23 +157,23 @@ Simply go to ```/script.php``` with your web browser.
 
 Be sure your PHP installation is not using safe mode, it may cause timeouts.
 
-### Why forking ?
+### Why forking?
 
 The original project seems not to be continued anymore and I prefer to add more features and increase security from a stable version.
 
-### What can we expect in the future ?
+### What can we expect in the future?
 
 Check [issues](https://gitlab.com/mojo42/Jirafeau/issues) to check open bugs and incoming new stuff. :)
 
-### What is the Jirafeau's license ?
+### What is the Jirafeau's license?
 
 Jirafeau is licensed under [AGPLv3](https://gitlab.com/mojo42/Jirafeau/blob/master/COPYING).
 
-### How do I modify the TOS (terms of use) ?
+### How do I modify the TOS (terms of use)?
 
 Just edit ```tos.php``` and configure ```$org``` and ```$contact``` variables.
 
-### What about this file deduplication thing ?
+### What about this file deduplication thing?
 
 Jirafeau use a very simple file level deduplication for storage optimization.
 
@@ -183,14 +183,14 @@ If someone use his delete link or an admin cleans expired links, this will decre
 
 If the counter falls to zero, the file is destroyed.
 
-### What is the difference between "delete link" and "delete file and links" in admin interface ?
+### What is the difference between "delete link" and "delete file and links" in admin interface?
 
 As explained in the previous question, files with the same md5 hash are not duplicated and a reference counter stores the number of links pointing to a single file.
 So:
 - The button "delete link" will delete the reference to the file but might not destroy the file.
 - The button "delete file and links" will delete all references pointing to the file and will destroy the file.
 
-### How to contact someone from Jirafeau ?
+### How to contact someone from Jirafeau?
 
 Feel free to create an issue if you found a bug.
 
