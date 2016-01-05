@@ -193,3 +193,48 @@ So:
 ### How to contact someone from Jirafeau ?
 
 Feel free to create an issue if you found a bug.
+
+# Release notes
+
+## Version 1.0
+
+The very first version of Jirafeau after the fork of Jiraph.
+
+- Security fix
+- Keep uploader's ip
+- Delete link for each upload
+- No more clear text password storage
+- Simple langage support
+- Add an admin interface
+- New Design
+- Add term of use
+- New path system to manage large number of files 
+- New option to show a page at download time
+- Add option to activate or not preview mode
+
+## Version 1.1
+
+- New skins
+- Add optional server side encryption 
+- Unlimited file size upload using HTML5 file API
+- Show speed and estimated time during upload
+- A lot of fixes
+- A lot of new langages
+- Small API to upload files
+- Limit access to Jirafeau using IP, mask, passwords
+- Manage (some) proxy headers
+- Configure your maximal upload size
+- Configure file's lifetime durations
+- Preview URL
+- Get Jirafeau's version in admin interface
+
+### Update from 1.0 to 1.1
+
+1. Backup you Jirafeau installation
+2. Block access to Jirafeau
+3. Checkout new version using git tag 1.1
+4. With you browser, go to your Jirafeau root page
+5. Follow installation wizard, it should propose you the same data folder
+6. Add a rewrite rule in your web server configuration to rename file.php to f.php to make old url work again
+7. Go in you lib/config.local.php and lib/config.original.php to check new options and eventually change skin to 'courgette'
+
