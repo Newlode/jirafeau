@@ -69,7 +69,7 @@ header('Content-Type: text; charset=utf-8');
 check_errors ($cfg);
 if (has_error ())
 {
-    echo 'Error';
+    echo 'Error 1';
     exit;
 }
 
@@ -79,7 +79,7 @@ if (isset ($_FILES['file']) && is_writable (VAR_FILES)
 {
     if (!jirafeau_challenge_upload_ip ($cfg, get_ip_address($cfg)))
     {
-        echo 'Error';
+        echo 'Error 2';
         exit;
     }
 
@@ -87,7 +87,7 @@ if (isset ($_FILES['file']) && is_writable (VAR_FILES)
          (!isset ($_POST['upload_password']) ||
           !jirafeau_challenge_upload_password ($cfg, $_POST['upload_password'])))
     {
-        echo 'Error';
+        echo 'Error 3';
         exit;
     }
 
@@ -98,7 +98,7 @@ if (isset ($_FILES['file']) && is_writable (VAR_FILES)
     $time = time ();
     if (!isset ($_POST['time']) || !$cfg['availabilities'][$_POST['time']])
     {
-        echo 'Error';
+        echo 'Error 4: The parameter time is invalid.';
         exit;
     }
     else
@@ -131,7 +131,7 @@ if (isset ($_FILES['file']) && is_writable (VAR_FILES)
     if ($cfg['maximal_upload_size'] > 0 &&
         $_FILES['file']['size'] > $cfg['maximal_upload_size'] * 1024 * 1024)
     {
-        echo 'Error';
+        echo 'Error 5: Your file exceeds the maximum authorized file size.';
         exit;
     }
 
@@ -142,7 +142,7 @@ if (isset ($_FILES['file']) && is_writable (VAR_FILES)
 
     if (empty($res) || $res['error']['has_error'])
     {
-        echo 'Error';
+        echo 'Error 6 ' . $res['error']['why'];
         exit;
     }
     /* Print direct link. */
@@ -166,14 +166,14 @@ elseif (isset ($_GET['h']))
 
     if (!preg_match ('/[0-9a-zA-Z_-]+$/', $link_name))
     {
-        echo 'Error';
+        echo 'Error 7';
         exit;
     }
 
     $link = jirafeau_get_link ($link_name);
     if (count ($link) == 0)
     {
-        echo 'Error';
+        echo 'Error 8';
         exit;
     }
     if (strlen ($d) > 0 && $d == $link['link_code'])
@@ -185,19 +185,19 @@ elseif (isset ($_GET['h']))
     if ($link['time'] != JIRAFEAU_INFINITY && time () > $link['time'])
     {
         jirafeau_delete_link ($link_name);
-        echo 'Error';
+        echo 'Error 9';
         exit;
     }
     if (strlen ($link['key']) > 0 && md5 ($key) != $link['key'])
     {
         sleep (2);
-        echo 'Error';
+        echo 'Error 10';
         exit;
     }
     $p = s2p ($link['md5']);
     if (!file_exists (VAR_FILES . $p . $link['md5']))
     {
-        echo 'Error';
+        echo 'Error 11';
         exit;
     }
 
@@ -331,8 +331,9 @@ if [ "$1" == "send" ]; then
                   -F "file=@$2" \
                   $url)
 
-    if [[ "$res" == "Error" ]]; then
+    if [[ "$res" == Error* ]]; then
         echo "Error while uploading."
+        echo $res
         exit
     fi
 
@@ -364,7 +365,7 @@ fi
     }
     else
     {
-        echo 'Error';
+        echo 'Error 12';
         exit;
     }
 }
@@ -374,7 +375,7 @@ elseif (isset ($_GET['alias_create']))
     $ip = get_ip_address($cfg);
     if (!jirafeau_challenge_upload_ip ($cfg, $ip))
     {
-        echo 'Error';
+        echo 'Error 13';
         exit;
     }
 
@@ -382,7 +383,7 @@ elseif (isset ($_GET['alias_create']))
          (!isset ($_POST['upload_password']) ||
           !jirafeau_challenge_upload_password ($cfg, $_POST['upload_password'])))
     {
-        echo 'Error';
+        echo 'Error 14';
         exit;
     }
 
@@ -390,7 +391,7 @@ elseif (isset ($_GET['alias_create']))
         !isset ($_POST['destination']) ||
         !isset ($_POST['password']))
     {
-        echo 'Error';
+        echo 'Error 15';
         exit;
     }
 
@@ -404,7 +405,7 @@ elseif (isset ($_GET['alias_get']))
 {
     if (!isset ($_POST['alias']))
     {
-        echo 'Error';
+        echo 'Error 16';
         exit;
     }
 
@@ -417,7 +418,7 @@ elseif (isset ($_GET['alias_update']))
         !isset ($_POST['destination']) ||
         !isset ($_POST['password']))
     {
-        echo 'Error';
+        echo 'Error 17';
         exit;
     }
 
@@ -437,7 +438,7 @@ elseif (isset ($_GET['alias_delete']))
     if (!isset ($_POST['alias']) ||
         !isset ($_POST['password']))
     {
-        echo 'Error';
+        echo 'Error 18';
         exit;
     }
 
@@ -449,7 +450,7 @@ elseif (isset ($_GET['init_async']))
 {
     if (!jirafeau_challenge_upload_ip ($cfg, get_ip_address($cfg)))
     {
-        echo 'Error';
+        echo 'Error 19';
         exit;
     }
 
@@ -457,13 +458,13 @@ elseif (isset ($_GET['init_async']))
          (!isset ($_POST['upload_password']) ||
           !jirafeau_challenge_upload_password ($cfg, $_POST['upload_password'])))
     {
-        echo 'Error';
+        echo 'Error 20';
         exit;
     }
 
     if (!isset ($_POST['filename']))
     {
-        echo 'Error';
+        echo 'Error 21';
         exit;
     }
 
@@ -478,7 +479,7 @@ elseif (isset ($_GET['init_async']))
     $time = time ();
     if (!isset ($_POST['time']) || !$cfg['availabilities'][$_POST['time']])
     {
-        echo 'Error';
+        echo 'Error 22';
         exit;
     }
     else
@@ -519,7 +520,7 @@ elseif (isset ($_GET['push_async']))
     if ((!isset ($_POST['ref']))
         || (!isset ($_FILES['data']))
         || (!isset ($_POST['code'])))
-        echo 'Error';
+        echo 'Error 23';
     else
     {
         echo jirafeau_async_push ($_POST['ref'],
@@ -533,11 +534,11 @@ elseif (isset ($_GET['end_async']))
 {
     if (!isset ($_POST['ref'])
         || !isset ($_POST['code']))
-        echo 'Error';
+        echo 'Error 24';
     else
         echo jirafeau_async_end ($_POST['ref'], $_POST['code'], $cfg['enable_crypt'], $cfg['link_name_length']);
 }
 else
-    echo 'Error';
+    echo 'Error 25';
 exit;
 ?>
