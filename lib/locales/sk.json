@@ -75,7 +75,7 @@
     "Sorry, you are not authenticated on admin interface.": "Prepáčte, nie ste autorizovaní použiť rozhranie pre správu.",
     "Term Of Service": "Podmienky služby",
     "The async directory is not writable!": "Nie je možné zapisovať do adresára async!",
-    "The base address of Jirafeau is the first part of the URL, until (and including) the last slash. For example: \"http://www.example.com/\". Do not forget the trailing slash!": "Základná adresa Jirafeau je prvá časť URL až po posledné lomítko (vrátane). Napr. \"http://www.example.org/\". Koncové lomítko je povinné.",
+    "The base address of Jirafeau is the first part of the URL, until (and including) the last slash. For example: \"http://www.example.com/\". Do not forget the trailing slash!": "Základná adresa Jirafeau je prvá časť URL až po posledné lomítko (vrátane). Napr. \"http://www.example.org/\". Koncové lomítko je povinné!",
     "The data directory is where your files and information about your files will be stored. You should put it outside your web site, or at least restrict the access to this directory. Do not forget the trailing slash!": "Adresár \"data\" obsahuje všetky uložené súbory a informácie o nich. Obsah adresára nesmie byť dostupný cez HTTP (uložte ho inam ako je koreňový adresár web servera, prípadne obmedzte prístup napr. pomocou .htaccess). Cesta musí končiť lomítkom!",
     "The file directory is not writable": "Nie je možné zapisovať do zoznamu súborov",
     "The following directory could not be created": "Adresár sa nepodarilo vytvoriť",
