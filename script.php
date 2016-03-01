@@ -350,7 +350,11 @@ if [ "$1" == "send" ]; then
         fi
         cnt=$(( cnt + 1 ))
         done)
+    echo "Download link:"
     echo "${url}?h=$code"
+    echo "Direct download link:"
+    echo "${url}?h=$code&d=1"
+    echo "Delete link:"
     echo "${url}?h=$code&d=$del_code"
 elif [ "$1" == "get" ]; then
     if [ -z "$password" ]; then
