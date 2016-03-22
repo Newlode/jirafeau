@@ -53,7 +53,7 @@ if (isset ($_POST['action']) && (strcmp ($_POST['action'], 'logout') == 0))
 /* Check classic admin password authentification. */
 if (isset ($_POST['admin_password']) && empty($cfg['admin_http_auth_user']))
 {
-    if (strcmp ($cfg['admin_password'], $_POST['admin_password']) == 0)
+    if ($cfg['admin_password'] === $_POST['admin_password'])
         $_SESSION['admin_auth'] = true;
     else
     {
