@@ -27,7 +27,8 @@ $languages_list = array ('auto' => 'Automatic',
                          'it'   => 'Italiano',
                          'nl'   => 'Nederlands',
                          'ro'   => 'Limba română',
-                         'sk'   => 'Slovenčina');
+                         'sk'   => 'Slovenčina',
+                         'zh'   => '汉语');
 
 /* Translation */
 function t ($text)
