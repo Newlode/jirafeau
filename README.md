@@ -208,14 +208,14 @@ The very first version of Jirafeau after the fork of Jiraph.
 - Add an admin interface
 - New Design
 - Add term of use
-- New path system to manage large number of files 
+- New path system to manage large number of files
 - New option to show a page at download time
 - Add option to activate or not preview mode
 
 ## Version 1.1
 
 - New skins
-- Add optional server side encryption 
+- Add optional server side encryption
 - Unlimited file size upload using HTML5 file API
 - Show speed and estimated time during upload
 - A lot of fixes
@@ -237,4 +237,3 @@ The very first version of Jirafeau after the fork of Jiraph.
 5. Follow installation wizard, it should propose you the same data folder
 6. Add a rewrite rule in your web server configuration to rename file.php to f.php to make old url work again
 7. Go in you lib/config.local.php and lib/config.original.php to check new options and eventually change skin to 'courgette'
-
