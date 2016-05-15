@@ -91,13 +91,13 @@ In a next step, encryption will be made by the client (in javascript), see issue
 
 ### Can I add a new language in Jirafeau?
 
-Of-course ! Translations are easy to make and no technical knowledge is required.
+Of course ! Translations are easy to make and no technical knowledge is required.
 
 Simply go to [Jirafeau's Weblate](https://hosted.weblate.org/projects/jirafeau/master/).
 
 If you want to add a new language in the list, feel free to contact us or leave a comment in ticket #9.
 
-We would like to thanks to anonymous contributors on weblate. :)
+We would like to thank all anonymous contributors on weblate. :)
 
 ### How do I upgrade my Jirafeau?
 
@@ -125,7 +125,7 @@ Check documentation of ```upload_password``` and ```upload_ip``` parameters in [
 
 If you have some strange behavior with IE, you may configure [compatibility mode](http://feedback.dominknow.com/knowledgebase/articles/159097-internet-explorer-ie8-ie9-ie10-and-ie11-compat).
 
-Anyway I would recommand you to use another web browser. :)
+Anyway I would recommend you to use another web browser. :)
 
 ### I found a bug, what should I do?
 
@@ -175,13 +175,13 @@ Just edit ```tos.php``` and configure ```$org``` and ```$contact``` variables.
 
 ### What about this file deduplication thing?
 
-Jirafeau use a very simple file level deduplication for storage optimization.
+Jirafeau uses a very simple file level deduplication for storage optimization.
 
 This mean that if some people upload several times the same file, this will only store one time the file and increment a counter.
 
-If someone use his delete link or an admin cleans expired links, this will decrement the counter corresponding to the file.
+If someone use his/her delete link or an admin cleans expired links, this will decrement the counter corresponding to the file.
 
-If the counter falls to zero, the file is destroyed.
+When the counter falls to zero, the file is destroyed.
 
 ### What is the difference between "delete link" and "delete file and links" in admin interface?
 
@@ -198,7 +198,7 @@ Feel free to create an issue if you found a bug.
 
 ## Version 1.0
 
-The very first version of Jirafeau after the fork of Jiraph.
+The very first version of Jirafeau after the fork of Jyraphe.
 
 - Security fix
 - Keep uploader's ip
