@@ -121,6 +121,17 @@ There are two ways to limit upload access (but not download):
 
 Check documentation of ```upload_password``` and ```upload_ip``` parameters in [lib/config.original.php](https://gitlab.com/mojo42/Jirafeau/blob/master/lib/config.original.php).
 
+### How can I automatize the cleaning of old (expired) files?
+
+You can call the admin.php script from the command line (CLI) with the ```clean_expired``` or ```clean_async``` commands: ```sudo -u www-data php admin.php clean_expired```.
+
+Then the command can be placed in a cron file to automatize the process. For example:
+```
+# m h dom mon dow user  command
+12 3    * * *   www-data  php /path/to/jirafeau/admin.php clean_expired
+16 3    * * *   www-data  php /path/to/jirafeau/admin.php clean_async
+```
+
 ### I have some troubles with IE
 
 If you have some strange behavior with IE, you may configure [compatibility mode](http://feedback.dominknow.com/knowledgebase/articles/159097-internet-explorer-ie8-ie9-ie10-and-ie11-compat).
