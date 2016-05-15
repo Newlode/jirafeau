@@ -168,6 +168,10 @@ Simply go to ```/script.php``` with your web browser.
 
 Be sure your PHP installation is not using safe mode, it may cause timeouts.
 
+### How can I monitor the use of my Jirafeau instance?
+
+You may use Munin and simple scripts to collect the number of files in the Jirafeau instance as well as the disk space occupied by all the files. You can consult this [web page](https://blog.bandinelli.net/index.php?post/2016/05/15/Scripts-Munin-pour-Jirafeau).
+
 ### Why forking?
 
 The original project seems not to be continued anymore and I prefer to add more features and increase security from a stable version.
