@@ -91,13 +91,13 @@ In a next step, encryption will be made by the client (in javascript), see issue
 
 ### Can I add a new language in Jirafeau?
 
-Of-course ! Translations are easy to make and no technical knowledge is required.
+Of course ! Translations are easy to make and no technical knowledge is required.
 
 Simply go to [Jirafeau's Weblate](https://hosted.weblate.org/projects/jirafeau/master/).
 
 If you want to add a new language in the list, feel free to contact us or leave a comment in ticket #9.
 
-We would like to thanks to anonymous contributors on weblate. :)
+We would like to thank all anonymous contributors on weblate. :)
 
 ### How do I upgrade my Jirafeau?
 
@@ -121,11 +121,22 @@ There are two ways to limit upload access (but not download):
 
 Check documentation of ```upload_password``` and ```upload_ip``` parameters in [lib/config.original.php](https://gitlab.com/mojo42/Jirafeau/blob/master/lib/config.original.php).
 
+### How can I automatize the cleaning of old (expired) files?
+
+You can call the admin.php script from the command line (CLI) with the ```clean_expired``` or ```clean_async``` commands: ```sudo -u www-data php admin.php clean_expired```.
+
+Then the command can be placed in a cron file to automatize the process. For example:
+```
+# m h dom mon dow user  command
+12 3    * * *   www-data  php /path/to/jirafeau/admin.php clean_expired
+16 3    * * *   www-data  php /path/to/jirafeau/admin.php clean_async
+```
+
 ### I have some troubles with IE
 
 If you have some strange behavior with IE, you may configure [compatibility mode](http://feedback.dominknow.com/knowledgebase/articles/159097-internet-explorer-ie8-ie9-ie10-and-ie11-compat).
 
-Anyway I would recommand you to use another web browser. :)
+Anyway I would recommend you to use another web browser. :)
 
 ### I found a bug, what should I do?
 
@@ -157,6 +168,10 @@ Simply go to ```/script.php``` with your web browser.
 
 Be sure your PHP installation is not using safe mode, it may cause timeouts.
 
+### How can I monitor the use of my Jirafeau instance?
+
+You may use Munin and simple scripts to collect the number of files in the Jirafeau instance as well as the disk space occupied by all the files. You can consult this [web page](https://blog.bandinelli.net/index.php?post/2016/05/15/Scripts-Munin-pour-Jirafeau).
+
 ### Why forking?
 
 The original project seems not to be continued anymore and I prefer to add more features and increase security from a stable version.
@@ -175,13 +190,13 @@ Just edit ```tos.php``` and configure ```$org``` and ```$contact``` variables.
 
 ### What about this file deduplication thing?
 
-Jirafeau use a very simple file level deduplication for storage optimization.
+Jirafeau uses a very simple file level deduplication for storage optimization.
 
 This mean that if some people upload several times the same file, this will only store one time the file and increment a counter.
 
-If someone use his delete link or an admin cleans expired links, this will decrement the counter corresponding to the file.
+If someone use his/her delete link or an admin cleans expired links, this will decrement the counter corresponding to the file.
 
-If the counter falls to zero, the file is destroyed.
+When the counter falls to zero, the file is destroyed.
 
 ### What is the difference between "delete link" and "delete file and links" in admin interface?
 
@@ -198,7 +213,7 @@ Feel free to create an issue if you found a bug.
 
 ## Version 1.0
 
-The very first version of Jirafeau after the fork of Jiraph.
+The very first version of Jirafeau after the fork of Jyraphe.
 
 - Security fix
 - Keep uploader's ip
@@ -208,14 +223,14 @@ The very first version of Jirafeau after the fork of Jiraph.
 - Add an admin interface
 - New Design
 - Add term of use
-- New path system to manage large number of files 
+- New path system to manage large number of files
 - New option to show a page at download time
 - Add option to activate or not preview mode
 
 ## Version 1.1
 
 - New skins
-- Add optional server side encryption 
+- Add optional server side encryption
 - Unlimited file size upload using HTML5 file API
 - Show speed and estimated time during upload
 - A lot of fixes
@@ -237,4 +252,3 @@ The very first version of Jirafeau after the fork of Jiraph.
 5. Follow installation wizard, it should propose you the same data folder
 6. Add a rewrite rule in your web server configuration to rename file.php to f.php to make old url work again
 7. Go in you lib/config.local.php and lib/config.original.php to check new options and eventually change skin to 'courgette'
-
