@@ -103,10 +103,10 @@
     "Del link": "",
     "Del file and links": "",
     "Deleted links": "",
-    "year": "",
-    "day": "",
-    "minute": "",
-    "hour": "",
-    "second": "",
+    "year": "Χρονιά",
+    "day": "Ημέρα",
+    "minute": "Λεπτά",
+    "hour": "Ώρα",
+    "second": "Δευτερόλεπτα",
     "less than a second": ""
 }
