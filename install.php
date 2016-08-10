@@ -166,7 +166,7 @@ if (isset ($_POST['step']) && isset ($_POST['next']))
         break;
 
     case 2:
-        $cfg['admin_password'] = $_POST['admin_password'];
+        $cfg['admin_password'] = hash('sha256', $_POST['admin_password']);
         jirafeau_export_cfg ($cfg);
         break;
 
