@@ -64,9 +64,18 @@ You have several options:
 - Move var folder to a place on your server which can't be directly accessed
 - Disable automatic listing on your web server config or place a index.html in var's sub-directory (this is a limited solution)
 
-If you are using Apache, you can add the following lineto your configuration to prevent people to access to your ```var``` folder:
+If you are using Apache, you can add the following line to your configuration to prevent people to access to your ```var``` folder:
 
 ```RedirectMatch 301 ^/var-.* http://my.service.jirafeau ```
+
+If you are using nginx, you can add the following to your $vhost.conf:
+
+```nginx
+location ~ /var-.* {
+    deny all;
+    return 404;
+}
+```
 
 You should also remove un-necessessary write access once the installation is done (ex: configuration file).
 An other obvious basic security is to let access users to the site by HTTPS.
@@ -167,6 +176,18 @@ Simply go to ```/script.php``` with your web browser.
 ### My downloads are incomplete or my uploads fails
 
 Be sure your PHP installation is not using safe mode, it may cause timeouts.
+
+If you're using nginx, you might need to increase `client_max_body_size` or remove the restriction altogether. In your nginx.conf:
+
+```nginx
+http {
+    # disable max upload size
+    client_max_body_size 0;
+    # add timeouts for very large uploads
+    client_header_timeout 30m;
+    client_body_timeout 30m;
+}
+```
 
 ### How can I monitor the use of my Jirafeau instance?
 
