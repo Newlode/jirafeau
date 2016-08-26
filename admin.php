@@ -70,7 +70,8 @@ else
   /* Check classic admin password authentification. */
   if (isset ($_POST['admin_password']) && empty($cfg['admin_http_auth_user']))
   {
-      if ($cfg['admin_password'] === $_POST['admin_password'])
+      if ($cfg['admin_password'] === $_POST['admin_password'] ||
+	  $cfg['admin_password'] === hash('sha256', $_POST['admin_password']))
           $_SESSION['admin_auth'] = true;
       else
       {
