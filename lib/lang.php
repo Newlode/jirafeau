@@ -28,6 +28,7 @@ $languages_list = array ('auto' => 'Automatic',
                          'it'   => 'Italiano',
                          'nl'   => 'Nederlands',
                          'ro'   => 'Limba română',
+                         'ru'   => 'ру́сский язы́к',
                          'sk'   => 'Slovenčina',
                          'zh'   => '汉语');
 
