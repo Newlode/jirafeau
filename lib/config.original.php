@@ -17,13 +17,13 @@
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
- 
+
 /*
  * default configuration
  * if you want to change this, overwrite in a config.local.php file
  */
 global $cfg;
- 
+
 /* Don't forget the ending '/' */
 $cfg['web_root'] = '';
 $cfg['var_root'] = '';

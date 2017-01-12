@@ -171,7 +171,7 @@ h1 a {
   text-align: left;
 }
 
-#install .navright { 
+#install .navright {
   float: right;
 }
 
@@ -219,7 +219,7 @@ h1 a {
   text-align: left;
 }
 
-#admin .navright { 
+#admin .navright {
   float: right;
 }
 
