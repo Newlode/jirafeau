@@ -119,6 +119,9 @@ if (isset ($_FILES['file']) && is_writable (VAR_FILES)
             case 'month':
                 $time += JIRAFEAU_MONTH;
                 break;
+            case 'quarter':
+                $time += JIRAFEAU_QUARTER;
+                break;
             case 'year':
                 $time += JIRAFEAU_YEAR;
                 break;
@@ -503,6 +506,9 @@ elseif (isset ($_GET['init_async']))
                 break;
             case 'month':
                 $time += JIRAFEAU_MONTH;
+                break;
+            case 'quarter':
+                $time += JIRAFEAU_QUARTER;
                 break;
             case 'year':
                 $time += JIRAFEAU_YEAR;
