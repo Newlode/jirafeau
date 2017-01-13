@@ -613,11 +613,8 @@ jirafeau_admin_list ($name, $file_hash, $link_hash)
                 /* Print link informations. */
                 echo '<tr>';
                 echo '<td>' .
-                '<form action = "admin.php" method = "post">' .
-                '<input type = "hidden" name = "action" value = "download"/>' .
-                '<input type = "hidden" name = "link" value = "' . $node . '"/>' .
-                '<input type = "submit" value = "' . htmlspecialchars($l['file_name']) . '" />' .
-                '</form>';
+                '<strong><a id="upload_link" href="/f.php?h='. htmlspecialchars($node) .'" title="' .
+                    t('Download page') . '">' . htmlspecialchars($l['file_name']) . '</a></strong>';
                 echo '</td>';
                 echo '<td>' . $l['mime_type'] . '</td>';
                 echo '<td>' . jirafeau_human_size ($l['file_size']) . '</td>';
@@ -632,6 +629,11 @@ jirafeau_admin_list ($name, $file_hash, $link_hash)
                 echo '<td>' . strftime ('%c', $l['upload_date']) . '</td>';
                 echo '<td>' . $l['ip'] . '</td>';
                 echo '<td>' .
+                '<form action = "admin.php" method = "post">' .
+                '<input type = "hidden" name = "action" value = "download"/>' .
+                '<input type = "hidden" name = "link" value = "' . $node . '"/>' .
+                '<input type = "submit" value = "' . t('Download') . '" />' .
+                '</form>' .
                 '<form action = "admin.php" method = "post">' .
                 '<input type = "hidden" name = "action" value = "delete_link"/>' .
                 '<input type = "hidden" name = "link" value = "' . $node . '"/>' .
