@@ -18,6 +18,8 @@
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+header('Content-Type: text/javascript');
+
 define ('JIRAFEAU_ROOT', dirname (__FILE__) . '/../');
 require (JIRAFEAU_ROOT . 'lib/config.original.php');
 require (JIRAFEAU_ROOT . 'lib/settings.php');
