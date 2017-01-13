@@ -107,7 +107,7 @@ if (jirafeau_has_upload_password ($cfg))
 
     <div id="upload_finished_download_page">
     <p>
-          <?php echo t('Download page') ?> 
+          <?php echo t('Download page') ?>
           <a id="upload_link_email" href=""><img id="upload_image_email"/></a>
     </p>
     <p><a id="upload_link" href=""></a></p>
@@ -151,7 +151,7 @@ if (jirafeau_has_upload_password ($cfg))
 <div id="upload">
 <fieldset>
     <legend>
-    <?php echo t('Select a file'); ?> 
+    <?php echo t('Select a file'); ?>
     </legend>
     <p>
     <input type="file" id="file_select" size="30"

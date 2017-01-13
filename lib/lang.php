@@ -105,7 +105,7 @@ function json_lang_generator ()
 
     /* Open translation file. */
     $trans_j = file_get_contents (JIRAFEAU_ROOT . "lib/locales/$l.json");
-    return $trans_j; 
+    return $trans_j;
 }
 
 ?>

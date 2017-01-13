@@ -206,7 +206,7 @@ function add_time_string_to_date(d, time)
     {
         return false;
     }
-    
+
     if (time == 'minute')
     {
         d.setSeconds (d.getSeconds() + 60);

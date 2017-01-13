@@ -56,7 +56,7 @@ base_16_to_64 ($num)
                       '1101',  # d
                       '1110',  # e
                       '1111'); # f
-    $o = '';    
+    $o = '';
     $b = '';
     $i = 0;
     # Convert long hex string to bin.
@@ -114,7 +114,7 @@ jirafeau_human_size ($octets)
     $p = min (floor (($o ? log ($o) : 0) / log (1024)), count ($u) - 1);
     $o /= pow (1024, $p);
     return round ($o, 1) . $u[$p];
-} 
+}
 
 function
 jirafeau_clean_rm_link ($link)
@@ -127,7 +127,7 @@ jirafeau_clean_rm_link ($link)
     while (file_exists ($parse)
            && ($scan = scandir ($parse))
            && count ($scan) == 2 // '.' and '..' folders => empty.
-           && basename ($parse) != basename (VAR_LINKS)) 
+           && basename ($parse) != basename (VAR_LINKS))
     {
         rmdir ($parse);
         $parse = substr ($parse, 0, strlen($parse) - strlen(basename ($parse)) - 1);
@@ -148,7 +148,7 @@ jirafeau_clean_rm_file ($md5)
     while (file_exists ($parse)
            && ($scan = scandir ($parse))
            && count ($scan) == 2 // '.' and '..' folders => empty.
-           && basename ($parse) != basename (VAR_FILES)) 
+           && basename ($parse) != basename (VAR_FILES))
     {
         rmdir ($parse);
         $parse = substr ($parse, 0, strlen($parse) - strlen(basename ($parse)) - 1);
@@ -284,7 +284,7 @@ jirafeau_delete_file ($md5)
             if (strcmp ($node, '.') == 0 || strcmp ($node, '..') == 0 ||
                 preg_match ('/\.tmp/i', "$node"))
                 continue;
-            
+
             if (is_dir ($d . $node))
             {
                 /* Push new found directory. */
@@ -300,7 +300,7 @@ jirafeau_delete_file ($md5)
                 {
                     $count++;
                     jirafeau_delete_link ($node);
-                }   
+                }
             }
         }
     }
@@ -413,7 +413,7 @@ jirafeau_upload ($file, $one_time_download, $key, $time, $ip, $crypt, $link_name
     {
         if (file_exists ($link_tmp_name))
             unlink ($link_tmp_name);
-        
+
         $counter--;
         if ($counter >= 1)
         {
@@ -506,7 +506,7 @@ function check_errors ($cfg)
     if (file_exists (JIRAFEAU_ROOT . 'install.php')
         && !($cfg['installation_done'] === true))
     {
-        header('Location: install.php'); 
+        header('Location: install.php');
         exit;
     }
 
@@ -519,7 +519,7 @@ function check_errors ($cfg)
 
     if (!is_writable (VAR_LINKS))
         add_error (t('The link directory is not writable!'), VAR_LINKS);
-    
+
     if (!is_writable (VAR_ASYNC))
         add_error (t('The async directory is not writable!'), VAR_ASYNC);
 }
@@ -536,7 +536,7 @@ jirafeau_get_link ($hash)
 
     if (!file_exists ($link))
         return $out;
-    
+
     $c = file ($link);
     $out['file_name'] = trim ($c[0]);
     $out['mime_type'] = trim ($c[1]);
@@ -549,7 +549,7 @@ jirafeau_get_link ($hash)
     $out['ip'] = trim ($c[8]);
     $out['link_code'] = trim ($c[9]);
     $out['crypted'] = trim ($c[10]) == 'C';
-    
+
     return $out;
 }
 
@@ -671,7 +671,7 @@ jirafeau_admin_clean ()
             if (strcmp ($node, '.') == 0 || strcmp ($node, '..') == 0 ||
                 preg_match ('/\.tmp/i', "$node"))
                 continue;
-            
+
             if (is_dir ($d . $node))
             {
                 /* Push new found directory. */
@@ -717,7 +717,7 @@ jirafeau_admin_clean_async ()
             if (strcmp ($node, '.') == 0 || strcmp ($node, '..') == 0 ||
                 preg_match ('/\.tmp/i', "$node"))
                 continue;
-            
+
             if (is_dir ($d . $node))
             {
                 /* Push new found directory. */
@@ -752,7 +752,7 @@ jirafeau_get_async_ref ($ref)
 
     if (!file_exists ($refinfos))
         return $out;
-    
+
     $c = file ($refinfos);
     $out['file_name'] = trim ($c[0]);
     $out['mime_type'] = trim ($c[1]);
@@ -781,7 +781,7 @@ jirafeau_async_delete ($ref)
     while (file_exists ($parse)
            && ($scan = scandir ($parse))
            && count ($scan) == 2 // '.' and '..' folders => empty.
-           && basename ($parse) != basename (VAR_ASYNC)) 
+           && basename ($parse) != basename (VAR_ASYNC))
     {
         rmdir ($parse);
         $parse = substr ($parse, 0, strlen($parse) - strlen(basename ($parse)) - 1);
@@ -817,7 +817,7 @@ jirafeau_async_init ($filename, $type, $one_time, $key, $time, $ip)
         echo 'Error';
         return;
     }
-    
+
     /* md5 password or empty */
     $password = '';
     if (!empty ($key))
@@ -849,14 +849,14 @@ jirafeau_async_push ($ref, $data, $code, $max_file_size)
 {
     /* Get async infos. */
     $a = jirafeau_get_async_ref ($ref);
-    
+
     /* Check some errors. */
     if (count ($a) == 0
         || $a['next_code'] != "$code"
         || empty ($data['tmp_name'])
         || !is_uploaded_file ($data['tmp_name']))
         return 'Error';
-    
+
     $p = s2p ($ref);
 
     /* File path. */
@@ -887,7 +887,7 @@ jirafeau_async_push ($ref, $data, $code, $max_file_size)
     fclose ($r);
     fclose ($w);
     unlink ($r_path);
-    
+
     /* Update async file. */
     $code = jirafeau_gen_random (4);
     $handle = fopen (VAR_ASYNC . $p . $ref, 'w');
@@ -915,7 +915,7 @@ jirafeau_async_end ($ref, $code, $crypt, $link_name_length)
     if (count ($a) == 0
         || $a['next_code'] != "$code")
         return "Error";
-    
+
     /* Generate link infos. */
     $p = VAR_ASYNC . s2p ($ref) . $ref . "_data";
     if (!file_exists($p))
@@ -934,13 +934,13 @@ jirafeau_async_end ($ref, $code, $crypt, $link_name_length)
     $size = filesize($p);
     $np = s2p ($md5);
     $delete_link_code = jirafeau_gen_random (5);
-    
-    /* File already exist ? */ 
+
+    /* File already exist ? */
     if (!file_exists (VAR_FILES . $np))
         @mkdir (VAR_FILES . $np, 0755, true);
     if (!file_exists (VAR_FILES . $np . $md5))
         rename ($p, VAR_FILES . $np . $md5);
-    
+
     /* Increment or create count file. */
     $counter = 0;
     if (file_exists (VAR_FILES . $np . $md5 . '_count'))
@@ -952,7 +952,7 @@ jirafeau_async_end ($ref, $code, $crypt, $link_name_length)
     $handle = fopen (VAR_FILES . $np . $md5. '_count', 'w');
     fwrite ($handle, $counter);
     fclose ($handle);
-    
+
     /* Create link. */
     $link_tmp_name =  VAR_LINKS . $md5 . rand (0, 10000) . '.tmp';
     $handle = fopen ($link_tmp_name, 'w');
@@ -966,7 +966,7 @@ jirafeau_async_end ($ref, $code, $crypt, $link_name_length)
     if (!@mkdir (VAR_LINKS . $l, 0755, true) ||
         !rename ($link_tmp_name,  VAR_LINKS . $l . $md5_link))
         echo "Error";
-    
+
     /* Clean async upload. */
     jirafeau_async_delete ($ref);
     return $md5_link . NL . $delete_link_code . NL . urlencode($crypt_key);
@@ -1198,13 +1198,13 @@ jirafeau_get_alias ($hash)
 
     if (!file_exists ($link))
         return $out;
-    
+
     $c = file ($link);
     $out['md5_password'] = trim ($c[0]);
     $out['ip'] = trim ($c[1]);
     $out['update_date'] = trim ($c[2]);
     $out['destination'] = trim ($c[3], NL);
-   
+
     return $out;
 }
 
@@ -1235,12 +1235,12 @@ jirafeau_alias_create ($alias, $destination, $password, $ip)
     $p = VAR_ALIAS . s2p ($alias);
     if (file_exists ($p))
         return 'Error';
-    
+
     /* Create alias folder. */
     @mkdir ($p, 0755, true);
     if (!file_exists ($p))
         return 'Error';
-    
+
     /* Generate password. */
     $md5_password = md5 ($password);
 
@@ -1330,7 +1330,7 @@ jirafeau_clean_rm_alias ($alias)
     while (file_exists ($parse)
            && ($scan = scandir ($parse))
            && count ($scan) == 2 // '.' and '..' folders => empty.
-           && basename ($parse) != basename (VAR_ALIAS)) 
+           && basename ($parse) != basename (VAR_ALIAS))
     {
         rmdir ($parse);
         $parse = substr ($parse, 0, strlen($parse) - strlen(basename ($parse)) - 1);

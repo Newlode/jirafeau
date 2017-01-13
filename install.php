@@ -232,7 +232,7 @@ default:
         "<?php echo t('Next step'); ?>" /></td> </tr> </table>
         </fieldset> </form> </div> <?php
 break;
-    
+
 case 2:
     ?><h2><?php printf (t('Installation of Jirafeau') . ' - ' . t('step') .
     ' %d ' . t('out of') . ' %d', 2, 4);
