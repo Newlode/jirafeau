@@ -232,6 +232,11 @@ function add_time_string_to_date(d, time)
         d.setSeconds (d.getSeconds() + 2419200);
         return true;
     }
+    if (time == 'quarter')
+    {
+        d.setSeconds (d.getSeconds() + 7257600);
+        return true;
+    }
     if (time == 'year')
     {
         d.setSeconds (d.getSeconds() + 29030400);

@@ -403,7 +403,7 @@ jirafeau_upload ($file, $one_time_download, $key, $time, $ip, $crypt, $link_name
     $handle = fopen ($link_tmp_name, 'w');
     fwrite ($handle,
             $name . NL. $mime_type . NL. $size . NL. $password . NL. $time .
-            NL . $md5. NL . ($one_time_download ? 'O' : 'R') . NL . date ('U') .
+            NL . $md5. NL . ($one_time_download ? 'O' : 'R') . NL . time () .
             NL . $ip . NL. $delete_link_code . NL . ($crypted ? 'C' : 'O'));
     fclose ($handle);
     $md5_link = substr(base_16_to_64 (md5_file ($link_tmp_name)), 0, $link_name_length);
@@ -730,7 +730,7 @@ jirafeau_admin_clean_async ()
                 if (!count ($a))
                     continue;
                 /* Delete transferts older than 1 hour. */
-                if (date ('U') - $a['last_edited'] > 3600)
+                if (time () - $a['last_edited'] > 3600)
                 {
                     jirafeau_async_delete (basename ($node));
                     $count++;
@@ -830,7 +830,7 @@ jirafeau_async_init ($filename, $type, $one_time, $key, $time, $ip)
             str_replace (NL, '', trim ($filename)) . NL .
             str_replace (NL, '', trim ($type)) . NL . $password . NL .
             $time . NL . ($one_time ? 'O' : 'R') . NL . $ip . NL .
-            date ('U') . NL . $code . NL);
+            time () . NL . $code . NL);
     fclose ($handle);
 
     return $ref . NL . $code ;
@@ -894,7 +894,7 @@ jirafeau_async_push ($ref, $data, $code, $max_file_size)
     fwrite ($handle,
             $a['file_name'] . NL. $a['mime_type'] . NL. $a['key'] . NL .
             $a['time'] . NL . $a['onetime'] . NL . $a['ip'] . NL .
-            date ('U') . NL . $code . NL);
+            time () . NL . $code . NL);
     fclose ($handle);
     return $code;
 }
@@ -959,7 +959,7 @@ jirafeau_async_end ($ref, $code, $crypt, $link_name_length)
     fwrite ($handle,
             $a['file_name'] . NL . $a['mime_type'] . NL . $size . NL .
             $a['key'] . NL . $a['time'] . NL . $md5 . NL . $a['onetime'] . NL .
-            date ('U') . NL . $a['ip'] . NL . $delete_link_code . NL . ($crypted ? 'C' : 'O'));
+            time () . NL . $a['ip'] . NL . $delete_link_code . NL . ($crypted ? 'C' : 'O'));
     fclose ($handle);
     $md5_link = substr(base_16_to_64 (md5_file ($link_tmp_name)), 0, $link_name_length);
     $l = s2p ("$md5_link");
@@ -1250,7 +1250,7 @@ jirafeau_alias_create ($alias, $destination, $password, $ip)
     fwrite ($handle,
             $md5_password . NL .
             $ip . NL .
-            date ('U') . NL .
+            time () . NL .
             $destination . NL);
     fclose ($handle);
 
@@ -1297,7 +1297,7 @@ jirafeau_alias_update ($alias, $destination, $password,
     fwrite ($handle,
             $p . NL .
             $ip . NL .
-            date ('U') . NL .
+            time () . NL .
             $destination . NL);
     fclose ($handle);
     return 'Ok';

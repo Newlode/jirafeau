@@ -58,7 +58,8 @@ $cfg['upload_password'] = array();
  */
 $cfg['upload_ip'] = array();
 /* An empty admin password will disable the classic admin password
- * authentication.
+ * authentication. Note that admin password is a sha256 hash of the original
+ * version.
  */
 $cfg['admin_password'] = '';
 /* If set, let's the user to be authenticated as administrator.
@@ -78,13 +79,16 @@ $cfg['admin_http_auth_user'] = '';
  * 'year': file available for one year
  * 'none': unlimited availability
  */
-$cfg['availabilities'] = array ('minute' => true,
-                                'hour' => true,
-                                'day' => true,
-                                'week' => true,
-                                'month' => true,
-                                'year' => false,
-                                'none' => false);
+$cfg['availabilities'] = array (
+    'minute' => true,
+    'hour' => true,
+    'day' => true,
+    'week' => true,
+    'month' => true,
+    'quarter' => false,
+    'year' => false,
+    'none' => false
+);
 /* Set a default value for the expiration time.
  * The value has to equal one of the enabled options in »availabilities«, e.g. »month«)
  */

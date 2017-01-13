@@ -186,8 +186,16 @@ if (jirafeau_has_upload_password ($cfg))
             'label' => 'One day'
           ),
           array(
+            'value' => 'week',
+            'label' => 'One week'
+          ),
+          array(
             'value' => 'month',
             'label' => 'One month'
+          ),
+          array(
+            'value' => 'quarter',
+            'label' => 'One quarter'
           ),
           array(
             'value' => 'year',

@@ -119,6 +119,9 @@ if (isset ($_FILES['file']) && is_writable (VAR_FILES)
             case 'month':
                 $time += JIRAFEAU_MONTH;
                 break;
+            case 'quarter':
+                $time += JIRAFEAU_QUARTER;
+                break;
             case 'year':
                 $time += JIRAFEAU_YEAR;
                 break;
@@ -246,7 +249,7 @@ elseif (isset ($_GET['lang']))
 # Config
 proxy='' # ex: proxy='proxysever.test.com:3128' or set JIRAFEAU_PROXY global variable
 url='<?php echo $cfg['web_root'] . 'script.php'; ?>' # or set JIRAFEAU_URL ex: url='http://mysite/jirafeau/script.php'
-time='<?php echo $cfg['availability_default']; ?>' # minute, hour, day, week, month, year or none. Or set JIRAFEAU_TIME.
+time='<?php echo $cfg['availability_default']; ?>' # minute, hour, day, week, month, quarted, year or none. Or set JIRAFEAU_TIME.
 one_time='' # ex: one_time="1" or set JIRAFEAU_ONE_TIME.
 curl='' # curl path to download or set JIRAFEAU_CURL_PATH.
 # End of config
@@ -297,7 +300,7 @@ if [ -z "$2" ]; then
     echo "Global variables to export:"
     echo "    JIRAFEAU_PROXY : example: proxysever.test.com:3128"
     echo "    JIRAFEAU_URL : example: http://mysite/jirafeau/script.php"
-    echo "    JIRAFEAU_TIME : minute, hour, day, week, year, month or none"
+    echo "    JIRAFEAU_TIME : minute, hour, day, week, quarter, year, month or none"
     echo "    JIRAFEAU_ONE_TIME : set anything or set empty"
     echo "    JIRAFEAU_CURL : path to your curl binary"
 
@@ -503,6 +506,9 @@ elseif (isset ($_GET['init_async']))
                 break;
             case 'month':
                 $time += JIRAFEAU_MONTH;
+                break;
+            case 'quarter':
+                $time += JIRAFEAU_QUARTER;
                 break;
             case 'year':
                 $time += JIRAFEAU_YEAR;
