@@ -85,6 +85,10 @@ $cfg['availabilities'] = array ('minute' => true,
                                 'month' => true,
                                 'year' => false,
                                 'none' => false);
+/* Set a default value for the expiration time.
+ * The value has to equal one of the enabled options in »availabilities«, e.g. »month«)
+ */
+$cfg['availability_default'] = 'month';
 /* Set maximal upload size expressed in MB.
  * 0 mean unlimited upload size.
  */
