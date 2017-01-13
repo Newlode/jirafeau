@@ -171,27 +171,41 @@ if (jirafeau_has_upload_password ($cfg))
         <tr>
         <td><label for="select_time"><?php echo t('Time limit') . ':'; ?></label></td>
         <td><select name="time" id="select_time">
-        <?php if ($cfg['availabilities']['none']) { ?>
-        <option value="none"><?php echo t('None'); ?></option>
-        <?php } ?>
-        <?php if ($cfg['availabilities']['year']) { ?>
-        <option value = "year"><?php echo t('One year');?></option>
-        <?php } ?>
-        <?php if ($cfg['availabilities']['month']) { ?>
-        <option value = "month"><?php echo t('One month');?></option>
-        <?php } ?>
-        <?php if ($cfg['availabilities']['week']) { ?>
-        <option value = "week"><?php echo t('One week'); ?></option>
-        <?php } ?>
-        <?php if ($cfg['availabilities']['day']) { ?>
-        <option value = "day"><?php echo t('One day'); ?></option>
-        <?php } ?>
-        <?php if ($cfg['availabilities']['hour']) { ?>
-        <option value = "hour"><?php echo t('One hour'); ?></option>
-        <?php } ?>
-        <?php if ($cfg['availabilities']['minute']) { ?>
-        <option value = "minute"><?php echo t('One minute'); ?></option>
-        <?php } ?>
+        <?php
+        $expirationTimeOptions = array(
+          array(
+            'value' => 'minute',
+            'label' => 'One minute'
+          ),
+          array(
+            'value' => 'hour',
+            'label' => 'One hour'
+          ),
+          array(
+            'value' => 'day',
+            'label' => 'One day'
+          ),
+          array(
+            'value' => 'month',
+            'label' => 'One month'
+          ),
+          array(
+            'value' => 'year',
+            'label' => 'One year'
+          ),
+          array(
+            'value' => 'none',
+            'label' => 'None'
+          )
+        );
+        foreach ($expirationTimeOptions as $expirationTimeOption) {
+          $selected = ($expirationTimeOption['value'] === $cfg['availability_default'])? 'selected="selected"' : '';
+          if(true === $cfg['availabilities'][$expirationTimeOption['value']]) {
+            echo '<option value="' . $expirationTimeOption['value'] . '" ' .
+              $selected . '>' . t($expirationTimeOption['label']) . '</option>';
+          }
+        }
+        ?>
         </select></td>
         </tr>
 

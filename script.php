@@ -246,7 +246,7 @@ elseif (isset ($_GET['lang']))
 # Config
 proxy='' # ex: proxy='proxysever.test.com:3128' or set JIRAFEAU_PROXY global variable
 url='<?php echo $cfg['web_root'] . 'script.php'; ?>' # or set JIRAFEAU_URL ex: url='http://mysite/jirafeau/script.php'
-time='month' # minute, hour, day, week, month, year or none. Or set JIRAFEAU_TIME.
+time='<?php echo $cfg['availability_default']; ?>' # minute, hour, day, week, month, year or none. Or set JIRAFEAU_TIME.
 one_time='' # ex: one_time="1" or set JIRAFEAU_ONE_TIME.
 curl='' # curl path to download or set JIRAFEAU_CURL_PATH.
 # End of config
