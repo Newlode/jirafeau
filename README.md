@@ -120,6 +120,12 @@ By activating this feature, you have to be aware of few things:
 
 In a next step, encryption will be made by the client (in javascript), see issue #10.
 
+## License
+
+GNU Affero General Public License version 3 (AGPLv3).
+
+The GNU Affero General Public License can be found at https://www.gnu.org/licenses/agpl.html.
+
 ## FAQ
 
 ### Can I add a new language in Jirafeau?
