@@ -21,10 +21,13 @@ global $cfg;
 
 // Read config files
 require (JIRAFEAU_ROOT . 'lib/config.original.php');
-
 if (file_exists(JIRAFEAU_ROOT . 'lib/config.local.php'))
 {
+	// read local copy and merge with original values
+	$cfgOriginal = $cfg;
 	require (JIRAFEAU_ROOT . 'lib/config.local.php');
+	$cfg = array_merge($cfgOriginal, $cfg);
+	unset($cfgOriginal);
 }
 
 /* Jirafeau constants */
