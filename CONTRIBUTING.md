@@ -1,7 +1,20 @@
+# Contributing
+
 Hi,
 
-This document is only made for newcomers in Jirafeau who are digging into
-the code.
+this document is made for newcomers in Jirafeau who are digging into the code.
+
+## General principle
+
+Jirafeau is made in the [KISS](http://en.wikipedia.org/wiki/KISS_principle) way (Keep It Simple, Stupid).
+
+It is meant to be a simple filehosting service, simple to use, simple to install, simple to maintain.
+
+This project won't evolve to a file manager and will focus to keep a very few dependencies.
+
+So things like a markdown parser for the ToS or E-Mail tasks would be usefull for sure, but may be [rejected](https://gitlab.com/mojo42/Jirafeau/issues/37#note_1191566) since they would a lot of dependencies and makes the project more complex.
+
+## Structure
 
 Here is a little explaination of Jirafeau's arboresence in a simplified
 view only to show the most importants files and their role.
@@ -28,12 +41,20 @@ view only to show the most importants files and their role.
     ├── files : all files that has been successfully uploaded
     └── links : all links pointing to files with meta-informations
 
-Coding style:
+## Translations
+
+Translation may be add via [Jirafeau's Weblate](https://hosted.weblate.org/projects/jirafeau/master/).
+
+## Coding style
 
 - PHP function keywords are alone on a line
-- Braces "{" must are put in a new line
-- Files must be in UTF-8 (without BOM)
-- Uses LF (\n) for end of lines
+- Braces "{" must be put in a new line
+- Files must be in UTF-8 without BOM and use Unix Line Endings (LF)
 
-The whole project is not clean about that, feel free to fix :)
+The whole project is not clean about that yet, feel free to fix :)
 
+## Merge Requests
+
+Please create one branch for each feature and send one merge request for each branch. 
+
+Dont squash several changes or commits into one merge request as this is hard to review.
