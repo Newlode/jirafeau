@@ -17,6 +17,16 @@
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+global $cfg;
+
+// Read config files
+require (JIRAFEAU_ROOT . 'lib/config.original.php');
+
+if (file_exists(JIRAFEAU_ROOT . 'lib/config.local.php'))
+{
+	require (JIRAFEAU_ROOT . 'lib/config.local.php');
+}
+
 /* Jirafeau constants */
 define ('JIRAFEAU_PACKAGE', 'Jirafeau');
 define ('JIRAFEAU_VERSION', '1.2.0');
@@ -39,5 +49,7 @@ define ('JIRAFEAU_WEEK', 604800); // JIRAFEAU_DAY * 7
 define ('JIRAFEAU_MONTH', 2419200); // JIRAFEAU_WEEK * 4
 define ('JIRAFEAU_QUARTER', 7257600); // JIRAFEAU_MONTH * 3
 define ('JIRAFEAU_YEAR', 29030400); // JIRAFEAU_MONTH * 12
+
+
 
 ?>

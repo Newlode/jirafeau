@@ -24,7 +24,6 @@
  * To overwrite these settings copy the file,
  * rename it to »config.local.php« and adapt the parameters.
  **/
-global $cfg;
 
 /* URL of installation, with traling slash (eg. »https://exmaple.com/jirafeau/«)
  */
@@ -132,12 +131,5 @@ $cfg['proxy_ip'] = array();
  * or needs to start the installation script
  */
 $cfg['installation_done'] = false;
-
-/* Try to include user's local configuration. */
-if ((basename (__FILE__) != 'config.local.php')
-    && file_exists (JIRAFEAU_ROOT.'lib/config.local.php'))
-{
-    require (JIRAFEAU_ROOT.'lib/config.local.php');
-}
 
 ?>
