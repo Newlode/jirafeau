@@ -64,7 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET" && count ($_GET) == 0)
 }
 
 /* Lets use interface now. */
-header('Content-Type: text; charset=utf-8');
+header('Content-Type: text/plain; charset=utf-8');
 
 check_errors ($cfg);
 if (has_error ())
