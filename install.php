@@ -24,9 +24,14 @@ define ('QUOTE', "'");
 define ('JIRAFEAU_CFG', JIRAFEAU_ROOT.'lib/config.local.php');
 define ('JIRAFEAU_VAR_RAND_LENGTH', 15);
 
+require (JIRAFEAU_ROOT . 'lib/config.original.php');
+require (JIRAFEAU_ROOT . 'lib/settings.php');
 require (JIRAFEAU_ROOT . 'lib/functions.php');
 require (JIRAFEAU_ROOT . 'lib/lang.php');
-require (JIRAFEAU_ROOT . 'lib/config.original.php');
+
+/**
+ * Prepend used functions
+ **/
 
 function
 jirafeau_quoted ($str)
@@ -120,41 +125,61 @@ jirafeau_add_ending_slash ($path)
     return $path . ((substr ($path, -1) == '/') ? '' : '/');
 }
 
-if ($cfg['installation_done'] === true)
+function
+jirafeau_fatal_error($errorText)
 {
-    header('Location: index.php');
-    exit;
-}
-
-if (!file_exists (JIRAFEAU_CFG))
-{
-    /* We try to create an empty one. */
-    if (!@touch (JIRAFEAU_CFG))
-    {
-        require (JIRAFEAU_ROOT . 'lib/template/header.php');
-        echo '<div class="error"><p>' .
-             t('The local configuration file could not be created. Create a ' .
-               '<code>lib/config.local.php</code> file and give the write ' .
-               'permission to the web server (preferred solution), or give the ' .
-               'write permission to the web server on the <code>lib</code> ' .
-               'directory.') .
-             '</p></div>';
-        require (JIRAFEAU_ROOT . 'lib/template/footer.php');
-        exit;
-    }
-}
-
-if (!is_writable (JIRAFEAU_CFG) && !@chmod (JIRAFEAU_CFG, '0666'))
-{
-    require (JIRAFEAU_ROOT . 'lib/template/header.php');
-    echo '<div class="error"><p>' .
-         t('The local configuration is not writable by the web server. ' .
-           'Give the write permission to the web server on the ' .
-           '<code>lib/config.local.php</code> file.') .
-         '</p></div>';
+    echo '<div class="error"><h2>Error</h2><p>' . $errorText . '</p></div>';
     require (JIRAFEAU_ROOT . 'lib/template/footer.php');
     exit;
 }
+
+/**
+ * Check installation
+ **/
+
+// Is the installation process done already?
+// Then there is nothing to do here → redirect to the main page.
+if ($cfg['installation_done'] === true)
+{
+	header('Location: index.php');
+	exit;
+}
+
+/**
+ * Prepare installation process
+ **/
+
+require (JIRAFEAU_ROOT . 'lib/template/header.php');
+
+// does the local configuration file exist?
+if (!file_exists (JIRAFEAU_CFG))
+{
+    // show an error if it is not possible to create the file
+    if (!@touch (JIRAFEAU_CFG))
+    {
+        jirafeau_fatal_error(
+            t('The local configuration file could not be created. Create a ' .
+               '<code>lib/config.local.php</code> file and give the write ' .
+               'permission to the web server (preferred solution), or give the ' .
+               'write permission to the web server on the <code>lib</code> ' .
+               'directory.')
+        );
+    }
+}
+
+// is the local configuration writable?
+if (!is_writable (JIRAFEAU_CFG) && !@chmod (JIRAFEAU_CFG, '0666'))
+{
+    jirafeau_fatal_error(
+        t('The local configuration is not writable by the web server. ' .
+            'Give the write permission to the web server on the ' .
+            '<code>lib/config.local.php</code> file.')
+    );
+}
+
+/**
+ * Run trough each installation step
+ **/
 
 if (isset ($_POST['step']) && isset ($_POST['next']))
 {
@@ -184,9 +209,6 @@ if (isset ($_POST['step']) && isset ($_POST['next']))
     }
 
 }
-
-require (JIRAFEAU_ROOT . 'lib/settings.php');
-require (JIRAFEAU_ROOT . 'lib/template/header.php');
 
 $current = 1;
 if (isset ($_POST['next']))
@@ -367,4 +389,3 @@ break;
 }
 
 require (JIRAFEAU_ROOT . 'lib/template/footer.php');
-?>
