@@ -126,6 +126,16 @@ GNU Affero General Public License version 3 (AGPLv3).
 
 The GNU Affero General Public License can be found at https://www.gnu.org/licenses/agpl.html.
 
+## Contribution
+
+If you want to contribute to project, then take a look at the git repository:
+
+- https://gitlab.com/mojo42/Jirafeau
+
+and the Contribution Guidelines
+
+- https://gitlab.com/mojo42/Jirafeau/blob/master/CONTRIBUTING.md
+
 ## FAQ
 
 ### Can I add a new language in Jirafeau?
