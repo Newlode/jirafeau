@@ -247,7 +247,7 @@ elseif (isset ($_GET['lang']))
 
 # Config begin
 proxy='' # Or set JIRAFEAU_PROXY.
-url='<?php echo $cfg['web_root'] . 'script.php'; ?>' # Or set JIRAFEAU_URL.
+url='<?php echo $cfg['web_root']; ?>' # Or set JIRAFEAU_URL.
 time='<?php echo $cfg['availability_default']; ?>' # Or set JIRAFEAU_TIME.
 one_time='' # Or set JIRAFEAU_ONE_TIME.
 curl='' # Or set JIRAFEAU_CURL_PATH.
@@ -303,7 +303,7 @@ if [ -z "$2" ]; then
     echo
     echo "Global variables to export:"
     echo "    JIRAFEAU_PROXY: Domain and port of proxy server, eg. »proxysever.example.com:3128«"
-    echo "    JIRAFEAU_URL : URI to Jirafeau installation and API page with trailing slash, eg. »https://example.com/jirafeau/script.php«"
+    echo "    JIRAFEAU_URL : URI to Jirafeau installation with trailing slash, eg. »https://example.com/jirafeau/«"
     echo "    JIRAFEAU_TIME : expiration time, eg. »minute«, »hour«, »day«, »week«, »month«, »quarter«, »year« or »none«"
     echo "    JIRAFEAU_ONE_TIME : self-destroy after first download, eg. »1« to enable or »« (empty) to disable"
     echo "    JIRAFEAU_CURL : alternative path to curl binary"
@@ -326,6 +326,9 @@ if [ -n "$3" ]; then
     options="$options -F key=$password"
 fi
 
+apipage='script.php'
+downloadpage='f.php'
+
 if [ "$1" == "send" ]; then
     if [ ! -f "$2" ]; then
         echo "File \"$2\" does not exists."
@@ -336,7 +339,7 @@ if [ "$1" == "send" ]; then
     res=$($curl -X POST --http1.0 $proxy $options \
                   -F "time=$time" \
                   -F "file=@$2" \
-                  $url)
+                  $url$apipage)
 
     if [[ "$res" == Error* ]]; then
         echo "Error while uploading."
@@ -357,12 +360,20 @@ if [ "$1" == "send" ]; then
         fi
         cnt=$(( cnt + 1 ))
         done)
-    echo "Download link:"
-    echo "${url}?h=$code"
-    echo "Direct download link:"
-    echo "${url}?h=$code&d=1"
+
+    echo
+    echo "Download page:"
+    echo "    ${url}${downloadpage}?h=$code"
+    echo "Direct download:"
+    echo "    ${url}${downloadpage}?h=$code&d=1"
     echo "Delete link:"
-    echo "${url}?h=$code&d=$del_code"
+    echo "    ${url}${downloadpage}?h=$code&d=$del_code"
+    echo
+    echo "Download via API:"
+    echo "    ${0} get ${url}${apipage}?h=$code [PASSWORD}"
+    echo "Delete via API:"
+    echo "    ${0} delete ${url}${downloadpage}?h=$code&d=$del_code"
+
 elif [ "$1" == "get" ]; then
     if [ -z "$password" ]; then
         $curl $proxy -OJ "$2"
