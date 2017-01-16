@@ -38,14 +38,15 @@ Jirafeau project won't evolve to a file manager and will focus to keep a very fe
 
 ## Screenshots
 
-- [Installation part 1](http://i.imgur.com/hmpT1eN.jpg)
-- [Installation part 2](http://i.imgur.com/2e0UGKE.jpg)
-- [Installation part 3](http://i.imgur.com/ofAjLXh.jpg)
-- [Installation part 4](http://i.imgur.com/WXqnfqJ.jpg)
-- [Upload 1](http://i.imgur.com/SBmSwzJ.jpg)
-- [Upload 2](http://i.imgur.com/wzPkb1Z.jpg)
-- [Upload 3](http://i.imgur.com/i6n95kv.jpg)
-- [Upload 4](http://i.imgur.com/P2oS1MY.jpg)
+- [Installation - Step 1](http://i.imgur.com/hmpT1eN.jpg)
+- [Installation - Step 2](http://i.imgur.com/2e0UGKE.jpg)
+- [Installation - Step 3](http://i.imgur.com/ofAjLXh.jpg)
+- [Installation - Step 4](http://i.imgur.com/WXqnfqJ.jpg)
+- [Upload - Step 1](http://i.imgur.com/SBmSwzJ.jpg)
+- [Upload - Step 2](http://i.imgur.com/wzPkb1Z.jpg)
+- [Upload - Progress](http://i.imgur.com/i6n95kv.jpg)
+- [Upload - Confirmation page](http://i.imgur.com/P2oS1MY.jpg)
+- [Admin Interface](http://i.imgur.com/nTdsVzn.png)
 
 ## Installation
 
