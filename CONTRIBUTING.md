@@ -19,6 +19,7 @@ So things like a markdown parser for the ToS or E-Mail tasks would be usefull fo
 Here is a little explaination of Jirafeau's arboresence in a simplified
 view only to show the most importants files and their role.
 
+```
 .
 ├── admin.php : adminitration interface, also permits to download files
 ├── f.php : permits to download files or show the download page
@@ -40,6 +41,7 @@ view only to show the most importants files and their role.
     ├── async : chunks of uploaded files
     ├── files : all files that has been successfully uploaded
     └── links : all links pointing to files with meta-informations
+```
 
 ## Translations
 
