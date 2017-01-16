@@ -1,31 +1,34 @@
-# Introduction
+# Jirafeau
 
 Welcome to the official Jirafeau project, an [Open-Source software](https://en.wikipedia.org/wiki/Open-source_software).
 
-Jirafeau is a web site permitting to upload a file in a simple way and give an unique link to it.
+Jirafeau is a project permitting a "one-click-filesharing", which makes it possible to upload a file in a simple way and give an unique link to it.
 
-A demonstration of the latest version is available on [jirafeau.net](http://jirafeau.net/)
+A demonstration of the latest version is available on [jirafeau.net](http://jirafeau.net/).
 
 ![Screenshot1](http://i.imgur.com/TPjh48P.png)
 
-**Main features**:
--  One upload => One download link & One delete linkp
--  Send any large files (thanks to HTML5)
--  NO database, only use basic PHP
--  Shows progression: speed, percentage and remaining upload time
--  Preview content in browser (if possible)
--  Optional Password protection (for uploading or downloading)
--  Time limitation
--  Option to self-destruct after reading
--  Simple language support :gb: :fr: :de: :it: :nl: :ro: :sk: :hu: :cn: :gr: :ru: :es:
--  Small administration interface
--  File level [Deduplication](http://en.wikipedia.org/wiki/Data_deduplication) for storage optimization
--  A basic Terms Of Service which can be adapted to your needs
--  Shortened URLs using base 64 encoding
--  API interface
--  Optional data encryption
--  Skins
-...
+## Main features
+
+- One upload → One download link & one delete link
+- Send any large files (thanks to the HTML5 file API → PHP post_max_size limit not relevant)
+- Shows progression: speed, percentage and remaining upload time
+- Preview content in browser (if possible)
+- Optional password protection (for uploading or downloading)
+- Set expiration time for downloads
+- Option to self-destruct after first download
+- Shortened URLs using base 64 encoding
+- Maximal upload size configurable
+- NO database, only use basic PHP
+- Simple language support :gb: :fr: :de: :it: :nl: :ro: :sk: :hu: :cn: :gr: :ru: :es:
+- File level [Deduplication](http://en.wikipedia.org/wiki/Data_deduplication) for storage optimization (does store duplicate files only once, but generate multiple links)
+- Optional data encryption
+- Small administration interface
+- CLI script to remove expired files automatically with a cronjob
+- Basic, adaptable »Terms Of Service« page
+- Basic API
+- Bash script to upload files via command line
+- Skins
 
 Jirafeau is a fork of the original project [Jyraphe](http://home.gna.org/jyraphe/) based on the 0.5 (stable version) with a **lot** of modifications.
 
@@ -33,9 +36,8 @@ As it's original project, Jirafeau is made in the [KISS](http://en.wikipedia.org
 
 Jirafeau project won't evolve to a file manager and will focus to keep a very few dependencies.
 
-# Screenshots
+## Screenshots
 
-Here are some screenshots:
 - [Installation part 1](http://i.imgur.com/hmpT1eN.jpg)
 - [Installation part 2](http://i.imgur.com/2e0UGKE.jpg)
 - [Installation part 3](http://i.imgur.com/ofAjLXh.jpg)
@@ -45,7 +47,8 @@ Here are some screenshots:
 - [Upload 3](http://i.imgur.com/i6n95kv.jpg)
 - [Upload 4](http://i.imgur.com/P2oS1MY.jpg)
 
-# Installation
+## Installation
+
 -  [Download](https://gitlab.com/mojo42/Jirafeau/repository/archive.zip) the last version of Jirafeau from GitLab
 -  Upload files on your web server
 -  Don't forget to set owner of uploaded files if you need to
@@ -56,7 +59,27 @@ Note that ```lib/config.local.php``` is auto-generated during the installation.
 
 If you don't want to go through the installation wizard, you can just copy ```config.original.php``` to ```config.local.php``` and customize it.
 
-# Security
+## Update
+
+### General
+
+1. Backup you Jirafeau installation
+2. Block access to Jirafeau
+3. Checkout new version using the [tagged release](https://gitlab.com/mojo42/Jirafeau/tags)
+4. With you browser, go to your Jirafeau root page
+5. Follow installation wizard, it should propose you the same data folder
+7. Go in you lib/config.local.php and lib/config.original.php to check new options
+
+### From version 1.0 to 1.1
+
+1. Add a rewrite rule in your web server configuration to rename file.php to f.php to make old url work again
+2. Eventually change skin in »lib/config.local.php« to 'courgette'
+
+### From version 1.1 to 1.2.0
+
+Nothing particular
+
+## Security
 
 ```var``` directory contain all files and links. It is randomly named to limit access but you may add better protection to prevent un-authorized access to it.
 You have several options:
@@ -80,7 +103,7 @@ location ~ /var-.* {
 You should also remove un-necessessary write access once the installation is done (ex: configuration file).
 An other obvious basic security is to let access users to the site by HTTPS.
 
-# Few notes about server side encryption
+## Server side encryption
 
 Data encryption can be activated in options. This feature makes the server encrypt data and send the decryt key to the user (inside download URL).
 The decrypt key is not stored on the server so if you loose an url, you won't be able to retrieve file content.
@@ -96,7 +119,7 @@ By activating this feature, you have to be aware of few things:
 
 In a next step, encryption will be made by the client (in javascript), see issue #10.
 
-# FAQ
+## FAQ
 
 ### Can I add a new language in Jirafeau?
 
@@ -230,9 +253,9 @@ So:
 
 Feel free to create an issue if you found a bug.
 
-# Release notes
+## Release notes
 
-## Version 1.0
+### Version 1.0
 
 The very first version of Jirafeau after the fork of Jyraphe.
 
@@ -248,7 +271,7 @@ The very first version of Jirafeau after the fork of Jyraphe.
 - New option to show a page at download time
 - Add option to activate or not preview mode
 
-## Version 1.1
+### Version 1.1
 
 - New skins
 - Add optional server side encryption
@@ -264,16 +287,6 @@ The very first version of Jirafeau after the fork of Jyraphe.
 - Preview URL
 - Get Jirafeau's version in admin interface
 
-### Update from 1.0 to 1.1
-
-1. Backup you Jirafeau installation
-2. Block access to Jirafeau
-3. Checkout new version using git tag 1.1
-4. With you browser, go to your Jirafeau root page
-5. Follow installation wizard, it should propose you the same data folder
-6. Add a rewrite rule in your web server configuration to rename file.php to f.php to make old url work again
-7. Go in you lib/config.local.php and lib/config.original.php to check new options and eventually change skin to 'courgette'
-
 ## Version 1.2.0
 
 - Change versioning semantic
@@ -283,7 +296,3 @@ The very first version of Jirafeau after the fork of Jyraphe.
 - Default expiration date set to 'month'
 - New expiration date: 'quarter'
 - Small other fixes
-
-### Update from 1.1 to 1.2.0
-
-Nothing particular, just make a backup of your installation before updating.
