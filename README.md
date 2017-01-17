@@ -126,6 +126,13 @@ GNU Affero General Public License version 3 (AGPLv3).
 
 The GNU Affero General Public License can be found at https://www.gnu.org/licenses/agpl.html.
 
+Please note: If you decide do make adaptions to the source code and run a service with these changes incorporated, 
+you are required to provide a link to the source code of your version in order to obey the AGPLv3 license. 
+To do so please add a link to the source (eg. a public Git repository or a download link) to the Terms of Service page.
+Take a look at the FAQ to find out about how to change the ToS.
+
+PS: If you have fixed errors or added features, then please contribute to the project and send a merge request with these changes.
+ 
 ## Contribution
 
 If you want to contribute to project, then take a look at the git repository:
@@ -205,6 +212,14 @@ If you don't want to allow unlimited upload size, you can still setup a maximal 
 Documentation of all default options are located in [lib/config.original.php](https://gitlab.com/mojo42/Jirafeau/blob/master/lib/config.original.php).
 If you want to change an option, just edit your ```lib/config.local.php```.
 
+### How can I change the Terms of Service?
+
+The license text on the "Terms of Service" page, which is shipped with the default installation, is based on the »[Open Source Initiative Terms of Service](https://opensource.org/ToS)«.
+
+To change this text simply copy the file [/lib/tos.original.txt](https://gitlab.com/mojo42/Jirafeau/blob/master/lib/tos.original.txt), rename it to ```/lib/tos.local.txt``` and adapt it to your own needs.
+
+If you update the installation, then only the ```tos.original.txt``` file may change eventually, not your ```tos.local.txt``` file.
+
 ### How can I access the admin interface?
 
 Just go to ```/admin.php```.
@@ -240,14 +255,6 @@ The original project seems not to be continued anymore and I prefer to add more 
 ### What can we expect in the future?
 
 Check [issues](https://gitlab.com/mojo42/Jirafeau/issues) to check open bugs and incoming new stuff. :)
-
-### What is the Jirafeau's license?
-
-Jirafeau is licensed under [AGPLv3](https://gitlab.com/mojo42/Jirafeau/blob/master/COPYING).
-
-### How do I modify the TOS (terms of use)?
-
-Just edit ```tos.php``` and configure ```$org``` and ```$contact``` variables.
 
 ### What about this file deduplication thing?
 
