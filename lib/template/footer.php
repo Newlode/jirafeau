@@ -12,7 +12,7 @@
         if (false === empty($cfg['web_root']))
         {
           echo ' | ';
-          echo '<a href="' . $cfg['web_root'] . 'tos.php">' . t('Term Of Service') . '</a>';
+          echo '<a href="' . $cfg['web_root'] . 'tos.php">' . t('Terms of Service') . '</a>';
         }
         ?>
     </p>

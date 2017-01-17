@@ -74,7 +74,7 @@
     "Sorry, the admin interface is not enabled.": "Entschuldigung, die Admin-Oberfläche ist deaktiviert.", 
     "Sorry, the requested file is not found": "Leider wurde die angeforderte Datei nicht gefunden", 
     "Sorry, you are not authenticated on admin interface.": "Entschuldigung, Sie sind nicht auf der Admin-Oberfläche authentifiziert.", 
-    "Term Of Service": "Allgemeine Geschäftsbedingung", 
+    "Terms of Service": "Allgemeine Geschäftsbedingungen", 
     "The async directory is not writable!": "Das Async-Verzeichnis ist nicht beschreibbar!", 
     "The base address of Jirafeau is the first part of the URL, until (and including) the last slash. For example: \"http://www.example.com/\". Do not forget the trailing slash!": "Die Basisadresse von Jirafeau ist der erste Teil der URL, bis (und einschließlich) dem letzten Schrägstrich. Zum Beispiel: \"http://www.example.com/\". Vergessen Sie nicht den abschließenden Schrägstrich!", 
     "The data directory is where your files and information about your files will be stored. You should put it outside your web site, or at least restrict the access to this directory. Do not forget the trailing slash!": "Das Datenverzeichnis ist, wo Ihre Dateien und Informationen über Ihre Dateien gespeichert werden. Sie sollten dieses Verzeichnis außerhalb Ihrer Webseite setzen, oder zumindest den Zugriff auf dieses Verzeichnis beschränken. Vergessen Sie nicht den abschließenden Schrägstrich!", 
