@@ -51,6 +51,10 @@ $cfg['organisation'] = 'ACME';
  */
 $cfg['contactperson'] = '';
 
+/* Give the installation a title, eg. 'Datahub' or 'John Doe Filehost'
+ */
+$cfg['title'] = '';
+
 /* Propose a preview link if file type is previewable
  */
 $cfg['preview'] = true;
