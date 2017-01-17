@@ -43,6 +43,14 @@ $cfg['lang'] = 'auto';
  */
 $cfg['style'] = 'courgette';
 
+/* Name the organisation running this installation, eg. 'ACME'
+ */
+$cfg['organisation'] = 'ACME';
+
+/* Provide a contact person for this installation, eg. 'John Doe <doe@example.com>'
+ */
+$cfg['contactperson'] = '';
+
 /* Propose a preview link if file type is previewable
  */
 $cfg['preview'] = true;

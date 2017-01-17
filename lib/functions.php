@@ -1373,11 +1373,13 @@ jirafeau_replace_markers ($content, $htmllinebreaks = false)
 {
     $patterns = array(
         '/###ORGANISATION###/',
-        '/###CONTACTPERSON###/'
+        '/###CONTACTPERSON###/',
+        '/###WEBROOT###/'
     );
     $replacements = array(
-        '[ORGANISATION PROVIDING THIS WEBSITE]',
-        'contact@[THIS WEBSITE]'
+        $GLOBALS['cfg']['organisation'],
+        $GLOBALS['cfg']['contactperson'],
+        $GLOBALS['cfg']['web_root']
     );
     $content = preg_replace($patterns, $replacements, $content);
 
