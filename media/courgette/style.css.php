@@ -55,6 +55,10 @@ body {
   line-height: 1.5;
 }
 
+#content {
+  padding: 2em;
+}
+
 h1 a {
   display: block;
   background: url(logo-jirafeau.svg) no-repeat;
@@ -173,7 +177,7 @@ input[type="submit"]:focus {
   text-align: center;
   font-size: 0.8em;
   color: #795548;
-  padding-left: 3em;
+  margin: 3em auto;
 }
 
 #copyright a {
