@@ -42,6 +42,15 @@ define ('VAR_LINKS', $cfg['var_root'] . 'links/');
 define ('VAR_ASYNC', $cfg['var_root'] . 'async/');
 define ('VAR_ALIAS', $cfg['var_root'] . 'alias/');
 
+// helping variable to build absolute link to
+// root of the domain without handling the URL scheme
+$absPrefix = parse_url($cfg['web_root'], PHP_URL_PATH);
+if(true === empty($absPrefix)) {
+	// fallback if installation isnt done yet: relative links to same level on the current page
+	$absPrefix = './';
+}
+define ('JIRAFEAU_ABSPREFIX', $absPrefix);
+
 /* Useful constants. */
 if (!defined ('NL')) {
     define ('NL', "\n");
