@@ -15,17 +15,13 @@ if (!isset ($cfg['web_root']))
 else
     $web_root = $cfg['web_root'];
 
-if (!isset ($cfg['style']))
-    $style = 'default';
-else
-    $style = $cfg['style'];
 ?>
 <!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8">
   <title><?php echo (true === empty($cfg['title']))? t('Jirafeau, your web file repository') : $cfg['title']; ?></title>
-  <link href="<?php echo $web_root . 'media/' . $style . '/style.css.php'; ?>" rel="stylesheet" type="text/css" />
+  <link href="<?php echo $web_root . 'media/' . $cfg['style'] . '/style.css.php'; ?>" rel="stylesheet" type="text/css" />
 </head>
 <body>
 <script type="text/javascript" src="lib/functions.js.php"></script>
