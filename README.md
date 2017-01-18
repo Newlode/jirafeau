@@ -60,29 +60,36 @@ Note that ```lib/config.local.php``` is auto-generated during the installation.
 
 If you don't want to go through the installation wizard, you can just copy ```config.original.php``` to ```config.local.php``` and customize it.
 
-## Update
+## Upgrade
 
-### General
+### General procedure for all versions
 
-1. Backup you Jirafeau installation
+1. Backup your Jirafeau installation!
 2. Block access to Jirafeau
-3. Checkout new version using the [tagged release](https://gitlab.com/mojo42/Jirafeau/tags)
+3. Checkout the new version with Git using the [tagged release](https://gitlab.com/mojo42/Jirafeau/tags)
+   * If you have installed Jirafeau just by uploading files on your server, you can download the desired version, overwrite/remove all files and chown/chmod files if needed. Keep a backup of your local configuration file tough.
 4. With you browser, go to your Jirafeau root page
-5. Follow installation wizard, it should propose you the same data folder
-7. Go in you lib/config.local.php and lib/config.original.php to check new options
+5. Follow the installation wizard, it should propose you the same data folder or even update automatically
+7. Check your ```/lib/config.local.php``` and compare it with the ```/lib/config.original.php``` to see if new configuration items are available
 
 ### From version 1.0 to 1.1
 
-1. Add a rewrite rule in your web server configuration to rename file.php to f.php to make old url work again
-2. Eventually change skin in »lib/config.local.php« to 'courgette'
+1. The download URL changed
+   * Add a rewrite rule in your web server configuration to rename ```file.php``` to ```f.php``` to make older, still existing links work again
+1. The default skin changed
+   * Optionally change the skin in ```lib/config.local.php``` to »courgette«
 
-### From version 1.1 to 1.2.0
+### From version 1.2.0 to 2.0.0
 
-Nothing particular
+1. The "Terms of Service" text file changed
+   * To reuse previous changes to the ToS, move the old ```/tos_text.php``` file to ```/lib/tos.local.txt``` and remove all HTML und PHP Tags, leaving a regular text file
 
-### from version 1.2.0 to 2.0.0.
+### Troubleshooting
 
-1. ToS text file changed → move file from "/tos_text.php" to "/lib/tos.local.txt" and remove all HTML and PHP Tags, leaving a regular text file
+If you have some troubles, consider the following cases
+
+- Check your ```/lib/config.local.php``` file and compare it with ```/lib/config.original.php```, the configuration syntax or a parameter may have changed
+- Check owner & permissions of your files
 
 ## Security
 
@@ -161,17 +168,7 @@ We would like to thank all anonymous contributors on weblate. :)
 
 ### How do I upgrade my Jirafeau?
 
-If you have installed Jirafeau using git, it's pretty simple: just make a git pull and chown/chmod files who have the owner changed.
-
-If you have installed Jirafeau just by uploading files on your server, you can take the [last version](https://gitlab.com/mojo42/Jirafeau/repository/archive.zip), overwrite files and chown/chmod files if needed.
-
-After upgrading, you can compare your ```lib/config.local.php``` and ```lib/config.original.php``` to see if new configuration items are available.
-
-If you have some troubles:
-- It should probably come from your ```lib/config.local.php``` (configuration syntax may have changed). Just compare it with ```lib/config.original.php```
-- Check owner/permissions of your files.
-
-Anyway you should off-course make a backup of your current installation before doing anything. :)
+See upgrade instructions above.
 
 ### How can I limit upload access?
 
@@ -334,4 +331,3 @@ The very first version of Jirafeau after the fork of Jyraphe.
 - Add version to bash script
 - A lot of documentation improvements
 - Code refactoring & bug fixes
-- 
