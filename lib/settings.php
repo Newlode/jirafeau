@@ -30,7 +30,9 @@ if (file_exists(JIRAFEAU_ROOT . 'lib/config.local.php'))
 	unset($cfgOriginal);
 }
 
-/* Jirafeau constants */
+// Set constants
+
+/* Jirafeau package */
 define ('JIRAFEAU_PACKAGE', 'Jirafeau');
 define ('JIRAFEAU_VERSION', '2.0.0');
 
@@ -41,8 +43,12 @@ define ('VAR_ASYNC', $cfg['var_root'] . 'async/');
 define ('VAR_ALIAS', $cfg['var_root'] . 'alias/');
 
 /* Useful constants. */
-if (!defined ('NL'))
+if (!defined ('NL')) {
     define ('NL', "\n");
+}
+if (!defined ('QUOTE')) {
+    define ('QUOTE', "'");
+}
 
 define ('JIRAFEAU_INFINITY', -1);
 define ('JIRAFEAU_MINUTE', 60); // 60
@@ -52,7 +58,3 @@ define ('JIRAFEAU_WEEK', 604800); // JIRAFEAU_DAY * 7
 define ('JIRAFEAU_MONTH', 2419200); // JIRAFEAU_WEEK * 4
 define ('JIRAFEAU_QUARTER', 7257600); // JIRAFEAU_MONTH * 3
 define ('JIRAFEAU_YEAR', 29030400); // JIRAFEAU_MONTH * 12
-
-
-
-?>
