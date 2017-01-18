@@ -206,8 +206,7 @@ case 1:
 default:
     ?><h2><?php printf (t('Installation of Jirafeau') . ' - ' . t('step') .
     ' %d ' . t('out of') . ' %d', 1, 4);
-    ?></h2> <div id = "install"> <form action =
-        "<?php echo basename(__FILE__); ?>" method = "post"> <input type =
+    ?></h2> <div id = "install"> <form method="post"> <input type =
         "hidden" name = "jirafeau" value =
         "<?php echo JIRAFEAU_VERSION; ?>" /><input type = "hidden" name =
         "step" value = "1" /><fieldset> <legend><?php echo t('Language');
@@ -240,8 +239,7 @@ break;
 case 2:
     ?><h2><?php printf (t('Installation of Jirafeau') . ' - ' . t('step') .
     ' %d ' . t('out of') . ' %d', 2, 4);
-    ?></h2> <div id = "install"> <form action =
-        "<?php echo basename(__FILE__); ?>" method = "post"> <input type =
+    ?></h2> <div id = "install"> <form method="post"> <input type =
         "hidden" name = "jirafeau" value =
         "<?php echo JIRAFEAU_VERSION; ?>" /><input type = "hidden" name =
         "step" value = "2" /><fieldset> <legend><?php
@@ -272,8 +270,7 @@ break;
 case 3:
     ?><h2><?php printf (t('Installation of Jirafeau') . ' - ' . t('step') .
     ' %d ' . t('out of') . ' %d', 3, 4);
-    ?></h2> <div id = "install"> <form action =
-        "<?php echo basename(__FILE__); ?>" method = "post"> <input type =
+    ?></h2> <div id = "install"> <form method="post"> <input type =
         "hidden" name = "jirafeau" value =
         "<?php echo JIRAFEAU_VERSION; ?>" /><input type = "hidden" name =
         "step" value =
@@ -328,8 +325,7 @@ break;
 case 4:
     ?><h2><?php printf (t('Installation of Jirafeau') . ' - ' . t('step') .
     ' %d ' . t('out of') . ' %d', 4, 4);
-    ?></h2> <div id = "install"> <form action =
-        "<?php echo basename(__FILE__); ?>" method = "post"> <input type =
+    ?></h2> <div id = "install"> <form method="post"> <input type =
         "hidden" name = "jirafeau" value =
         "<?php echo JIRAFEAU_VERSION; ?>" /><input type = "hidden" name =
         "step" value =
@@ -350,8 +346,7 @@ case 4:
     if ($err['has_error'])
     {
         echo '<div class="error"><p>'.$err['why'].'<br />'.NL;
-        ?><form action = "<?php echo basename(__FILE__); ?>" method =
-            "post"> <input type = "hidden" name = "jirafeau" value =
+        ?><form method="post"> <input type = "hidden" name = "jirafeau" value =
             "<?php echo JIRAFEAU_VERSION; ?>" /><input type = "hidden" name =
             "step" value = "4" /><input type = "submit" name =
             "retry" value =
