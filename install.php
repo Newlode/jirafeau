@@ -18,8 +18,7 @@
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 define ('JIRAFEAU_ROOT', dirname (__FILE__) . '/');
-define ('NL', "\n");
-define ('QUOTE', "'");
+
 define ('JIRAFEAU_CFG', JIRAFEAU_ROOT . 'lib/config.local.php');
 define ('JIRAFEAU_VAR_RAND_LENGTH', 15);
 
