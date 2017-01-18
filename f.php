@@ -129,7 +129,7 @@ if (!empty ($link['key']))
         require (JIRAFEAU_ROOT.'lib/template/header.php');
         echo '<div>' .
              '<form action = "';
-        echo $cfg['web_root'] . '/f.php';
+        echo JIRAFEAU_ABSPREFIX . 'f.php';
         echo '" ' .
              'method = "post" id = "submit_post">'; ?>
              <input type = "hidden" name = "jirafeau" value = "<?php echo JIRAFEAU_VERSION ?>"/><?php
@@ -140,7 +140,7 @@ if (!empty ($link['key']))
              '<input type = "password" name = "key" />' .
              '</td></tr>' .
              '<tr><td>' .
-             t('By using our services, you accept our'). ' <a href="' . $cfg['web_root'] . 'tos.php' . '">' . t('Terms of Service') . '</a>.' .
+             t('By using our services, you accept our'). ' <a href="' . JIRAFEAU_ABSPREFIX . 'tos.php' . '">' . t('Terms of Service') . '</a>.' .
              '</td></tr>';
 
         if ($link['onetime'] == 'O')
@@ -151,9 +151,8 @@ if (!empty ($link['key']))
         }
 
         ?><tr><td><input type="submit" id = "submit_download"  value="<?php echo t('Download'); ?>"
-        onclick="document.getElementById('submit_post').action='
-<?php
-        echo $cfg['web_root'] . '/f.php?h=' . $link_name . '&amp;d=1';
+        onclick="document.getElementById('submit_post').action='<?php
+        echo JIRAFEAU_ABSPREFIX . 'f.php?h=' . $link_name . '&amp;d=1';
         if (!empty($crypt_key))
             echo '&amp;k=' . urlencode($crypt_key);
 ?>';
@@ -161,9 +160,8 @@ if (!empty ($link['key']))
         if ($cfg['preview'] && jirafeau_is_viewable($link['mime_type']))
         {
             ?><input type="submit" id = "submit_preview"  value="<?php echo t('Preview'); ?>"
-            onclick="document.getElementById('submit_post').action='
-            <?php
-            echo $cfg['web_root'] . '/f.php?h=' . $link_name . '&amp;p=1';
+            onclick="document.getElementById('submit_post').action='<?php
+            echo JIRAFEAU_ABSPREFIX . 'f.php?h=' . $link_name . '&amp;p=1';
             if (!empty($crypt_key))
                 echo '&amp;k=' . urlencode($crypt_key);
             ?>';
@@ -193,8 +191,8 @@ if (!$password_challenged && !$do_download && !$do_preview)
 {
         require (JIRAFEAU_ROOT.'lib/template/header.php');
         echo '<div>' .
-             '<form action = "';
-        echo $cfg['web_root'] . '/f.php';
+             '<form action="';
+        echo JIRAFEAU_ABSPREFIX . 'f.php';
         echo '" ' .
              'method = "post" id = "submit_post">'; ?>
              <input type = "hidden" name = "jirafeau" value = "<?php echo JIRAFEAU_VERSION ?>"/><?php
@@ -203,7 +201,7 @@ if (!$password_challenged && !$do_download && !$do_preview)
              t('You are about to download') . ' "' . htmlspecialchars($link['file_name']) . '" (' . jirafeau_human_size($link['file_size']) . ').' .
              '</td></tr>' .
              '<tr><td>' .
-             t('By using our services, you accept our'). ' <a href="' . $cfg['web_root'] . 'tos.php' . '">' . t('Terms of Service') . '</a>.' .
+             t('By using our services, you accept our'). ' <a href="' . JIRAFEAU_ABSPREFIX . 'tos.php' . '">' . t('Terms of Service') . '</a>.' .
              '</td></tr>';
 
         if ($link['onetime'] == 'O')
@@ -215,9 +213,8 @@ if (!$password_challenged && !$do_download && !$do_preview)
 
         ?>
         <tr><td><input type="submit" id = "submit_download"  value="<?php echo t('Download'); ?>"
-        onclick="document.getElementById('submit_post').action='
-<?php
-        echo $cfg['web_root'] . '/f.php?h=' . $link_name . '&amp;d=1';
+        onclick="document.getElementById('submit_post').action='<?php
+        echo JIRAFEAU_ABSPREFIX . 'f.php?h=' . $link_name . '&amp;d=1';
         if (!empty($crypt_key))
             echo '&amp;k=' . urlencode($crypt_key);
 ?>';
@@ -226,9 +223,8 @@ if (!$password_challenged && !$do_download && !$do_preview)
         if ($cfg['preview'] && jirafeau_is_viewable($link['mime_type']))
         {
             ?><input type="submit" id = "submit_preview"  value="<?php echo t('Preview'); ?>"
-            onclick="document.getElementById('submit_post').action='
-<?php
-        echo $cfg['web_root'] . '/f.php?h=' . $link_name . '&amp;p=1';
+            onclick="document.getElementById('submit_post').action='<?php
+        echo JIRAFEAU_ABSPREFIX . 'f.php?h=' . $link_name . '&amp;p=1';
         if (!empty($crypt_key))
             echo '&amp;k=' . urlencode($crypt_key);
 ?>';

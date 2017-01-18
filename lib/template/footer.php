@@ -9,10 +9,10 @@
         ?>
         <!-- Installation dependend links -->
         <?php
-        if (false === empty($cfg['web_root']))
+        if (true == $cfg['installation_done'])
         {
           echo ' | ';
-          echo '<a href="' . $cfg['web_root'] . 'tos.php">' . t('Terms of Service') . '</a>';
+          echo '<a href="' . JIRAFEAU_ABSPREFIX . 'tos.php">' . t('Terms of Service') . '</a>';
         }
         ?>
     </p>
