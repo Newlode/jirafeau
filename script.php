@@ -53,7 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] == "GET" && count ($_GET) == 0)
     <h2>Scripting interface</h2>
     <p>This interface permits to script your uploads and downloads.</p>
     <p>See <a href="https://gitlab.com/mojo42/Jirafeau/blob/master/script.php">source code</a> of this interface to get available calls :)</p>
-    <p>Alternatively, go to <a href="<?php echo $cfg['web_root'] . 'script.php?lang=bash'; ?>">this page</a> to download a bash script.</p>
+    <p>You may download a preconfigured <a href="<?php echo JIRAFEAU_ABSPREFIX . 'script.php?lang=bash'; ?>">Bash Script</a> to easily send to and get files from the API via command line.</p>
     </div>
     <br />
     <?php
