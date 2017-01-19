@@ -80,6 +80,10 @@ If you don't want to go through the installation wizard, you can just copy ```co
 
 Nothing particular
 
+### from version 1.2.0 to 2.0.0.
+
+1. ToS text file changed → move file from "/tos_text.php" to "/lib/tos.local.txt" and remove all HTML and PHP Tags, leaving a regular text file
+
 ## Security
 
 ```var``` directory contain all files and links. It is randomly named to limit access but you may add better protection to prevent un-authorized access to it.
@@ -320,3 +324,14 @@ The very first version of Jirafeau after the fork of Jyraphe.
 - Default expiration date set to 'month'
 - New expiration date: 'quarter'
 - Small other fixes
+
+## Version 2.0.0
+
+- ToS refactoring (see update notes !)
+- You can now set a title to Jirafeau in options
+- A lot of documentation improvements
+- Code refactoring & bugfixes
+- Add version to bash script
+- A lot of documentation improvements
+- Code refactoring & bug fixes
+- 
