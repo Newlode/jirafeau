@@ -273,3 +273,17 @@ The very first version of Jirafeau after the fork of Jyraphe.
 5. Follow installation wizard, it should propose you the same data folder
 6. Add a rewrite rule in your web server configuration to rename file.php to f.php to make old url work again
 7. Go in you lib/config.local.php and lib/config.original.php to check new options and eventually change skin to 'courgette'
+
+## Version 1.2.0
+
+- Change versioning semantic
+- A lof of translation contributions
+- Fix javascript MIME type
+- Show download in admin panel
+- Default expiration date set to 'month'
+- New expiration date: 'quarter'
+- Small other fixes
+
+### Update from 1.1 to 1.2.0
+
+Nothing particular, just make a backup of your installation before updating.
