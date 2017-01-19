@@ -18,64 +18,94 @@
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-/*
- * default configuration
- * if you want to change this, overwrite in a config.local.php file
- */
-global $cfg;
+/**
+ * Default configuration
+ *
+ * To overwrite these settings copy the file,
+ * rename it to »config.local.php« and adapt the parameters.
+ **/
 
-/* Don't forget the ending '/' */
+/* URL of installation, with traling slash (eg. »https://exmaple.com/jirafeau/«)
+ */
 $cfg['web_root'] = '';
+
+/* Path to data directory, with trailing slash (eg. »/var/www/data/var_314159265358979323846264«
+ */
 $cfg['var_root'] = '';
 
-/* Lang choice between 'auto', 'en' and 'fr'.
- * 'auto' mode will take the user's browser informations.
- * Will take english if user's langage is not available.
+/* Language - choice between 'auto' or any language located in the /lib/locales/ folder.
+ * The mode »auto« will cause the script to detect the user's browser information
+ * and offer a matching language, and use »en« if it is not available.
  */
 $cfg['lang'] = 'auto';
-/* Select your style :) See media folder */
+
+/* Select a theme - see media folder for available themes
+ */
 $cfg['style'] = 'courgette';
-/* Propose a preview link if file type is previewable. */
+
+/* Name the organisation running this installation, eg. 'ACME'
+ */
+$cfg['organisation'] = 'ACME';
+
+/* Provide a contact person for this installation, eg. 'John Doe <doe@example.com>'
+ */
+$cfg['contactperson'] = '';
+
+/* Give the installation a title, eg. 'Datahub' or 'John Doe Filehost'
+ */
+$cfg['title'] = '';
+
+/* Propose a preview link if file type is previewable
+ */
 $cfg['preview'] = true;
-/* Encryption feature. disable it by default.
- * By enabling it, file-level deduplication won't work.
+
+/* Enable the encryption feature
+ * By enabling it, file-level deduplication won't work anymore. See FAQ.
  */
 $cfg['enable_crypt'] = false;
-/* Split length of link refenrece. */
+
+/* Length of link reference
+ */
 $cfg['link_name_length'] = 8;
-/* Upload password(s). Empty array disable password authentification.
+
+/* Upload password(s).
+ * An empty array will disable the password authentification.
  * $cfg['upload_password'] = array();               // No password
  * $cfg['upload_password'] = array('psw1');         // One password
  * $cfg['upload_password'] = array('psw1', 'psw2'); // Two passwords
- * ... and so on
  */
 $cfg['upload_password'] = array();
+
 /* List of IP allowed to upload a file.
- * If list is empty, then there is no upload restriction based on IP
+ * If the list is empty, then there is no upload restriction based on IP.
  * Elements of the list can be a single IP (e.g. "123.45.67.89") or
  * an IP range (e.g. "123.45.0.0/16").
  * Note that CIDR notation is available for IPv4 only for the moment.
  */
 $cfg['upload_ip'] = array();
-/* An empty admin password will disable the classic admin password
- * authentication. Note that admin password is a sha256 hash of the original
- * version.
+
+/* Password for the admin interface.
+ * An empty password will disable the password authentification.
+ * The password is a sha256 hash of the original version.
  */
 $cfg['admin_password'] = '';
-/* If set, let's the user to be authenticated as administrator.
+
+/* If set, let the user be authenticated as administrator.
  * The user provided here is the user authenticated by HTTP authentication.
- * Note that Jirafeau does not manage the HTTP login part, it just check
- * that the provided user is logged.
- * If admin_password parameter is also set, admin_password is ignored.
+ * Note that Jirafeau does not manage the HTTP login part, it just checks
+ * that the provided user is logged in.
+ * If »admin_password« parameter is set, then the »admin_password« is ignored.
  */
 $cfg['admin_http_auth_user'] = '';
-/* Select different options for availability of uploaded files.
+
+/* Allow user to select different options for file expiration time.
  * Possible values in array:
  * 'minute': file is available for one minute
  * 'hour': file available for one hour
  * 'day': file available for one day
  * 'week': file available for one week
  * 'month': file is available for one month
+ * 'quarter': file is available for three month
  * 'year': file available for one year
  * 'none': unlimited availability
  */
@@ -89,29 +119,29 @@ $cfg['availabilities'] = array (
     'year' => false,
     'none' => false
 );
+
 /* Set a default value for the expiration time.
- * The value has to equal one of the enabled options in »availabilities«, e.g. »month«)
+ * The value has to equal one of the enabled options in »availabilities«, e.g. »month«.
  */
 $cfg['availability_default'] = 'month';
+
 /* Set maximal upload size expressed in MB.
- * 0 mean unlimited upload size.
+ * »0« means unlimited upload size.
  */
 $cfg['maximal_upload_size'] = 0;
-/* If your Jirafeau is behind some reverse proxies, you can set there IPs
- * so Jirafeau get visitor's IP from HTTP_X_FORWARDED_FOR instead of
- * REMOTE_ADDR.
- * for example:
+
+/* Proxy IP
+ * If the installation is behind some reverse proxies, it is possible to set
+ * the allowed proxy IP.
  * $cfg['proxy_ip'] = array('12.34.56.78');
+ * Jirafeau will then get a visitor's IP from HTTP_X_FORWARDED_FOR
+ * instead of REMOTE_ADDR.
  */
 $cfg['proxy_ip'] = array();
-/* Installation is done ? */
-$cfg['installation_done'] = false;
 
-/* Try to include user's local configuration. */
-if ((basename (__FILE__) != 'config.local.php')
-    && file_exists (JIRAFEAU_ROOT.'lib/config.local.php'))
-{
-    require (JIRAFEAU_ROOT.'lib/config.local.php');
-}
+/* Required flag to test if the installation is already installed
+ * or needs to start the installation script
+ */
+$cfg['installation_done'] = false;
 
 ?>

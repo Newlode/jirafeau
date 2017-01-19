@@ -46,11 +46,16 @@ else
 }
 ?>
 <head>
-  <title><?php echo t('Jirafeau, your web file repository'); ?></title>
+  <title><?php echo (true === empty($cfg['title']))? t('Jirafeau, your web file repository') : $cfg['title']; ?></title>
   <meta http-equiv="Content-Type" content="<?php echo $content_type; ?>" />
   <link href="<?php echo $web_root . 'media/' . $style . '/style.css.php'; ?>" rel="stylesheet" type="text/css" />
 </head>
 <body>
 <script type="text/javascript" language="Javascript" src="lib/functions.js.php"></script>
+
 <div id="content">
-<h1><a href="<?php echo $web_root; ?>"><?php echo t('Jirafeau, your web file repository'); ?></a></h1>
+  <h1>
+    <a href="<?php echo $web_root; ?>">
+      <?php echo (true === empty($cfg['title']))? t('Jirafeau, your web file repository') : $cfg['title']; ?>
+    </a>
+  </h1>

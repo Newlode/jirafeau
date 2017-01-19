@@ -19,10 +19,9 @@
  */
 define ('JIRAFEAU_ROOT', dirname (__FILE__) . '/');
 
-require (JIRAFEAU_ROOT . 'lib/lang.php');
-require (JIRAFEAU_ROOT . 'lib/config.original.php');
 require (JIRAFEAU_ROOT . 'lib/settings.php');
 require (JIRAFEAU_ROOT . 'lib/functions.php');
+require (JIRAFEAU_ROOT . 'lib/lang.php');
 
 if (!isset ($_GET['h']) || empty ($_GET['h']))
 {
@@ -141,7 +140,7 @@ if (!empty ($link['key']))
              '<input type = "password" name = "key" />' .
              '</td></tr>' .
              '<tr><td>' .
-             t('By using our services, you accept our'). ' <a href="' . $cfg['web_root'] . '/tos.php' . '">' . t('Term Of Service') . '</a>' .
+             t('By using our services, you accept our'). ' <a href="' . $cfg['web_root'] . 'tos.php' . '">' . t('Terms of Service') . '</a>.' .
              '</td></tr>';
 
         if ($link['onetime'] == 'O')
@@ -201,10 +200,10 @@ if (!$password_challenged && !$do_download && !$do_preview)
              <input type = "hidden" name = "jirafeau" value = "<?php echo JIRAFEAU_VERSION ?>"/><?php
         echo '<fieldset><legend>' . htmlspecialchars($link['file_name']) . '</legend><table>' .
              '<tr><td>' .
-             t('You are about to download') . ' "' . htmlspecialchars($link['file_name']) . '" (' . jirafeau_human_size($link['file_size']) . ')' .
+             t('You are about to download') . ' "' . htmlspecialchars($link['file_name']) . '" (' . jirafeau_human_size($link['file_size']) . ').' .
              '</td></tr>' .
              '<tr><td>' .
-             t('By using our services, you accept our'). ' <a href="' . $cfg['web_root'] . '/tos.php' . '">' . t('Term Of Service') . '</a>' .
+             t('By using our services, you accept our'). ' <a href="' . $cfg['web_root'] . 'tos.php' . '">' . t('Terms of Service') . '</a>.' .
              '</td></tr>';
 
         if ($link['onetime'] == 'O')

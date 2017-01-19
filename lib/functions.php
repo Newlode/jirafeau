@@ -1359,3 +1359,33 @@ jirafeau_alias_delete ($alias, $password)
     return 'Ok';
 }
 
+/**
+ * Replace markers in templates.
+ *
+ * Available markers have the scheme "###MARKERNAME###".
+ *
+ * @param $content string Template text with markers
+ * @param $htmllinebreaks boolean Convert linebreaks to BR-Tags
+ * @return Template with replaced markers
+ */
+function
+jirafeau_replace_markers ($content, $htmllinebreaks = false)
+{
+    $patterns = array(
+        '/###ORGANISATION###/',
+        '/###CONTACTPERSON###/',
+        '/###WEBROOT###/'
+    );
+    $replacements = array(
+        $GLOBALS['cfg']['organisation'],
+        $GLOBALS['cfg']['contactperson'],
+        $GLOBALS['cfg']['web_root']
+    );
+    $content = preg_replace($patterns, $replacements, $content);
+
+    if (true === $htmllinebreaks) {
+        $content = nl2br($content);
+    }
+
+    return $content;
+}
