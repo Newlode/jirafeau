@@ -21,26 +21,32 @@ view only to show the most importants files and their role.
 
 ```
 .
-├── admin.php : adminitration interface, also permits to download files
+├── admin.php : administration interface to manage links and files
 ├── f.php : permits to download files or show the download page
-├── index.php : only provide a html/javascript client to interact with API
-├── script.php : API interface and it's html documentation
+├── index.php : provides a web interface to interact with API
+├── script.php : API interface (all file actions happen here - upload, deletion, etc)
 ├── install.php : installation script
-├── tos.php : terms of use the user may edit
+├── tos.php : "Terms of Service" page
 ├── lib
-│   ├── config.local.php : user's parameters
-│   ├── config.original.php : default parameters with their documentation
-│   ├── functions_*.js : javascript functions for html/javascript client
-│   ├── functions.php : core functions and tools of jirafeau
-│   ├── locales : langage folder, contain all langage files
+│   ├── config.original.php : default parameters
+│   ├── config.local.php : the users parameters (auto generated, not versionized)
+│   ├── functions_*.js : JavaScript functions for index.php (AJAX etc)
+│   ├── functions.php : core functions and tools of Jirafeau
+│   ├── tos.original.txt : default text show on the ToS page
+│   ├── tos.local.txt : a users alternative text show on the ToS page (not versionized)
+│   ├── settings.php : core settings of Jirafeau, includes the configuration params automatically
+│   ├── locales : language folder, contains all language files
 │   └── template
-│       ├── footer.php
-│       └── header.php
+│       ├── footer.php : footer with links to source and ToS for all HTML views
+│       └── header.php : header with logo and title for all HTML views
 ├── media : folder containing all skins
-└── var-xxxxxxx : folder containing all data
-    ├── async : chunks of uploaded files
-    ├── files : all files that has been successfully uploaded
-    └── links : all links pointing to files with meta-informations
+└── var-xxxxxxx : the users folder containing all data (auto generated, not versionized)
+    ├── async : chunks of uploaded files (not succressfull yet) 
+    ├── files : all files that have been uploaded successfully
+        ├── [hashed file name] : the original file
+        ├── [hashed file name]_count : count many links to this file exist
+    └── links : all links, including meta-informations, pointing to files
+        ├── [link] : the link file, includes which original file should be used and some meta data like creation date, expiration time
 ```
 
 ## Translations
