@@ -314,20 +314,23 @@ The very first version of Jirafeau after the fork of Jyraphe.
 
 ## Version 1.2.0
 
-- Change versioning semantic
+- Link on API page to generate bash script
+- More informative error codes for API
+- Security Fix: Prevent authentication bypass for admin interface
+- CLI script to remove expired files automatically with a cronjob
+- SHA-256 hash the admin password
+- New theme "elegantish"
+- Fix for JavaScript MIME-Type, prevents blocking the resource on some servers
+- Show download link for a file in admin interface
+- Default time for expiration (set to 'month' by default)
+- New expiration time: 'quarter'
 - A lof of translation contributions
-- Fix javascript MIME type
-- Show download in admin panel
-- Default expiration date set to 'month'
-- New expiration date: 'quarter'
-- Small other fixes
+- Code cleanups
 
 ## Version 2.0.0
 
-- ToS refactoring (see update notes !)
-- You can now set a title to Jirafeau in options
-- A lot of documentation improvements
-- Code refactoring & bugfixes
-- Add version to bash script
-- A lot of documentation improvements
-- Code refactoring & bug fixes
+- Various documentation improvements
+- Simplify automatic generation of local configuration file
+- Set a custom title
+- Bash Script: Enhanced help, show version, return link to web view as well
+- »Terms of Service« refactored - Enable admin to overwrite the ToS, without changing existing source code → breaking, see upgrade notes
