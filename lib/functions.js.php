@@ -20,16 +20,16 @@
 
 header('Content-Type: text/javascript');
 
-define ('JIRAFEAU_ROOT', dirname (__FILE__) . '/../');
+define('JIRAFEAU_ROOT', dirname(__FILE__) . '/../');
 
-require (JIRAFEAU_ROOT . 'lib/settings.php');
-require (JIRAFEAU_ROOT . 'lib/functions.php');
-require (JIRAFEAU_ROOT . 'lib/lang.php');
+require(JIRAFEAU_ROOT . 'lib/settings.php');
+require(JIRAFEAU_ROOT . 'lib/functions.php');
+require(JIRAFEAU_ROOT . 'lib/lang.php');
 ?>
 
 function translate (expr)
 {
-    var lang_array = <?php echo json_lang_generator () ?>;
+    var lang_array = <?php echo json_lang_generator() ?>;
     if (lang_array.hasOwnProperty(expr))
         return lang_array[expr];
     return expr;

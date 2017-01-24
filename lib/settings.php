@@ -20,50 +20,49 @@
 global $cfg;
 
 // Read config files
-require (JIRAFEAU_ROOT . 'lib/config.original.php');
-if (file_exists(JIRAFEAU_ROOT . 'lib/config.local.php'))
-{
-	// read local copy and merge with original values
-	$cfgOriginal = $cfg;
-	require (JIRAFEAU_ROOT . 'lib/config.local.php');
-	$cfg = array_merge($cfgOriginal, $cfg);
-	unset($cfgOriginal);
+require(JIRAFEAU_ROOT . 'lib/config.original.php');
+if (file_exists(JIRAFEAU_ROOT . 'lib/config.local.php')) {
+    // read local copy and merge with original values
+    $cfgOriginal = $cfg;
+    require(JIRAFEAU_ROOT . 'lib/config.local.php');
+    $cfg = array_merge($cfgOriginal, $cfg);
+    unset($cfgOriginal);
 }
 
 // Set constants
 
 /* Jirafeau package */
-define ('JIRAFEAU_PACKAGE', 'Jirafeau');
-define ('JIRAFEAU_VERSION', '2.0.0');
+define('JIRAFEAU_PACKAGE', 'Jirafeau');
+define('JIRAFEAU_VERSION', '2.0.0');
 
 /* Directories. */
-define ('VAR_FILES', $cfg['var_root'] . 'files/');
-define ('VAR_LINKS', $cfg['var_root'] . 'links/');
-define ('VAR_ASYNC', $cfg['var_root'] . 'async/');
-define ('VAR_ALIAS', $cfg['var_root'] . 'alias/');
+define('VAR_FILES', $cfg['var_root'] . 'files/');
+define('VAR_LINKS', $cfg['var_root'] . 'links/');
+define('VAR_ASYNC', $cfg['var_root'] . 'async/');
+define('VAR_ALIAS', $cfg['var_root'] . 'alias/');
 
 // helping variable to build absolute link to
 // root of the domain without handling the URL scheme
 $absPrefix = parse_url($cfg['web_root'], PHP_URL_PATH);
-if(true === empty($absPrefix)) {
-	// fallback if installation isnt done yet: relative links to same level on the current page
-	$absPrefix = './';
+if (true === empty($absPrefix)) {
+    // fallback if installation isnt done yet: relative links to same level on the current page
+    $absPrefix = './';
 }
-define ('JIRAFEAU_ABSPREFIX', $absPrefix);
+define('JIRAFEAU_ABSPREFIX', $absPrefix);
 
 /* Useful constants. */
-if (!defined ('NL')) {
-    define ('NL', "\n");
+if (!defined('NL')) {
+    define('NL', "\n");
 }
-if (!defined ('QUOTE')) {
-    define ('QUOTE', "'");
+if (!defined('QUOTE')) {
+    define('QUOTE', "'");
 }
 
-define ('JIRAFEAU_INFINITY', -1);
-define ('JIRAFEAU_MINUTE', 60); // 60
-define ('JIRAFEAU_HOUR', 3600); // JIRAFEAU_MINUTE * 60
-define ('JIRAFEAU_DAY', 86400); // JIRAFEAU_HOUR * 24
-define ('JIRAFEAU_WEEK', 604800); // JIRAFEAU_DAY * 7
-define ('JIRAFEAU_MONTH', 2419200); // JIRAFEAU_WEEK * 4
-define ('JIRAFEAU_QUARTER', 7257600); // JIRAFEAU_MONTH * 3
-define ('JIRAFEAU_YEAR', 29030400); // JIRAFEAU_MONTH * 12
+define('JIRAFEAU_INFINITY', -1);
+define('JIRAFEAU_MINUTE', 60); // 60
+define('JIRAFEAU_HOUR', 3600); // JIRAFEAU_MINUTE * 60
+define('JIRAFEAU_DAY', 86400); // JIRAFEAU_HOUR * 24
+define('JIRAFEAU_WEEK', 604800); // JIRAFEAU_DAY * 7
+define('JIRAFEAU_MONTH', 2419200); // JIRAFEAU_WEEK * 4
+define('JIRAFEAU_QUARTER', 7257600); // JIRAFEAU_MONTH * 3
+define('JIRAFEAU_YEAR', 29030400); // JIRAFEAU_MONTH * 12

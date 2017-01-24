@@ -109,7 +109,7 @@ $cfg['admin_http_auth_user'] = '';
  * 'year': file available for one year
  * 'none': unlimited availability
  */
-$cfg['availabilities'] = array (
+$cfg['availabilities'] = array(
     'minute' => true,
     'hour' => true,
     'day' => true,
@@ -143,5 +143,3 @@ $cfg['proxy_ip'] = array();
  * or needs to start the installation script
  */
 $cfg['installation_done'] = false;
-
-?>
