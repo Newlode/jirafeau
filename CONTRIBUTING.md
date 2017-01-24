@@ -61,8 +61,16 @@ Translation may be add via [Jirafeau's Weblate](https://hosted.weblate.org/proje
 
 The whole project is not clean about that yet, feel free to fix :)
 
+## Branches
+
+* ```master``` = latest release, e.g. 2.0.1
+* ```next-release``` = development branch - all new features are merged into this branch until the next version is released. So use this branch as base while developing new features or bugfixes.
+* ```test``` = sandbox branch to test new features or merge requests, or run integration tests. The content of this branch may change at any time.
+
 ## Merge Requests
 
 Please create one branch for each feature and send one merge request for each branch. 
 
 Dont squash several changes or commits into one merge request as this is hard to review.
+
+Please use ```next-release``` as base branch and send your merge request to this branch (not ```master```).
