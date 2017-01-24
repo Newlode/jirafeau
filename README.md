@@ -133,12 +133,12 @@ In a next step, encryption will be made by the client (in javascript), see issue
 
 ## License
 
-GNU Affero General Public License version 3 (AGPLv3).
+GNU Affero General Public License v3 (AGPL-3.0).
 
 The GNU Affero General Public License can be found at https://www.gnu.org/licenses/agpl.html.
 
 Please note: If you decide do make adaptions to the source code and run a service with these changes incorporated, 
-you are required to provide a link to the source code of your version in order to obey the AGPLv3 license. 
+you are required to provide a link to the source code of your version in order to obey the AGPL-3.0 license.
 To do so please add a link to the source (eg. a public Git repository or a download link) to the Terms of Service page.
 Take a look at the FAQ to find out about how to change the ToS.
 
