@@ -55,11 +55,8 @@ Translation may be add via [Jirafeau's Weblate](https://hosted.weblate.org/proje
 
 ## Coding style
 
-- PHP function keywords are alone on a line
-- Braces "{" must be put in a new line
+- This project follows the [PSR-2](http://www.php-fig.org/psr/psr-2/) Coding Style
 - Files must be in UTF-8 without BOM and use Unix Line Endings (LF)
-
-The whole project is not clean about that yet, feel free to fix :)
 
 ## Branches
 
