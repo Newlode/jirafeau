@@ -8,6 +8,11 @@ A demonstration of the latest version is available on [jirafeau.net](http://jira
 
 ![Screenshot1](http://i.imgur.com/TPjh48P.png)
 
+Latest CI Status:
+Master [![Build Status Master](https://gitlab.com/mojo42/Jirafeau/badges/master/build.svg)](https://gitlab.com/mojo42/Jirafeau/commits/master)
+Next Release [![Build Status Next Release](https://gitlab.com/mojo42/Jirafeau/badges/test/build.svg)](https://gitlab.com/mojo42/Jirafeau/commits/master)
+[All Branch Builds](https://gitlab.com/mojo42/Jirafeau/pipelines?scope=branches)
+
 ## Main features
 
 - One upload → One download link & one delete link
