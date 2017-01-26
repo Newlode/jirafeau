@@ -2,3 +2,4 @@ lib/config.local.php
 lib/tos.local.txt
 var-*
 *._*
+/vendor
