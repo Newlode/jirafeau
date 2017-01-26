@@ -50,15 +50,20 @@ Jirafeau project won't evolve to a file manager and will focus to keep a very fe
 
 ## Installation
 
--  [Download](https://gitlab.com/mojo42/Jirafeau/repository/archive.zip) the last version of Jirafeau from GitLab
--  Upload files on your web server
--  Don't forget to set owner of uploaded files if you need to
--  Get your web browser and go to you install location (e.g. ```http://your-web-site.org/jirafeau/```) and follow instructions
--  Some options are not configured from the minimal installation wizard, you may take a look at option documentation in ```lib/config.original.php``` and customize your ```lib/config.local.php```
+System requirements:
+- PHP >= 5.6
+- Optional, but recommended: Git >= 2.7
+- No database required, no mail required
 
-Note that ```lib/config.local.php``` is auto-generated during the installation.
-
-If you don't want to go through the installation wizard, you can just copy ```config.original.php``` to ```config.local.php``` and customize it.
+Installation steps:
+- Clone the [repository](https://gitlab.com/mojo42/Jirafeau/) or download the latest ([release](https://gitlab.com/mojo42/Jirafeau/tags) from GitLab onto your webserver
+- Set owner & group according to your webserver
+- A) Setup with the installation wizard (web):
+  - Open your browser and go to your installed location, eg. ```https://example.com/jirafeau/```
+  - The script will redirect to you to a minimal installation wizard to set up all required options
+  - All optional parameters may be set in ```lib/config.local.php```, take a look at ```lib/config.original.php``` to see all default values
+- B) Setup without the installation wizard (cli):
+  - Just copy ```config.original.php``` to ```config.local.php``` and customize it
 
 ## Upgrade
 
