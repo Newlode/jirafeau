@@ -1,0 +1,39 @@
+# Select docker image from https://hub.docker.com/_/php/
+image: php:7.1
+
+# Select what we should cache
+cache:
+  paths:
+  - vendor/
+
+before_script:
+  # Install git, the docker php image doesn't have it installed by default
+  - apt-get update -yqq
+  - apt-get install git -yqq
+  - apt-get install zip -yqq
+  # Enable necessary php extensions
+  - docker-php-ext-enable curl && docker-php-ext-enable json && docker-php-ext-enable zip && docker-php-ext-enable mbstring && docker-php-ext-enable gd && docker-php-ext-enable pdo_mysql
+  # Install composer
+  - curl -sS https://getcomposer.org/installer | php
+  # Create composer.json file manually, since this is a project without any non-dev dependencies yet
+  - php composer.phar require --dev jakub-onderka/php-parallel-lint
+  # Install all project dependencies
+  - php composer.phar install
+
+# Run tests
+## Default test with PHP7.1
+test_app_php71:
+  script:
+  - ./vendor/bin/parallel-lint --exclude vendor .
+
+# Run same tests with PHP7.0
+test_app_php70:
+  image: php:7.0
+  script:
+  - ./vendor/bin/parallel-lint --exclude vendor .
+
+# Run same tests with PHP5.6
+test_app_php56:
+  image: php:5.6
+  script:
+  - ./vendor/bin/parallel-lint --exclude vendor .
