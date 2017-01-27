@@ -259,11 +259,14 @@ function classic_upload (url, file, time, password, one_time, upload_password)
         if (req.readyState == 4 && req.status == 200)
         {
             var res = req.responseText;
-            if (res == "Error")
+
+            // if response starts with "Error" then show a failure
+            if (/^Error/.test(res))
             {
-                pop_failure ();
+                pop_failure (res);
                 return;
             }
+
             res = res.split ("\n");
             if (time != 'none')
             {
@@ -321,11 +324,13 @@ function async_upload_start (url, max_size, file, time, password, one_time, uplo
         if (req.readyState == 4 && req.status == 200)
         {
             var res = req.responseText;
-            if (res == "Error")
+
+            if (/^Error/.test(res))
             {
-                pop_failure ();
+                pop_failure (res);
                 return;
             }
+
             res = res.split ("\n");
             async_global_ref = res[0];
             var code = res[1];
@@ -390,11 +395,13 @@ function async_upload_push (code)
         if (req.readyState == 4 && req.status == 200)
         {
             var res = req.responseText;
-            if (res == "Error")
+
+            if (/^Error/.test(res))
             {
-                pop_failure ();
+                pop_failure (res);
                 return;
             }
+
             res = res.split ("\n");
             var code = res[0]
             async_global_transfered = async_global_transfering;
@@ -428,11 +435,13 @@ function async_upload_end (code)
         if (req.readyState == 4 && req.status == 200)
         {
             var res = req.responseText;
-            if (res == "Error")
+
+            if (/^Error/.test(res))
             {
-                pop_failure ();
+                pop_failure (res);
                 return;
             }
+
             res = res.split ("\n");
             if (async_global_time != 'none')
             {
