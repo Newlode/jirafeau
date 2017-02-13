@@ -70,18 +70,18 @@ if (has_error()) {
 /* Upload file */
 if (isset($_FILES['file']) && is_writable(VAR_FILES)
     && is_writable(VAR_LINKS)) {
-    if (!jirafeau_challenge_upload_ip($cfg, get_ip_address($cfg))) {
-        echo 'Error 2';
-        exit;
+    if (isset ($_POST['upload_password'])) {
+        if (!jirafeau_challenge_upload($cfg, get_ip_address($cfg), $_POST['upload_password'])) {
+            echo 'Error 3: Invalid password';
+            exit;
+        }
+    } else {
+        if (!jirafeau_challenge_upload($cfg, get_ip_address($cfg), null)) {
+            echo 'Error 2: No password nor allowed IP';
+            exit;
+        }
     }
-
-    if (jirafeau_has_upload_password($cfg) &&
-         (!isset($_POST['upload_password']) ||
-          !jirafeau_challenge_upload_password($cfg, $_POST['upload_password']))) {
-        echo 'Error 3';
-        exit;
-    }
-
+    
     $key = '';
     if (isset($_POST['key'])) {
         $key = $_POST['key'];
@@ -365,17 +365,16 @@ fi
 }
 /* Create alias. */
 elseif (isset($_GET['alias_create'])) {
-    $ip = get_ip_address($cfg);
-    if (!jirafeau_challenge_upload_ip($cfg, $ip)) {
-        echo 'Error 13';
-        exit;
-    }
-
-    if (jirafeau_has_upload_password($cfg) &&
-         (!isset($_POST['upload_password']) ||
-          !jirafeau_challenge_upload_password($cfg, $_POST['upload_password']))) {
-        echo 'Error 14';
-        exit;
+    if (isset($_POST['upload_password'])){
+        if (!jirafeau_challenge_upload($cfg, get_ip_address($cfg), $_POST['upload_password'])) {
+            echo 'Error 14: Invalid password';
+            exit;
+        }
+    } else {
+        if (!jirafeau_challenge_upload($cfg, get_ip_address($cfg), null)) {
+            echo 'Error 13: No password nor allowed IP';
+            exit;
+        }
     }
 
     if (!isset($_POST['alias']) ||
@@ -432,16 +431,16 @@ elseif (isset($_GET['alias_delete'])) {
 }
 /* Initialize an asynchronous upload. */
 elseif (isset($_GET['init_async'])) {
-    if (!jirafeau_challenge_upload_ip($cfg, get_ip_address($cfg))) {
-        echo 'Error 19';
-        exit;
-    }
-
-    if (jirafeau_has_upload_password($cfg) &&
-         (!isset($_POST['upload_password']) ||
-          !jirafeau_challenge_upload_password($cfg, $_POST['upload_password']))) {
-        echo 'Error 20';
-        exit;
+    if (isset($_POST['upload_password'])){
+        if (!jirafeau_challenge_upload($cfg, get_ip_address($cfg), $_POST['upload_password'])) {
+            echo 'Error 20: Invalid password';
+            exit;
+        }
+    } else {
+        if (!jirafeau_challenge_upload($cfg, get_ip_address($cfg), null)) {
+            echo 'Error 19: No password nor allowed IP';
+            exit;
+        }
     }
 
     if (!isset($_POST['filename'])) {

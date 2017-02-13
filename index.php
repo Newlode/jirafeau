@@ -35,64 +35,61 @@ require(JIRAFEAU_ROOT . 'lib/template/header.php');
 
 /* Check if user is allowed to upload. */
 if (!jirafeau_challenge_upload_ip($cfg, get_ip_address($cfg))) {
-    echo '<div class="error"><p>' . t('Access denied') . '</p></div>';
-    require(JIRAFEAU_ROOT.'lib/template/footer.php');
-    exit;
-}
 
-/* Ask password if upload password is set. */
-if (jirafeau_has_upload_password($cfg)) {
-    session_start();
+    /* Ask password if upload password is set. */
+    if (jirafeau_has_upload_password($cfg)) {
+        session_start();
 
-    /* Unlog if asked. */
-    if (isset($_POST['action']) && (strcmp($_POST['action'], 'logout') == 0)) {
-        session_unset();
-    }
+        /* Unlog if asked. */
+        if (isset($_POST['action']) && (strcmp($_POST['action'], 'logout') == 0)) {
+            session_unset();
+        }
 
-    /* Auth. */
-    if (isset($_POST['upload_password'])) {
-        if (jirafeau_challenge_upload_password($cfg, $_POST['upload_password'])) {
-            $_SESSION['upload_auth'] = true;
-            $_SESSION['user_upload_password'] = $_POST['upload_password'];
-        } else {
-            $_SESSION['admin_auth'] = false;
-            echo '<div class="error"><p>' . t('Wrong password.') . '</p></div>';
+        /* Auth. */
+        if (isset($_POST['upload_password'])) {
+            if (jirafeau_challenge_upload_password($cfg, $_POST['upload_password'])) {
+                $_SESSION['upload_auth'] = true;
+                $_SESSION['user_upload_password'] = $_POST['upload_password'];
+            } else {
+                $_SESSION['admin_auth'] = false;
+                echo '<div class="error"><p>' . t('Wrong password.') . '</p></div>';
+                require(JIRAFEAU_ROOT.'lib/template/footer.php');
+                exit;
+            }
+        }
+
+        /* Show auth page. */
+        if (!isset($_SESSION['upload_auth']) || $_SESSION['upload_auth'] != true) {
+            ?>
+            <form action = "<?php echo basename(__FILE__); ?>" method = "post">
+            <fieldset>
+                <table>
+                <tr>
+                    <td class = "label"><label for = "enter_password">
+                    <?php echo t('Upload password') . ':'; ?></label>
+                    </td>
+                    <td class = "field"><input type = "password"
+                    name = "upload_password" id = "upload_password"
+                    size = "40" />
+                    </td>
+                </tr>
+                <tr class = "nav">
+                    <td></td>
+                    <td class = "nav next">
+                    <input type = "submit" name = "key" value =
+                    "<?php echo t('Login'); ?>" />
+                    </td>
+                </tr>
+                </table>
+            </fieldset>
+            </form>
+            <?php
             require(JIRAFEAU_ROOT.'lib/template/footer.php');
             exit;
         }
     }
-
-    /* Show auth page. */
-    if (!isset($_SESSION['upload_auth']) || $_SESSION['upload_auth'] != true) {
-        ?>
-        <form action = "<?php echo basename(__FILE__); ?>" method = "post">
-        <fieldset>
-            <table>
-            <tr>
-                <td class = "label"><label for = "enter_password">
-                <?php echo t('Upload password') . ':'; ?></label>
-                </td>
-                <td class = "field"><input type = "password"
-                name = "upload_password" id = "upload_password"
-                size = "40" />
-                </td>
-            </tr>
-            <tr class = "nav">
-                <td></td>
-                <td class = "nav next">
-                <input type = "submit" name = "key" value =
-                "<?php echo t('Login'); ?>" />
-                </td>
-            </tr>
-            </table>
-        </fieldset>
-        </form>
-        <?php
-        require(JIRAFEAU_ROOT.'lib/template/footer.php');
-        exit;
-    }
 }
-
+    
 ?>
 <div id="upload_finished">
     <p><?php echo t('File uploaded !') ?></p>
