@@ -78,7 +78,7 @@ if (php_sapi_name() == "cli") {
   elseif ((!isset($_SESSION['admin_auth']) || $_SESSION['admin_auth'] != true)
           && empty($cfg['admin_http_auth_user'])) {
       require(JIRAFEAU_ROOT . 'lib/template/header.php'); ?>
-      <form action = "<?php echo basename(__FILE__); ?>" method = "post">
+      <form method="post">
       <fieldset>
           <table>
           <tr>
@@ -138,7 +138,7 @@ if (php_sapi_name() == "cli") {
           ?><div id = "admin">
           <fieldset><legend><?php echo t('Actions'); ?></legend>
           <table>
-          <form action = "<?php echo basename(__FILE__); ?>" method = "post">
+          <form method="post">
           <tr>
               <input type = "hidden" name = "action" value = "clean"/>
               <td class = "info">
@@ -150,7 +150,7 @@ if (php_sapi_name() == "cli") {
               </td>
           </tr>
           </form>
-          <form action = "<?php echo basename(__FILE__); ?>" method = "post">
+          <form method="post">
           <tr>
               <input type = "hidden" name = "action" value = "clean_async"/>
               <td class = "info">
@@ -162,7 +162,7 @@ if (php_sapi_name() == "cli") {
               </td>
           </tr>
           </form>
-          <form action = "<?php echo basename(__FILE__); ?>" method = "post">
+          <form method="post">
           <tr>
               <input type = "hidden" name = "action" value = "list"/>
               <td class = "info">
@@ -174,7 +174,7 @@ if (php_sapi_name() == "cli") {
               </td>
           </tr>
           </form>
-          <form action = "<?php echo basename(__FILE__); ?>" method = "post">
+          <form method="post">
           <tr>
               <input type = "hidden" name = "action" value = "search_by_name"/>
               <td class = "info">
@@ -188,7 +188,7 @@ if (php_sapi_name() == "cli") {
               </td>
           </tr>
           </form>
-          <form action = "<?php echo basename(__FILE__); ?>" method = "post">
+          <form method="post">
           <tr>
               <input type = "hidden" name = "action" value = "search_by_file_hash"/>
               <td class = "info">
@@ -202,7 +202,7 @@ if (php_sapi_name() == "cli") {
               </td>
           </tr>
           </form>
-          <form action = "<?php echo basename(__FILE__); ?>" method = "post">
+          <form method="post">
           <tr>
               <input type = "hidden" name = "action" value = "search_link"/>
               <td class = "info">
@@ -217,7 +217,7 @@ if (php_sapi_name() == "cli") {
           </tr>
           </form>
           </table>
-          <form action = "<?php echo basename(__FILE__); ?>" method = "post">
+          <form method="post">
               <input type = "hidden" name = "action" value = "logout" />
               <input type = "submit" value = "<?php echo t('Logout'); ?>" />
           </form>

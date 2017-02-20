@@ -611,17 +611,17 @@ function jirafeau_admin_list($name, $file_hash, $link_hash)
                 echo '<td>' . strftime('%c', $l['upload_date']) . '</td>';
                 echo '<td>' . $l['ip'] . '</td>';
                 echo '<td>' .
-                '<form action = "admin.php" method = "post">' .
+                '<form method="post">' .
                 '<input type = "hidden" name = "action" value = "download"/>' .
                 '<input type = "hidden" name = "link" value = "' . $node . '"/>' .
                 '<input type = "submit" value = "' . t('Download') . '" />' .
                 '</form>' .
-                '<form action = "admin.php" method = "post">' .
+                '<form method="post">' .
                 '<input type = "hidden" name = "action" value = "delete_link"/>' .
                 '<input type = "hidden" name = "link" value = "' . $node . '"/>' .
                 '<input type = "submit" value = "' . t('Del link') . '" />' .
                 '</form>' .
-                '<form action = "admin.php" method = "post">' .
+                '<form method="post">' .
                 '<input type = "hidden" name = "action" value = "delete_file"/>' .
                 '<input type = "hidden" name = "md5" value = "' . $l['md5'] . '"/>' .
                 '<input type = "submit" value = "' . t('Del file and links') . '" />' .

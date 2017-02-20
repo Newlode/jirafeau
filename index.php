@@ -61,7 +61,7 @@ if (!jirafeau_challenge_upload_ip($cfg, get_ip_address($cfg))) {
         /* Show auth page. */
         if (!isset($_SESSION['upload_auth']) || $_SESSION['upload_auth'] != true) {
             ?>
-            <form action = "<?php echo basename(__FILE__); ?>" method = "post">
+            <form method="post">
             <fieldset>
                 <table>
                 <tr>
@@ -89,7 +89,7 @@ if (!jirafeau_challenge_upload_ip($cfg, get_ip_address($cfg))) {
         }
     }
 }
-    
+
 ?>
 <div id="upload_finished">
     <p><?php echo t('File uploaded !') ?></p>
@@ -108,7 +108,7 @@ if (!jirafeau_challenge_upload_ip($cfg, get_ip_address($cfg))) {
     <p><?php echo t('View link') ?>:</p>
     <p><a id="preview_link" href=""></a></p>
     </div>
-    <?php 
+    <?php
 } ?>
 
     <div id="upload_direct_download">
@@ -243,7 +243,7 @@ if (!jirafeau_challenge_upload_ip($cfg, get_ip_address($cfg))) {
     <?php
     if (jirafeau_has_upload_password($cfg)) {
         ?>
-    <form action = "<?php echo basename(__FILE__); ?>" method = "post">
+    <form method="post">
         <input type = "hidden" name = "action" value = "logout"/>
         <input type = "submit" value = "<?php echo t('Logout'); ?>" />
     </form>
