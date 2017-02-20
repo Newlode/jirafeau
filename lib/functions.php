@@ -594,7 +594,7 @@ function jirafeau_admin_list($name, $file_hash, $link_hash)
                 /* Print link informations. */
                 echo '<tr>';
                 echo '<td>' .
-                '<strong><a id="upload_link" href="/f.php?h='. htmlspecialchars($node) .'" title="' .
+                '<strong><a id="upload_link" href="' . JIRAFEAU_ABSPREFIX . 'f.php?h='. htmlspecialchars($node) .'" title="' .
                     t('Download page') . '">' . htmlspecialchars($l['file_name']) . '</a></strong>';
                 echo '</td>';
                 echo '<td>' . $l['mime_type'] . '</td>';
