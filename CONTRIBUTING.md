@@ -84,3 +84,14 @@ Quick walktrough:
 * Feature is reviewed
   * MR accepted: Reviewer checks out »next-release« branch and cherry-picks the commit ```git checkout next-release; git cherry-pick be4369641; git push```
   * MR declined: Reviewer add some notes, Developer rebases his branch, adds neccessary changes, force pushes the branch, ask a reviewer to review the changes in the merge request ticket (as Gitlab recognizes them automatically) ```git checkout some-feature; git rebase upstream/next-release``` …[add changes]… ```git add -A, git commit --amend; git push -f```
+
+## New Releases
+
+* Compare the [»next-release« branch to »master«](https://gitlab.com/mojo42/Jirafeau/compare/master...next-release)
+* Add a list of noteworthy features and bugfixes to the README
+* Change the version, using [semantic versioning](http://semver.org/), in ```settings.php```
+* Merge »next-release« branch to »master«
+* Update the demo page
+* Tag the »master« with the new version
+* Push branch and tag
+* Dance a little
