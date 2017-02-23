@@ -4,6 +4,8 @@ Hi,
 
 this document is made for newcomers in Jirafeau who are digging into the code.
 
+If you have further questions, then just ask for help 🤓.
+
 ## General principle
 
 Jirafeau is made in the [KISS](http://en.wikipedia.org/wiki/KISS_principle) way (Keep It Simple, Stupid).
@@ -71,3 +73,14 @@ Please create one branch for each feature and send one merge request for each br
 Dont squash several changes or commits into one merge request as this is hard to review.
 
 Please use ```next-release``` as base branch and send your merge request to this branch (not ```master```).
+
+Quick walktrough:
+
+* Create ticket for new feature
+* Fork the original repository, clone the own repository, add the original repository as upstream
+* Checkout »next-release« branch ```git checkout next-release```
+* Create a new branch on top of that one, e.g. »some-feature« ```git checkout -b some-feature```
+* Commit changes → push → send merge request ```git add -A; git commit; git push``` MR via GitLab (link shown in console)
+* Feature is reviewed
+  * MR accepted: Reviewer checks out »next-release« branch and cherry-picks the commit ```git checkout next-release; git cherry-pick be4369641; git push```
+  * MR declined: Reviewer add some notes, Developer rebases his branch, adds neccessary changes, force pushes the branch, ask a reviewer to review the changes in the merge request ticket (as Gitlab recognizes them automatically) ```git checkout some-feature; git rebase upstream/next-release``` …[add changes]… ```git add -A, git commit --amend; git push -f```
