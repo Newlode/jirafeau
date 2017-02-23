@@ -35,6 +35,10 @@ function translate (expr)
     return expr;
 }
 
+function isEmpty(str) {
+    return (!str || 0 === str.length);
+}
+
 function show_link (url, reference, delete_code, crypt_key, date)
 {
     // Upload finished
@@ -61,9 +65,11 @@ function show_link (url, reference, delete_code, crypt_key, date)
     var filename = document.getElementById('file_select').files[0].name;
     var b = encodeURIComponent("Download file \"" + filename + "\":") + "%0D";
     b += encodeURIComponent(download_link_href) + "%0D";
-    if (date)
-        b += "%0D" + encodeURIComponent("This file will be available until " + date) + "%0D";
-    document.getElementById('upload_link_email').href = "mailto:?body=" + b + "&subject=" + encodeURIComponent(filename);
+    if (false == isEmpty(date))
+    {
+        b += "%0D" + encodeURIComponent("This file will be available until " + date.toString()) + "%0D";
+        document.getElementById('upload_link_email').href = "mailto:?body=" + b + "&subject=" + encodeURIComponent(filename);
+    }
 
     // Delete link
     var delete_link = url + 'f.php?h=' + reference + '&amp;d=' + delete_code;
@@ -72,13 +78,14 @@ function show_link (url, reference, delete_code, crypt_key, date)
     document.getElementById('delete_link').href = delete_link_href;
 
     // Validity date
-    if (date)
+    if (isEmpty(date))
     {
-        document.getElementById('date').innerHTML = date;
+        document.getElementById('validity').style.display = 'none';
+    }
+    else {
+        document.getElementById('date').innerHTML = date.toString();
         document.getElementById('validity').style.display = '';
     }
-    else
-        document.getElementById('validity').style.display = 'none';
 
     // Preview link (if allowed)
     if (!!document.getElementById('preview_link'))
@@ -268,15 +275,20 @@ function classic_upload (url, file, time, password, one_time, upload_password)
             }
 
             res = res.split ("\n");
+            var expiryDate = '';
             if (time != 'none')
             {
-                var d = new Date();
-                if(!add_time_string_to_date(d, time))
+                // convert time (local time + selected expiry date)
+                var localDatetime = new Date();
+                if(!add_time_string_to_date(localDatetime, time))
+                {
+                    pop_failure ('Error: Date can not be parsed');
                     return;
-                show_link (url, res[0], res[1], res[2], d.toString());
+                }
+                expiryDate = localDatetime;
             }
-            else
-                show_link (url, res[0], res[1], res[2]);
+
+            show_link (url, res[0], res[1], res[2], expiryDate);
         }
     }
     req.open ("POST", url + 'script.php' , true);
@@ -443,15 +455,19 @@ function async_upload_end (code)
             }
 
             res = res.split ("\n");
+            var expiryDate = '';
             if (async_global_time != 'none')
             {
-                var d = new Date();
-                if(!add_time_string_to_date(d, async_global_time))
-                    return;
-                show_link (async_global_url, res[0], res[1], res[2], d.toString());
+              // convert time (local time + selected expiry date)
+              var localDatetime = new Date();
+              if(!add_time_string_to_date(localDatetime, async_global_time)) {
+                pop_failure ('Error: Date can not be parsed');
+                return;
+              }
+              expiryDate = localDatetime;
             }
-            else
-                show_link (async_global_url, res[0], res[1], res[2]);
+
+            show_link (async_global_url, res[0], res[1], res[2], expiryDate);
         }
     }
     req.open ("POST", async_global_url + 'script.php?end_async' , true);
