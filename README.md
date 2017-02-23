@@ -94,6 +94,10 @@ Installation steps:
 1. The "Terms of Service" text file changed
    * To reuse previous changes to the ToS, move the old ```/tos_text.php``` file to ```/lib/tos.local.txt``` and remove all HTML und PHP Tags, leaving a regular text file
 
+### From version 2.0.0 to 3.0.0
+
+1. No special change to upgrade to 3.0.0
+
 ### Troubleshooting
 
 If you have some troubles, consider the following cases
@@ -344,3 +348,16 @@ The very first version of Jirafeau after the fork of Jyraphe.
 - Set a custom title
 - Bash Script: Enhanced help, show version, return link to web view as well
 - »Terms of Service« refactored - Enable admin to overwrite the ToS, without changing existing source code → breaking, see upgrade notes
+
+## Version 3.0.0
+
+- A lot of code cleaning
+- Replace all domain depended links
+- Better documentation
+- Convert UTC dates to clients timezone
+- Show readable date format
+- Multiple UI glitch fixes
+- Switch to PSR-2
+- Catch errors in upload form
+- Can now use IP _or_ password authentification
+- 
