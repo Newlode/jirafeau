@@ -72,6 +72,16 @@ Date.prototype.format = function(format) {
     });
 };
 
+function dateFromUtcString(datestring) {
+    // matches »YYYY-MM-DD hh:mm«
+    var m = datestring.match(/(\d+)-(\d+)-(\d+)\s+(\d+):(\d+)/);
+    return new Date(Date.UTC(+m[1], +m[2] - 1, +m[3], +m[4], +m[5], 0));
+}
+
+function dateFromUtcTimestamp(datetimestamp) {
+    return new Date(parseInt(datetimestamp) * 1000)
+}
+
 function dateToUtcString(datelocal) {
     return new Date(
         datelocal.getUTCFullYear(),
@@ -81,6 +91,26 @@ function dateToUtcString(datelocal) {
         datelocal.getUTCMinutes(),
         datelocal.getUTCSeconds()
     ).format();
+}
+
+function dateToUtcTimestamp(datelocal) {
+    return (Date.UTC(
+        datelocal.getUTCFullYear(),
+        datelocal.getUTCMonth(),
+        datelocal.getUTCDate(),
+        datelocal.getUTCHours(),
+        datelocal.getUTCMinutes(),
+        datelocal.getUTCSeconds()
+    ) / 1000);
+}
+
+function convertAllDatetimeFields() {
+    datefields = document.getElementsByClassName('datetime')
+    for(var i=0; i<datefields.length; i++) {
+        dateUTC = datefields[i].getAttribute('data-datetime');
+        datefields[i].setAttribute('title', dateUTC + ' (GMT)');
+        datefields[i].innerHTML = dateFromUtcString(dateUTC).format('YYYY-MM-DD hh:mm (GMT O)');
+    }
 }
 
 function show_link (url, reference, delete_code, crypt_key, date)
@@ -111,7 +141,7 @@ function show_link (url, reference, delete_code, crypt_key, date)
     b += encodeURIComponent(download_link_href) + "%0D";
     if (false == isEmpty(date))
     {
-        b += "%0D" + encodeURIComponent("This file will be available until " + dateToUtcString(date)) + "%0D";
+        b += "%0D" + encodeURIComponent("This file will be available until " + date.format('YYYY-MM-DD hh:mm (GMT O)')) + "%0D";
         document.getElementById('upload_link_email').href = "mailto:?body=" + b + "&subject=" + encodeURIComponent(filename);
     }
 
@@ -127,8 +157,9 @@ function show_link (url, reference, delete_code, crypt_key, date)
         document.getElementById('validity').style.display = 'none';
     }
     else {
-        document.getElementById('date').innerHTML = '<span class="datetime">'
-            + dateToUtcString(date) + ' (GMT)'
+        document.getElementById('date').innerHTML = '<span class="datetime" title="'
+            + dateToUtcString(date) + ' (GMT)">'
+            + date.format('YYYY-MM-DD hh:mm (GMT O)')
             + '</span>';
         document.getElementById('validity').style.display = '';
     }
@@ -686,3 +717,9 @@ function upload_speed_refresh_limiter(speed_str)
     }
     return upload_speed_refresh_limiter_last_value;
 }
+
+// document.ready()
+document.addEventListener('DOMContentLoaded', function(event) {
+    // Search for all datetime fields and convert the time to local timezone
+    convertAllDatetimeFields();
+});
