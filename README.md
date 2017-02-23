@@ -351,13 +351,14 @@ The very first version of Jirafeau after the fork of Jyraphe.
 
 ## Version 3.0.0
 
-- A lot of code cleaning
-- Replace all domain depended links
-- Better documentation
-- Convert UTC dates to clients timezone
-- Show readable date format
-- Multiple UI glitch fixes
-- Switch to PSR-2
-- Catch errors in upload form
-- Can now use IP _or_ password authentification
-- 
+- Remove XHTML doctype, support HTML5 only → breaking change for older browsers
+- Remove redundant code
+- Remove baseurl usage and set absolute links instead, which for example fixes SSL issues
+- Extend contribution guide
+- Switch to PSR-2 code style (fix line endings, indentations, whitespaces, etc)
+- Declare system requirements
+- Catch API errors in upload form
+- Allow clients to upload files depending on IP or password
+- Set UTC as timezone to prevent date/time issues
+- Show readable date & time information
+- Fix UI glitches in admin panel and upload form
