@@ -41,7 +41,7 @@ header('Content-type: text/css');
    6 = Install
    7 = Admin
    8 = Download page
-   
+
    ========================================================================== */
 
 /* ==========================================================================
@@ -383,7 +383,7 @@ textarea[readonly="readonly"] + p + p a:focus {
 #admin fieldset,
 #admin + fieldset {
   width: auto;
-  max-width: 50em;
+  max-width: 60em;
   border: 7px dashed #bcaaa4;
 }
 
