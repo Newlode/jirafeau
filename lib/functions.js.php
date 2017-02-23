@@ -261,12 +261,13 @@ function control_selected_file_size(max_size, error_str)
     }
     else
     {
-        document.getElementById('options').style.display = '';
-        document.getElementById('send').style.display = '';
+        // add class to restyle upload form in next step
+        document.getElementById('upload').setAttribute('class', 'file-selected');
+        // display options
+        document.getElementById('options').style.display = 'block';
+        document.getElementById('send').style.display = 'block';
         document.getElementById('error_pop').style.display = 'none';
-        document.getElementById('file_select').style.left = 'inherit';
-        document.getElementById('file_select').style.height = 'inherit';
-        document.getElementById('file_select').style.opacity = '1';
+        document.getElementById('send').focus();
     }
 }
 
