@@ -41,7 +41,7 @@ header('Content-type: text/css');
    6 = Install
    7 = Admin
    8 = Download page
-   
+
    ========================================================================== */
 
 /* ==========================================================================
@@ -157,16 +157,24 @@ input[type="submit"]:focus {
   text-align: center;
 }
 
+#upload p {
+  margin: 0;
+}
+
 #file_select {
-  position: absolute;
-  top: 0;
-  left: 0;
+  position: relative;
   width: 100%;
-  height: 100%;
+  height: 16em;
   cursor: pointer;
   opacity: 0;
 }
-
+  #upload.file-selected #file_select {
+    opacity: 1;
+    height: 2em;
+  }
+  #upload.file-selected fieldset {
+    background-image: none;
+  }
 
 
 /* ==========================================================================
@@ -197,7 +205,6 @@ input[type="submit"]:focus {
 #options {
   position: relative;
   z-index: 10;
-  background: #efebe9;
   width: 100%;
   height: 90%;
 }
@@ -214,7 +221,7 @@ input[type="submit"]:focus {
 
 #options input[type="submit"] {
   position: relative;
-  left: 11.2em;
+  margin: 1em auto;
 }
 
 /* ==========================================================================
@@ -383,7 +390,7 @@ textarea[readonly="readonly"] + p + p a:focus {
 #admin fieldset,
 #admin + fieldset {
   width: auto;
-  max-width: 50em;
+  max-width: 60em;
   border: 7px dashed #bcaaa4;
 }
 

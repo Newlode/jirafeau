@@ -150,16 +150,19 @@ input[type="submit"]:focus {
 }
 
 #file_select {
-  position: absolute;
-  top: 0;
-  left: 0;
+  position: relative;
   width: 100%;
-  height: 100%;
+  height: 16em;
   cursor: pointer;
   opacity: 0;
 }
-
-
+#upload.file-selected #file_select {
+  opacity: 1;
+  height: 2em;
+}
+#upload.file-selected fieldset {
+  background-image: none;
+}
 
 /* ==========================================================================
    2 = Copyright

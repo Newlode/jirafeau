@@ -16,11 +16,11 @@
  *  along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-define ('JIRAFEAU_ROOT', dirname (__FILE__) . '/');
+define('JIRAFEAU_ROOT', dirname(__FILE__) . '/');
 
-require (JIRAFEAU_ROOT . 'lib/settings.php');
-require (JIRAFEAU_ROOT . 'lib/functions.php');
-require (JIRAFEAU_ROOT . 'lib/lang.php');
+require(JIRAFEAU_ROOT . 'lib/settings.php');
+require(JIRAFEAU_ROOT . 'lib/functions.php');
+require(JIRAFEAU_ROOT . 'lib/lang.php');
 
 // Read ToS template
 if (is_readable(JIRAFEAU_ROOT . 'lib/tos.local.txt')) {
@@ -30,11 +30,9 @@ if (is_readable(JIRAFEAU_ROOT . 'lib/tos.local.txt')) {
 }
 
 // Replace markers and print ToS
-require (JIRAFEAU_ROOT . 'lib/template/header.php');
+require(JIRAFEAU_ROOT . 'lib/template/header.php');
 
 echo '<h2>Terms of Service</h2>';
 echo '<div>' . jirafeau_replace_markers($content, true) . '</div>';
 
-require (JIRAFEAU_ROOT . 'lib/template/footer.php');
-
-?>
+require(JIRAFEAU_ROOT . 'lib/template/footer.php');

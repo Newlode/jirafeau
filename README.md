@@ -8,6 +8,11 @@ A demonstration of the latest version is available on [jirafeau.net](http://jira
 
 ![Screenshot1](http://i.imgur.com/TPjh48P.png)
 
+Latest CI Status:
+Master [![Build Status Master](https://gitlab.com/mojo42/Jirafeau/badges/master/build.svg)](https://gitlab.com/mojo42/Jirafeau/commits/master)
+Next Release [![Build Status Next Release](https://gitlab.com/mojo42/Jirafeau/badges/test/build.svg)](https://gitlab.com/mojo42/Jirafeau/commits/master)
+[All Branch Builds](https://gitlab.com/mojo42/Jirafeau/pipelines?scope=branches)
+
 ## Main features
 
 - One upload → One download link & one delete link
@@ -50,39 +55,55 @@ Jirafeau project won't evolve to a file manager and will focus to keep a very fe
 
 ## Installation
 
--  [Download](https://gitlab.com/mojo42/Jirafeau/repository/archive.zip) the last version of Jirafeau from GitLab
--  Upload files on your web server
--  Don't forget to set owner of uploaded files if you need to
--  Get your web browser and go to you install location (e.g. ```http://your-web-site.org/jirafeau/```) and follow instructions
--  Some options are not configured from the minimal installation wizard, you may take a look at option documentation in ```lib/config.original.php``` and customize your ```lib/config.local.php```
+System requirements:
+- PHP >= 5.6
+- Optional, but recommended: Git >= 2.7
+- No database required, no mail required
 
-Note that ```lib/config.local.php``` is auto-generated during the installation.
+Installation steps:
+- Clone the [repository](https://gitlab.com/mojo42/Jirafeau/) or download the latest ([release](https://gitlab.com/mojo42/Jirafeau/tags) from GitLab onto your webserver
+- Set owner & group according to your webserver
+- A) Setup with the installation wizard (web):
+  - Open your browser and go to your installed location, eg. ```https://example.com/jirafeau/```
+  - The script will redirect to you to a minimal installation wizard to set up all required options
+  - All optional parameters may be set in ```lib/config.local.php```, take a look at ```lib/config.original.php``` to see all default values
+- B) Setup without the installation wizard (cli):
+  - Just copy ```config.original.php``` to ```config.local.php``` and customize it
 
-If you don't want to go through the installation wizard, you can just copy ```config.original.php``` to ```config.local.php``` and customize it.
+## Upgrade
 
-## Update
+### General procedure for all versions
 
-### General
-
-1. Backup you Jirafeau installation
+1. Backup your Jirafeau installation!
 2. Block access to Jirafeau
-3. Checkout new version using the [tagged release](https://gitlab.com/mojo42/Jirafeau/tags)
+3. Checkout the new version with Git using the [tagged release](https://gitlab.com/mojo42/Jirafeau/tags)
+   * If you have installed Jirafeau just by uploading files on your server, you can download the desired version, overwrite/remove all files and chown/chmod files if needed. Keep a backup of your local configuration file tough.
 4. With you browser, go to your Jirafeau root page
-5. Follow installation wizard, it should propose you the same data folder
-7. Go in you lib/config.local.php and lib/config.original.php to check new options
+5. Follow the installation wizard, it should propose you the same data folder or even update automatically
+7. Check your ```/lib/config.local.php``` and compare it with the ```/lib/config.original.php``` to see if new configuration items are available
 
 ### From version 1.0 to 1.1
 
-1. Add a rewrite rule in your web server configuration to rename file.php to f.php to make old url work again
-2. Eventually change skin in »lib/config.local.php« to 'courgette'
+1. The download URL changed
+   * Add a rewrite rule in your web server configuration to rename ```file.php``` to ```f.php``` to make older, still existing links work again
+1. The default skin changed
+   * Optionally change the skin in ```lib/config.local.php``` to »courgette«
 
-### From version 1.1 to 1.2.0
+### From version 1.2.0 to 2.0.0
 
-Nothing particular
+1. The "Terms of Service" text file changed
+   * To reuse previous changes to the ToS, move the old ```/tos_text.php``` file to ```/lib/tos.local.txt``` and remove all HTML und PHP Tags, leaving a regular text file
 
-### from version 1.2.0 to 2.0.0.
+### From version 2.0.0 to 3.0.0
 
-1. ToS text file changed → move file from "/tos_text.php" to "/lib/tos.local.txt" and remove all HTML and PHP Tags, leaving a regular text file
+1. No special change to upgrade to 3.0.0
+
+### Troubleshooting
+
+If you have some troubles, consider the following cases
+
+- Check your ```/lib/config.local.php``` file and compare it with ```/lib/config.original.php```, the configuration syntax or a parameter may have changed
+- Check owner & permissions of your files
 
 ## Security
 
@@ -126,12 +147,12 @@ In a next step, encryption will be made by the client (in javascript), see issue
 
 ## License
 
-GNU Affero General Public License version 3 (AGPLv3).
+GNU Affero General Public License v3 (AGPL-3.0).
 
 The GNU Affero General Public License can be found at https://www.gnu.org/licenses/agpl.html.
 
 Please note: If you decide do make adaptions to the source code and run a service with these changes incorporated, 
-you are required to provide a link to the source code of your version in order to obey the AGPLv3 license. 
+you are required to provide a link to the source code of your version in order to obey the AGPL-3.0 license.
 To do so please add a link to the source (eg. a public Git repository or a download link) to the Terms of Service page.
 Take a look at the FAQ to find out about how to change the ToS.
 
@@ -161,17 +182,7 @@ We would like to thank all anonymous contributors on weblate. :)
 
 ### How do I upgrade my Jirafeau?
 
-If you have installed Jirafeau using git, it's pretty simple: just make a git pull and chown/chmod files who have the owner changed.
-
-If you have installed Jirafeau just by uploading files on your server, you can take the [last version](https://gitlab.com/mojo42/Jirafeau/repository/archive.zip), overwrite files and chown/chmod files if needed.
-
-After upgrading, you can compare your ```lib/config.local.php``` and ```lib/config.original.php``` to see if new configuration items are available.
-
-If you have some troubles:
-- It should probably come from your ```lib/config.local.php``` (configuration syntax may have changed). Just compare it with ```lib/config.original.php```
-- Check owner/permissions of your files.
-
-Anyway you should off-course make a backup of your current installation before doing anything. :)
+See upgrade instructions above.
 
 ### How can I limit upload access?
 
@@ -317,21 +328,36 @@ The very first version of Jirafeau after the fork of Jyraphe.
 
 ## Version 1.2.0
 
-- Change versioning semantic
+- Link on API page to generate bash script
+- More informative error codes for API
+- Security Fix: Prevent authentication bypass for admin interface
+- CLI script to remove expired files automatically with a cronjob
+- SHA-256 hash the admin password
+- New theme "elegantish"
+- Fix for JavaScript MIME-Type, prevents blocking the resource on some servers
+- Show download link for a file in admin interface
+- Default time for expiration (set to 'month' by default)
+- New expiration time: 'quarter'
 - A lof of translation contributions
-- Fix javascript MIME type
-- Show download in admin panel
-- Default expiration date set to 'month'
-- New expiration date: 'quarter'
-- Small other fixes
+- Code cleanups
 
 ## Version 2.0.0
 
-- ToS refactoring (see update notes !)
-- You can now set a title to Jirafeau in options
-- A lot of documentation improvements
-- Code refactoring & bugfixes
-- Add version to bash script
-- A lot of documentation improvements
-- Code refactoring & bug fixes
+- Various documentation improvements
+- Simplify automatic generation of local configuration file
+- Set a custom title
+- Bash Script: Enhanced help, show version, return link to web view as well
+- »Terms of Service« refactored - Enable admin to overwrite the ToS, without changing existing source code → breaking, see upgrade notes
+
+## Version 3.0.0
+
+- A lot of code cleaning
+- Replace all domain depended links
+- Better documentation
+- Convert UTC dates to clients timezone
+- Show readable date format
+- Multiple UI glitch fixes
+- Switch to PSR-2
+- Catch errors in upload form
+- Can now use IP _or_ password authentification
 - 
