@@ -120,6 +120,14 @@ function jirafeau_human_size($octets)
     return round($o, 1) . $u[$p];
 }
 
+// Convert UTC timestamp to a datetime field
+function jirafeau_get_datetimefield($timestamp)
+{
+    $content = '<span class="datetime" data-datetime="' . strftime('%Y-%m-%d %H:%M', $timestamp) . '">'
+        . strftime('%Y-%m-%d %H:%M', $timestamp) . ' (GMT)</span>';
+    return $content;
+}
+
 function jirafeau_clean_rm_link($link)
 {
     $p = s2p("$link");
@@ -599,8 +607,7 @@ function jirafeau_admin_list($name, $file_hash, $link_hash)
                 echo '</td>';
                 echo '<td>' . $l['mime_type'] . '</td>';
                 echo '<td>' . jirafeau_human_size($l['file_size']) . '</td>';
-                echo '<td>' . ($l['time'] == -1 ? '' : strftime('%c', $l['time'])) .
-                     '</td>';
+                echo '<td>' . ($l['time'] == -1 ? '∞' : jirafeau_get_datetimefield($l['time'])) . '</td>';
                 echo '<td>';
                 if ($l['onetime'] == 'O') {
                     echo 'Y';
@@ -608,7 +615,7 @@ function jirafeau_admin_list($name, $file_hash, $link_hash)
                     echo 'N';
                 }
                 echo '</td>';
-                echo '<td>' . strftime('%c', $l['upload_date']) . '</td>';
+                echo '<td>' . jirafeau_get_datetimefield($l['upload_date']) . '</td>';
                 echo '<td>' . $l['ip'] . '</td>';
                 echo '<td>' .
                 '<form method="post">' .
@@ -1109,7 +1116,7 @@ function jirafeau_challenge_upload ($cfg, $ip, $password)
     if (!jirafeau_has_upload_password($cfg)) {
         return false;
     }
-    
+
     foreach ($cfg['upload_password'] as $p) {
         if ($password == $p) {
             return true;

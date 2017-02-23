@@ -39,6 +39,50 @@ function isEmpty(str) {
     return (!str || 0 === str.length);
 }
 
+// Extend date object with format method
+Date.prototype.format = function(format) {
+    format = format || 'YYYY-MM-DD hh:mm';
+
+    var zeropad = function(number, length) {
+        number = number.toString();
+        length = length || 2;
+        while(number.length < length)
+            number = '0' + number;
+        return number;
+    },
+    formats = {
+        YYYY: this.getFullYear(),
+        MM: zeropad(this.getMonth() + 1),
+        DD: zeropad(this.getDate()),
+        hh: zeropad(this.getHours()),
+        mm: zeropad(this.getMinutes()),
+        O: (function() {
+            localDate = new Date;
+            sign = (localDate.getTimezoneOffset() > 0) ? '-' : '+';
+            offset = Math.abs(localDate.getTimezoneOffset());
+            hours = zeropad(Math.floor(offset / 60));
+            minutes = zeropad(offset % 60);
+            return sign + hours + ":" + minutes;
+        })()
+    },
+    pattern = '(' + Object.keys(formats).join(')|(') + ')';
+
+    return format.replace(new RegExp(pattern, 'g'), function(match) {
+        return formats[match];
+    });
+};
+
+function dateToUtcString(datelocal) {
+    return new Date(
+        datelocal.getUTCFullYear(),
+        datelocal.getUTCMonth(),
+        datelocal.getUTCDate(),
+        datelocal.getUTCHours(),
+        datelocal.getUTCMinutes(),
+        datelocal.getUTCSeconds()
+    ).format();
+}
+
 function show_link (url, reference, delete_code, crypt_key, date)
 {
     // Upload finished
@@ -67,7 +111,7 @@ function show_link (url, reference, delete_code, crypt_key, date)
     b += encodeURIComponent(download_link_href) + "%0D";
     if (false == isEmpty(date))
     {
-        b += "%0D" + encodeURIComponent("This file will be available until " + date.toString()) + "%0D";
+        b += "%0D" + encodeURIComponent("This file will be available until " + dateToUtcString(date)) + "%0D";
         document.getElementById('upload_link_email').href = "mailto:?body=" + b + "&subject=" + encodeURIComponent(filename);
     }
 
@@ -83,7 +127,9 @@ function show_link (url, reference, delete_code, crypt_key, date)
         document.getElementById('validity').style.display = 'none';
     }
     else {
-        document.getElementById('date').innerHTML = date.toString();
+        document.getElementById('date').innerHTML = '<span class="datetime">'
+            + dateToUtcString(date) + ' (GMT)'
+            + '</span>';
         document.getElementById('validity').style.display = '';
     }
 
