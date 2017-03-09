@@ -34,7 +34,8 @@ if (has_error()) {
 require(JIRAFEAU_ROOT . 'lib/template/header.php');
 
 /* Check if user is allowed to upload. */
-if (!jirafeau_challenge_upload_ip($cfg, get_ip_address($cfg))) {
+if (!jirafeau_challenge_upload_ip($cfg, get_ip_address($cfg)) ||
+    count($cfg['upload_ip']) == 0) {
 
     /* Ask password if upload password is set. */
     if (jirafeau_has_upload_password($cfg)) {
@@ -87,8 +88,12 @@ if (!jirafeau_challenge_upload_ip($cfg, get_ip_address($cfg))) {
             require(JIRAFEAU_ROOT.'lib/template/footer.php');
             exit;
         }
+    } else {
+            echo '<div class="error"><p>' . t('Access denied') . '</p></div>';
+            require(JIRAFEAU_ROOT.'lib/template/footer.php');
+            exit;
     }
-}
+} 
 
 ?>
 <div id="upload_finished">
