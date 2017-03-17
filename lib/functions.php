@@ -128,6 +128,13 @@ function jirafeau_get_datetimefield($timestamp)
     return $content;
 }
 
+function jirafeau_fatal_error($errorText, $cfg = array())
+{
+    echo '<div class="error"><h2>Error</h2><p>' . $errorText . '</p></div>';
+    require(JIRAFEAU_ROOT . 'lib/template/footer.php');
+    exit;
+}
+
 function jirafeau_clean_rm_link($link)
 {
     $p = s2p("$link");
