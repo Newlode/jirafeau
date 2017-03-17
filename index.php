@@ -34,33 +34,31 @@ if (has_error()) {
 require(JIRAFEAU_ROOT . 'lib/template/header.php');
 
 /* Check if user is allowed to upload. */
-if (!jirafeau_challenge_upload_ip($cfg, get_ip_address($cfg)) ||
-    count($cfg['upload_ip']) == 0) {
-
-    /* Ask password if upload password is set. */
+// First check: Challenge by IP
+if (true === jirafeau_challenge_upload_ip($cfg['upload_ip'], get_ip_address($cfg))) {
+    // Is an upload password required?
     if (jirafeau_has_upload_password($cfg)) {
         session_start();
 
-        /* Unlog if asked. */
+        // Logout action
         if (isset($_POST['action']) && (strcmp($_POST['action'], 'logout') == 0)) {
             session_unset();
         }
 
-        /* Auth. */
+        // Challenge by password
+        // …save successful logins in session
         if (isset($_POST['upload_password'])) {
             if (jirafeau_challenge_upload_password($cfg, $_POST['upload_password'])) {
                 $_SESSION['upload_auth'] = true;
                 $_SESSION['user_upload_password'] = $_POST['upload_password'];
             } else {
                 $_SESSION['admin_auth'] = false;
-                echo '<div class="error"><p>' . t('Wrong password.') . '</p></div>';
-                require(JIRAFEAU_ROOT.'lib/template/footer.php');
-                exit;
+                jirafeau_fatal_error(t('Wrong password.'), $cfg);
             }
         }
 
-        /* Show auth page. */
-        if (!isset($_SESSION['upload_auth']) || $_SESSION['upload_auth'] != true) {
+        // Show login form if user session is not authorized yet
+        if (true === empty($_SESSION['upload_auth'])) {
             ?>
             <form method="post">
             <fieldset>
@@ -88,12 +86,11 @@ if (!jirafeau_challenge_upload_ip($cfg, get_ip_address($cfg)) ||
             require(JIRAFEAU_ROOT.'lib/template/footer.php');
             exit;
         }
-    } else {
-            echo '<div class="error"><p>' . t('Access denied') . '</p></div>';
-            require(JIRAFEAU_ROOT.'lib/template/footer.php');
-            exit;
     }
-} 
+}
+else {
+    jirafeau_fatal_error(t('Access denied'), $cfg);
+}
 
 ?>
 <div id="upload_finished">
