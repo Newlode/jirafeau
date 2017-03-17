@@ -10,7 +10,7 @@
         <!-- Installation dependend links -->
         <?php
         if (true == $cfg['installation_done']) {
-            echo ' | ';
+            echo ' <span>|</span> ';
             echo '<a href="' . JIRAFEAU_ABSPREFIX . 'tos.php">' . t('Terms of Service') . '</a>';
         }
         ?>
