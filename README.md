@@ -33,7 +33,7 @@ Next Release [![Build Status Next Release](https://gitlab.com/mojo42/Jirafeau/ba
 - Basic, adaptable »Terms Of Service« page
 - Basic API
 - Bash script to upload files via command line
-- Skins
+- Themes
 
 Jirafeau is a fork of the original project [Jyraphe](http://home.gna.org/jyraphe/) based on the 0.5 (stable version) with a **lot** of modifications.
 
@@ -86,8 +86,8 @@ Installation steps:
 
 1. The download URL changed
    * Add a rewrite rule in your web server configuration to rename ```file.php``` to ```f.php``` to make older, still existing links work again
-1. The default skin changed
-   * Optionally change the skin in ```lib/config.local.php``` to »courgette«
+1. The default theme changed
+   * Optionally change the theme in ```lib/config.local.php``` to »courgette«
 
 ### From version 1.2.0 to 2.0.0
 
@@ -208,6 +208,14 @@ Then the command can be placed in a cron file to automatize the process. For exa
 If you have some strange behavior with IE, you may configure [compatibility mode](http://feedback.dominknow.com/knowledgebase/articles/159097-internet-explorer-ie8-ie9-ie10-and-ie11-compat).
 
 Anyway I would recommend you to use another web browser. :)
+
+### How can I change the theme?
+
+You may change the default theme to any of the existing ones or a custom.
+
+Open your ```lib/config.local.php``` and change setting in the »`style`« key to the name of any folder in the ```/media``` directory.
+
+Hint: To create a custom theme just copy the »courgette« folder and name your theme »custom« (this way it will be ignored by git and not overwritten during updates). You are invited to enhance the existing themes and send pull requests however.
 
 ### I found a bug, what should I do?
 

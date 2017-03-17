@@ -1,5 +1,6 @@
 lib/config.local.php
 lib/tos.local.txt
+media/custom/
 var-*
 *._*
 /vendor
