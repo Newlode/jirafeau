@@ -98,6 +98,10 @@ Installation steps:
 
 1. No special change to upgrade to 3.0.0
 
+### From version 2.0.0 to 3.1.0
+
+1. No special change to upgrade to 3.1.0
+
 ### Troubleshooting
 
 If you have some troubles, consider the following cases
@@ -370,3 +374,8 @@ The very first version of Jirafeau after the fork of Jyraphe.
 - Set UTC as timezone to prevent date/time issues
 - Show readable date & time information
 - Fix UI glitches in admin panel and upload form
+
+## Version 3.1.0
+
+- Fix regression on user authentication (see #113)
+- Some cosmetic change
