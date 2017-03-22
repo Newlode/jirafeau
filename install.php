@@ -102,13 +102,6 @@ function jirafeau_add_ending_slash($path)
     return $path . ((substr($path, -1) == '/') ? '' : '/');
 }
 
-function jirafeau_fatal_error($errorText)
-{
-    echo '<div class="error"><h2>Error</h2><p>' . $errorText . '</p></div>';
-    require(JIRAFEAU_ROOT . 'lib/template/footer.php');
-    exit;
-}
-
 /**
  * Check installation
  **/

@@ -128,6 +128,13 @@ function jirafeau_get_datetimefield($timestamp)
     return $content;
 }
 
+function jirafeau_fatal_error($errorText, $cfg = array())
+{
+    echo '<div class="error"><h2>Error</h2><p>' . $errorText . '</p></div>';
+    require(JIRAFEAU_ROOT . 'lib/template/footer.php');
+    exit;
+}
+
 function jirafeau_clean_rm_link($link)
 {
     $p = s2p("$link");
@@ -1063,22 +1070,26 @@ function jirafeau_challenge_upload_password($cfg, $password)
 
 /**
  * Test if visitor's IP is authorized to upload.
- * @param $ip IP to be challenged
+ *
+ * @param $allowedIpList array of allowed IPs
+ * @param $challengedIp IP to be challenged
  * @return true if IP is authorized, false otherwise.
  */
-function jirafeau_challenge_upload_ip($cfg, $ip)
+function jirafeau_challenge_upload_ip($allowedIpList, $challengedIp)
 {
-    if (count($cfg['upload_ip']) == 0) {
+    // skip if list is empty = all IPs allowed
+    if (count($allowedIpList) == 0) {
         return true;
     }
-    foreach ($cfg['upload_ip'] as $i) {
-        if ($i == $ip) {
+    // test given IP against each allowed IP
+    foreach ($allowedIpList as $i) {
+        if ($i == $challengedIp) {
             return true;
         }
         // CIDR test for IPv4 only.
         if (strpos($i, '/') !== false) {
             list($subnet, $mask) = explode('/', $i);
-            if ((ip2long($ip) & ~((1 << (32 - $mask)) - 1)) == ip2long($subnet)) {
+            if ((ip2long($challengedIp) & ~((1 << (32 - $mask)) - 1)) == ip2long($subnet)) {
                 return true;
             }
         }
