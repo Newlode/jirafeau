@@ -31,6 +31,7 @@ $languages_list = array('auto' => 'Automatic',
                          'ro'   => 'Limba română',
                          'ru'   => 'ру́сский',
                          'sk'   => 'Slovenčina',
+                         'tr'   => 'Türkçe',
                          'zh'   => '汉语');
 
 /* Translation */
