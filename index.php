@@ -60,7 +60,7 @@ if (true === jirafeau_challenge_upload_ip($cfg['upload_ip'], get_ip_address($cfg
         // Show login form if user session is not authorized yet
         if (true === empty($_SESSION['upload_auth'])) {
             ?>
-            <form method="post">
+            <form method="post" class="form login">
             <fieldset>
                 <table>
                 <tr>
@@ -245,7 +245,7 @@ else {
     <?php
     if (jirafeau_has_upload_password($cfg)) {
         ?>
-    <form method="post">
+    <form method="post" class="form logout">
         <input type = "hidden" name = "action" value = "logout"/>
         <input type = "submit" value = "<?php echo t('Logout'); ?>" />
     </form>

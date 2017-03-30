@@ -126,7 +126,7 @@ if (!empty($link['key'])) {
              '<form action = "';
         echo JIRAFEAU_ABSPREFIX . 'f.php';
         echo '" ' .
-             'method = "post" id = "submit_post">'; ?>
+             'method="post" id="submit_post" class="form login">'; ?>
              <input type = "hidden" name = "jirafeau" value = "<?php echo JIRAFEAU_VERSION ?>"/><?php
         echo '<fieldset>' .
              '<legend>' . t('Password protection') .
@@ -182,7 +182,7 @@ if (!$password_challenged && !$do_download && !$do_preview) {
              '<form action="';
     echo JIRAFEAU_ABSPREFIX . 'f.php';
     echo '" ' .
-             'method = "post" id = "submit_post">'; ?>
+             'method="post" id="submit_post" class="form download">'; ?>
              <input type = "hidden" name = "jirafeau" value = "<?php echo JIRAFEAU_VERSION ?>"/><?php
         echo '<fieldset><legend>' . htmlspecialchars($link['file_name']) . '</legend><table>' .
              '<tr><td>' .

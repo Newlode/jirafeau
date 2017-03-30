@@ -78,7 +78,7 @@ if (php_sapi_name() == "cli") {
   elseif ((!isset($_SESSION['admin_auth']) || $_SESSION['admin_auth'] != true)
           && empty($cfg['admin_http_auth_user'])) {
       require(JIRAFEAU_ROOT . 'lib/template/header.php'); ?>
-      <form method="post">
+      <form method="post" class="form login">
       <fieldset>
           <table>
           <tr>
