@@ -118,12 +118,12 @@ else {
     <p><a id="direct_link" href=""></a></p>
     </div>
 
-    <div>
+    <div id="upload_delete">
     <p><?php echo t('Delete link') ?>:</p>
     <p><a id="delete_link" href=""></a></p>
     </div>
 
-    <div id="validity">
+    <div id="upload_validity">
     <p><?php echo t('This file is valid until the following date'); ?>:</p>
     <p id="date"></p>
     </div>
