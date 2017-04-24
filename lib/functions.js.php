@@ -154,14 +154,14 @@ function show_link (url, reference, delete_code, crypt_key, date)
     // Validity date
     if (isEmpty(date))
     {
-        document.getElementById('validity').style.display = 'none';
+        document.getElementById('date').style.display = 'none';
     }
     else {
         document.getElementById('date').innerHTML = '<span class="datetime" title="'
             + dateToUtcString(date) + ' (GMT)">'
             + date.format('YYYY-MM-DD hh:mm (GMT O)')
             + '</span>';
-        document.getElementById('validity').style.display = '';
+        document.getElementById('date').style.display = '';
     }
 
     // Preview link (if allowed)
