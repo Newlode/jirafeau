@@ -98,9 +98,13 @@ Installation steps:
 
 1. No special change to upgrade to 3.0.0
 
-### From version 2.0.0 to 3.1.0
+### From version 3.0.0 to 3.1.0
 
 1. No special change to upgrade to 3.1.0
+
+### From version 3.1.0 to 3.2.0
+
+1. No special change to upgrade to 3.2.0
 
 ### Troubleshooting
 
@@ -379,3 +383,9 @@ The very first version of Jirafeau after the fork of Jyraphe.
 
 - Fix regression on user authentication (see #113)
 - Some cosmetic change
+
+## Version 3.2.0
+
+- Update translations from Update translations from weblate
+- Better style
+- Fix regression on admin password setting
