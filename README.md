@@ -106,6 +106,11 @@ Installation steps:
 
 1. No special change to upgrade to 3.2.0
 
+### From version 3.2.0 to 3.2.1
+
+1. No special change to upgrade to 3.2.1
+
+
 ### Troubleshooting
 
 If you have some troubles, consider the following cases
@@ -389,3 +394,7 @@ The very first version of Jirafeau after the fork of Jyraphe.
 - Update translations from Update translations from weblate
 - Better style
 - Fix regression on admin password setting
+
+## Version 3.2.1
+
+- fix download view after an upload
