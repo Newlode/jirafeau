@@ -122,8 +122,8 @@ function show_link (url, reference, delete_code, crypt_key, date)
     document.title = 'Jirafeau - 100%';
 
     // Download page
-    var download_link = url + 'f.php?h=' + reference;
-    var download_link_href = url + 'f.php?h=' + reference;
+    var download_link = 'f.php?h=' + reference;
+    var download_link_href = 'f.php?h=' + reference;
     if (crypt_key.length > 0)
     {
         download_link += '&amp;k=' + crypt_key;
@@ -146,8 +146,8 @@ function show_link (url, reference, delete_code, crypt_key, date)
     }
 
     // Delete link
-    var delete_link = url + 'f.php?h=' + reference + '&amp;d=' + delete_code;
-    var delete_link_href = url + 'f.php?h=' + reference + '&d=' + delete_code;
+    var delete_link = 'f.php?h=' + reference + '&amp;d=' + delete_code;
+    var delete_link_href = 'f.php?h=' + reference + '&d=' + delete_code;
     document.getElementById('delete_link').innerHTML = delete_link;
     document.getElementById('delete_link').href = delete_link_href;
 
@@ -168,8 +168,8 @@ function show_link (url, reference, delete_code, crypt_key, date)
     if (!!document.getElementById('preview_link'))
     {
         document.getElementById('upload_finished_preview').style.display = 'none';
-        var preview_link = url + 'f.php?h=' + reference + '&amp;p=1';
-        var preview_link_href = url + 'f.php?h=' + reference + '&p=1';
+        var preview_link = 'f.php?h=' + reference + '&amp;p=1';
+        var preview_link_href = 'f.php?h=' + reference + '&p=1';
         if (crypt_key.length > 0)
         {
             preview_link += '&amp;k=' + crypt_key;
@@ -190,8 +190,8 @@ function show_link (url, reference, delete_code, crypt_key, date)
     }
 
     // Direct download link
-    var direct_download_link = url + 'f.php?h=' + reference + '&amp;d=1';
-    var direct_download_link_href = url + 'f.php?h=' + reference + '&d=1';
+    var direct_download_link = 'f.php?h=' + reference + '&amp;d=1';
+    var direct_download_link_href = 'f.php?h=' + reference + '&d=1';
     if (crypt_key.length > 0)
     {
         direct_download_link += '&amp;k=' + crypt_key;
@@ -369,7 +369,7 @@ function classic_upload (url, file, time, password, one_time, upload_password)
             show_link (url, res[0], res[1], res[2], expiryDate);
         }
     }
-    req.open ("POST", url + 'script.php' , true);
+    req.open ("POST", 'script.php' , true);
 
     var form = new FormData();
     form.append ("file", file);
